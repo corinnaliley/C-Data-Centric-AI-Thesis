@@ -1,0 +1,50 @@
+SHORTNAME:
+String Basics I
+
+TITLE:
+Einführung in Strings
+
+TASKID:
+415
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+In dieser Aufgabe sollen Sie die Grundlagen der Verwendung von Strings in C üben.
+Erstellen Sie dafür ein Feld aus `char`-Werten, das folgenden String repräsentiert: `Hallo Welt!`
+Anschließend soll der String auf die Konsole geschrieben werden.
+ 
+### Beispielausgabe
+```
+Hallo Welt!
+```
+ 
+*Hinweise.*
+ 
+- Sie können diese Aufgabe mehrfach lösen, um verschiedene Möglichkeiten zur Stringerstellung auszuprobieren.
+- Wenn Sie diese Aufgabe gelöst haben, können Sie als nächstes die Aufgabe "String Basics II" lösen.
+- Vergessen Sie wenn nötig das `\0`-Zeichen nicht!
+
+
+SOLUTION:
+#include <stdio.h>
+
+int main(){
+  char s[] = "Hallo Welt!";
+  printf("%s", s);
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': 'Hallo Welt!\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 4500, 'prerequisites': [], 'unlockableAssets': []}}
+

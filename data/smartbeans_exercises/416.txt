@@ -1,0 +1,74 @@
+SHORTNAME:
+String Basics II
+
+TITLE:
+Einführung in Strings
+
+TASKID:
+416
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Diese Aufgabe baut auf der Aufgabe *String Basics I* auf. Sie sollen üben, wie man mit den Funktionen `scanf()`und `getchar()` Strings einlesen kann.
+Schreiben Sie dafür ein Programm mit folgender Funktion:
+ 
+- Der Nutzer kann als erstes den Namen eines Empfängers eingeben. Dieser besteht aus einem zusammenhängenden Wort und ist maximal 30 Zeichen lang. Nutzen Sie zum Einlesen `scanf()`.
+- Anschließend kann der Nutzer eine Botschaft eingeben. Diese kann mehrere Zeilen umfassen, ist aber maximal 500 Zeichn lang. Nutzen Sie zum Einlesen `getchar()`.
+- Zuletzt gibt das Programm Empfänger und Nachricht so aus, wie es in der Beispielausgabe zu sehen ist.
+ 
+### Beispieleingabe
+```
+Bohnifatius
+ 
+Lieber Bohnifatius,
+ich hoffe es geht dir gut!
+Grüße,
+Bohnita
+```
+ 
+### Beispielausgabe
+```
+Empfänger: Bohnifatius
+Nachricht:
+Lieber Bohnifatius,
+ich hoffe es geht dir gut!
+Grüße,
+Bohnita
+```
+ 
+*Hinweise.*
+ 
+- Wenn Sie diese Aufgabe gelöst haben, können Sie als nächstes die Aufgabe *String Basics III* lösen.
+
+
+SOLUTION:
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main(){
+  char empf[30];
+  char msg[500];
+  int i = 0;
+  scanf("%s", empf);
+  while(i<500 && (msg[i] = getchar()) != EOF){
+    i++;
+  }
+  msg[i] = '\0';
+  printf("Empfänger: %s\nNachricht:%s", empf, msg);
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': 'Bohnifatius\nLieber Bohnifatius,\nich hoffe es geht dir gut!\nGrüße,\nBohnita\n', 'stdout': 'Empfänger: Bohnifatius\nNachricht:\nLieber Bohnifatius,\nich hoffe es geht dir gut!\nGrüße,\nBohnita\n'}, {'args': [], 'stdin': 'Bohnita\nLiebe Bohnita\nmir geht es gut\nich lerne gerade C\nGehabe dich wohl!\nDein Bohnifatius!\n', 'stdout': 'Empfänger: Bohnita\nNachricht:\nLiebe Bohnita\nmir geht es gut\nich lerne gerade C\nGehabe dich wohl!\nDein Bohnifatius!\n'}, {'args': [], 'stdin': 'Bohnalisa\nBohnalisa!\nIch kann es nicht glauben!\nBohnifatius lernt C!\nWie cool!\nDeine Bohnita\n', 'stdout': 'Empfänger: Bohnalisa\nNachricht:\nBohnalisa!\nIch kann es nicht glauben!\nBohnifatius lernt C!\nWie cool!\nDeine Bohnita\n'}, {'args': [], 'stdin': "Bohnifatius\nLieber Bohnifatius\nMir kam zu Ohren, du lerntest jetzt C.\nPass auf dass du bei Strings das '\\0'-Zeichen nicht vergisst!\nEs grüßt\nBohnalisa\n", 'stdout': "Empfänger: Bohnifatius\nNachricht:\nLieber Bohnifatius\nMir kam zu Ohren, du lerntest jetzt C.\nPass auf dass du bei Strings das '\\0'-Zeichen nicht vergisst!\nEs grüßt\nBohnalisa\n"}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 4510, 'prerequisites': [], 'unlockableAssets': []}}
+

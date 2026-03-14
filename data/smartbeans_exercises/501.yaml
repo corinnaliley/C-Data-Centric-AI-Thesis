@@ -1,0 +1,111 @@
+shortname: "Collatz-Vermutung" #N1
+title: "Collatz-Problem für eine positive ganze Zahl überprüfen"
+taskid: 501
+defaultEditorInput: |
+lang: "c"
+task: |
+  Die Collatz-Vermutung für eine positive ganze Zahl `x` besagt, dass es in der Folge `A` ein n > 0 gibt mit x<sub>n</sub>=1. Die Folge `A` ist aus Aufgabe Zahlenreihen V (83) bekannt und wird mit folgender Vorschrift gebildet:
+
+  - Für n = 0 gilt x<sub>0</sub>=x
+  - Für n &gt; 0 gilt
+    - x<sub>n</sub>= 3x<sub>n-1</sub> + 1 falls x<sub>n-1</sub> ungerade ist
+    - x<sub>n</sub>= x<sub>n-1</sub>/2 falls x<sub>n-1</sub> gerade ist
+
+  *Beispiel*. Der Startwert x=3 liefert die Folge x<sub>0</sub>=3, x<sub>1</sub>=10, x<sub>2</sub>=5, x<sub>3</sub>=16, x<sub>4</sub>=8, x<sub>5</sub>=4, x<sub>6</sub>=2, x<sub>7</sub>=1, x<sub>8</sub>=4, ...
+
+  Schreiben Sie ein Programm das  eine positive ganze Zahl `x` einliest und die Collatz-Vermutung überprüft. 
+  
+  - Für den übergebenen Startwert werden solange Folgeglieder berechnet bis einer der drei Fälle eintritt:
+    - ein Folgeglied mit Wert 1 wurde gefunden 
+    - `INT_MAX` viele Folgeglieder wurden berechnet 
+    - ein Ganzzahlüberlauf wurde erkannt
+  - Falls ein Folgeglied mit Wert 1 gefunden wurde soll das Programm `bestätigt!` ausgeben.
+  - Falls `INT_MAX` viele Werte berechnet wurden oder ein Ganzzahlüberlauf festgestellt wurde, soll das Programm `Leider keine Aussage möglich!` ausgeben.
+
+  ### Beispieleingabe
+  ```
+  5
+  2147483647
+  ```
+  ### Beispielausgabe
+  ```
+  bestätigt!
+  Leider keine Aussage möglich!
+  ```
+solution: |
+  #include <limits.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  void sequence(int x) {
+    int x0 = x, xn = 0, count = 0, flag = 1;
+    if (x <= 0) {
+      return;
+    }
+
+    while (flag) {
+      if (x0 == 1) {
+        printf("bestätigt!\n");
+        flag = 0;
+      }
+      if ((x0 % 2) == 0) {
+        xn = x0 / 2;
+        x0 = xn;
+      } else {
+        xn = 3 * x0 + 1;
+        if (xn < x0) {
+          printf("Leider keine Aussage möglich!\n");
+          flag = 0;
+        }
+        x0 = xn;
+      }
+      count++;
+      if (count == INT_MAX) {
+        printf("Leider keine Aussage möglich!\n");
+        flag = 0;
+      }
+    }
+  }
+
+  int main(int argc, char *argv[]) { 
+    int x;
+    scanf("%d", &x);
+    sequence(x); 
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          5
+        stdout: |
+          bestätigt!
+      - args: []
+        stdin: |
+          2147483647
+        stdout: |
+          Leider keine Aussage möglich!
+      - args: []
+        stdin: |
+          10
+        stdout: |
+          bestätigt!
+      - args: []
+        stdin: |
+          522222211
+        stdout: |
+          Leider keine Aussage möglich!
+      - args: []
+        stdin: |
+          1
+        stdout: |
+          bestätigt!
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 2800
+    prerequisites: []
+    unlockableAssets: ["kompilations_komplikationen-shirt"]

@@ -1,0 +1,92 @@
+shortname: "Binäre Suche Hauptprogramm" #N25
+title: "Hauptprogramm für rekursive binäre Suche"
+taskid: 525
+defaultEditorInput: |
+lang: "c"
+task: |
+  **Die Aufgabe stammt aus einer Altklausur. Die Umsetzung in SmartBeans ist leider technisch nicht möglich. Es werden keine Tests ausgeführt. Damit Sie aber schon mal eine Vorstellung dafür bekommen, ist hier der Originaltext angegeben. Sie können die Aufgabe trotzdem für sich lokal lösen und testen. Anmerkungen, welche Veränderungen Sie machen müssen, damit die Aufgabe lokal bearbeitet werden kann, sind kursiv hinzugefügt worden. In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können. Die Aufgabe heißt a04-2 und baut auf der Aufgabe a04-1 auf die der Aufgabe Binäre Suche Variante im SmartBeans entspricht.**
+  
+  ---
+
+
+  Es steht eine Funktion mit Prototyp
+
+  ```
+  int rec_contains(int **pos, int *start, int *end, int x);
+  ```
+
+  zur Verfügung. Die Funktion sucht den Wert `x` in dem Feld, auf dessen erste Komponente der Zeiger `start` und hinter dessen letzte Komponente der Zeiger `end` verweist. Wird der Wert nicht gefunden, liefert die Funktion Null zurück und pos enthält den `Null`-Zeiger. Wird der Wert gefunden, ist der Rückgabewert ungleich Null und pos liefert (einen Zeiger auf) die Position des gefundenen Werts im Feld zurück. 
+  Die Deklaration der Funktion ﬁnden Sie in der Headerdatei `a04-testing.h` aus der Dateiliste.
+  *Bitte legen Sie die Datei selbst an und speichern Sie dort den oben angegebenen Prototypen als einzige Zeile ab.*
+
+
+  In der der Standardheaderdatei `stdlib.h` ist die Funktion `atoi` mit folgendem Prototyp deklariert.
+
+  ```
+  int atoi(const char *str);
+  ```
+
+  Der Funktion `atoi` wird ein Zeiger auf einen `char`-Vektor übergeben, der eine Zeichenkette enthält. Falls möglich wird die Zeichenkette in einen `int`-Wert umgewandelt und dieser wird zurückgeliefert. Ist die Umwandlung nicht möglich, wird `0` zurückgeliefert.
+
+
+  In der der Standardheaderdatei `stdlib.h` ist die Funktion `rand` mit folgendem Prototyp deklariert.
+  
+  ```
+  int rand(void);
+  ```
+
+  Die Funktion liefert eine nicht negative ganzzahlige Pseudo-Zufallszahl kleiner gleich `RAND_MAX`.
+
+
+  ---
+
+  Programmieren Sie eine `main`-Funktion (ohne Benutzereingaben), die auf der Kommandozeile genau zwei Argumente übergeben bekommt.
+  - Das erste Argument bestimmt die Länge eines sortierten `int`-Feldes.
+  - Das zweite Argument gibt an welcher Wert in den `int`-Feld gesucht werden soll.
+  - Integrieren Sie folgende Zeile, z.B. als erste Zeile, in Ihre Lösung.
+  - ```#include "a04-testing.h"```
+  - Enthält die Kommandozeile nicht genau zwei Argumente, wird eine Fehlermeldung ausgegeben und die `main`-Funktion beendet.
+  - Beide, auf der Kommandozeile übergebene, Argumente werden mit `atoi` in `int`-Werte umgewandelt. Das erste Argumente wird in `n` , das zweite in `k` gespeichert.
+  - Ist `n` nicht positiv wird die Funktion `rec_contains` mit einem Null-Zeigern für `start` und `end`, aufgerufen. Der Rückgabewert wird ausgegeben und die `main`-Funktion beendet.
+  - Ist `n` positiv wird **Speicher auf dem Heap** für ein `int`-Feld mit `n` Komponenten reserviert.
+  - Hinweis. Beim Reservieren von Speicher auf dem Heap kann ein Fehler auftreten.
+  - Der Wert der ersten Komponenten des Feldes wird mit `rand() % n` bestimmt. Der Wert der nachfolgenden Komponenten wird berechnet, indem jeweils mit `rand() % n` der **Abstand** zu vorherigen Komponente bestimmt wird.
+  - Mögliche Überläufe werde erkannt, in diesem Fall wird eine Fehlermeldung ausgegeben und die `main`-Funktion beendet.
+    Hinweis. So entsteht ein aufsteigend sortiertes Feld.
+  - Das Feld wird ausgegeben.
+  - Ist `k` ein gültiger Index des Feldes, wird im Feld der Wert der `k`-te Komponente des Feldes mit der Funktion `rec_contains` gesucht. Das Ergebnis der Suche (Rückgabewert und Zeiger) wird ausgegeben.
+  - Ist k **kein** gültiger Index des Feldes, wird im Feld der Wert `k` mit der Funktion `rec_contains` gesucht. Das Ergebnis der Suche (Rückgabewert und Zeiger) wird ausgegeben.
+  - Speicher, der auf dem Heap reserviert wurde, wird auch wieder freigegeben.
+
+
+  **Lösen - Testen - Abgeben**
+  - Speichern Sie die oben in der Dateiliste hinterlegte Datei a04-testing.h im Ordner `~/klausur`. (*Bitte ignorieren und Ihre oben erstellte eigene Datei verwenden. Der Ordner, in dem Sie arbeiten wollen, ist natürlich ihnen überlassen*)
+  - Erstellen Sie im Ordner `~/klausur` eine neue Datei, z.B. `a04-2.c` , mit der Lösung dieser Aufgabe.
+  - Kompilieren Sie Ihren Lösung.
+  - ``` gcc -c -Wall -std=c11 a04-2.c```
+  Hinweis: Die Minimalanforderung für diese Aufgabe ist, dass das Compilieren erfolgreich durchgeführt werden kann.
+  - Testen Sie Ihre Lösung mit der Lösung von Aufgabe [a04-1] . (*Verwenden Sie bitte Ihre Abgabe aus der Aufgabe Binäre Suche Variante*)
+  - Zum Abgeben der Lösung laden Sie **nur** die von Ihre erstellte Datei, z.B. a04-2.c , mit dem Büroklammer-Symbol in den nachfolgen Editor. (*Sie können ihre Lösung wie gewohnt abgeben. Leider gibt es keine Tests und die Aufgabe wird automatisch als korrekt gewertet.*)
+  
+solution: |
+  TODO
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <stdio.h>
+        int main() {
+            printf("Für diese Aufgabe gibt es leider keine Tests und wird automatisch als korrekt bewertet!");
+            return 0;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 40 }
+      - { "name": "POINTER", "points": 40 }
+      - { "name": "MEMORY", "points": 40 }
+      - { "name": "schwierig" }
+    orderBy: 6760
+    prerequisites: []
+    unlockableAssets: ["schnoerkellos-hat", "schnoerkellos-shirt"]

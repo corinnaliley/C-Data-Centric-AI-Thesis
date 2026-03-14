@@ -1,0 +1,59 @@
+SHORTNAME:
+Olympische Spiele
+
+TITLE:
+Jahre der Sommer- und Winterspiele bestimmen
+
+TASKID:
+65
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include <stdio.h>
+ 
+int main(){
+  int jahr;
+  scanf("%d", &jahr);
+  switch(jahr % 4){
+    case 0: printf("Sommerspiele");
+            break;
+    case 2: printf("Winterspiele");
+            break;
+    default: printf("keine Spiele");
+             break;
+  }
+}
+
+
+LANG:
+c
+
+TASK:
+Olympische Spiele der Neuzeit finden in Jahren statt, deren Jahreszahl gerade ist und zwar Sommerspiele, falls die Jahreszahl durch 4 teilbar ist und Winterspiele sonst. 
+
+Schreiben Sie ein Programm, das den Nutzer nach einer Jahreszahl fragt und die Information ausgibt, ob Olympische Spiele in diesem Jahr stattfinden und ob es sich um Winterspiele oder Sommerspiele handelt. Benutzen Sie ein switch-statement.
+
+### Ausgabe
+Geben Sie entweder `Winterspiele` oder `Sommerspiele` oder `keine Spiele` aus.
+
+### Beispieleingabe
+```
+2000
+```
+### Beispielausgabe
+```
+Sommerspiele
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '2002\n', 'stdout': 'Winterspiele\n'}, {'args': [], 'stdin': '2003\n', 'stdout': 'keine Spiele\n'}, {'args': [], 'stdin': '1992\n', 'stdout': 'Sommerspiele\n'}, {'args': [], 'stdin': '1992\n', 'stdout': 'Sommerspiele\n'}, {'args': [], 'stdin': '2012\n', 'stdout': 'Sommerspiele\n'}, {'args': [], 'stdin': '2000\n', 'stdout': 'Sommerspiele\n'}, {'args': [], 'stdin': '1968\n', 'stdout': 'Sommerspiele\n'}, {'args': [], 'stdin': '1988\n', 'stdout': 'Sommerspiele\n'}, {'args': [], 'stdin': '2015\n', 'stdout': 'keine Spiele\n'}, {'args': [], 'stdin': '2014\n', 'stdout': 'Winterspiele\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1400, 'prerequisites': [], 'unlockableAssets': []}}
+

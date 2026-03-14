@@ -1,0 +1,80 @@
+shortname: "Permutation" #E8
+title: "Permutation der Länge 9 erkennen"
+taskid: 63
+defaultEditorInput: |
+solution: |
+  #include<stdio.h>
+  int perm[9] = {0};
+  int main() {
+    int x = 0;
+    for(int i=0; i<9; i++) {
+      scanf("%d", &perm[i]);
+      if(perm[i] < 1 || perm[i] > 9 || x & (1 << perm[i])) {
+        puts("keine gültige Permutation");
+        return 0;
+      }
+      x |= (1 << perm[i]);
+    }
+    puts("1 2 3 4 5 6 7 8 9");
+    for(int i=0; i<9; i++)
+      printf("%d ", perm[i]);
+  }
+lang: "c" 
+task: |
+  Eine Permutation der Länge 9 ist eine Abbildung der Menge {1, 2, . . . , 9} auf sich selbst. Permutationen kann man durch zweireihige Matrizen angeben. Die folgende Permutation zum Beispiel bildet 1 auf 3 ab, 2 auf 4, 3 auf 9 usw.:
+  ```
+  1 2 3 4 5 6 7 8 9
+  3 4 9 1 7 5 2 8 6
+  ```
+  Da die Einträge der oberen Reihe immer die gleichen sind, würde es auch genügen, nur die untere Reihe 3, 4, 9, 1, 7, 5, 2, 8, 6 anzugeben.
+
+  Schreiben Sie ein Programm, das Folgendes leistet:
+  - Der Nutzer wird aufgefordert, eine Permutation der Zahlen 1 bis 9 einzugeben (durch Angabe der unteren Reihe, wie oben beschrieben), die in einem Feld gespeichert werden soll. 
+  - Es wird geprüft, ob die Eingabe korrekt war, also ob jede der Zahlen 1 bis 9 genau einmal angegeben wurde. 
+  - Falls die Eingabe nicht korrekt ist, beendet sich das Programm mit der Meldung `keine gültige Permutation`. 
+  - Anderenfalls soll die Permutation zur Kontrolle wie eine zweireihige Matrix ausgegeben werden.
+  
+  ### Beispieleingabe
+  ```
+  3 4 9 1 7 5 2 8 6
+  ```
+  ### Beispielausgabe
+  ```
+  1 2 3 4 5 6 7 8 9
+  3 4 9 1 7 5 2 8 6
+  ```
+tests: 
+  - testtype: "c-input-output" 
+    testCases: 
+      - args: []
+        stdin: |
+          3 4 9 1 7 5 2 8 6
+        stdout: |
+          1 2 3 4 5 6 7 8 9
+          3 4 9 1 7 5 2 8 6
+      - args: []
+        stdin: |
+          3 4 9 1 7 5 2 8 1
+        stdout: |
+          keine gültige Permutation
+      - args: []
+        stdin: |
+          1 2 3 4 5 6 7 8 9
+        stdout: |
+          1 2 3 4 5 6 7 8 9
+          1 2 3 4 5 6 7 8 9
+      - args: []
+        stdin: |
+          9 8 7 6 5 4 3 2 1
+        stdout: |
+          1 2 3 4 5 6 7 8 9
+          9 8 7 6 5 4 3 2 1
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags:
+      - {"name": "ARRAY", "points": 20}
+      - {"name": "mittel"}
+    orderBy: 3400
+    prerequisites: []
+    unlockableAssets: []

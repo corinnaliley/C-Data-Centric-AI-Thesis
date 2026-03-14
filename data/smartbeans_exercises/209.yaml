@@ -1,0 +1,133 @@
+shortname: "Four is Magic" #J9
+title: "Schreiben von Zeichenketten in Datei"
+taskid: 209
+defaultEditorInput: |
+lang: "c"
+task: |
+  Programmieren Sie eine Funktion `void magic(char *path, int number);`, die
+  einen String mit dem Pfad zu einer Datei `path` und einen ganzzahligen Wert
+  `number` zwischen `0` und `9` übergeben bekommt. In die Datei am Pfad `path`
+  soll ein String folgender Form geschrieben werden: Der String besteht aus
+  endlich vielen Satzteilen, die je mit einem Komma getrennt werden. Das erste
+  Wort eines Satzteiles ist das englische Zahlwort von `number` gefolgt von "is"
+  und dem englischen Zahlwort von *der Anzahl der Zeichen des Zahlwortes von*
+  `number`. Diese Teile werden solange gebildet und aneinander gereiht, bis `4`
+  (four) erreicht wurde, dann lautet der String "four is magic".
+
+
+  ### Beispielaufruf
+  ```
+  magic("beispiel_1.txt", 0);
+  magic("beispiel_2.txt", 1);
+  ```
+  ### Beispielergebnis
+  ```
+  beispiel_1.txt: 
+    zero is four, four is magic.
+  beispiel_2.txt: 
+    one is three, three is five, five is four, four is magic.
+  ```
+
+  ### Hinweis
+  Benutzen Sie `<string.h>`, um geeignete Funktionen zur
+  Stringbearbeitungen zu benutzen.
+solution: |
+  #include <stdio.h>
+  #include <string.h>
+
+  char *names[10] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+
+  void magic(char *path, int number) {
+    FILE *fp;
+    fp = fopen (path,"w");
+    if(fp == NULL) {
+      printf("Error on opening file");
+      return;
+    }
+    char stringtoput[1000];
+    char *is = "is";
+    int count = number;
+
+    while (count != 4) {
+      strcat(stringtoput, names[count]);
+      strcat(stringtoput, " ");
+      strcat(stringtoput, is);
+      strcat(stringtoput, " ");
+      count = strlen(names[count]) ;
+      strcat(stringtoput, names[count]);
+      strcat(stringtoput, ", ");
+    }
+    strcat(stringtoput, "four is magic.");
+    // printf("%s\n",stringtoput);
+
+    for (int i = 0; i < strlen(stringtoput); i++) {
+      fputc(stringtoput[i], fp);
+    }
+    fclose(fp);
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void test(void){
+          FILE *fp, *fp2;
+          char string2[] = "one is three, three is five, five is four, four is magic.";
+          fp = fopen("magic.txt", "w");
+          magic("magic.txt", 1);
+          fp2 = fopen("magic.txt", "r");
+          int tmp2, j = 0;
+          while((tmp2 = fgetc(fp2)) != EOF) {
+            CU_ASSERT_EQUAL(string2[j], tmp2);
+            j++;
+          }
+          fclose(fp);
+          fclose(fp2);
+        }
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Four is Magic", test))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  test:
+    tags:
+      - { "name": "FILE", "points": 80 }
+      - { "name": "klausur" }
+    orderBy: 7200
+    prerequisites: []
+    unlockableAssets: []
+

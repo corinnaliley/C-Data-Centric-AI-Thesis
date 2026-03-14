@@ -1,0 +1,72 @@
+SHORTNAME:
+Methoden für Strings II
+
+TITLE:
+verschiedene Methoden zur Stringbehandlung
+
+TASKID:
+75
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Realisieren Sie die folgenden Funktionen:
+```
+char *strinv(const char *s)
+```
+liefert das Inverse des String `s`, d.h. den String `s` rückwärts gelesen.
+```
+char *strconcat(const char *s, const char *t)
+```
+liefert einen String, der eine Vereinigung der Strings `s` und `t` ist, d.h. dem Hintereinanderstellen der Strings `s` und `t` entspricht.
+
+
+SOLUTION:
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+char *strinv(const char *s) {
+    long laenge = strlen(s);
+    char *ergebnis = (char*) malloc((laenge+1)*sizeof(char));
+    for(int i = (laenge-1); i >= 0; i--) {
+        *ergebnis = *(s+i);
+        ergebnis++;
+    }
+    *ergebnis = '\0';
+
+    return (ergebnis-laenge);
+}
+
+char *strconcat(const char *s, const char *t) {
+    long laenge = strlen(s) + strlen(t);
+    char* ergebnis = (char*) malloc((laenge+1)*sizeof(char));
+    while(*s != '\0') {
+        *ergebnis = *s;
+        ergebnis++;
+        s++;
+    }
+    while(*t != '\0') {
+        *ergebnis = *t;
+        ergebnis++;
+        t++;
+    }
+    *ergebnis = '\0';
+
+    return (ergebnis-laenge) ;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessagestrinv(int test_num, char *input1, char *exp, char *act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (strinv(\\"%s\\"))\\n\\\n            Erwartete Ausgabe:    (\\"%s\\")\\n\\\n            Tatsächliche Ausgabe: (\\"%s\\")\\n", test_num, input1, exp, act);\n}\n\nvoid test_strinv(void){\n  char Hallo[] = "Hallo";\n  char Eisenbahn[] = "Eisenbahn";\n  char lagerregal[] = "lagerregal";\n  int res = strcmp(strinv(""),"");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessagestrinv(1, "", "", strinv(""));\n  }\n\n  res = strcmp(strinv(" ")," ");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessagestrinv(2, " ", " ", strinv(" "));\n  }\n\n  res = strcmp(strinv("Hallo"),"ollaH");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessagestrinv(3, "Hallo", "ollaH", strinv("Hallo"));\n  }\n\n  res = strcmp(strinv(Eisenbahn),"nhabnesiE");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessagestrinv(4, Eisenbahn, "nhabnesiE", strinv(Eisenbahn));\n  }\n\n  res = strcmp(strinv(lagerregal),"lagerregal");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessagestrinv(5, lagerregal, "lagerregal", strinv(lagerregal));\n  }\n}\n\nvoid showFailMessagestrconcat(int test_num, char *input1, char *input2, char *exp, char *act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (strconcat(\\"%s\\", \\"%s\\"))\\n\\\n            Erwartete Ausgabe:    (\\"%s\\")\\n\\\n            Tatsächliche Ausgabe: (\\"%s\\")\\n", test_num, input1, input2, exp, act);\n}\n\nvoid test_strconcat(void){\n  int res = strcmp(strconcat("",""),"");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessagestrconcat(6, "","", "", strconcat("",""));\n  }\n\n  res = strcmp(strconcat("","test"),"test");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("7.Test");\n    showFailMessagestrconcat(7, "","test", "test", strconcat("","test"));\n  }\n\n  res = strcmp(strconcat("test",""),"test");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("8.Test");\n    showFailMessagestrconcat(8, "test","", "test", strconcat("test",""));\n  }\n\n  res = strcmp(strconcat("Hallo ","Welt"),"Hallo Welt");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("9.Test");\n    showFailMessagestrconcat(9, "Hallo ","Welt", "Hallo Welt", strconcat("Hallo ","Welt"));\n  }\n\n  res = strcmp(strconcat("Weg","beschreibung"),"Wegbeschreibung");\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("10.Test");\n    showFailMessagestrconcat(10, "Weg","beschreibung", "Wegbeschreibung", strconcat("Weg","beschreibung"));\n  }\n}\n\nint init_suite1(void)\n{\n  return 0;\n}\n\nint clean_suite1(void)\n{\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Methoden für Strings II strinv", test_strinv)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  if ((NULL == CU_add_test(pSuite, "Methoden für Strings II strconcat", test_strconcat)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5200, 'prerequisites': [], 'unlockableAssets': ['niklas_beanz-hat', 'niklas_beanz-pants', 'niklas_beanz-shirt']}}
+

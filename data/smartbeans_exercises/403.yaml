@@ -1,0 +1,122 @@
+shortname: "geteiltes Handy" #D3
+title: "Kleinbuchstaben und Großbuchstaben sortieren"
+taskid: 403
+defaultEditorInput: |
+lang: "c"
+task: |
+  Toni und Tomke teilen sich ein Handy. Das ist praktisch, denn so kann ihre Mutter beiden gleichzeitig eine Nachricht senden. Damit kein Chaos entsteht haben die beiden auf folgende Regeln geeinigt:
+  
+  - Alles, was an Toni gesendet werden soll, wird in Großbuchstaben geschrieben.
+  - Alles, was an Tomke gesendet werden soll, wird in Kleinbuchstaben geschrieben.
+  
+  Schreiben Sie ein Programm, welches eine Nachricht von der Kommandozeile einliest und zwei Nachrichten auf der Kommandozeile ausgibt:
+  
+  - Nachricht an Toni: Alle Großbuchstaben, die in der Nachricht enthalten sind.
+  - Nachricht an Tomke: Alle Kleinbuchstaben, die in der Nachricht enthalten sind.
+
+  *Hinweise*
+  
+  - Sonderzeichen und Leerzeichen werden nicht beachtet.
+  - Achten Sie darauf, dass die Reihenfolge der Klein- und Großbuchstaben untereinander erhalten bleibt.
+  - Eine SMS hat maximal 160 Zeichen.
+
+  ### Beispieleingabe
+  ```
+  HAhalLLlO otoTONmkIe
+  ```
+
+  ### Beispielausgabe
+  ```
+  Nachricht an Toni: HALLOTONI
+  Nachricht an Tomke: hallotomke
+  ```
+solution: |
+  #include <stdio.h>
+  #include <string.h>
+  #include <stdlib.h>
+
+  #define LAENGE 160
+
+  int main(){
+    char str[LAENGE];
+    int i = 0;
+    while((str[i] = getchar()) != '\n'){
+      i++;
+    }
+    str[i] = '\0';
+
+    size_t length = strlen(str);
+    char* toni = malloc((length+1)*sizeof(char));
+    char* tomke = malloc((length+1)*sizeof(char));
+
+    int j = 0;
+    int i_toni = 0;
+    int i_tomke = 0;
+    while(str[j] != '\0'){
+      if(str[j] >= 'A' && str[j] <='Z'){
+        toni[i_toni] = str[j];
+        i_toni++;
+      }
+      if(str[j] >= 'a' && str[j] <= 'z'){
+        tomke[i_tomke] = str[j];
+        i_tomke++;
+      }
+      j++;
+    }
+    toni[i_toni] = '\0';
+    tomke[i_tomke] = '\0';
+
+    printf("Nachricht an Toni: %s\nNachricht an Tomke: %s", toni, tomke);
+
+    free(toni);
+    free(tomke);
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          HAhalLLlO otoTONmkIe
+        stdout: |
+          Nachricht an Toni: HALLOTONI
+          Nachricht an Tomke: hallotomke
+      - args: []
+        stdin: |
+          WbiIsEm GorgEHTenS
+        stdout: |
+          Nachricht an Toni: WIEGEHTS
+          Nachricht an Tomke: bismorgen
+      - args: []
+        stdin: |
+          hallo tomke
+        stdout: |
+          Nachricht an Toni:
+          Nachricht an Tomke: hallotomke
+      - args: []
+        stdin: |
+          HALLO TONI!
+        stdout: |
+          Nachricht an Toni: HALLOTONI
+          Nachricht an Tomke:
+      - args: []
+        stdin: |
+          ""
+        stdout: |
+          Nachricht an Toni:
+          Nachricht an Tomke:
+      - args: []
+        stdin: |
+          /$%&(&=$U&($)
+        stdout: |
+          Nachricht an Toni: U
+          Nachricht an Tomke:
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "MEMORY", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 5400
+    prerequisites: []
+    unlockableAssets: ["girlie_shirt_brown-shirt"]

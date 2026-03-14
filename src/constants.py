@@ -1,0 +1,58 @@
+"""
+constants.py: Centralized configuration for the RAG benchmarking system.
+
+This module loads necessary environment variables and defines all fixed
+configuration settings (API endpoints, model names, default RAG parameters).
+It is the single source of truth for global configuration.
+"""
+
+from dotenv import load_dotenv
+import os
+from pathlib import Path
+from sentence_transformers import SentenceTransformer
+
+
+
+# --- Environment Setup (Load .env file) --------------------------------------
+
+from pathlib import Path
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_ROOT = BASE_DIR / "data"
+FOLIEN_DIR = DATA_ROOT / "Folien"
+SMARTBEANS_DIR = DATA_ROOT / "smartbeans_exercises"
+QUERY_PATH = DATA_ROOT / "FAQ.json"
+BENCHMARK_PATH = BASE_DIR / "src" / "benchmark.json"
+PROCESSED_PATH = BASE_DIR / "processed"
+RESULTS_PATH = BASE_DIR / "results"
+
+env_path = BASE_DIR / ".env"
+load_dotenv(dotenv_path=env_path)
+
+
+# --- 1) API Keys and Endpoints ------------------
+
+LLM_API_KEY = os.getenv("LLM_API_KEY")
+LLM_API_ENDPOINT = "https://chat-ai.academiccloud.de/v1/"
+
+    # === SAIA / Docling (GWDG configuration) ===
+    # Base URL points to /v1, as in the documentation
+SAIA_BASE_URL = os.getenv("SAIA_BASE_URL", "https://chat-ai.academiccloud.de/v1")
+SAIA_API_KEY = os.getenv("SAIA_API_KEY", "")
+    # docling for PDF
+SAIA_DOCLING_ENDPOINT = "documents/convert"
+
+# --- 2) Model Configuration --------------------------------------------------
+
+# Language Model (LLM) for generating answers (e.g. Llama-3.1)
+
+LLM_MODEL_NAME = "meta-llama-3.1-8b-instruct"
+#LLM_MODEL_NAME = "llama-3.3-70b-instruct"
+#LLM_MODEL_NAME = "GPT-5"
+EVAL_MODEL_NAME = "meta-llama-3.1-70b-instruct"
+#EMBEDDING_MODEL_NAME = "qwen3-embedding-4b"
+#EMBEDDING_MODEL_NAME = "e5-mistral-7b-instruct"
+EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"

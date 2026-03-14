@@ -1,0 +1,197 @@
+shortname: "String Säuberung" #K1
+title: "Zeichen aus einem String herausfiltern"
+taskid: 82
+defaultEditorInput: |
+lang: "c"
+task: |
+  Programmieren Sie eine Funktion zum Säubern von Strings mit folgendem Prototyp: 
+  ```
+  int strclean(char *t)
+  ```
+  
+  *Anforderungen*
+  
+  - Die Leerzeichen und die nicht druckbare Zeichen wurden aus dem übergebenen String entfernt
+  - Wenn ein Fehler aufgetreten ist (z.B. wenn `t` der Null-Zeiger ist) wird ein negativer Wert zurückgeliefert, ansonsten wird die Anzahl der aus dem String entfernten Zeichen zurückgeliefert.
+  - Benutzen Sie zur Erkennung von Leerzeichen und nicht druckbaren Zeichen Funktionen der Standardbibliothek.
+  
+  *Hinweise*
+  
+  - Der übergebenen String wird u.U. kürzer, d.h. die Funktion muss sowohl die Stelle im String von der ein Zeichen gelesen wird, als auch die Stelle an die ein Zeichen geschrieben wird, kennen.
+  - Vergessen Sie nicht den String mit dem Null-Zeichen abzuschließen.
+  
+  ---
+  
+  *Lösen - Testen - Abgeben*
+  - Zum Testen ihrer Lösung laden Sie die Datei `a01-testing.c`  <a target="_blank" rel="noopener noreferrer" href="https://owncloud.gwdg.de/index.php/s/UOXlb9P4CBcLIry">**hier**</a> herunter.
+  - Kompilieren Sie den Testcode. `gcc -c -Wall -std=c11 a01-testing.c`. 
+  - Schreiben Sie ihre eigene Lösungsdatei z.B. `a01.c`.
+  - Kompilieren Sie Ihre Lösung `gcc -c -Wall -std=c11 a01.c`.
+  - Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm. `gcc -o a01 a01.o a01-testing.o`.
+  - Testen Sie Ihre Lösung, dafür können Sie den Testcode bliebig anpassen.
+  - Zum Abgeben der Lösung laden Sie nur die von Ihnen erstellte Datei, z.B. `a01.c` hoch.
+
+solution: |
+  #include<ctype.h>
+  int strclean(char *t) {
+    if (t == NULL) {
+      return -1;
+    }
+
+    char *tmp = t;
+    int count = 0;
+
+    while(*t) {
+      if (!isgraph(*t)) {
+        count++;
+      } else {
+        *tmp = *t;
+        tmp++;
+      }
+      t++;
+    }
+    *tmp = '\0';
+    return count;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        char str0[] = "";
+        char str0clean[] = "";
+        char str0print[] = "";
+        char str1[] = "Hello World.";
+        char str1print[] = "Hello World.";
+        char str1clean[] = "HelloWorld.";
+        char str2[] = " . . .\n";
+        char str2print[] = " . . .\\n";
+        char str2clean[] = "...";
+        char str3[] = " \t   ";
+        char str3print[] = " \\t   ";
+        char str3clean[] = "";
+        char *strnull = NULL;
+        char *strnullprint = NULL;
+
+        void showFailMessage(char* input1, int exp, int act, int test_num){
+          char expstring[200];
+          if (exp < 0){
+            sprintf(expstring, "< 0");
+          } else {
+            sprintf(expstring, "%d", exp);
+          }
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (\"%s\")\n\
+                    Erwartete Ausgabe:    (%s)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, expstring, act);
+        }
+        void showFailMessageString(char* input1, char* exp, char* act, int test_num){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (\"%s\")\n\
+                    Erwartete Ausgabe:    (\"%s\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n", test_num, input1, exp, act);
+        }
+
+        void test(void){
+          if (strclean(str0) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(str0print, 0, strclean(str0), 1 );
+          }
+          if (strcmp(str0, str0clean) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessageString(str0print, str0clean, str0, 2 );
+          }
+          if (strclean(str1) == 1) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(str1print, 1, strclean(str1), 3 );
+          }
+          if (strcmp(str1, str1clean) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessageString(str1print, str1clean, str1, 4 );
+          }
+          if (strclean(str2) == 4) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(str2print, 4, strclean(str2), 5 );
+          }
+          if (strcmp(str2, str2clean) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessageString(str2print, str2clean, str2, 6 );
+          }
+          if (strclean(strnull) < 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessage(strnullprint, -1, strclean(strnull), 7 );
+          }
+          if (strclean(str3) == 5) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessage(str3print, 5, strclean(str3), 8 );
+          }
+          if (strcmp(str3, str3clean) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("9.Test");
+            showFailMessageString(str3print, str3clean, str3, 9 );
+          }
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "String Säuberung", test))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 5720
+    prerequisites: []
+    unlockableAssets: ["ole_beanz-hat", "ole_beanz-pants", "ole_beanz-shirt"]

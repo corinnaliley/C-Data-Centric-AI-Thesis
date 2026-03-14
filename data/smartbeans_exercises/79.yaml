@@ -1,0 +1,324 @@
+shortname: "Zeigerarithmetik" #Z5
+title: "Selectionsort mit Zeigerarithmetik"
+taskid: 79
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie eine Funktion, die den in Aufgabe  <a target="_blank" rel="noopener noreferrer" href="https://c109-223.cloud.gwdg.de/tasks/50">**Selectionsort**</a> beschriebenen Algorithmus "Sortieren durch direkte Auswahl" auf einem (Teil-)Feld von ganzen Zahlen umsetzt, mit folgendem Prototyp:
+  ```
+  int sortieren (int *von, int *bis);
+  ```
+  Dabei ist `von` ein Zeiger auf die erste Komponente und `bis` ein Zeiger **hinter** die letzte Komponente des zu sortierenden (Teil-)Feldes. Die Funktion soll das Feld von vorne aufsteigend sortieren. Die Funktion liefert die Anzahl der umgespeicherten Werte zurück. Speichern Sie die Werte nur um, wenn es nötig ist. Benutzen Sie in der Funktion ausschließlich Zeigerarithmetik und nicht den `[]`-Operator. Verwenden Sie Rekursion.
+solution: |
+  int sortieren (int* von, int* bis){
+    int tmp=0;
+    int *min=von;
+    
+    if(von >= bis) return 0;
+    
+    for(int *i=von+1; i < bis; i++)
+        if(*i < *min) min = i;
+    
+    if(min == von) return sortieren(von+1, bis);
+    else{
+        tmp = *min;
+        *min = *von;
+        *von = tmp;
+        return 1 + sortieren(von+1, bis);
+    }
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int *input_array, int length, int *exp_array, int exp, int act, int *act_array){
+          char intput_string[2000];
+          sprintf(intput_string, "{");
+          for(int i = 0 ; i < length; i++){
+            sprintf(intput_string, "%s%d", intput_string, input_array[i]);
+            if (i < length -1){
+              sprintf(intput_string, "%s, ", intput_string);
+            }
+          }
+          sprintf(intput_string, "%s}", intput_string);
+
+          char exp_array_string[2000];
+          if(exp_array == NULL){
+            sprintf(exp_array_string, "NULL");
+          } else {
+            sprintf(exp_array_string, "{");
+            for(int i = 0 ; i < length; i++){
+              sprintf(exp_array_string, "%s%d", exp_array_string, exp_array[i]);
+              if (i < length -1){
+                sprintf(exp_array_string, "%s, ", exp_array_string);
+              }
+            }
+            sprintf(exp_array_string, "%s}", exp_array_string);
+          }
+
+          char act_array_string[2000];
+          if(act_array == NULL){
+            sprintf(act_array_string, "NULL");
+          } else {
+            sprintf(act_array_string, "{");
+            for(int i = 0 ; i < length; i++){
+              sprintf(act_array_string, "%s%d", act_array_string, act_array[i]);
+              if (i < length -1){
+                sprintf(act_array_string, "%s, ", act_array_string);
+              }
+            }
+            sprintf(act_array_string, "%s}", act_array_string);
+          }
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (Feld vor dem sortieren:   %s)\n\
+                    Erwartete Ausgabe:    (Anzahl An Vertauschungen: %d\n\
+                                           Feld nach dem sortieren:  %s)\n\
+                    Tatsächliche Ausgabe: (Anzahl An Vertauschungen: %d\n\
+                                           Feld nach dem sortieren:  %s)\n", test_num, intput_string, exp, exp_array_string, act, act_array_string);
+        }
+
+        void test_sortieren_sortiertes_Feld(void){
+          int feld1[10] = {1,2,3,4,5,6,7,8,9,10};
+          int mod_feld[10] = {1,2,3,4,5,6,7,8,9,10};
+          int start, stop, tausch, sortiert;
+          int* feld = feld1;
+          start=0;
+          stop=0;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld[i]) sortiert = 0;
+          }
+
+          if (tausch == 0 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(1, mod_feld+start, stop-start+1, mod_feld, 0, tausch, feld);
+          }
+
+          int feld2[10] = {1,2,3,4,5,6,7,8,9,10};
+          feld = feld2;
+          start=3;
+          stop=5;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld[i]) sortiert = 0;
+          }
+
+          if (tausch == 0 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(2, mod_feld+start, stop-start+1, mod_feld+start, 0, tausch, feld+start);
+          }
+
+          int feld3[10] = {1,2,3,4,5,6,7,8,9,10};
+          feld = feld3;
+          start=6;
+          stop=9;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld[i]) sortiert = 0;
+          }
+
+          if (tausch == 0 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(3, mod_feld+start, stop-start+1, mod_feld+start, 0, tausch, feld+start);
+          }
+
+          int feld4[10] = {1,2,3,4,5,6,7,8,9,10};
+          feld = feld4;
+          start=0;
+          stop=9; 
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld[i]) sortiert = 0;
+          }
+
+          if (tausch == 0 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(4, mod_feld+start, stop-start+1, mod_feld+start, 0, tausch, feld+start);
+          }
+        }
+
+        void test_sortieren_unsortiertes_Feld(void){
+          int feld1[10] = {3,7,5,5,2,1,6,10,9,4};
+          int feld1_print[10] = {3,7,5,5,2,1,6,10,9,4};
+          int mod_feld[10] = {3,7,5,5,2,1,6,10,9,4};
+          int start, stop, tausch, sortiert;
+          int* feld = feld1;
+          start=0;
+          stop=0;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld[i]) sortiert = 0;
+          }
+
+          if (tausch == 0 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(5, feld1_print+start, stop-start+1, mod_feld+start, 0, tausch, feld+start);
+          }
+
+          int feld2[10] = {3,7,5,5,2,1,6,10,9,4};
+          int feld2_print[10] = {3,7,5,5,2,1,6,10,9,4};
+          feld = feld2;
+          start=2;
+          stop=3;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld[i]) sortiert = 0;
+          }
+
+          if (tausch == 0 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(6, feld2_print+start, stop-start+1, mod_feld+start, 0, tausch, feld+start);
+          }
+
+          int feld3[10] = {3,7,5,5,2,1,6,10,9,4};
+          int feld3_print[10] = {3,7,5,5,2,1,6,10,9,4};
+          feld = feld3;
+          int mod_feld2[10] = {3,7,5,2,5,1,6,10,9,4};
+          start=3;
+          stop=4;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld2[i]) sortiert = 0;
+          }
+
+          if (tausch == 1 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessage(7, feld3_print+start, stop-start+1, mod_feld2+start, 1, tausch, feld+start);
+          }
+
+          int feld4[10] = {3,7,5,5,2,1,6,10,9,4};
+          int feld4_print[10] = {3,7,5,5,2,1,6,10,9,4};
+          feld = feld4;
+          int mod_feld3[10] = {3,1,2,5,5,6,7,10,9,4};
+          start=1;
+          stop=6;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld3[i]) sortiert = 0;
+          }
+
+          if (tausch == 3 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessage(8, feld4_print+start, stop-start+1, mod_feld3+start, 3, tausch, feld+start);
+          }
+
+          int feld5[10] = {3,7,5,5,2,1,6,10,9,4};
+          int feld5_print[10] = {3,7,5,5,2,1,6,10,9,4};
+          feld = feld5;
+          int mod_feld4[10] = {1,2,3,4,5,5,6,7,9,10};
+          start=0;
+          stop=9;
+          tausch = sortieren(feld+start, feld+stop+1);
+          sortiert = 1;
+          
+          for (int i=0; i<10; i++) {
+            if (feld[i] != mod_feld4[i]) sortiert = 0;
+          }
+
+          if (tausch == 7 && sortiert > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("9.Test");
+            showFailMessage(9, feld5_print+start, stop-start+1, mod_feld4+start, 7, tausch, feld+start);
+          }
+
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Zeigerarithmetik, Feld sortiert", test_sortieren_sortiertes_Feld)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "Zeigerarithmetik, Feld unsortiert", test_sortieren_unsortiertes_Feld)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "POINTER", "points": 80 }
+      - { "name": "SORT", "points": 80 }
+      - { "name": "klausur" }
+      # TODO Recusrion noch hinzufügen wenn der Kurs rum ist
+    orderBy: 7000
+    prerequisites: []
+    unlockableAssets: ["johanna_beanz-hat", "johanna_beanz-pants", "johanna_beanz-shirt"]

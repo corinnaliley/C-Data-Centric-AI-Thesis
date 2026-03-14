@@ -1,0 +1,67 @@
+SHORTNAME:
+Buchstaben ersetzen
+
+TITLE:
+Buchstaben in einem String ersetzen
+
+TASKID:
+410
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include <string.h>
+ 
+int exchange(char* s, char a, char b){
+  int len = strlen(s);
+  int count = 0;
+  for(int i = 0; i < len; i++){
+    if(s[i] == a){
+      s[i] = b;
+      count++;
+    }
+  }
+  return count;
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine Funktion 
+
+```
+int exchange(char* s, char a, char b)
+```
+
+die im String `s` alle Vorkommen von `a` durch `b` ersetzt. Die Funktion gibt die Anzahl der vorgenommenen Ersetzungen zurück.
+ 
+*Anforderungen*
+ 
+- Nach Ausführung der Funktion soll im String `s` der veränderte String gespeichert sein.
+- Die Funktion berücksichtigt Groß- und Kleinschreibung.
+ 
+### Beispielaufruf
+```
+char s[] = "anna";
+int n = exchange(s, 'a', 'o');
+```
+ 
+### Beispielergebnis
+```
+s : "onno"
+n : 2
+```
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n#include <string.h>\n \nvoid test_exchange(void){ \n  int count;\n\n  //Testcase Beispiel\n  char t1[] = "anna";\n  count = exchange(t1, \'a\', \'o\');\n  if(strcmp(t1, "onno") == 0 && count == 2){\n    CU_PASS("Erfolg! Eingabe (anna, a, o) Erwartetes Ergebnis (onno, 2)");\n  }\n  else{\n    printf("\\n    1.Test: Fehler!\\n\\\n            Eingabe:              (anna, a, o)\\n\\\n            Erwartete Ausgabe:    (onno, 2)\\n\\\n            Tatsächliche Ausgabe: (%s, %d)\\n",t1 ,count );\n    CU_FAIL("1.Test");\n  }\n \n  //Testcase viele Buchstaben\n  char t2[] = "ananassalat";\n  count = exchange(t2, \'a\', \'e\');\n  if(strcmp(t2, "enenesselet") == 0 && count == 5){\n    CU_PASS("Erfolg! Eingabe (ananassalat, a, e) Erwartetes Ergebnis (enenesselet, 5)");\n  }\n  else{\n    printf("\\n    2.Test: Fehler!\\n\\\n            Eingabe:              (ananassalat, a, e)\\n\\\n            Erwartete Ausgabe:    (enenesselet, 5)\\n\\\n            Tatsächliche Ausgabe: (%s, %d)\\n",t2 ,count );\n    CU_FAIL("2.Test");\n  }\n\n  //Testcase kein Buchstabe\n  char t3[] = "dd";\n  count = exchange(t3, \'a\', \'y\');\n  if(strcmp(t3, "dd") == 0 && count == 0){\n    CU_PASS("Erfolg! Eingabe (dd, a, y) Erwartetes Ergebnis (dd, 0)");\n  }\n  else{\n    printf("\\n    3.Test: Fehler!\\n\\\n            Eingabe:              (dd, a, y)\\n\\\n            Erwartete Ausgabe:    (dd, 0)\\n\\\n            Tatsächliche Ausgabe: (%s, %d)\\n",t3 ,count );\n    CU_FAIL("3.Test");\n  }\n\n  //Testcase meherere Worte, Sonderzeichen\n  char t4[] = "Hallo Welt!";\n  count = exchange(t4, \'a\', \'e\');\n  if(strcmp(t4, "Hello Welt!") == 0 && count == 1){\n    CU_PASS("Erfolg! Eingabe (Hallo Welt!, a, e) Erwartetes Ergebnis (Hello Welt!, 1)");\n  }\n  else{\n    printf("\\n    4.Test: Fehler!\\n\\\n            Eingabe:              (Hallo Welt!, a, e)\\n\\\n            Erwartete Ausgabe:    (Hello Welt!, 1)\\n\\\n            Tatsächliche Ausgabe: (%s, %d)\\n",t4 ,count );\n    CU_FAIL("4.Test");\n  }\n    \n  //Testcase Groß- und Kleinschreibung\n  char t5[] = "Otto";\n  count = exchange(t5, \'O\', \'l\');\n  if(strcmp(t5, "ltto") == 0 && count == 1){\n    CU_PASS("Erfolg! Eingabe (Otto, O, l) Erwartetes Ergebnis (ltto, 1)");\n  }\n  else{\n    printf("\\n    5.Test: Fehler!\\n\\\n            Eingabe:              (Otto, O, l)\\n\\\n            Erwartete Ausgabe:    (ltto, 1)\\n\\\n            Tatsächliche Ausgabe: (%s, %d)\\n",t5 ,count );\n    CU_FAIL("5.Test");\n  } \n    \n  //Testcase leerer String\n  char t6[] = "";\n  count = exchange(t6, \'x\', \'y\');\n  if(strcmp(t6, "") == 0 && count == 0){\n    CU_PASS("Erfolg! Eingabe ( , x, y) Erwartetes Ergebnis ( , 0)");\n  }\n  else{\n    printf("\\n    6.Test: Fehler!\\n\\\n            Eingabe:              (\\"\\" , x, y)\\n\\\n            Erwartete Ausgabe:    (\\"\\" , 0)\\n\\\n            Tatsächliche Ausgabe: (\\"%s\\", %d)\\n",t6 ,count );\n    CU_FAIL("6.Test");\n  }\n     \n  //Testcase random\n  char t7[] = "6n930FHpzD";\n  count = exchange(t7, \'F\', \'j\');\n  if(strcmp(t7, "6n930jHpzD") == 0 && count == 1){\n    CU_PASS("Erfolg! Eingabe (6n930FHpzD, F, j) Erwartetes Ergebnis (6n930jHpzD, 1)");\n  }\n  else{\n    printf("\\n    7.Test: Fehler!\\n\\\n            Eingabe:              (6n930FHpzD, F, j)\\n\\\n            Erwartete Ausgabe:    (6n930jHpzD, 1)\\n\\\n            Tatsächliche Ausgabe: (%s, %d)\\n",t7 ,count );\n    CU_FAIL("7.Test");\n  }\n}\n \nint init_suite1(void){ return 0; }\nint clean_suite1(void){ return 0; }\nvoid cleanup(){}\n \nint main(){\n  CU_pSuite pSuite = NULL;\n\n  /* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite){\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Buchstaben ersetzen", test_exchange))){\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5710, 'prerequisites': [], 'unlockableAssets': ['roller_blades_green-hat', 'roller_blades_green-pants', 'roller_blades_green-shirt']}}
+

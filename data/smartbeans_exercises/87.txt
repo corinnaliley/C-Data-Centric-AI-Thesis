@@ -1,0 +1,47 @@
+SHORTNAME:
+ggT
+
+TITLE:
+Berechnen des größten gemeinsamen Teilers
+
+TASKID:
+87
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine rekursive Funktion
+```
+unsigned long ggT (unsigned long a, unsigned long b);
+```
+die den größten gemeinsamen Teiler der nichtnegativen ganzen Zahlen a und b berechnet. Verwenden Sie die Formel
+```
+ggT(a,b) = 
+           ggT(b, a mod b) ,falls b>0
+           a               ,falls b=0
+```
+Dabei bezeichnet `x mod y` - wie in der Informatik üblich - den Rest der Ganzzahldivision `x/y`.
+
+
+SOLUTION:
+unsigned long ggT (unsigned long a, unsigned long b){
+  if(b == 0){
+    return a;
+  }
+  return ggT(b, a%b);
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, unsigned long input1, unsigned long input2, unsigned long exp, unsigned long act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (ggT(%ld, %ld))\\n\\\n            Erwartete Ausgabe:    (%ld)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", test_num, input1, input2, exp, act);\n}\n\n\n\nvoid test_ggT(void){\n  unsigned long result = ggT(0,0);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, 0, 0, 0, result);\n  } \n\n  result = ggT(1,0);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, 1, 0, 1, result);\n  } \n\n  result = ggT(0,1);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, 0, 1, 1, result);\n  } \n\n  result = ggT(3,0);\n  if(result == 3){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, 3, 0, 3, result);\n  } \n\n  result = ggT(6,3);\n  if(result == 3){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, 6, 3, 3, result);\n  } \n\n  result = ggT(12,3);\n  if(result == 3){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, 12, 3, 3, result);\n  } \n\n  result = ggT(12,8);\n  if(result == 4){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("7.Test");\n    showFailMessage(7, 12, 8, 4, result);\n  } \n\n  result = ggT(8,12);\n  if(result == 4){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("8.Test");\n    showFailMessage(8, 8, 12, 4, result);\n  } \n\n  result = ggT(15,8);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("9.Test");\n    showFailMessage(9, 15, 8, 1, result);\n  } \n\n  result = ggT(8,15);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("10.Test");\n    showFailMessage(10, 8, 15, 1, result);\n  } \n\n  result = ggT(3418498731,4294967292);\n  if(result == 3){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("11.Test");\n    showFailMessage(11, 3418498731, 4294967292, 3, result);\n  } \n}\n\nint init_suite1(void)\n{\n  return 0;\n}\n\nint clean_suite1(void)\n{\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "test of ggT", test_ggT)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'DATATYPE', 'points': 10}, {'name': 'RECURSION', 'points': 10}, {'name': 'einfach'}], 'orderBy': 3250, 'prerequisites': [], 'unlockableAssets': []}}
+

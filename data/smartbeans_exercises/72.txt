@@ -1,0 +1,118 @@
+SHORTNAME:
+Datumsberechnung
+
+TITLE:
+Anhand von Datum Tag im Jahr berechnen und umgekehrt
+
+TASKID:
+72
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine Funktion
+```
+int datum2int(int tag, int monat)
+```
+die ein Datum in den Tag im Jahr (z.B. der 11.2. ist der 42. Tag im Jahr) und eine Funktion
+```
+void int2datum(int tage, int* ergebnis)
+```
+die einen Tag im Jahr in ein Datum umrechnet. `ergebnis` ist ein Feld, in dem der erste Eintrag dem Tag und der zweite Eintrag dem Monat entsprechen soll. Gehen Sie dabei davon aus, dass der Februar immer 28 Tage hat. 
+
+
+SOLUTION:
+#include<stdio.h>
+#include<stdlib.h>
+
+int datum2int(int tag, int monat);
+void int2datum(int tage, int* ergebnis);
+/*
+int main(){
+  printf("%d\n",datum2int(11,2) );
+  int *ergebnis=(int *) calloc(2,sizeof(int));
+  int2datum(31, ergebnis);
+  printf("%d.%d\n", *ergebnis, *(ergebnis+1) );
+  int *ergebnis1=(int *) calloc(2,sizeof(int));
+  int2datum(365, ergebnis1);
+
+  printf("%d.%d\n", *ergebnis1, *(ergebnis1+1) );
+  free(ergebnis);
+  free(ergebnis1);
+}*/
+
+
+int datum2int(int tag, int monat){
+  int day=tag;
+  for(int i=1; i<monat;i++){
+    //printf("day: %d \n", day);
+    if(i==2){
+      day+=28;
+    }
+    else if((i%2)==0 && i<=7){
+      day+=30;
+    }
+    else if((i%2)==0 && i>7){
+      day+=31;
+    }
+    else if((i%2)==1 && i<=7){
+      day+=31;
+    }
+    else{
+      day+=30;
+    }
+  }
+  return day;
+
+}
+
+void int2datum(int tage, int* ergebnis){
+  int counter=tage;
+  int *monthdays = (int *) calloc(13, sizeof(int));
+  for(int i=1; i<=12;i++){
+    if(i==2){
+      monthdays[i]=28;
+    }
+    else if((i%2)==0 && i<=7){
+      monthdays[i]=30;
+    }
+    else if((i%2)==0 && i>7){
+      monthdays[i]=31;
+    }
+    else if((i%2)==1 && i<=7){
+      monthdays[i]=31;
+    }
+    else{
+      monthdays[i]=30;
+    }
+  }
+  for(int i=1; i<=12;i++){
+    //printf("counter: %d, monatstage: %d Datum: %d.%d \n", counter,monthdays[i], *(ergebnis+1),*ergebnis);
+    if(counter-monthdays[i]<=0){
+        *(ergebnis+1)=*(ergebnis+1)+1;
+        *ergebnis=counter;
+        break;
+    }
+    counter-=monthdays[i];
+    *(ergebnis+1)=*(ergebnis+1)+1;
+
+  }
+
+  free(monthdays);
+  return;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessagedatum2int(int test_num, int input1, int input2, int exp, int act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (datum2int(%d, %d))\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input1, input2, exp, act);\n}\n\nvoid showFailMessageint2datum(int test_num, int input1, int exp1, int exp2, int *act){\n  char act_string[1000];\n  if(act == NULL){\n    sprintf(act_string, "NULL");\n  } else {\n    sprintf(act_string, "%d, %d", act[0], act[1]);\n  }\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (int2datum(%d, ergebnis))\\n\\\n            Erwartete Ausgabe:    (%d, %d)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n", test_num, input1, exp1, exp2, act_string);\n}\n \n\nvoid test_datum2int(void){\n  int result = datum2int(1,1);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessagedatum2int(1, 1, 1, 1, result);\n  }\n\n  result = datum2int(31,1);\n  if(result == 31){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessagedatum2int(2, 31, 1, 31, result);\n  }\n\n  result = datum2int(1,2);\n  if(result == 32){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessagedatum2int(3, 1, 2, 32, result);\n  }\n\n  result = datum2int(1,3);\n  if(result == 60){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessagedatum2int(4, 1, 3, 60, result);\n  }\n    \n  result = datum2int(4,10);\n  if(result == 277){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessagedatum2int(5, 4, 10, 277, result);\n  }\n\n  result = datum2int(31,12);\n  if(result == 365){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessagedatum2int(6, 31, 12, 365, result);\n  }\n}\n\nvoid test_int2datum(void){\n  int ergebnis[2];\n  ergebnis[0] = 0;\n  ergebnis[1] = 0;\n\n  int2datum(1,ergebnis);\n  if (ergebnis[0]==1 && ergebnis[1]==1) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL(7.Test);\n    showFailMessageint2datum(7, 1, 1, 1, ergebnis);\n  }\n\n  ergebnis[0] = 0;\n  ergebnis[1] = 0;\n\n  int2datum(31,ergebnis);\n  if (ergebnis[0]==31 && ergebnis[1]==1) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL(8.Test);\n    showFailMessageint2datum(8, 31, 31, 1, ergebnis);\n  }\n\n  ergebnis[0] = 0;\n  ergebnis[1] = 0;\n\n  int2datum(32,ergebnis);\n  if (ergebnis[0]==1 && ergebnis[1]==2) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL(9.Test);\n    showFailMessageint2datum(9, 32, 1, 2, ergebnis);\n  }\n\n  ergebnis[0] = 0;\n  ergebnis[1] = 0;\n\n  int2datum(60,ergebnis);\n  if (ergebnis[0]==1 && ergebnis[1]==3) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL(10.Test);\n    showFailMessageint2datum(10, 60, 1, 3, ergebnis);\n  }\n\n  ergebnis[0] = 0;\n  ergebnis[1] = 0;\n\n  int2datum(277,ergebnis);\n  if (ergebnis[0]==4 && ergebnis[1]==10) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL(11.Test);\n    showFailMessageint2datum(11, 277, 4, 10, ergebnis);\n  }\n\n  ergebnis[0] = 0;\n  ergebnis[1] = 0;\n\n  int2datum(365,ergebnis);\n  if (ergebnis[0]==31 && ergebnis[1]==12) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL(12.Test);\n    showFailMessageint2datum(12, 365, 31, 12, ergebnis);\n  }\n}\n\nint init_suite1(void)\n{\n  return 0;\n}\n\nint clean_suite1(void)\n{\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "test 2 Datumsberechnung", test_datum2int)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  if ((NULL == CU_add_test(pSuite, "test 1 Datumsberechnung", test_int2datum)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'CONTROL', 'points': 40}, {'name': 'ARRAY', 'points': 40}, {'name': 'schwierig'}], 'orderBy': 5900, 'prerequisites': [], 'unlockableAssets': []}}
+

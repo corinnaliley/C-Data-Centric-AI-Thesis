@@ -1,0 +1,45 @@
+WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden
+Um WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.
+Hier sind die erforderlichen Schritte für die Einrichtung:
+1. Voraussetzungen schaffen
+
+    WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.
+    VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).
+    WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen“ (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.
+
+2. WSL-Erweiterung installieren
+
+    Starten Sie VS Code unter Windows.
+    Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).
+    Suchen Sie nach der Erweiterung „WSL“ (früher „Remote - WSL“) oder installieren Sie das „Remote Development“-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.
+    Klicken Sie auf Installieren.
+
+3. Verbindung herstellen
+Es gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:
+
+    Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.
+    Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL“ (oder „WSL: Connect to WSL using Distro“ für eine spezifische Distribution) ein.
+    Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.
+
+Woran erkennen Sie die erfolgreiche Einbindung?
+Nachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu“), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt.
+
+
+
+"question": "Welche Editoren stehen in der Klausur zur Verfügung?",
+"answer": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar."
+
+   "question": "Gibt es in der Klausur Schmierpapier?",
+    "answer": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus."
+
+       "question": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
+    "answer": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt."
+
+        "question": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
+    "answer": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted."
+
+   "question": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+    "answer": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable."
+
+   "question": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
+    "answer": "Nein. Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler."

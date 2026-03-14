@@ -1,0 +1,128 @@
+[
+  {
+    "id": "c_ptr_01",
+    "topic": "Pointer & Arrays",
+    "question": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
+    "answer": "Der Cast (int ()[9]) s ist inkorrekt. Ein 'const int **s' ist ein Zeiger auf Pointer, kein direktes 2D-Array. Die Speicheradressen sollten mit %p geprüft werden."
+  },
+  {
+    "id": "c_mem_01",
+    "topic": "Initialisierung",
+    "question": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
+    "answer": "Allokierte Variablen (int p[]) werden nicht automatisch auf 0 gesetzt. Ohne explizite Initialisierung enthalten sie Garbage-Data, was bei Inkrementen (++) zu Fehlern führt."
+  },
+  {
+    "id": "c_str_01",
+    "topic": "Encoding",
+    "question": "Belegt das Sonderzeichen 'ö' mehr als einen Byte Speicher?",
+    "answer": "Ja, 'ö' kann in UTF-8 zwei Bytes belegen. Beim Kopieren muss sichergestellt werden, dass über alle Bytes iteriert wird."
+  },
+  {
+    "id": "c_str_02",
+    "topic": "Null-Terminator",
+    "question": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
+    "answer": "Nein. Das '\\0'-Zeichen kann kein Bestandteil von 'ö' sein. Probleme entstehen nur, wenn die Kopierschleife den Terminator aufgrund falscher Längenangaben (len) vergisst."
+  },
+  {
+    "id": "c_str_03",
+    "topic": "Speicherfehler",
+    "question": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
+    "answer": "Wenn strlen(string) 25 ergibt, aber nur len=24 reserviert wird, fehlt der Platz für '\\0'. Das Programm liest Garbage-Data über das Ende hinaus."
+  },
+  {
+    "id": "c_exam_01",
+    "topic": "Editoren",
+    "question": "Welche Editoren stehen in der Klausur zur Verfügung?",
+    "answer": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar."
+  },
+  {
+    "id": "c_exam_02",
+    "topic": "Hilfsmittel",
+    "question": "Gibt es in der Klausur Schmierpapier?",
+    "answer": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus."
+  },
+  {
+    "id": "c_exam_03",
+    "topic": "Volltextsuche",
+    "question": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
+    "answer": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt."
+  },
+  {
+    "id": "c_exam_04",
+    "topic": "Syntax-Highlighting",
+    "question": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
+    "answer": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted."
+  },
+  {
+    "id": "c_tool_01",
+    "topic": "SmartBeans-Return",
+    "question": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
+    "answer": "SmartBeans erwartet 'return 0;'. Andere Werte werden als Programmfehler interpretiert. Empfohlen ist die Nutzung von 'EXIT_SUCCESS' aus stdlib.h."
+  },
+  {
+    "id": "c_tool_02",
+    "topic": "Variablen-Initialisierung",
+    "question": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+    "answer": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable."
+  },
+  {
+    "id": "c_tool_03",
+    "topic": "Linker-Fehler",
+    "question": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
+    "answer": "Der Linker findet keine main-Funktion. Das passiert meist, wenn die lokale Testdatei beim Kompilieren nicht mit angegeben wurde."
+  },
+  {
+    "id": "c_tool_04",
+    "topic": "Abgabe-Fehler",
+    "question": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
+    "answer": "Nein. Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler."
+  },
+  {
+    "id": "c_syntax_01",
+    "topic": "Kommandozeile",
+    "question": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
+    "answer": "Man darf kein 'scanf' zur Laufzeit nutzen. Die Werte müssen über 'int main(int argc, char* argv[])' beim Programmstart entgegengenommen werden."
+  },
+  {
+    "id": "c_syntax_02",
+    "topic": "Statische Dimensionierung",
+    "question": "Was ist eine statische Dimensionierung bei Matrizen?",
+    "answer": "Die Array-Größe muss zur Compilezeit feststehen (z.B. [20][20]), realisiert durch Makros (#define) oder benannte Konstanten."
+  },
+  {
+    "id": "c_syntax_03",
+    "topic": "Static Keyword",
+    "question": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+    "answer": "Es sorgt dafür, dass das Array im statischen Speicherbereich bleibt und über das Ende der Funktion hinaus gültig ist. So können Zeiger darauf sicher zurückgegeben werden."
+  },
+  {
+    "id": "c_exam_05",
+    "topic": "Prüfungsrelevanz",
+    "question": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
+    "answer": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende Klausur nicht relevant."
+  },
+  {
+    "id": "c_admin_01",
+    "topic": "SmartBeans-Reset",
+    "question": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
+    "answer": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den Account zurücksetzen zu lassen."
+  },
+  {
+    "id": "c_exam_06",
+    "topic": "Zulassung",
+    "question": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
+    "answer": "Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt."
+  },
+  {
+    "id": "c_syntax_04",
+    "topic": "Memory & Scope",
+    "question": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
+    "answer": "Ohne 'static' ist das Array lokal auf dem Stack gespeichert und wird gelöscht, sobald die Funktion endet. Der zurückgegebene Zeiger würde auf ungültigen Speicher zeigen (Dangling Pointer). Mit 'static' bleibt der Speicherbereich über die gesamte Programmlaufzeit bestehen, sodass der Zeiger auch außerhalb der Funktion gültig bleibt."
+  },
+  {
+    "id": "c_syntax_05",
+    "topic": "Arrays & Definition",
+    "question": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+    "answer": "Es bedeutet, dass die Matrix-Arrays zur Compilezeit eine feste Maximalgröße haben müssen (z. B. 20x20), oft realisiert über #define oder 'const' Variablen. Das Keyword 'static' ist hier nicht gemeint; dieses steuert die Sichtbarkeit und Lebensdauer von Variablen, nicht die Dimensionierung von Arrays in der Aufgabenstellung."
+  }
+]

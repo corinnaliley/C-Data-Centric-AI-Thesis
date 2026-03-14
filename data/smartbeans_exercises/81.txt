@@ -1,0 +1,49 @@
+SHORTNAME:
+Schaltjahr
+
+TITLE:
+Schaltjahre bestimmen
+
+TASKID:
+81
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+int schaltjahr(int jahr){
+  if(jahr % 4 != 0){
+    return 0;
+  }
+  if(jahr % 100 == 0){
+    if(jahr % 400 == 0){
+      return 1;
+    }
+    return 0;
+  }
+  return 1;
+}
+
+
+LANG:
+c
+
+TASK:
+Zu einer eingegebenen Jahreszahl soll bestimmt werden, ob es sich um ein Schaltjahr handelt, oder nicht. Realisieren Sie eine Funktion
+```
+int schaltjahr(int jahr);
+```
+die den Wert `0` liefert, falls das Argument keine Schaltjahreszahl ist und `1` sonst.
+
+Der Gregorianische Kalender legt fest, dass jedes Jahr mit durch 4 teilbarer Jahreszahl ein Schaltjahr ist, außer wenn die Jahreszahl durch 100 teilbar ist. In diesem Fall handelt es sich nur dann um ein Schaltjahr, wenn die Jahreszahl auch durch 400 teilbar ist.
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, int input1, int exp, int act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (%d)\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input1, exp, act);\n}\n \nvoid test_schaltjahr(void){\n  int result = schaltjahr(0);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, 0, 1, result);\n  } \n\n  result = schaltjahr(100);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, 100, 0, result);\n  } \n\n  result = schaltjahr(400);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, 400, 1, result);\n  } \n\n  result = schaltjahr(1996);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, 1996, 1, result);\n  } \n\n  result = schaltjahr(1997);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, 1997, 0, result);\n  } \n\n  result = schaltjahr(1999);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, 1999, 0, result);\n  } \n\n  result = schaltjahr(2000);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("7.Test");\n    showFailMessage(7, 2000, 1, result);\n  } \n\n  result = schaltjahr(2100);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("8.Test");\n    showFailMessage(8, 2100, 0, result);\n  } \n}\n\nint init_suite1(void){\n  return 0;\n}\n\nint clean_suite1(void){\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\n  CU_pSuite pSuite = NULL;\n\n  /* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "test of schaltjahr", test_schaltjahr))){\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1500, 'prerequisites': [], 'unlockableAssets': ['new-york-city-basic-pants', 'new-york-city-basic-shirt']}}
+

@@ -1,0 +1,186 @@
+shortname: "Hauskauf" #D14
+title: "Wie lange für ein Haus gespart werden muss"
+taskid: 414
+defaultEditorInput: |
+lang: "c"
+task: |
+  Emily und Sarah möchten ein Haus kaufen. Sie haben daher ein Sparkonto angelegt, auf welches Emily `emily_sparen`€ und Sarah `sparen_sarah`€ überweist.
+  Zu Beginn jedes Monats wird der Betrag auf diesem Konto mit 1.5% verzinst. 
+  Am Ende jedes Monats überweisen sowohl Sarah, als auch Emily weitere 1000€.
+  Zusätzlich steigen die Zinsen alle 3 Jahre um 0.1 Prozentpunkte. 
+  Das Haus kostet `haus_kosten`€. 
+  Wie viele Jahre dauert es, bis sich die beiden das Haus leisten können?  
+    
+  Hinweis: Der Zinssatz wird bereits zu Beginn des ersten Monats das erste Mal erhöht!
+   
+  Schreiben Sie eine Funktion 
+  ```
+  int hauskauf(float sparen_emily, float sparen_sarah, int haus_kosten)
+  ```
+  
+  die diese Frage beantwortet.
+  
+  Die Funktion nimmt die Ersparnisse von Emily und Sarah als `float`-Werte entgegen und außerdem den Wert des Hauses als `int`. 
+  Sie gibt die Anzahl der Monate zurück, die es mindestens dauert, bis das Haus finanzierbar ist. 
+   
+  ### Beispielaufruf
+   
+  ```
+  int monate = hauskauf(15000.0, 20000.42, 80000);
+  ```
+   
+  ### Beispielergebnis
+   
+  ```
+  monate = 16
+  ```
+solution: |
+  int hauskauf(float sparen_emily, float sparen_sarah, int haus_kosten){
+    float diff = sparen_emily + sparen_sarah - haus_kosten;
+    float konto = sparen_emily + sparen_sarah;
+    float zins_mult = 1.015;
+    int months = 0;
+    while(diff < 0){
+        konto = konto * zins_mult;
+        if(months % 36 == 0){
+            zins_mult += 0.001;
+        }
+        konto += 2000;
+        months++;
+        diff = konto-haus_kosten;
+    }
+    return months;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include <string.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        
+        void test_hauskauf(void){
+          // Testcase Beispiel
+          if(hauskauf(15000.0, 20000.42, 80000)==16)
+            {CU_PASS("Erfolg! Eingabe: (15000.0, 20000.42, 80000) Erwartete Ausgabe: (16)");}
+          else {
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (15000.0, 20000.42, 80000)\n\
+                    Erwartete Ausgabe:    (16)\n\
+                    Tatsächliche Ausgabe: (%d)\n", hauskauf(15000.0, 20000.42, 80000));
+            CU_FAIL("1.Test");
+          }
+          
+          // Testcase Beispiel aber teurer
+          if(hauskauf(15000.0, 20000.42, 160000)==37)
+            {CU_PASS("Erfolg! Eingabe: (15000.0, 20000.42, 160000) Erwartete Ausgabe: (37)");}
+          else {
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (15000.0, 20000.42, 160000)\n\
+                    Erwartete Ausgabe:    (37)\n\
+                    Tatsächliche Ausgabe: (%d)\n", hauskauf(15000.0, 20000.42, 160000));
+            CU_FAIL("2.Test");
+          }
+          
+          // Testcase Beispiel aber mehr Ersparnisse
+          if(hauskauf(40000.123, 25000.25, 80000)==5)
+            {CU_PASS("Erfolg! Eingabe: (40000.123, 25000.25, 80000) Erwartete Ausgabe: (5)");}
+          else {
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (40000.123, 25000.25, 80000)\n\
+                    Erwartete Ausgabe:    (5)\n\
+                    Tatsächliche Ausgabe: (%d)\n", hauskauf(40000.123, 25000.25, 80000));
+            CU_FAIL("3.Test");
+          }
+          
+          // Testcase Beispiel aber weniger Ersparnisse
+          if(hauskauf(1507.34, 20001.44, 80000)==22)
+            {CU_PASS("Erfolg! Eingabe: (40000.123, 25000.25, 80000) Erwartete Ausgabe: (22)");}
+          else {
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              (1507.34, 20001.44, 80000)\n\
+                    Erwartete Ausgabe:    (22)\n\
+                    Tatsächliche Ausgabe: (%d)\n", hauskauf(1507.34, 20001.44, 80000));
+            CU_FAIL("4.Test");
+          }
+        
+          // Testcase Rags to Riches
+          if(hauskauf(0.0, 0.0, 1000000)==131)
+            {CU_PASS("Erfolg! Eingabe: (0.0, 0.0, 1000000) Erwartete Ausgabe: (131)");}
+          else {
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              (0.0, 0.0, 1000000)\n\
+                    Erwartete Ausgabe:    (131)\n\
+                    Tatsächliche Ausgabe: (%d)\n", hauskauf(0.0, 0.0, 1000000));
+            CU_FAIL("5.Test");
+          }
+          
+          // Testcase Sie können es sich schon leisten
+          if(hauskauf(30000.0, 30000.0, 50000)==0)
+            {CU_PASS("Erfolg! Eingabe: (30000.0, 30000.0, 50000) Erwartete Ausgabe: (0)");}
+          else {
+            printf("\n    6.Test: Fehler!\n\
+                    Eingabe:              (30000.0, 30000.0, 50000)\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%d)\n", hauskauf(30000.0, 30000.0, 50000));
+            CU_FAIL("6.Test");
+          }
+          
+          // Testcase random
+          if(hauskauf(1111.11, 5656.56, 191919)==55)
+            {CU_PASS("Erfolg! Eingabe: (30000.0, 30000.0, 50000) Erwartete Ausgabe: (55)");}
+          else {
+            printf("\n    7.Test: Fehler!\n\
+                    Eingabe:              (1111.11, 5656.56, 191919)\n\
+                    Erwartete Ausgabe:    (55)\n\
+                    Tatsächliche Ausgabe: (%d)\n", hauskauf(1111.11, 5656.56, 191919));
+            CU_FAIL("7.Test");
+          }
+        }
+
+        
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+        
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Hauskauf", test_hauskauf))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "DATATYPE", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 3060
+    prerequisites: []
+    unlockableAssets: []

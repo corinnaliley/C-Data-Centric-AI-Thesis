@@ -1,0 +1,49 @@
+SHORTNAME:
+Grundstruktur
+
+TITLE:
+Struktur eines C-Programms
+
+TASKID:
+808
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include<stdio.h>
+
+void main() {
+    puts("Hello World!");
+}
+
+
+LANG:
+c
+
+TASK:
+Programme in C sind immer nach fast dem gleichen Schema aufgebaut: Sie können `include`-Direktiven beinhalten, die Funktionalität von extern einbinden und sie enthalten immer eine `main`-Funktion. Funktionen ähneln ein wenig den aus der Mathematik bekannten Funktionen, sie lassen sich etwa definieren (wie hier `main`) oder aufrufen (wie hier `puts`). Fürs erste müssen wir aber nur wissen, dass C zu Beginn eines jeden Programms die Funktion mit dem Namen `main` aufruft. Dabei stehen innerhalb der geschweiften Klammern `{ }` durch je ein Semikolon getrennte Befehle, die dann nacheinander ausgeführt werden. Zusätzlich müssen wir noch den Typ `void` angeben, da keine Rückgabe gemacht wird.
+
+Für ein sehr einfaches Programm verwenden wir die Funktion `puts`, die Text ausgeben kann. Text schreibt man in C in Anführungszeichen `""`. Die Funktion `puts` wird zwar von C mitgeliefert, muss aber in unserem Programm zunächst noch bekannt gemacht werden. Die Systemdatei `stdio.h` enthält mehrere solcher Definitionen (Deklarationen) und wird mit `#include` eingebunden.
+
+---
+```
+#include<stdio.h>
+
+void main() {
+    puts("Hello");
+}
+```
+
+Ändere das obere Programm so ab, dass es den Text `Hello World!` ausgibt!
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': 'Hello World!\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'test': {'tags': [{'name': 'IO', 'points': 10}, {'name': 'sehr einfach'}], 'orderBy': 20, 'prerequisites': [], 'unlockableAssets': []}}
+

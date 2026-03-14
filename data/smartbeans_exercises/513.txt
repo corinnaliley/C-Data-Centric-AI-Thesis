@@ -1,0 +1,90 @@
+SHORTNAME:
+lexikographisches Sortieren
+
+TITLE:
+lexikographischenes Sortieren eines Feldes
+
+TASKID:
+513
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine Funktion mit folgendem Prototyp 
+
+```
+int lex_sorted( const char* array[] );
+```
+
+Im Feld `array` werden Strings (genauer: Zeiger auf die erste Speicherstelle von `char`-Feldern) übergeben, 
+der Wert der letzten Feldkomponente von `array` ist der Null-Zeiger.
+Die Funktion prüft, ob die Strings im Feld `array` lexikographisch aufsteigend sortiert
+sind. Der Funktionswert ist `1` wenn dies der Fall ist, sonst `0`.
+
+Verwenden Sie für die lexikographischen Vergleiche der Strings die Funktion `strcmp`, die
+mit folgendem Prototyp in der Standardheaderdatei `string.h` deklariert ist.
+
+```
+int strcmp( const char *s1, const char *s2 );
+```
+
+Die Funktion liefert einen `int`-Wert kleiner, gleich oder größer Null, je nachdem, ob der
+String, auf dessen Anfang `s1` zeigt, lexikographisch kleiner, gleich oder größer ist als der
+String, auf dessen Anfang `s2` zeigt.
+
+*Hinweise*
+
+- Sie brauchen nicht zu prüfen, ob `array` verschieden von `NULL` ist, dass ist beim Aufruf der Funktion bereits geklärt.
+- Achten Sie auf die Grenzfälle, z.B. leeres Feld oder Feld enthält nur ein Element.
+- Die Kenntnis der von `strcmp` verwendeten lexikographischen Ordnung ist für das Lösen der Aufgabe nicht erforderlich.
+
+### Beispielaufruf
+```
+const char* s[5];
+s[0] = "1";
+s[1] = "4";
+s[2] = "test";
+s[3] = "2";
+s[4] = NULL;
+
+lex_sorted(s)
+```
+### Beispielergebnis
+```
+0 
+```
+
+
+SOLUTION:
+#include <stdio.h>
+#include <string.h>
+
+int lex_sorted(const char * array [] ) {
+  int i ;
+
+  /* Grenzfaelle */
+  if ( array [0] == NULL || array [1] == NULL )
+    return 1;
+  
+  /* Ueberpruefung */
+  for ( i = 1; array [ i ] != NULL ; i ++ ) {
+    if ( strcmp ( array [i -1] , array [ i ]) > 0 )
+    return 0;
+  }
+  return 1;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, const char** arr, int exp, int act){\n  char  arr_formated[5000];\n  sprintf(arr_formated, "{");\n  int i = 0;\n  while(arr[i] != NULL){\n    sprintf(arr_formated, "%s\\"%s\\", ", arr_formated, arr[i]);\n    i++;\n  }\n  sprintf(arr_formated, "%s%s", arr_formated, arr[i]);\n  sprintf(arr_formated, "%s}", arr_formated);\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (%s)\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, arr_formated, exp, act);\n}\n\nvoid test1(void){\n  const char* s[5];\n  s[0] = "1";\n  s[1] = "4";\n  s[2] = "test";\n  s[3] = "2";\n  s[4] = NULL;\n  int result = lex_sorted(s);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, s, 0, result);\n  }       \n\n  const char* s2[1];\n  s2[0] = NULL;\n  result = lex_sorted(s2);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, s2, 1, result);\n  }   \n\n  const char* s3[10];\n  s3[0] = "Zelt";\n  s3[1] = NULL;\n  result = lex_sorted(s3);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, s3, 1, result);\n  }\n\n  const char* s4[5];\n  s4[0] = "1";\n  s4[1] = "10";\n  s4[2] = "2";\n  s4[3] = "aber";\n  s4[4] = NULL;\n  result = lex_sorted(s4);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, s4, 1, result);\n  } \n\n  const char* s5[6];\n  s5[0] = "aller";\n  s5[1] = "Anfang";\n  s5[2] = "ist";\n  s5[3] = "schwer";\n  s5[4] = NULL;\n  result = lex_sorted(s5);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, s5, 0, result);\n  } \n\n  const char* s6[7];\n  s6[0] = "Bär";\n  s6[1] = "Bären";\n  s6[2] = "Zebra";\n  s6[3] = "anderer";\n  s6[4] = "anders";\n  s6[5] = "zeilenweise";        \n  s6[6] = NULL;\n  result = lex_sorted(s6);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, s6, 1, result);\n  } \n\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "lexikographisches Sortieren", test1))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 20}, {'name': 'SORT', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5000, 'prerequisites': [], 'unlockableAssets': []}}
+

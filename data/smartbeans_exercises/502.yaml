@@ -1,0 +1,161 @@
+shortname: "Josephus-Problem" #N2
+title: "Berechnung Josephus-Problem mit Schrittzahl 2"
+taskid: 502
+defaultEditorInput: |
+lang: "c"
+task: |
+  Das allgemeine Josephus-Problem kann <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Josephus-Problem">**hier**</a> auf Wikipedia nachgelesen werden.
+
+  Für den Fall, dass anfangs n Elemente mit n > 0 vorhanden sind und jedes 2. Element entfernt werden soll lässt sich das zuletzt entfernte Objekt mit folgendem Bildungsgesetz `J` bestimmen:
+  
+  - Für n = 1 gilt J(n) = 1
+  - Für n &gt; 1 gilt
+    - J(n) = 2*J(n/2) - 1,      falls n gerade ist
+    - J(n) = 2*J((n-1)/2) + 1,  falls n ungerade ist
+
+  Schreiben Sie eine rekursive Funktion 
+  ```
+  int josephus(int n)
+  ```
+  die für ein gegebenes `n` die Nummer `J(n)` des zuletzt entfernten Objektes findet.
+
+  ### Beispielaufruf
+  ```
+  josephus(4)
+  josephus(7)
+  josephus(12)
+  ```
+  ### Beispielergebnis
+  ```
+  1
+  7
+  9
+  ```
+solution: |
+  int josephus(int n) {
+    if (n == 1)
+        return 1;
+    if (n %2 == 0) {
+      return 2*josephus(n/2) -1;
+    }
+    else
+      return 2*josephus(n/2)+1;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int exp, int act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (%d)\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, exp, act);
+        }
+
+
+        void test(void){
+          if(josephus(1)==1){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, 1, 1, josephus(1));
+          }
+
+          if(josephus(2)==1){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, 2, 1, josephus(2));
+          }
+
+          if(josephus(3)==3){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("3.Test");
+            showFailMessage(3, 3, 3, josephus(3));
+          }
+
+          if(josephus(6)==5){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("4.Test");
+            showFailMessage(4, 6, 5, josephus(6));
+          }
+
+          if(josephus(7)==7){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("5.Test");
+            showFailMessage(5, 7, 7, josephus(7));
+          }
+
+          if(josephus(13)==11){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("6.Test");
+            showFailMessage(6, 13, 11, josephus(13));
+          }
+
+          if(josephus(16)==1){
+            CU_PASS("Erfolg! Eingabe (16) Erwartete Ausgabe (1)");
+          }
+          else{
+            CU_FAIL("7.Test");
+            showFailMessage(7, 16, 1, josephus(16));
+          }
+        }
+
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Josephus-Problem", test)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 2900
+    prerequisites: []
+    unlockableAssets: []

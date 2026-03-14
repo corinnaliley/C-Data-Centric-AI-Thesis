@@ -1,0 +1,92 @@
+SHORTNAME:
+Permutation mit Speicher
+
+TITLE:
+Permutation variabler Länge mithilfe von Speicher erkennen
+
+TASKID:
+517
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Programmieren Sie eine Funktion, mit folgendem Prototyp
+
+```
+int is_perm(const int perm[], int length);
+```
+
+die testet, ob das Feld der Länge `length` , auf dessen Anfang `perm` zeigt, eine Permutation der Zahlen `1, 2, ..., length` beschreibt.
+
+*Anforderungen:*
+
+- Die Funktion liefert bei einem Fehler einen negativen Wert zurück.
+- Handelt es sich um eine Permutation der Zahlen `1, 2, ..., length` wird ein positiver Wert zurückgeliefert, andernfalls wird `0` zurückgeliefert.
+- Berücksichtigen Sie den Fall, dass perm Werte nicht aus `1, 2, ..., length` enthält.
+- Testen Sie wie folgt.
+  1. Speicher für ein `int`-Feld `anzahl` der Länge `length` auf dem Heap anfordern (hier kann ein Fehler auftreten).
+  2. Für jeden Wert *k* aus `1, 2, ..., length` wird im Feld `anzahl` abgespeichert, wie oft *k* im Feld `perm` vorkommt.
+  3. Enthalten alle Komponenten des Feldes `anzahl` den Wert 1 handelt es sich um eine passende Permutation.
+  4. Vor Beendigung der Funktion wird der angeforderten Speicher wieder freigegeben.
+
+### Beispielaufruf
+```
+int p1[] = {1, 3, 4, 5, 0};
+is_perm(p1, 5)
+```
+### Beispielergebnis
+```
+0
+```
+
+
+SOLUTION:
+#include <stdio.h>
+#include <stdlib.h>
+
+int is_perm(int perm[], int laenge) {
+
+  int *anzahl;
+  int wert = 1;
+  int i;
+
+  if (perm == NULL)
+    return -1;
+
+  /* Test auf wohldefiniert Eingabe , siehe unten */
+  for (i = 0; i < laenge; i++) {
+    if (perm[i] < 1 || perm[i] > laenge)
+      return 0;
+    /* Fehler waere auch OK */
+  }
+
+  if ((anzahl = malloc(laenge * sizeof(int))) == NULL)
+    return -3;
+
+  for (i = 0; i < laenge; i++)
+    anzahl[i] = 0;
+
+  for (i = 0; i < laenge; i++)
+    ++anzahl[perm[i] - 1];
+
+  for (i = 0; i < laenge; i++)
+    wert = wert & (anzahl[i] == 1);
+
+  free(anzahl);
+  return wert;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, const int* arr, int length, int exp, int act){\n  char  input_formated[5000];\n  if(arr == NULL){\n    sprintf(input_formated, "NULL");\n  } else {\n    sprintf(input_formated, "{");\n    for(int j = 0; j < length; j++){\n      sprintf(input_formated, "%s%d", input_formated, arr[j]);\n      if(j < length-1){\n        sprintf(input_formated, "%s, ", input_formated);\n      }\n    }\n    sprintf(input_formated, "%s}", input_formated);\n  }\n  char  exp_formated[5000];\n  if(exp == 0){\n    sprintf(exp_formated, "0");\n  } else if(exp <0){\n    sprintf(exp_formated, "< 0");\n  } else {\n    sprintf(exp_formated, "> 0");\n  }\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (%s, %d);\\n\\\n            Erwartete Ausgabe:    (%s)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input_formated, length, exp_formated, act);\n}\n\n\nvoid test1(void){\n  int p1[] = {1, 3, 4, 5, 0};\n  int p2[] = {5, 4, 3, 1, 2};\n  int p3[] = {5, 4, 1, 1, 2};\n  int p4[] = {1};\n  int *p5 = NULL;\n  int p6[] = {1, 2, 3, 4, 9};\n\n  int p1_print[] = {1, 3, 4, 5, 0};\n  int p2_print[] = {5, 4, 3, 1, 2};\n  int p3_print[] = {5, 4, 1, 1, 2};\n  int p4_print[] = {1};\n  int p5_print[] = {};\n  int p6_print[] = {1, 2, 3, 4, 9};\n\n  int *q = p1;        \n  int result = is_perm(q, 5);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, p1_print, 5, 0, result);\n  } \n\n  q = p2;\n  result = is_perm(q, 5);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, p2_print, 5, 1, result);\n  }\n\n  q = p3;\n  result = is_perm(q, 5);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, p3_print, 5, 0, result);\n  }\n\n  q = p4;\n  result = is_perm(q, 1);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, p4_print, 1, 1, result);\n  }\n\n  q = p6;\n  result = is_perm(q, 5);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, p6_print, 5, 0, result);\n  }\n\n  q = p5;\n  result = is_perm(q, 0);\n  if(result < 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, p5, 0, -1, result);\n  }\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Permutation mit Speicher", test1))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 20}, {'name': 'MEMORY', 'points': 20}, {'name': 'mittel'}], 'orderBy': 3700, 'prerequisites': [], 'unlockableAssets': []}}
+

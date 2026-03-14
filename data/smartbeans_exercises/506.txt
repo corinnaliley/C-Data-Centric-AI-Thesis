@@ -1,0 +1,71 @@
+SHORTNAME:
+Ampel
+
+TITLE:
+Ampelphasen berechnen
+
+TASKID:
+506
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include <stdio.h>
+
+int main() {
+  int n;
+  scanf("%d", &n);
+
+  switch (n % 4) {
+  case 0:
+    printf("ROT");
+    break;
+  case 1:
+    printf("ROT/GELB");
+    break;
+  case 2:
+    printf("GRÜN");
+    break;
+  case 3:
+    printf("GELB");
+    break;
+  }
+
+  return 0;
+}
+
+
+LANG:
+c
+
+TASK:
+Eine Ampel kann als fortlaufende Zahl an Zeiteinheiten dargestellt werden. Die Ampel beginnt in der `ROT` Phase bei der Zeiteinheit 0. Jedesmal wenn die Zeiteinheit um eins vergrößert wird schaltet die Ampel eine Phase weiter. Die Phasen werden in folgender Reihenfolge durchgeschalten: `ROT`, `ROT/GELB`, `GRÜN`, `GELB`.
+
+Schreiben Sie ein Programm, das eine Zahl >= 0 einliest und ausgibt in welcher Phase sich die Ampel zu diesem Zeitpunkt befindet.
+
+### Beispieleingabe
+```
+4
+18
+21
+3
+```
+### Beispielausgabe
+```
+ROT
+GRÜN
+ROT/GELB
+GELB
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '4\n', 'stdout': 'ROT\n'}, {'args': [], 'stdin': '18\n', 'stdout': 'GRÜN\n'}, {'args': [], 'stdin': '21\n', 'stdout': 'ROT/GELB\n'}, {'args': [], 'stdin': '0\n', 'stdout': 'ROT\n'}, {'args': [], 'stdin': '1\n', 'stdout': 'ROT/GELB\n'}, {'args': [], 'stdin': '2\n', 'stdout': 'GRÜN\n'}, {'args': [], 'stdin': '3\n', 'stdout': 'GELB\n'}, {'args': [], 'stdin': '430\n', 'stdout': 'GRÜN\n'}, {'args': [], 'stdin': '2147483647\n', 'stdout': 'GELB\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1600, 'prerequisites': [], 'unlockableAssets': []}}
+

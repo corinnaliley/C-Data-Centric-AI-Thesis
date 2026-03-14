@@ -1,0 +1,75 @@
+SHORTNAME:
+Zahlenreihen IV
+
+TITLE:
+Berechnung von Zahlenreihen
+
+TASKID:
+516
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und a<sub>n</sub>=-2a<sub>n-1</sub>+3a<sub>n-2</sub> für n>1.
+
+Daraus ergibt sich folgender Anfang der Folge `A`.
+
+a<sub>0</sub>=0, a<sub>1</sub>=1, a<sub>2</sub>=-2, a<sub>3</sub>=7, a<sub>4</sub>=-20, a<sub>5</sub>=61, a<sub>6</sub>=-182, ...
+
+Programmieren Sie eine Funktion mit folgendem Prototyp
+
+```
+long iteA(unsigned int n);
+```
+
+die das `n`-te Glied der Folge `A` **iterativ** berechnet, d.h. die Funktion darf sich nicht selbst
+aufrufen.
+
+*Hinweise*
+- Für `n`>1 ist a<sub>n</sub> das Ergebnis `z` folgender Berechnung mit Startwerten `x=1` und `y=0` nach (`n`-1)-maliger Iteration.
+  - Summiere `-2x` und `3y`, speichere das Ergebnis in `z`. Für neue Iteration speichere Wert von `x` in `y` und Wert von `z` in `x`.
+- Kümmern Sie sich nicht um mögliche Überläufe, diese Problematik kann ignoriert werden.
+
+### Beispielaufruf
+```
+iteA(5)
+```
+### Beispielergebnis
+```
+61
+```
+
+
+SOLUTION:
+long iteA(unsigned int n) {
+  long y = 0;
+  long x = 1;
+  if (n == 0) {
+    return y;
+  }
+  if (n == 1) {
+    return x;
+  }
+  long z = 0;
+  for (unsigned int i = 1; i < n; i++) {
+    z = -2 * x + 3 * y;
+    y = x;
+    x = z;
+  }
+  return z;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, int input1, long exp, long act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (%d)\\n\\\n            Erwartete Ausgabe:    (%ld)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", test_num, input1, exp, act);\n}\n\n\nvoid test1(void){\n  long result = iteA(0);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, 0, 0, result);\n  } \n\n  result = iteA(1);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, 1, 1, result);\n  }\n\n  result = iteA(2);\n  if(result == -2){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, 2, -2, result);\n  }\n\n  result = iteA(5);\n  if(result == 61){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, 5, 61, result);\n  }  \n\n  result = iteA(7);\n  if(result == 547){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, 7, 547, result);\n  } \n  \n  result = iteA(8);\n  if(result == -1640){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, 8, -1640, result);\n  }\n\n  result = iteA(9);\n  if(result == 4921){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("7.Test");\n    showFailMessage(7, 9, 4921, result);\n  }\n\n  result = iteA(10);\n  if(result == -14762){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("8.Test");\n    showFailMessage(8, 10, -14762, result);\n  }\n\n  result = iteA(15);\n  if(result == 3587227){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("9.Test");\n    showFailMessage(9, 15, 3587227, result);\n  }    \n\n  result = iteA(18);\n  if(result == -96855122){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("10.Test");\n    showFailMessage(10, 18, -96855122, result);\n  }\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Zahlenreihen IV", test1))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'einfach'}], 'orderBy': 2600, 'prerequisites': [], 'unlockableAssets': []}}
+

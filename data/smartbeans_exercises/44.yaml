@@ -1,0 +1,49 @@
+shortname: "Konstanten ausgeben" #S4
+title: "Konstanten aus Standard-Headerdatei ausgeben"
+taskid: 44
+defaultEditorInput: |
+solution: |
+  #include<limits.h>
+  #include<float.h>
+  #include<stdio.h>
+  
+  int main() {
+    printf("CHAR_MIN: %d\nCHAR_MAX: %d\n", CHAR_MIN, CHAR_MAX);
+    printf("INT_MIN: %d\nINT_MAX: %d\n", INT_MIN, INT_MAX);
+    printf("FLT_MIN: %f\nFLT_MAX: %f\n", FLT_MIN, FLT_MAX);
+    printf("DBL_MIN: %lf\nDBL_MAX: %lf\n", DBL_MIN, DBL_MAX);
+    return 0;
+  }
+lang: "c"
+task: |
+  Schreiben Sie ein Programm, dass die Zahlwerte der Konstanten `CHAR_MIN`, `CHAR_MAX`, `INT_MIN`, `INT_MAX`, `FLT_MIN`, `FLT_MAX`, `DBL_MIN` und `DBL_MAX` ausgibt (Standard–Headerdateien `limits.h` bzw. `float.h`).
+ 
+  ### Beispielausgabe
+  ```
+  CHAR_MIN: -128
+  CHAR_MAX: 127
+  INT_MIN: -2147483648
+  INT_MAX: 2147483647
+  FLT_MIN: 0.000000
+  FLT_MAX: 340282346638528859811704183484516925440.000000
+  DBL_MIN: 0.000000
+  DBL_MAX: 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
+  ```
+tests: 
+  - testtype: "c-code"
+    testCases: 
+      - |
+        int main(){
+            return 0;
+        }
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags:
+      - {"name": "MODULE", "points": 10}
+      - {"name": "IO", "points": 10}
+      - {"name": "DATATYPE", "points": 10}
+      - {"name": "einfach"}
+    orderBy: 800
+    prerequisites: []
+    unlockableAssets: ["bride-hat", "bride-shirt"]

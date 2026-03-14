@@ -1,0 +1,208 @@
+shortname: "Bubblesort" #J6
+title: "Sortieren eines Feldes mit Bubblesort"
+taskid: 206
+defaultEditorInput: |
+lang: "c"
+task: |
+  Programmieren Sie eine Funktion 
+  ```
+  void sort(int *a, int len);
+  ```
+
+  die das übergebene nicht-leere Feld rekursiv **aufsteigend** sortiert. 
+  In jedem Rekursionsschritt wird das größte Element an das Ende des Feldes sortiert, indem nacheinander das aktuelle Element mit seinem direkten nachfolgenden Nachbarelement verglichen und gegebenenfalls getauscht wird. 
+  Dadurch wandert das Maximum des aktuell zu sortierenden Feldes an die hinterste Position, sodass das im nächsten Rekursionschritt zu sortierende Feld um eins verkleinert wird. 
+  Die Sortierfunktion ruft sich selbst mit angepassten Parametern auf. 
+
+  ### Beispielaufruf
+  ```
+  int a[] = {1,3,4,5,2,0};
+  sort(a, 6);
+  ```
+
+  ### Beispielergebnis
+  ```
+  0, 1, 2, 3, 4, 5
+  ```
+solution: |
+  void sort(int *a, int len) {
+    if (len == 1) {
+      return;
+    }
+
+    int tmp;
+    for (int i = 0; i < len-1; i++) {
+      if (a[i] > a[i+1]) {
+        tmp = a[i];
+        a[i] = a[i+1];
+        a[i+1] = tmp;
+      }
+    }
+    sort(a, len-1);
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int* arr, int length, int input, int exp,int act, int test_num){
+          char  arr_formated[5000];
+          sprintf(arr_formated, "{");
+          for(int j = 0; j < length; j++){
+            sprintf(arr_formated, "%s%d", arr_formated, arr[j]);
+            if(j < length -1){
+              sprintf(arr_formated, "%s, ", arr_formated);
+            }
+          }
+          sprintf(arr_formated, "%s}", arr_formated);
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (sort(%s, %d);\n\
+                                           a[%d];)\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, arr_formated, length, input, exp, act);
+        }
+
+        void test(void){
+          int a[] = {1,3,4,5,2,0};
+          int g[] = {1,3,4,5,2,0};
+          sort(a, 6);
+          if(a[0] == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(g, 6, 0, 0, a[0], 1);
+          }
+          if(a[1] == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(g, 6, 1, 1, a[1], 2);
+          }
+          if(a[2] == 2){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(g, 6, 2, 2, a[2], 3);
+          }
+
+          if(a[3] == 3){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(g, 6, 3, 3, a[3], 4);
+          }
+          if(a[4] == 4){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(g, 6, 4, 4, a[4], 5);
+          }
+          if(a[5] == 5){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(g, 6, 5, 5, a[5], 6);
+          }
+          int b[] = {1};
+          int h[] = {1};
+
+          sort(b, 1);
+          if(b[0] == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessage(h, 1, 0, 1, b[0], 7);
+          }
+          int c[] = {100,10000,999,1112,100,829229};
+          int i[] = {100,10000,999,1112,100,829229};
+          sort(c, 6);
+          if(c[0] == 100){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessage(i, 6, 0, 100, c[0], 8);
+          }
+
+          
+          if(c[1] == 100){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("9.Test");
+            showFailMessage(i, 6, 1, 100, c[1], 9);
+          }
+          
+          if(c[2] == 999){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("10.Test");
+            showFailMessage(i, 6, 2, 999, c[2], 10);
+          }
+          
+          if(c[3] == 1112){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("11.Test");
+            showFailMessage(i, 6, 3, 1112, c[3], 11);
+          }
+          
+          if(c[4] == 10000){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("12.Test");
+            showFailMessage(i, 6, 4, 10000, c[4], 12);
+          }
+          
+          if(c[5] == 829229){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("13.Test");
+            showFailMessage(i, 6, 5, 829229, c[5], 13);
+          }
+        }
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Bubblesort", test))) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 20 }
+      - { "name": "SORT", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 4100
+    prerequisites: []
+    unlockableAssets: ["child-bean-blue-hat", "child-bean-blue-pants", "child-bean-blue-shirt"]

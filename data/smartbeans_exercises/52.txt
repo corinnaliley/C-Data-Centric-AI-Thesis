@@ -1,0 +1,59 @@
+SHORTNAME:
+Binärzahlen
+
+TITLE:
+Binärzahlen in Dezimalzahlen umwandeln
+
+TASKID:
+52
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, das eine Binärzahl einliest und den entsprechenden Dezimalwert ausgibt. Dabei sollen führende *whitespaces* überlesen und fehlerhafte Eingaben mit der Ausgabe "Error" zurückgewiesen werden (z.B. Eingabe von Buchstaben oder Überschreitung des Wertebereichs).
+
+### Beispieleingabe
+```
+101101
+```
+### Beispielausgabe
+```
+45
+```
+
+
+SOLUTION:
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[]) {
+  int binary;
+  int sum = 0;
+  int tmp = 0;
+  int counter = 0;
+  int potenz = 1;
+  scanf("%d", &binary);
+  while (binary > 0) {
+    tmp = binary % 10;
+    sum += (tmp * potenz);
+    binary /= 10;
+    potenz *= 2;
+  }
+  printf("%d\n", sum);
+  return 0;
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '0\n', 'stdout': '0\n'}, {'args': [], 'stdin': '1\n', 'stdout': '1\n'}, {'args': [], 'stdin': '01\n', 'stdout': '1\n'}, {'args': [], 'stdin': '10\n', 'stdout': '2\n'}, {'args': [], 'stdin': '110011\n', 'stdout': '51\n'}, {'args': [], 'stdin': '101010\n', 'stdout': '42\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 2100, 'prerequisites': [], 'unlockableAssets': ['debug-informatiker-pants', 'debug-informatiker-shirt']}}
+

@@ -1,0 +1,48 @@
+SHORTNAME:
+Quadratprogramm
+
+TITLE:
+Berechnung von Quadratzahlen in der main-Methode
+
+TASKID:
+804
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include<stdio.h>
+
+int main() {
+  int n;
+  scanf("%d", &n);
+  printf("%d\n", n*n);
+  return 0;
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, dass eine ganze Zahl `n` einließt und ihr Quadrat ausgibt.
+
+### Beispieleingabe
+```
+5
+```
+### Beispielausgabe
+```
+25
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '-5\n', 'stdout': '25\n'}, {'args': [], 'stdin': '0\n', 'stdout': '0\n'}, {'args': [], 'stdin': '5\n', 'stdout': '25\n'}, {'args': [], 'stdin': '13\n', 'stdout': '169\n'}, {'args': [], 'stdin': '-9\n', 'stdout': '81\n'}, {'args': [], 'stdin': '17\n', 'stdout': '289\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1100, 'prerequisites': [], 'unlockableAssets': []}}
+

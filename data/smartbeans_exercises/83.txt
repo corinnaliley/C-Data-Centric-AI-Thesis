@@ -1,0 +1,86 @@
+SHORTNAME:
+Zahlenreihen V
+
+TITLE:
+Berechnung von Zahlenreihen
+
+TASKID:
+83
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Sei x eine ganze Zahl. Ausgehend von x kann eine Folge x0, x1, x2, ... mit folgender Vorschrift gebildet werden.
+
+- Für n &lt; 0 gilt x<sub>n</sub>=0
+- Für n = 0 gilt x<sub>0</sub>=x
+- Für n &gt; 0 gilt
+  - x<sub>n</sub>= 3x<sub>n-1</sub> + 1 falls x<sub>n-1</sub> ungerade ist
+  - x<sub>n</sub>= x<sub>n-1</sub>/2 falls x<sub>n-1</sub> gerade ist
+
+*Beispiel*. Der Startwert x=3 liefert die Folge x<sub>0</sub>=3, x<sub>1</sub>=10, x<sub>2</sub>=5, x<sub>3</sub>=16, x<sub>4</sub>=8, x<sub>5</sub>=4, x<sub>6</sub>=2, x<sub>7</sub>=1, x<sub>8</sub>=4, ...
+
+Programmieren Sie eine Funktion mit Prototyp 
+```
+int sequence(int x, int n);
+```
+
+die folgende Anforderungen erfüllt.
+
+*Anforderungen*
+
+- Der Aufruf `sequence(x,n)` liefert den Wert des n-te Folgenglied (xn) bei Startwert x (x<sub>0</sub>=x). Beispiel. Der Aufruf `sequence(3, 4)` liefert den Wert 8, den Wert von x4 im obrigen Beispiel.
+- Die Berechnung erfolgt iterativ, d.h. die Funktion ruft sich nicht selbst auf.
+- Mögliche Ganzzahlüberläufe werden erkannt und verhindert. Wird ein Überlauf erkannt ist der Funktionswert -1.
+
+---
+
+*Lösen - Testen - Abgeben*
+- Zum Testen ihrer Lösung laden Sie die Datei `a02-testing.c` <a target="_blank" rel="noopener noreferrer" href="https://owncloud.gwdg.de/index.php/s/UOXlb9P4CBcLIry">**hier**</a> herunter.
+- Kompilieren Sie den Testcode `gcc -c -Wall -std=c11 a02-testing.c`.
+- Schreiben Sie ihre eigene Lösungsdatei z.B. `a02.c`.
+- Kompilieren Sie Ihre Lösung `gcc -c -Wall -std=c11 a02.c`. 
+- Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm `gcc -o a02 a02.o a02-testing.o`
+- Testen Sie Ihre Lösung, dafür können Sie den Testcode bliebig anpassen.
+- Zum Abgeben der Lösung laden Sie nur die von Ihnen erstellte Datei, z.B. `a02.c` hoch.
+
+
+SOLUTION:
+int sequence(int x, int n) {
+  int x0 = x, xn = 0, count = n;
+  if (n < 0) {
+    return 0;
+  } else if (n == 0) {
+    return x0;
+  } else {
+    while (count > 0) {
+      if ((x0 % 2) == 0) {
+        xn = x0/2;
+        x0 = xn;
+      } else {
+        xn = 3*x0 + 1;
+        if (xn < x0) {
+          return -1;
+        }
+        x0 = xn;
+      }
+      count -= 1;
+    }
+    return xn;
+  }
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, int input1, int input2, int exp, int act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (sequence(%d, %d))\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input1, input2, exp, act);\n}\n\nvoid test(void){\n  if(sequence(0,0) == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessage(1, 0, 0, 0, sequence(0,0));\n  }\n\n  if(sequence(5,0) == 5){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessage(2, 5, 0, 5, sequence(5,0));\n  }\n\n  if(sequence(5,1) == 16){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessage(3, 5, 1, 16, sequence(5,1));\n  }\n\n  if(sequence(2147483647,10) == -1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessage(4, 2147483647, 10, -1, sequence(2147483647,10));\n  }\n\n  if(sequence(-1,0) == -1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessage(5, -1, 0, -1, sequence(-1,0));\n  }\n\n  if(sequence(10,-1) == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessage(6, 10, -1, 0, sequence(10,-1));\n  }\n\n  if(sequence(-44,-55) == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("7.Test");\n    showFailMessage(7, -44,-55, 0, sequence(-44,-55));\n  }\n\n  if(sequence(10,1) == 5){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("8.Test");\n    showFailMessage(8, 10,1, 5, sequence(10,1));\n  }\n\n  if(sequence(45,16) == 1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("9.Test");\n    showFailMessage(9, 45,16, 1, sequence(45,16));\n  }\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main() {\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Zahlenreihen V", test))) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'einfach'}], 'orderBy': 2700, 'prerequisites': [], 'unlockableAssets': ['kitty-hat', 'kitty-shirt']}}
+

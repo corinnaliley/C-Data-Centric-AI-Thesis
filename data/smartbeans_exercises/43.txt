@@ -1,0 +1,48 @@
+SHORTNAME:
+Zahlenwerte ausgeben
+
+TITLE:
+Formatierte Ausgabe von Zahlenwerten
+
+TASKID:
+43
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include<stdio.h>
+int main() {
+  puts("Aller guten Dinge sind 3.\nPi ist ungefaehr 3.141593.");
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, welches folgenden Text ausgibt:
+```
+Aller guten Dinge sind 3. 
+Pi ist ungefaehr 3.141593.
+```
+
+### Beispieleingabe
+```
+```
+### Beispielausgabe
+```
+Aller guten Dinge sind 3.
+Pi ist ungefaehr 3.141593.
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': 'Aller guten Dinge sind 3.\nPi ist ungefaehr 3.141593.\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'IO', 'points': 10}, {'name': 'sehr einfach'}], 'orderBy': 100, 'prerequisites': [], 'unlockableAssets': []}}
+

@@ -1,0 +1,58 @@
+SHORTNAME:
+Buchstaben zählen
+
+TITLE:
+Zählen wie oft ein Buchstabe vorkommt
+
+TASKID:
+411
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Programmieren Sie eine Funktion mit folgendem Prototyp:
+
+```
+int frequency(const char string[], char ch);
+```
+ 
+*Anforderungen*
+ 
+- Die Funktion bekommt im Parameter `ch` ein Zeichen und im Parameter `string` einen Zeiger auf ein Feld, in dem ein String gespeichert ist, übergeben.
+- Die Funktion bestimmt wie häufig das übergebene Zeichen im String enthalten ist und liefert diese Anzahl zurück.
+- Bei Buchstaben wird nicht unterschieden, ob es sich um Klein- oder Großbuchstaben handelt. <u>Beispiel</u>. Im String `Test!` ist sowohl das Zeichen `T` als auch das Zeichen `t` zweimal enthalten. 
+- Benutzen Sie zur Erkennung und Umwandlung der Zeichen Funktionen aus der Standardbibliothek.
+- Gehen Sie davon aus, dass `string` entweder der `NULL`-Zeiger ist oder auf den Anfang eines gültigen Strings zeigt.
+
+
+SOLUTION:
+#include <ctype.h>
+#include <string.h>
+ 
+int frequency(const char string[], char ch){
+  if(string == NULL){
+    return 0;
+  }
+  int count = 0;
+  for(int i = 0; i< strlen(string); i++){
+    if(tolower(ch) == tolower(string[i])){
+      count++;
+    }
+  }
+  return count;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n#include <string.h>\n\nvoid test_frequency(void){ \n  int result;\n\n  //Testcase Beispiel\n  const char bsp[] = "Test!";\n  result = frequency(bsp, \'T\');\n  \n  if(result == 2){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    1.Test: Fehler!\\n\\\n            Eingabe:              (\\"Test!\\", \'T\')\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("1.Test");\n  }\n  result = frequency(bsp, \'t\');\n  \n  if(result == 2){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    2.Test: Fehler!\\n\\\n            Eingabe:              (\\"Test!\\", \'t\')\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("2.Test");\n  }\n\n  //Testcase Anderes Wort\n  const char w2[] = "Bananenbrot";\n  result = frequency(w2, \'a\');\n  \n  if(result == 2){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    3.Test: Fehler!\\n\\\n            Eingabe:              (\\"Bananenbrot\\", \'a\')\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("3.Test");\n  }\n  result = frequency(w2, \'B\');\n  \n  if(result == 2){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    4.Test: Fehler!\\n\\\n            Eingabe:              (\\"Bananenbrot\\", \'B\')\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("4.Test");\n  }\n  result = frequency(w2, \'b\');\n  \n  if(result == 2){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    5.Test: Fehler!\\n\\\n            Eingabe:              (\\"Bananenbrot\\", \'b\')\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("5.Test");\n  }\n\n  //Testcase NULL-Zeiger\n  const char* null = NULL;\n  result = frequency(null, \'x\');\n  \n  if(result == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    6.Test: Fehler!\\n\\\n            Eingabe:              (NULL, \'x\')\\n\\\n            Erwartete Ausgabe:    (0)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("6.Test");\n  }\n  \n\n  //Testcase leerer String\n  const char empty[] = "";\n  result = frequency(empty, \'y\');\n  \n  if(result == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    7.Test: Fehler!\\n\\\n            Eingabe:              (\\"\\", \'y\')\\n\\\n            Erwartete Ausgabe:    (0)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("7.Test");\n  }\n\n  //Testcase Buchstabe nicht in String\n  const char noz[] = "abcdefghijklmnopqrstuvwxy";\n  result = frequency(noz, \'z\');\n  \n  if(result == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    8.Test: Fehler!\\n\\\n            Eingabe:              (\\"abcdefghijklmnopqrstuvwxy\\", \'z\')\\n\\\n            Erwartete Ausgabe:    (0)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("8.Test");\n  }\n\n  // Testcase Sonderzeichen\n  const char special[] = "?????";\n  result = frequency(special, \'?\');\n  \n  if(result == 5){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    9.Test: Fehler!\\n\\\n            Eingabe:              (\\"?????\\", \'?\')\\n\\\n            Erwartete Ausgabe:    (5)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("9.Test");\n  }\n\n  //Testcase random\n  const char rnd[] = "UHjT7GXRWtFpFyCfVNfV";\n  result = frequency(rnd, \'F\');\n  \n  if(result == 4){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    printf("\\n    10.Test: Fehler!\\n\\\n            Eingabe:              (\\"UHjT7GXRWtFpFyCfVNfV\\", \'F\')\\n\\\n            Erwartete Ausgabe:    (4)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", result );\n    CU_FAIL("10.Test");\n  }\n}\n  \nint init_suite1(void){ return 0; }\nint clean_suite1(void){ return 0; }\nvoid cleanup(){}\n\nint main(){\n  CU_pSuite pSuite = NULL;\n\n  /* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite){\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Buchstaben zählen", test_frequency))){\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 4700, 'prerequisites': [], 'unlockableAssets': ['roller_blades-hat', 'roller_blades-pants', 'roller_blades-shirt']}}
+

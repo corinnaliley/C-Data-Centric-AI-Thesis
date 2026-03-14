@@ -1,0 +1,135 @@
+shortname: "Gaußsches Eliminationsverfahren" #N11
+title: "Gleichungssysteme lösen mit Gaußschen Eliminationsverfahren"
+taskid: 511
+defaultEditorInput: |
+lang: "c"
+task: |
+  Mit dem Gaußschen Eliminationsverfahren kann man lineare Gleichungssysteme lösen. Informieren Sie sich <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Gau%C3%9Fsches_Eliminationsverfahren">**hier**</a> über den Algorithmus. 
+
+  Schreiben Sie ein Programm, das ein lineares Gleichungssystem der Ordnung `n` mithilfe des Gauß-Algorithmus löst.
+
+  *Anforderungen*
+
+  - Zuerst wird die Ordnung n eingelesen.
+  - Danach werden die Elemente der erweiterten Koeffizientenmatrix eingelesen.
+  - Orientieren Sie sich für die Zerlegung der Matrix an einem der Pseudocode-Beispiele aus Wikipedia.
+  - Die Lösung des Gleichungssystems kann nach der Zerlegung mithilfe von Rückwärtseinsetzen gefunden werden.
+  - Für diese Aufgabe ist keine Pivotisierung nötig. Man kann davon ausgehen, dass das System immer eindeutig lösbar ist.
+  - Das Ergebnis soll auf zwei Nachkommastellen genau ausgegeben werden.
+
+  *Hinweise* 
+
+  Die erweiterte Koeffizientenmatrix ist die Kombination aus der Matrix A und dem Vektor b. In dem Pseudocode von Wikipedia wird nur die Umwandlung von Matrix A beschrieben. Bei der erweiterten Koeffizientenmatrix muss man eine Spalte mehr berechnen. 
+
+  ### Beispieleingabe
+  ```
+  3
+  2 -1 3 9
+  1 1 1 6
+  1 -1 1 2
+  ```
+  ### Beispielausgabe
+  ```
+  1.00
+  2.00
+  3.00
+  ```
+solution: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int main() {
+    int n;
+    scanf("%d", &n);
+    double koef[n][n + 1];
+    double x[n];
+    double sum = 0.0;
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < (n + 1); j++) {
+        scanf("%lf", &koef[i][j]);
+      }
+    }
+
+    for (int i = 0; i < n - 1; i++) {
+      if (koef[i][i] == 0) {
+        continue;
+      }
+      for (int k = i + 1; k < n; k++) {
+        koef[k][i] = koef[k][i] / koef[i][i];
+        for (int j = i + 1; j < n+1; j++) {
+          koef[k][j] = koef[k][j] - koef[k][i] * koef[i][j];
+        }
+      }
+    }
+
+    x[n] = koef[n - 1][n] / koef[n - 1][n - 1];
+    for (int i = n - 1; i >= 0; i--) {
+      sum = 0.0;
+      for (int k = i + 1; k < n; k++) {
+        sum = sum + koef[i][k] * x[k];
+      }
+      x[i] = (koef[i][n] - sum) / koef[i][i];
+    }
+
+    for (int i = 0; i < n; i++) {
+      printf("%.2f\n", x[i]);
+    }
+    return 0;
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          3
+          5 2 0 2
+          2 1 -1 0
+          2 3 -1 3
+        stdout: |
+          -0.20
+          1.50
+          1.10
+      - args: []
+        stdin: |
+          4
+          1 1 1 1 4
+          1 2 4 8 2
+          1 4 16 64 4
+          1 5 25 125 20
+        stdout: |
+          0.00
+          9.00
+          -6.00
+          1.00
+      - args: []
+        stdin: |
+          4 
+          1 1 1 1 -4.5
+          1 -1 1 -1 5.5
+          1 3 9 27 -2.5
+          1 -2.5 6.25 -15.625 -8
+        stdout: |
+          2.00
+          -6.00
+          -1.50
+          1.00
+      - args: []
+        stdin: |
+          3
+          2 -1 3 9
+          1 1 1 6
+          1 -1 1 2
+        stdout: |
+          1.00
+          2.00
+          3.00
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ALGORITHM", "points": 160 }
+      - { "name": "ARRAY", "points": 160 }
+      - { "name": "insane" }
+    orderBy: 7600
+    prerequisites: []
+    unlockableAssets: []

@@ -1,0 +1,93 @@
+shortname: "Modulo" #N4
+title: "Gerade Zahlen bestimmen mit Modulo"
+taskid: 504
+defaultEditorInput: |
+solution: |
+  #include <stdio.h>
+  
+  int main() {
+    int n;
+    scanf("%d", &n);
+    if (n % 2 == 0)
+      printf("gerade");
+    else
+      printf("ungerade");
+  }
+lang: "c"
+task: |
+  Schreiben Sie ein Programm, das eine ganze Zahl einliest und ausgibt ob die Zahl 'gerade' oder 'ungerade' ist.
+  
+  ### Beispieleingabe
+  ```
+  0
+  4
+  7
+  ```
+  ### Beispielausgabe
+  ```
+  gerade
+  gerade
+  ungerade
+  ```
+tests: 
+  - testtype: "c-input-output"
+    testCases: 
+      - args: []
+        stdin: |
+          0
+        stdout: |
+          gerade
+      - args: []
+        stdin: |
+          2
+        stdout: |
+          gerade
+      - args: []
+        stdin: |
+          -14
+        stdout: |
+          gerade
+      - args: []
+        stdin: |
+          2147483646
+        stdout: |
+          gerade
+      - args: []
+        stdin: |
+          -2147483648
+        stdout: |
+          gerade
+      - args: []
+        stdin: |
+          1
+        stdout: |
+          ungerade
+      - args: []
+        stdin: |
+          17
+        stdout: |
+          ungerade
+      - args: []
+        stdin: |
+          -2222221
+        stdout: |
+          ungerade
+      - args: []
+        stdin: |
+          2147483647
+        stdout: |
+          ungerade
+      - args: []
+        stdin: |
+          -2147483647
+        stdout: |
+          ungerade
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags:
+      - {"name": "CONTROL", "points": 10}
+      - {"name": "sehr einfach"}
+    orderBy: 600
+    prerequisites: []
+    unlockableAssets: []

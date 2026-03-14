@@ -1,0 +1,189 @@
+shortname: "Busfahrer" #D6
+title: "Zählen von Fahrgästen"
+taskid: 406
+defaultEditorInput: |
+lang: "c"
+task: |
+  Das Busunternehmen "Neumann" möchte eine Statistik über das Fahrgastverhalten erheben. Es ist daran interessiert, wie viele Fahrgäste sich an jeder Haltestelle im Bus befinden.
+  Schreiben Sie eine Funktion 
+  ```
+  int* fahrgaeste(int einaus[][2], int n)
+  ```
+  
+  Diese nimmt ein zweidimensionales Feld `einaus[n][2]` sowie die Anzahl der Haltestellen entgegen. 
+  Jede Zeile dieses Arrays steht für eine der `n` Bushaltestellen. In der Spalte 0 wird gespeichert, wie viele Personen an dieser Station einsteigen. In Spalte 1 steht, wie viele Menschen aussteigen.
+   
+  Die Funktion soll ein eindimensionales Feld der Länge `n` zurückgeben, in dem für jede Bushaltestelle festgehalten wird, wie viele Menschen sich im Bus befanden, nachdem alle ein- und ausgestiegen sind. Zu Beginn einer jeden Fahrt ist der Bus leer.
+   
+  *Hinweise*
+
+  - Verwenden Sie für die Speicherallokation in dieser Aufgabe die Funktion `malloc()`.
+
+  ### Beispielaufruf
+  ```
+  int einaus[5][2] = {{5, 0},{4, 2},{5, 1},{5, 2},{0, 1}};
+  int* gaeste = fahrgaeste(einaus, 5);
+  ```
+   
+  ### Beispielergebnis
+  ```
+  {5, 7, 11, 14, 13}
+  ```
+solution: |
+  #include <stdlib.h>
+   
+  int* fahrgaeste(int einaus[][2] , int n){
+   
+    int* a = malloc(n*sizeof(int));
+    int guests = 0;
+    for(int i=0; i<n; i++){
+        guests += einaus[i][0];
+        guests -= einaus[i][1];
+        a[i] = guests;
+    }
+    return a;
+   
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        
+        int compareArray(int* a, int* b, int len){
+          for(int i = 0; i<len; i++){
+            if(a[i] != b[i]){
+              return(0);
+            }
+          }
+          return(1);
+        }
+        void printArray(int *a, int len){
+          printf("{%d", a[0]);
+          for(int i = 1; i < len; i++){
+            printf(", %d", a[i]);
+          }
+          printf("}");
+        }
+
+        void test_fahrgaeste(void){
+          
+          // Testcase Beispiel
+          int a[5][2] = {{5, 0},{4, 2},{5, 1},{5, 2},{0, 1}};
+          int* gaeste = fahrgaeste(a, 5);
+          int b[5] = {5, 7, 11, 14, 13};
+          if(compareArray(b, gaeste, 5) == 1){
+            CU_PASS("Erfolg! Eingabe {{5, 0}{4, 2}{5, 1}{5, 2}{0, 1}}, Erwartete Ausgabe {5, 7, 11, 14, 13}");
+          }
+          else{
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              ({{5, 0}{4, 2}{5, 1}{5, 2}{0, 1}})\n\
+                    Erwartete Ausgabe:    ({5, 7, 11, 14, 13})\n\
+                    Tatsächliche Ausgabe: (");
+            printArray(gaeste, 5);
+            printf(")\n");
+            CU_FAIL("1.Test");
+          }
+          free(gaeste);
+          
+          // Testcase Niemand steigt ein
+          int c[3][2] = {{0, 0},{0, 0},{0, 0}};
+          gaeste = fahrgaeste(c, 3);
+          int d[3] = {0, 0, 0};
+          if(compareArray(d, gaeste, 3) == 1){
+            CU_PASS("Erfolg! Eingabe {{0, 0},{0, 0},{0, 0}}, Erwartete Ausgabe {0, 0, 0}");
+          }
+          else{
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              ({{0, 0},{0, 0},{0, 0}})\n\
+                    Erwartete Ausgabe:    ({0, 0, 0})\n\
+                    Tatsächliche Ausgabe: (");
+            printArray(gaeste, 3);
+            printf(")\n");
+            CU_FAIL("2.Test");
+          }
+          free(gaeste);
+          
+          // Testcase random I
+          int e[10][2] = {{7,0},{10,5},{5,1},{6,7},{4,6},{9,1},{9,3},{1,10},{9,6},{1,5}};
+          gaeste = fahrgaeste(e, 10);
+          int f[10] = {7, 12, 16, 15, 13, 21, 27, 18, 21, 17};
+          if(compareArray(f, gaeste, 10) == 1){
+            CU_PASS("Erfolg! Eingabe {{7,0},{10,5},{5,1},{6,7},{4,6},{9,1},{9,3},{1,10},{9,6},{1,5}}, Erwartete Ausgabe {7, 12, 16, 15, 13, 21, 27, 18, 21, 17}");
+          }
+          else{
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              ({{7,0},{10,5},{5,1},{6,7},{4,6},{9,1},{9,3},{1,10},{9,6},{1,5}})\n\
+                    Erwartete Ausgabe:    ({7, 12, 16, 15, 13, 21, 27, 18, 21, 17})\n\
+                    Tatsächliche Ausgabe: (");
+            printArray(gaeste, 10);
+            printf(")\n");
+            CU_FAIL("3.Test");
+          }
+          free(gaeste);
+          
+          // Testcase random II
+          int g[2][2] = {{10,0},{5,4}};
+          gaeste = fahrgaeste(g, 2);
+          int h[2] = {10, 11};
+          if(compareArray(h, gaeste, 2) == 1){
+            CU_PASS("Erfolg! Eingabe {{10,0},{5,4}}, Erwartete Ausgabe {10, 11}");
+          }
+          else{
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              ({{10,0},{5,4}})\n\
+                    Erwartete Ausgabe:    ({10, 11})\n\
+                    Tatsächliche Ausgabe: (");
+            printArray(gaeste, 2);
+            printf(")\n");
+            CU_FAIL("4.Test");
+          }
+          free(gaeste);
+          
+        }
+        
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+        
+        int main(){
+            CU_pSuite pSuite = NULL;
+              
+            /* initialize the CUnit test registry */
+            if (CUE_SUCCESS != CU_initialize_registry())
+                return 1;
+            
+            /* add a suite to the registry */
+            pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+            if (NULL == pSuite) {
+                unsigned int cu_result = CU_get_number_of_failure_records();
+                CU_cleanup_registry();
+                return cu_result;
+            }
+          
+            /* add the tests to the suite */
+            /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+            if ((NULL == CU_add_test(pSuite, "Busfahrer", test_fahrgaeste)))
+            {
+                unsigned int cu_result = CU_get_number_of_failure_records();
+                CU_cleanup_registry();
+                return cu_result;
+            }
+            /* Run all tests using the CUnit Basic interface */
+            CU_basic_set_mode(CU_BRM_VERBOSE);
+            CU_basic_run_tests();
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 40 }
+      - { "name": "schwierig" }
+    orderBy: 6100
+    prerequisites: []
+    unlockableAssets: []

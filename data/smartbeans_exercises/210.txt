@@ -1,0 +1,99 @@
+SHORTNAME:
+Galgenraten
+
+TITLE:
+Spielen sie eine Runde Galgenraten
+
+TASKID:
+210
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Programmieren Sie das Spiel *Galgenraten*. Die Spielregeln können Sie
+<a target="_blank" rel="noopener noreferrer" href="https://spielewiki.org/wiki/Hangman">**hier**</a> nachlesen. 
+Für diese Aufgabe gibt es leider keine Tests. Sie können das Spiel so einfach oder kompliziert umsetzten wie Sie wollen. 
+
+---
+*Vorschläge*
+
+- Es spielen zwei Spieler an einem Gerät, auf einer Konsole: Spieler 1 gibt
+das zu erratene Wort ein. Danach wird die Konsole *gecleart*, sodass Spieler
+2 das eingegebene Wort nicht sehen kann.
+- Anzeige vom Galgen nachdem ein neuer Buchstabe geraten wurde.
+- Spieler 2 darf das Spiel von sich aus sauber beenden (nicht mit ctrl+c).
+- Zeige ein besonderes (ASCII-Art-)Bild an, wenn Spieler 1 das Spiel gewonnen/
+verloren hat.
+- Eine Mitteilung darüber, ob der geratene Buchstabe schon einmal geraten
+wurde (was trotzdem als Fehlversuch zählt).
+- Spieler 1 darf die Anzahl der MAX_VERSUCHE zu Beginn des Spiels festlegen.
+- ...
+
+---
+
+Diese Aufgabe soll Ihren Umgang mit Kontrollstrukturen (if, else, while,
+for...) festigen. Außerdem bietet sie die Möglichkeit sich selbstständig mit
+verschiedenen Ein- und Ausgabefunktionen zu beschäftigen (getchar(), scanf,
+printf, \t...) und sich mit ihren jeweiligen Eigenarten vertraut zu machen.
+Bei dieser Aufgabe habt ihr Gestaltungsfreiraum - es gibt keine Tests dafür.
+
+
+SOLUTION:
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_VERSUCHE 10
+
+int main(int argc, char const *argv[]) {
+	char a[] = "Beispielwort";
+	int len = strlen(a);
+	printf("***** Galgenraten ***** \n");
+
+	int wrong = 0, flag = 0, count_correct = 0;
+	char alpha;
+	while (count_correct < len && wrong < MAX_VERSUCHE) {
+		alpha = getchar();
+		if (alpha != '\n') {
+			for (int i = 0; i < len; i++) {
+				if (tolower(alpha) == tolower(a[i])) {
+					// streiche den char, indem er auf zb. - gesetzt wird
+					a[i] = '-';
+					flag = 1;
+					count_correct++;
+				}
+			}
+			if (flag == 0) {
+				printf("%c ist nicht (mehr) enthalten\n", alpha);
+				wrong++;
+			} else {
+				printf("%c ist enthalten\n", alpha);
+				flag = 0;
+			}
+		}
+	}
+	if (count_correct == len) {
+		printf("Du hast das Spiel gewonnen! Over and out.\n");
+		return 0;
+	} else if (wrong == MAX_VERSUCHE) {
+	 printf("Du hast das Spiel verloren. You are hanged\n");
+	 return 0;
+ 	}
+	printf("Fehler\n");
+	return -1;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <stdio.h>\nint main() {\n    printf("Für diese Aufgabe gibt es keine Tests, werdet selbst kreativ!");\n    return 0;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ALGORITHM', 'points': 160}, {'name': 'IO', 'points': 160}, {'name': 'insane'}], 'orderBy': 7700, 'prerequisites': [], 'unlockableAssets': []}}
+

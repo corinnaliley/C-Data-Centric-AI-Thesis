@@ -1,0 +1,105 @@
+shortname: "Ampel" #N6
+title: "Ampelphasen berechnen"
+taskid: 506
+defaultEditorInput: |
+solution: |
+  #include <stdio.h>
+  
+  int main() {
+    int n;
+    scanf("%d", &n);
+  
+    switch (n % 4) {
+    case 0:
+      printf("ROT");
+      break;
+    case 1:
+      printf("ROT/GELB");
+      break;
+    case 2:
+      printf("GRÜN");
+      break;
+    case 3:
+      printf("GELB");
+      break;
+    }
+  
+    return 0;
+  }
+lang: "c"
+task: |
+  Eine Ampel kann als fortlaufende Zahl an Zeiteinheiten dargestellt werden. Die Ampel beginnt in der `ROT` Phase bei der Zeiteinheit 0. Jedesmal wenn die Zeiteinheit um eins vergrößert wird schaltet die Ampel eine Phase weiter. Die Phasen werden in folgender Reihenfolge durchgeschalten: `ROT`, `ROT/GELB`, `GRÜN`, `GELB`.
+  
+  Schreiben Sie ein Programm, das eine Zahl >= 0 einliest und ausgibt in welcher Phase sich die Ampel zu diesem Zeitpunkt befindet.
+  
+  ### Beispieleingabe
+  ```
+  4
+  18
+  21
+  3
+  ```
+  ### Beispielausgabe
+  ```
+  ROT
+  GRÜN
+  ROT/GELB
+  GELB
+  ```
+tests: 
+  - testtype: "c-input-output"
+    testCases: 
+      - args: []
+        stdin: |
+          4
+        stdout: |
+          ROT
+      - args: []
+        stdin: |
+          18
+        stdout: |
+          GRÜN
+      - args: []
+        stdin: |
+          21
+        stdout: |
+          ROT/GELB
+      - args: []
+        stdin: |
+          0
+        stdout: |
+          ROT
+      - args: []
+        stdin: |
+          1
+        stdout: |
+          ROT/GELB
+      - args: []
+        stdin: |
+          2
+        stdout: |
+          GRÜN
+      - args: []
+        stdin: |
+          3
+        stdout: |
+          GELB
+      - args: []
+        stdin: |
+          430
+        stdout: |
+          GRÜN
+      - args: []
+        stdin: |
+          2147483647
+        stdout: |
+          GELB
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags:
+      - {"name": "CONTROL", "points": 10}
+      - {"name": "einfach"}
+    orderBy: 1600
+    prerequisites: []
+    unlockableAssets: []

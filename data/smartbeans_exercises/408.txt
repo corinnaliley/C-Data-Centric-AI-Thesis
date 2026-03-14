@@ -1,0 +1,105 @@
+SHORTNAME:
+Levenshtein-Distanz
+
+TITLE:
+Levenshtein-Distanz zwischen zwei Worten berechnen
+
+TASKID:
+408
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Die <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Levenshtein-Distanz">**Levenshtein-Distanz**</a> zwischen zwei Worten gibt an, wie viele Zeichen man ersetzen, einfügen, oder löschen muss, um ein Wort in das andere zu verwandeln.
+Schreiben Sie eine Funktion 
+
+```
+int levenshtein(char* wort1, char* wort2)
+```
+
+welche zwei Strings entgegennimmt und deren Levenshtein-Distanz zurückgibt. Verwenden Sie dazu den Algorithmus, der unter dem Link oben beschrieben ist.
+ 
+*Anforderungen*
+ 
+- Für zwei leere Strings gibt die Funktion 0 zurück.
+- Das im Wikipedia-Artikel beschriebene Backtracing müssen Sie nicht durchführen.
+ 
+*Hinweise*
+ 
+- Verwenden Sie in dieser Aufgaben für das Feld dynamischen Speicher um dem Umgang damit zu üben. 
+- Nutzen Sie dafür die Funktion `malloc()`.
+- Vergessen Sie nicht den Speicher wieder freizugeben.
+ 
+### Beispielaufruf
+```
+levenshtein("Tier", "Tor");
+```
+### Beispielergebnis
+```
+2
+```
+
+
+SOLUTION:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int min(int a, int b, int c) {
+  if (a <= b && a <= c) {
+    return a;
+  } else if (b <= a && b <= c) {
+    return b;
+  } else {
+    return c;
+  }
+}
+
+int levenshtein(char *wort1, char *wort2) {
+
+  if (wort1 == NULL || wort2 == NULL)
+    return 0;
+  if (*wort1 == '\0' && *wort2 == '\0') {
+    return 0;
+  }
+  int len1 = strlen(wort1);
+  int len2 = strlen(wort2);
+
+  unsigned int matrix[len1+1][len2+1];
+
+
+  matrix[0][0] = 0;
+
+  for (int j = 1; j <= len2; j++) {
+    matrix[0][j] = matrix[0][j - 1] + 1;
+  }
+
+  for (int i = 1; i <= len1; i++) {
+    matrix[i][0] = matrix[i - 1][0] + 1;
+  }
+
+  for (int i = 1; i <= len1; i++) {
+    for (int j = 1; j <= len2; j++) {
+      matrix[i][j] = min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1,
+                    matrix[i - 1][j - 1] + (wort1[i - 1] == wort2[j - 1] ? 0 : 1));
+    }
+  }
+
+  int v = matrix[len1][len2];
+  return v;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include <string.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid test_levenshtein(void){\n  int l;\n  \n  //Testcase Beispiel\n  l = levenshtein("Tier", "Tor");\n  if(l == 2){\n    CU_PASS("Erfolg! Eingabe ("Tier", "Tor") Erwartete Ausgabe (2)");\n  }\n  else{\n    printf("\\n    1.Test: Fehler!\\n\\\n            Eingabe:              (\\"Tier\\", \\"Tor\\")\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n",l);\n    CU_FAIL("1.Test");\n  }\n\n  //Testcase leerer String\n  l = levenshtein("", "");\n  if(l == 0){\n    CU_PASS("Erfolg! Eingabe ("", "") Erwartete Ausgabe (0)");\n  }\n  else{\n    printf("\\n    2.Test: Fehler!\\n\\\n            Eingabe:              (\\"\\", \\"\\")\\n\\\n            Erwartete Ausgabe:    (0)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n",l);\n    CU_FAIL("2.Test");\n  }\n  \n  //Testcase m > n\n  l = levenshtein("Hut", "Mutter");\n  if(l == 4){\n    CU_PASS("Erfolg! Eingabe ("Hut", "Mutter") Erwartete Ausgabe (4)");\n  }\n  else{\n    printf("\\n    3.Test: Fehler!\\n\\\n            Eingabe:              (\\"Hut\\", \\"Mutter\\")\\n\\\n            Erwartete Ausgabe:    (4)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n",l);\n    CU_FAIL("3.Test");\n  }\n  \n  //Testcase Groß- und Kleinschreibung\n  l = levenshtein("Gut","gut");\n  if(l == 1){\n    CU_PASS("Erfolg! Eingabe ("Gut","gut") Erwartete Ausgabe (1)");\n  }\n  else{\n    printf("\\n    4.Test: Fehler!\\n\\\n            Eingabe:              (\\"Gut\\",\\"gut\\")\\n\\\n            Erwartete Ausgabe:    (1)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n",l);\n    CU_FAIL("4.Test");\n  }\n  \n  //Testcase Sonderzeichen\n  l = levenshtein("Hello world!", "Hello? world?");\n  if(l == 2){\n    CU_PASS("Erfolg! Eingabe ("Hello world!", "Hello? world?") Erwartete Ausgabe (2)");\n  }\n  else{\n    printf("\\n    5.Test: Fehler!\\n\\\n            Eingabe:              (\\"Hello world!\\", \\"Hello? world?\\")\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n",l);\n    CU_FAIL("5.Test");\n  }\n  \n  //Testcase random\n  l = levenshtein("Rv74K","csqJ7");\n  if(l == 5){\n    CU_PASS("Erfolg! Eingabe ("Rv74K","csqJ7") Erwartete Ausgabe (5)");\n  }\n  else{\n    printf("\\n    6.Test: Fehler!\\n\\\n            Eingabe:              (\\"Rv74K\\",\\"csqJ7\\")\\n\\\n            Erwartete Ausgabe:    (5)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n",l);\n    CU_FAIL("6.Test");\n  }\n}\n\n  \nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n    \n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n      \n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Levenshtein-Distanz", test_levenshtein))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n    \n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 40}, {'name': 'ALGORITHM', 'points': 40}, {'name': 'schwierig'}], 'orderBy': 6300, 'prerequisites': [], 'unlockableAssets': []}}
+

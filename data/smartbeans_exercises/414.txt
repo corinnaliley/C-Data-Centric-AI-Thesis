@@ -1,0 +1,76 @@
+SHORTNAME:
+Hauskauf
+
+TITLE:
+Wie lange für ein Haus gespart werden muss
+
+TASKID:
+414
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Emily und Sarah möchten ein Haus kaufen. Sie haben daher ein Sparkonto angelegt, auf welches Emily `emily_sparen`€ und Sarah `sparen_sarah`€ überweist.
+Zu Beginn jedes Monats wird der Betrag auf diesem Konto mit 1.5% verzinst. 
+Am Ende jedes Monats überweisen sowohl Sarah, als auch Emily weitere 1000€.
+Zusätzlich steigen die Zinsen alle 3 Jahre um 0.1 Prozentpunkte. 
+Das Haus kostet `haus_kosten`€. 
+Wie viele Jahre dauert es, bis sich die beiden das Haus leisten können?  
+  
+Hinweis: Der Zinssatz wird bereits zu Beginn des ersten Monats das erste Mal erhöht!
+ 
+Schreiben Sie eine Funktion 
+```
+int hauskauf(float sparen_emily, float sparen_sarah, int haus_kosten)
+```
+
+die diese Frage beantwortet.
+
+Die Funktion nimmt die Ersparnisse von Emily und Sarah als `float`-Werte entgegen und außerdem den Wert des Hauses als `int`. 
+Sie gibt die Anzahl der Monate zurück, die es mindestens dauert, bis das Haus finanzierbar ist. 
+ 
+### Beispielaufruf
+ 
+```
+int monate = hauskauf(15000.0, 20000.42, 80000);
+```
+ 
+### Beispielergebnis
+ 
+```
+monate = 16
+```
+
+
+SOLUTION:
+int hauskauf(float sparen_emily, float sparen_sarah, int haus_kosten){
+  float diff = sparen_emily + sparen_sarah - haus_kosten;
+  float konto = sparen_emily + sparen_sarah;
+  float zins_mult = 1.015;
+  int months = 0;
+  while(diff < 0){
+      konto = konto * zins_mult;
+      if(months % 36 == 0){
+          zins_mult += 0.001;
+      }
+      konto += 2000;
+      months++;
+      diff = konto-haus_kosten;
+  }
+  return months;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include <string.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid test_hauskauf(void){\n  // Testcase Beispiel\n  if(hauskauf(15000.0, 20000.42, 80000)==16)\n    {CU_PASS("Erfolg! Eingabe: (15000.0, 20000.42, 80000) Erwartete Ausgabe: (16)");}\n  else {\n    printf("\\n    1.Test: Fehler!\\n\\\n            Eingabe:              (15000.0, 20000.42, 80000)\\n\\\n            Erwartete Ausgabe:    (16)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", hauskauf(15000.0, 20000.42, 80000));\n    CU_FAIL("1.Test");\n  }\n  \n  // Testcase Beispiel aber teurer\n  if(hauskauf(15000.0, 20000.42, 160000)==37)\n    {CU_PASS("Erfolg! Eingabe: (15000.0, 20000.42, 160000) Erwartete Ausgabe: (37)");}\n  else {\n    printf("\\n    2.Test: Fehler!\\n\\\n            Eingabe:              (15000.0, 20000.42, 160000)\\n\\\n            Erwartete Ausgabe:    (37)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", hauskauf(15000.0, 20000.42, 160000));\n    CU_FAIL("2.Test");\n  }\n  \n  // Testcase Beispiel aber mehr Ersparnisse\n  if(hauskauf(40000.123, 25000.25, 80000)==5)\n    {CU_PASS("Erfolg! Eingabe: (40000.123, 25000.25, 80000) Erwartete Ausgabe: (5)");}\n  else {\n    printf("\\n    3.Test: Fehler!\\n\\\n            Eingabe:              (40000.123, 25000.25, 80000)\\n\\\n            Erwartete Ausgabe:    (5)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", hauskauf(40000.123, 25000.25, 80000));\n    CU_FAIL("3.Test");\n  }\n  \n  // Testcase Beispiel aber weniger Ersparnisse\n  if(hauskauf(1507.34, 20001.44, 80000)==22)\n    {CU_PASS("Erfolg! Eingabe: (40000.123, 25000.25, 80000) Erwartete Ausgabe: (22)");}\n  else {\n    printf("\\n    4.Test: Fehler!\\n\\\n            Eingabe:              (1507.34, 20001.44, 80000)\\n\\\n            Erwartete Ausgabe:    (22)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", hauskauf(1507.34, 20001.44, 80000));\n    CU_FAIL("4.Test");\n  }\n\n  // Testcase Rags to Riches\n  if(hauskauf(0.0, 0.0, 1000000)==131)\n    {CU_PASS("Erfolg! Eingabe: (0.0, 0.0, 1000000) Erwartete Ausgabe: (131)");}\n  else {\n    printf("\\n    5.Test: Fehler!\\n\\\n            Eingabe:              (0.0, 0.0, 1000000)\\n\\\n            Erwartete Ausgabe:    (131)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", hauskauf(0.0, 0.0, 1000000));\n    CU_FAIL("5.Test");\n  }\n  \n  // Testcase Sie können es sich schon leisten\n  if(hauskauf(30000.0, 30000.0, 50000)==0)\n    {CU_PASS("Erfolg! Eingabe: (30000.0, 30000.0, 50000) Erwartete Ausgabe: (0)");}\n  else {\n    printf("\\n    6.Test: Fehler!\\n\\\n            Eingabe:              (30000.0, 30000.0, 50000)\\n\\\n            Erwartete Ausgabe:    (0)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", hauskauf(30000.0, 30000.0, 50000));\n    CU_FAIL("6.Test");\n  }\n  \n  // Testcase random\n  if(hauskauf(1111.11, 5656.56, 191919)==55)\n    {CU_PASS("Erfolg! Eingabe: (30000.0, 30000.0, 50000) Erwartete Ausgabe: (55)");}\n  else {\n    printf("\\n    7.Test: Fehler!\\n\\\n            Eingabe:              (1111.11, 5656.56, 191919)\\n\\\n            Erwartete Ausgabe:    (55)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", hauskauf(1111.11, 5656.56, 191919));\n    CU_FAIL("7.Test");\n  }\n}\n\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Hauskauf", test_hauskauf))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'DATATYPE', 'points': 10}, {'name': 'einfach'}], 'orderBy': 3060, 'prerequisites': [], 'unlockableAssets': []}}
+

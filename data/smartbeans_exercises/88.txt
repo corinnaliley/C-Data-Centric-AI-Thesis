@@ -1,0 +1,64 @@
+SHORTNAME:
+Mittquadratmethode
+
+TITLE:
+Mittquadratmethode
+
+TASKID:
+88
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Die Mittquadratmethode ist eine einfache Methode zur Erzeugung von Pseudozufallszahlen. Ausgehend von einer Ausgangszahl wird wiederholt das Quadrat der inneren Ziffernkette gebildet.
+
+Entwickeln Sie eine Funktion
+```
+int *middle_square(int seed)
+```
+, welche die die Mittquadratmethode implementiert.
+
+Anforderungen:
+- Die Funktion nimmt eine zweistellige Zahl als seed (Startwert) entgegen und gibt ein Feld der Länge 100 mit den Werten der Folge zurück
+- Der Seed ist der erste Wert in der Liste, alle weiteren werden entsprechend der Bildungsvorschrift bestimmt
+- Für Startwerte welche mehr oder weniger als 2 Stellen haben gibt die Funktion den Nullzeiger zurück
+
+
+SOLUTION:
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int *middle_square(int seed);
+int *middle_square(int seed) {
+  int squared;
+  int current = seed;
+  int *liste = calloc(sizeof(int), 100);
+  for(int i = 0; i < 100; i++) {
+    // Calculate squared value of current seed
+    squared = current * current;
+    liste[i] = current;
+
+    if(squared < 1000) {
+      current = squared / 10;
+    } else {
+      current = (squared / 10) % 100;
+    }
+  }
+  return liste;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include <CUnit/Basic.h>\n#include <stdlib.h>\n#include "solution.c"\n\n// Reference implementation for a 2-digit middle square generator\nint *middle_square_reference(int seed);\nint *middle_square_reference(int seed) {\n    if(seed < 10 || seed > 99) {\n        return NULL;\n    }\n\n    int squared;\n    int current = seed;\n    int *liste = calloc(sizeof(int), 100);\n    for(int i = 0; i < 100; i++) {\n      // Calculate squared value of current seed\n      squared = current * current;\n      liste[i] = current;\n\n      if(squared < 1000) {\n        current = squared / 10;\n      } else {\n        current = (squared / 10) % 100;\n      }\n    }\n    //for(int i=0; i<100; i++) printf("%d,", liste[i]);\n    return liste;\n}\n\nvoid test_middle_square_valid_seed(void) {\n  int seed = 25;\n  int* result = middle_square(seed);\n  // Ensure the function does not return NULL\n  CU_ASSERT_PTR_NOT_NULL_FATAL(result);\n  // The first element should be the seed itself\n  CU_ASSERT_EQUAL(result[0], seed);\n  free(result);\n}\n\nvoid test_middle_square_invalid_seed(void) {\n  int seed = 5; // Example invalid seed (not two digits)\n  int* result = middle_square(seed);\n  CU_ASSERT_PTR_NULL(result); // Expect NULL for invalid seed input\n\n  seed = 123; // Example invalid seed (not two digits)\n  result = middle_square(seed);\n  CU_ASSERT_PTR_NULL(result); // Expect NULL for invalid seed input\n}\n\nvoid test_middle_square_equals_reference(void) {\n  int* result;\n  int* result_reference;\n  for (int seed = 10; seed < 100; seed++) {\n    result = middle_square(seed);\n    result_reference = middle_square_reference(seed);\n\n    CU_ASSERT_PTR_NOT_NULL_FATAL(result); // Ensure the function does not return NULL\n    CU_ASSERT_PTR_NOT_NULL_FATAL(result_reference); // Ensure the reference function does not return NULL\n\n    for (int i = 0; i < 100; i++) {\n      if (result[i] != result_reference[i]) {\n        // Log seed value when a mismatch is detected\n        printf("\\nMismatch found at seed %d, index %d: user_generated[%d] = %d, true_result[%d] = %d\\n",\n              seed, i, i, result[i], i, result_reference[i]);\n        CU_FAIL("Result does not match reference.");\n        break; // Exit the current iteration on failure\n      }\n    }\n\n    free(result); // Free allocated memory to avoid leaks\n    free(result_reference); // Free allocated memory to avoid leaks\n  }\n}\n\n\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\n\nint main() {\n  CU_pSuite pSuite = NULL;\n\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return CU_get_error();\n\n  pSuite = CU_add_suite("Suite_for_Middle_Square_Method", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    CU_cleanup_registry();\n    return CU_get_error();\n  }\n\n  if ((CU_add_test(pSuite, "Test valid seed", test_middle_square_valid_seed) == NULL) ||\n      (CU_add_test(pSuite, "Test invalid seed", test_middle_square_invalid_seed) == NULL) ||\n      (CU_add_test(pSuite, "Test function equals reference implementation", test_middle_square_equals_reference) == NULL)) {\n    CU_cleanup_registry();\n    return CU_get_error();\n  }\n\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  CU_cleanup_registry();\n  \n  // Check if there were any test failures.\n  if (CU_get_number_of_tests_failed() > 0) {\n      // Return a non-zero value to indicate failure.\n      return 1;\n  }\n\n  // Return 0 to indicate success.\n  return 0;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 20}, {'name': 'MEMORY', 'points': 20}, {'name': 'ARRAY', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5900, 'prerequisites': [], 'unlockableAssets': []}}
+

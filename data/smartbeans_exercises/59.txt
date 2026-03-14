@@ -1,0 +1,60 @@
+SHORTNAME:
+Multiplikationstafel
+
+TITLE:
+Formatierte Ausgabe von Zahlenwerten
+
+TASKID:
+59
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include<stdio.h>
+int main() {
+  for(int i=0; i<5; i++) {
+    for(int j=0; j<5; j++) {
+      printf("%3d", (i+1)*(j+1));
+    }
+    printf("\n");
+  }
+}
+
+
+LANG:
+c
+
+TASK:
+Lassen Sie sich eine `5x5` Multiplikationstafel ausgeben:
+```
+  1  2  3  4  5
+  2  4  6  8 10
+  3  6  9 12 15
+  4  8 12 16 20
+  5 10 15 20 25
+```
+Achten Sie bei der formatierten Ausgabe darauf, dass die Zahlen wie im Beispiel eingerückt werden.
+
+### Beispieleingabe
+```
+```
+### Beispielausgabe
+```
+  1  2  3  4  5
+  2  4  6  8 10
+  3  6  9 12 15
+  4  8 12 16 20
+  5 10 15 20 25
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': '1  2  3  4  5\n2  4  6  8 10\n3  6  9 12 15\n4  8 12 16 20\n5 10 15 20 25\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'IO', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1000, 'prerequisites': [], 'unlockableAssets': ['surfer-bean-pants', 'surfer-bean-shirt']}}
+

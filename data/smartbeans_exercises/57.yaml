@@ -1,0 +1,140 @@
+shortname: "Matrixprodukt" #S13
+title: "Matrixprodukt berechnen"
+taskid: 57
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie ein Programm, das zwei Matrizen liest, ihr Produkt berechnet und ausgibt. Dimensionieren Sie die Matrizen (statisch) mit benannten Konstanten. Das Programm kann dadurch (ohne weiteres) keine größeren Matrizen verarbeiten, aber es soll beliebige kleinere Matrizen verarbeiten können. Vom Benutzer sollte daher vorher das tatsächlich zu verarbeitende Format erfragt werden.
+  
+  ### Eingabe
+  Eine Zeile mit den ganzzahligen Dimensionen `n` und `m` der ersten Matrix, jeweils höchstens 20.
+  `m` Zeilen mit jeweils `n` Ganzzahlen, die jeweils die Einträge in der erstem Matrix beschreiben.
+  Eine Zeile mit den Dimensionen `o` und `p` der zweiten Matrix, jeweils höchstens 20.
+  `p` Zeilen mit jeweils `n` Ganzzahlen, die jeweils die Einträge in der erstem Matrix beschreiben.
+  
+
+  ### Beispieleingabe
+  ```
+  3 3
+  1 0 1
+  0 1 0
+  1 0 1
+  5 3
+  1 2 3 4 5
+  2 3 4 5 1
+  3 4 5 1 2
+  ```
+  ### Beispielausgabe
+  ```
+  4 6 8 5 7
+  2 3 4 5 1
+  4 6 8 5 7
+  ```
+solution: |
+  #include <math.h>
+  #include <stdio.h>
+
+  #define MAX_SIZE 20
+
+  int main() {
+    int n, m, o, p;
+    int mat1[MAX_SIZE][MAX_SIZE] = {0}, mat2[MAX_SIZE][MAX_SIZE] = {0},
+          mat3[MAX_SIZE][MAX_SIZE] = {0};
+    scanf("%d", &n);
+    scanf("%d", &m);
+    if (n > MAX_SIZE || m > MAX_SIZE) {
+      printf("error");
+      return 1;
+    }
+
+    for (int i = 0; i < m; i++) {
+      for (int k = 0; k < n; k++) {
+        scanf("%d", &mat1[i][k]);
+      }
+    }
+    scanf("%d", &o);
+    scanf("%d", &p);
+    if (o > MAX_SIZE || p > MAX_SIZE) {
+      printf("error");
+      return 1;
+    }
+    for (int i = 0; i < p; i++) {
+      for (int k = 0; k < o; k++) {
+        scanf("%d", &mat2[i][k]);
+      }
+    }
+    printf("\n");
+
+    for (int i = 0; i < n; i++) {
+      for (int k = 0; k < o; k++) {
+        for (int z = 0; z < m; z++) {
+            mat3[i][k] += mat1[i][z]*mat2[z][k];
+        }
+        printf("%d ", mat3[i][k]);
+      }
+      printf("\n");
+    }
+
+    return 0;
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          3 3
+          1 0 0
+          0 1 0
+          0 0 1
+          3 3
+          1 0 0
+          0 1 0
+          0 0 1
+        stdout: |
+          1 0 0
+          0 1 0
+          0 0 1
+      - args: []
+        stdin: |
+          3 3
+          1 0 1
+          0 1 0
+          1 0 1
+          5 3
+          1 2 3 4 5
+          2 3 4 5 1
+          3 4 5 1 2
+        stdout: |
+          4 6 8 5 7
+          2 3 4 5 1
+          4 6 8 5 7
+      - args: []
+        stdin: |
+          5 5
+          1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 1 0
+          0 0 0 0 1
+          5 5
+          1 2 3 4 5
+          2 3 4 5 1
+          3 4 5 1 2
+          4 3 -1 5 5
+          0 0 0 0 0
+        stdout: |
+          1 2 3 4 5
+          2 3 4 5 1
+          3 4 5 1 2
+          4 3 -1 5 5
+          0 0 0 0 0
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 40 }
+      - { "name": "MATH", "points": 40 }
+      - { "name": "schwierig" }
+    orderBy: 6600
+    prerequisites: []
+    unlockableAssets: ["summer-feelings-male-pants", "summer-feelings-male-shirt"]

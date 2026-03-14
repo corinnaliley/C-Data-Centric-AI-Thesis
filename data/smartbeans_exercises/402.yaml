@@ -1,0 +1,184 @@
+shortname: "Strings filtern" #D2
+title: "Kleinbuchstaben und Großbuchstaben filtern"
+taskid: 402
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie eine Funktion 
+  
+  ```
+  char* string_filter(const char* text)
+  ```  
+  
+  die einen Zeiger auf einen String entgegennimmt, entsprechend der Anforderungen filtert und das Ergebnis zurückgibt.
+
+  *Anforderungen*
+  
+  - Der Rückgabestring soll nur noch Kleinbuchstaben und Großbuchstaben enthalten.
+
+  ### Beispielaufruf
+  ```
+  string_filter("...Hallo Welt!!");
+  ```
+
+  ### Beispielergebnis
+  ```
+  HalloWelt
+  ```
+solution: |
+  #include <string.h>
+  #include <stdlib.h>
+  char* string_filter(const char* text){
+    size_t textlen = strlen(text);
+    char* return_text = malloc((textlen+1)*sizeof(char));
+    int pos = 0;
+    for(int i = 0; i < textlen; i++){
+      char c = text[i];
+      if((c >= 'A' && c <= 'Z')|| (c >= 'a' && c <= 'z')){
+        return_text[pos] = text[i];
+        pos++;
+      }
+    }
+    return_text[pos] = '\0';
+    return return_text;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include <string.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void test_string_filter(void){
+
+          //Testcase Beispiel
+          if(strcmp(string_filter("...Hallo Welt!!"), "HalloWelt")==0){
+            CU_PASS("Erfolg! Eingabe (...Hallo Welt!!) Erwartete Ausgabe (HalloWelt)");
+          }
+          else{
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (...Hallo Welt!!)\n\
+                    Erwartete Ausgabe:    (HalloWelt)\n\
+                    Tatsächliche Ausgabe: (%s)\n",string_filter("...Hallo Welt!!") );
+            CU_FAIL("1.Test");
+          }
+
+          //Testcase Zahlen
+          if(strcmp(string_filter("W1A2S2 d4a5 L6O7S8"), "WASdaLOS")==0){
+            CU_PASS("Erfolg! Eingabe (W1A2S2 d4a5 L6O7S8) Erwartete Ausgabe (WASdaLOS)");
+          }
+          else{
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (W1A2S2 d4a5 L6O7S8)\n\
+                    Erwartete Ausgabe:    (WASdaLOS)\n\
+                    Tatsächliche Ausgabe: (%s)\n",string_filter("W1A2S2 d4a5 L6O7S8") );
+            CU_FAIL("2.Test");
+          }
+
+          //Testcase Leerzeichen
+          if(strcmp(string_filter("  "), "")==0){
+            CU_PASS("Erfolg! Eingabe (  ) Erwartete Ausgabe ()");
+          }
+          else{
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (  )\n\
+                    Erwartete Ausgabe:    ()\n\
+                    Tatsächliche Ausgabe: (%s)\n",string_filter("  ") );
+            CU_FAIL("3.Test");
+          }
+
+          //Testcase leerer String
+          if(strcmp(string_filter(""), "")==0){
+            CU_PASS("Erfolg! Eingabe () Erwartete Ausgabe ()");
+          }
+          else{
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              ()\n\
+                    Erwartete Ausgabe:    ()\n\
+                    Tatsächliche Ausgabe: (%s)\n",string_filter("") );
+            CU_FAIL("4.Test");
+          }
+
+          //Testcase Leerzeichen zu Beginn
+          if(strcmp(string_filter(" helloworld "), "helloworld")==0){
+            CU_PASS("Erfolg! Eingabe ( helloworld ) Erwartete Ausgabe (helloworld)");
+          }
+          else{
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              ( helloworld )\n\
+                    Erwartete Ausgabe:    (helloworld)\n\
+                    Tatsächliche Ausgabe: (%s)\n",string_filter(" helloworld ") );
+            CU_FAIL("5.Test");
+          }
+
+          //Testcase random
+          if(strcmp(string_filter("BO??a2aK60TL/nwH"), "BOaaKTLnwH")==0){
+            CU_PASS("Erfolg! Eingabe (BO??a2aK60TL/nwH) Erwartete Ausgabe (BOaaKTLnwH)");
+          }
+          else{
+            printf("\n    6.Test: Fehler!\n\
+                    Eingabe:              (BO??a2aK60TL/nwH)\n\
+                    Erwartete Ausgabe:    (BOaaKTLnwH)\n\
+                    Tatsächliche Ausgabe: (%s)\n",string_filter("BO??a2aK60TL/nwH") );
+            CU_FAIL("6.Test");
+          }
+
+          //Testcase nur Alphabet
+          if(strcmp(string_filter("helloworld"), "helloworld")==0){
+            CU_PASS("Erfolg! Eingabe (helloworld) Erwartete Ausgabe (helloworld)");
+          }
+          else{
+            printf("\n    7.Test: Fehler!\n\
+                    Eingabe:              (helloworld)\n\
+                    Erwartete Ausgabe:    (helloworld)\n\
+                    Tatsächliche Ausgabe: (%s)\n",string_filter("helloworld") );
+            CU_FAIL("7.Test");
+          }
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+        
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Strings filtern", test_string_filter))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "MEMORY", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 5300
+    prerequisites: []
+    unlockableAssets: ["beany-botter-hat", "beany-botter-shirt"]

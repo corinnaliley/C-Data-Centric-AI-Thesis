@@ -1,0 +1,234 @@
+shortname: "Buchstaben zählen" #D11
+title: "Zählen wie oft ein Buchstabe vorkommt"
+taskid: 411
+defaultEditorInput: |
+lang: "c"
+task: |
+  Programmieren Sie eine Funktion mit folgendem Prototyp:
+
+  ```
+  int frequency(const char string[], char ch);
+  ```
+   
+  *Anforderungen*
+   
+  - Die Funktion bekommt im Parameter `ch` ein Zeichen und im Parameter `string` einen Zeiger auf ein Feld, in dem ein String gespeichert ist, übergeben.
+  - Die Funktion bestimmt wie häufig das übergebene Zeichen im String enthalten ist und liefert diese Anzahl zurück.
+  - Bei Buchstaben wird nicht unterschieden, ob es sich um Klein- oder Großbuchstaben handelt. <u>Beispiel</u>. Im String `Test!` ist sowohl das Zeichen `T` als auch das Zeichen `t` zweimal enthalten. 
+  - Benutzen Sie zur Erkennung und Umwandlung der Zeichen Funktionen aus der Standardbibliothek.
+  - Gehen Sie davon aus, dass `string` entweder der `NULL`-Zeiger ist oder auf den Anfang eines gültigen Strings zeigt.
+
+
+solution: |
+  #include <ctype.h>
+  #include <string.h>
+   
+  int frequency(const char string[], char ch){
+    if(string == NULL){
+      return 0;
+    }
+    int count = 0;
+    for(int i = 0; i< strlen(string); i++){
+      if(tolower(ch) == tolower(string[i])){
+        count++;
+      }
+    }
+    return count;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        #include <string.h>
+        
+        void test_frequency(void){ 
+          int result;
+      
+          //Testcase Beispiel
+          const char bsp[] = "Test!";
+          result = frequency(bsp, 'T');
+          
+          if(result == 2){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (\"Test!\", 'T')\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("1.Test");
+          }
+          result = frequency(bsp, 't');
+          
+          if(result == 2){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (\"Test!\", 't')\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("2.Test");
+          }
+      
+          //Testcase Anderes Wort
+          const char w2[] = "Bananenbrot";
+          result = frequency(w2, 'a');
+          
+          if(result == 2){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (\"Bananenbrot\", 'a')\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("3.Test");
+          }
+          result = frequency(w2, 'B');
+          
+          if(result == 2){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              (\"Bananenbrot\", 'B')\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("4.Test");
+          }
+          result = frequency(w2, 'b');
+          
+          if(result == 2){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              (\"Bananenbrot\", 'b')\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("5.Test");
+          }
+        
+          //Testcase NULL-Zeiger
+          const char* null = NULL;
+          result = frequency(null, 'x');
+          
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    6.Test: Fehler!\n\
+                    Eingabe:              (NULL, 'x')\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("6.Test");
+          }
+          
+      
+          //Testcase leerer String
+          const char empty[] = "";
+          result = frequency(empty, 'y');
+          
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    7.Test: Fehler!\n\
+                    Eingabe:              (\"\", 'y')\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("7.Test");
+          }
+        
+          //Testcase Buchstabe nicht in String
+          const char noz[] = "abcdefghijklmnopqrstuvwxy";
+          result = frequency(noz, 'z');
+          
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    8.Test: Fehler!\n\
+                    Eingabe:              (\"abcdefghijklmnopqrstuvwxy\", 'z')\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("8.Test");
+          }
+        
+          // Testcase Sonderzeichen
+          const char special[] = "?????";
+          result = frequency(special, '?');
+          
+          if(result == 5){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    9.Test: Fehler!\n\
+                    Eingabe:              (\"?????\", '?')\n\
+                    Erwartete Ausgabe:    (5)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("9.Test");
+          }
+        
+          //Testcase random
+          const char rnd[] = "UHjT7GXRWtFpFyCfVNfV";
+          result = frequency(rnd, 'F');
+          
+          if(result == 4){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            printf("\n    10.Test: Fehler!\n\
+                    Eingabe:              (\"UHjT7GXRWtFpFyCfVNfV\", 'F')\n\
+                    Erwartete Ausgabe:    (4)\n\
+                    Tatsächliche Ausgabe: (%d)\n", result );
+            CU_FAIL("10.Test");
+          }
+        }
+          
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+        
+        int main(){
+          CU_pSuite pSuite = NULL;
+        
+          /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+      
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite){
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+      
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Buchstaben zählen", test_frequency))){
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 4700
+    prerequisites: []
+    unlockableAssets: ["roller_blades-hat", "roller_blades-pants", "roller_blades-shirt"]

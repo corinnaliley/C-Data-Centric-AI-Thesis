@@ -1,0 +1,54 @@
+SHORTNAME:
+Modulo
+
+TITLE:
+Gerade Zahlen bestimmen mit Modulo
+
+TASKID:
+504
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include <stdio.h>
+
+int main() {
+  int n;
+  scanf("%d", &n);
+  if (n % 2 == 0)
+    printf("gerade");
+  else
+    printf("ungerade");
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, das eine ganze Zahl einliest und ausgibt ob die Zahl 'gerade' oder 'ungerade' ist.
+
+### Beispieleingabe
+```
+0
+4
+7
+```
+### Beispielausgabe
+```
+gerade
+gerade
+ungerade
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '0\n', 'stdout': 'gerade\n'}, {'args': [], 'stdin': '2\n', 'stdout': 'gerade\n'}, {'args': [], 'stdin': '-14\n', 'stdout': 'gerade\n'}, {'args': [], 'stdin': '2147483646\n', 'stdout': 'gerade\n'}, {'args': [], 'stdin': '-2147483648\n', 'stdout': 'gerade\n'}, {'args': [], 'stdin': '1\n', 'stdout': 'ungerade\n'}, {'args': [], 'stdin': '17\n', 'stdout': 'ungerade\n'}, {'args': [], 'stdin': '-2222221\n', 'stdout': 'ungerade\n'}, {'args': [], 'stdin': '2147483647\n', 'stdout': 'ungerade\n'}, {'args': [], 'stdin': '-2147483647\n', 'stdout': 'ungerade\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'CONTROL', 'points': 10}, {'name': 'sehr einfach'}], 'orderBy': 600, 'prerequisites': [], 'unlockableAssets': []}}
+

@@ -1,0 +1,115 @@
+SHORTNAME:
+Quicksort rekursiv
+
+TITLE:
+Sortieren eines Feldes mit Quicksort
+
+TASKID:
+207
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Programmieren Sie eine Funktion 
+```
+void sort(int *array, int low, int high);
+```
+
+die einen rekursiven Sortieralgorithmus des Prinzips *divide and conquer*
+realisiert. Dabei ist `array` das nicht-leere zu sortierende Feld, `low` der kleinste
+Index des zu sortierenden Feldes und `high` der größte Index. Der erste
+Funktionsaufruf lautet also:
+
+`sort(a, 0, N-1);` mit `N` Listenelementen.
+Der Algorithmus arbeitet *in-place*, weshalb **kein** neuer Speicher auf dem Heap für ein weiteres Feld
+innerhalb der Funktion angefordert wird und sortiert **aufsteigend**. Statt dessen wird direkt auf dem
+übergebenen Feld gearbeitet.
+
+---
+
+### Der Algorithmus
+- Das Array `array` soll in zwei Partitionen unterteilt werden. 
+- Dazu wird ein Pivotelement `pivot` und desen index `pivot_index` zufällig ausgewählt indem ein zufälliger `int` zwischen `low` und `high` als `pivot_index` bestimmt wird. 
+- Am Ende des Rekursionsschritts soll die erste Partition von `low` bis `pivot_index-1` gehen und alle Elemente, die kleiner sind als `pivot` enthalten. 
+- Die zweite Partition soll dann von `pivot_index+1` bis `high` gehen und alle Elemente, die größer sind als `pivot` enthalten. 
+- Sobald beide Partitionenen richtig sortiert sind soll sich die Funktion sowohl auf der ersten als auch auf der zweiten Partition selbst aufrufen und sortiert somit **rekursiv**. 
+- Die Umsortierung in die zwei Partitionen kann innerhalb eines Rekursionsschrittes wie folgt realisiert werden: 
+  - Bestimme das Pivotelement und den Pivotindex zufällig.
+  - Tausche das Pivotelement mit dem letzten Element und passe den `pivot_index` an. 
+  - Mit zwei Laufvariablen (`i = low, j = low`) wird die richtige Position des Pivots ermittelt: 
+  - Gehe alle Elemente angefangen bei `low` bis `high-1` mit der Variable `i` durch. 
+  - Wenn das Element an `array[i]` kleiner oder gleich dem Pivot ist tausche `array[i]` mit `array[j]` und erhöhe `j` um `1`. 
+  - Nachdem alle Elemente verglichen wurden ist `j` der korrekte Index für das Pivotelement und `i` hat das letzte Element erreicht. 
+  - Tausche `array[j]` mit `array[pivot_index]`. 
+  - Jetzt ist die Partitionierung abgeschlossen; links vom Pivot sind alle kleineren Elemente und rechts vom Pivot alle größeren. 
+  - Nach der Partitionierung wird der Vorgang mit den beiden entstanden Partitionen wiederholt.
+
+Hinweise:
+1. Zu Beginn der Funktion gleicht die Länge des Feldes dem Wert von `high+1`.
+2. Erstelle zur Kontrolle und zum Debugging eine `void printMyArray(int *a, int len);` Funktion, die ein Array `a` der Länge `len` ausgibt.
+
+
+SOLUTION:
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
+void sort(int *array, int low, int high) {
+  // Abbruchbedingung
+  if (low >= high) {
+    return;
+  }
+
+  int len = high+1;
+
+  // Random int between low and high
+  srand(time(NULL));
+  int pivot_index = rand() % (high - low) + low;
+  int pivot = array[pivot_index];
+  // printf("pivotindex: %d, pivot: %d\n", pivot_index, pivot);
+  // printarray(array, len);
+
+  // pack das pivot ans ende
+  array[pivot_index] = array[high];
+  array[high] = pivot;
+  pivot_index = high;
+  // printf("pivotindex: %d, pivot: %d\n", pivot_index, pivot);
+  // printarray(array, len);
+
+  // starte umsortierung
+  int tmp, j = low;
+  for (int i = low; i < high; i++) { // 0 bis vorletztes Element
+    // printf("t, array[%d] = %d\n",i, array[i] );
+    if (array[i] <= pivot) {
+      tmp = array[i];
+      array[i] = array[j];
+      array[j] = tmp;
+      j++;
+    }
+    // printarray(array, len);
+    // printf("j = %d\n", j);
+  }
+  tmp = array[j];
+  array[j] = array[pivot_index];
+  array[pivot_index] = tmp;
+  pivot_index = j;
+
+  // Rekusion
+  sort(array, low, pivot_index-1);
+  sort(array, pivot_index+1, high);
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int* arr, int length, int input1, int input2, int exp,int act, int test_num){\n  char  arr_formated[5000];\n  sprintf(arr_formated, "{");\n  for(int j = 0; j < length+1; j++){\n    sprintf(arr_formated, "%s%d", arr_formated, arr[j]);\n    if(j < length){\n      sprintf(arr_formated, "%s, ", arr_formated);\n    }\n  }\n  sprintf(arr_formated, "%s}", arr_formated);\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (sort(%s, %d, %d);\\n\\\n                                   a[%d];)\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, arr_formated, input1, length, input2, exp, act);\n}\n\nvoid test(void){\n  int a[] = {7,3,5,4,2,1,8,0};\n  int g[] = {7,3,5,4,2,1,8,0};\n  sort(a, 0, 7);\n  if(a[0] == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessage(g, 7, 0, 0, 0, a[0], 1);\n  }\n  if(a[1] == 1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessage(g, 7, 0, 1, 1, a[1], 2);\n  }\n  if(a[2] == 2){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessage(g, 7,0, 2, 2, a[2], 3);\n  }\n\n  if(a[3] == 3){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessage(g, 7, 0,3, 3, a[3], 4);\n  }\n  if(a[4] == 4){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessage(g, 7, 0,4, 4, a[4], 5);\n  }\n  if(a[5] == 5){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessage(g, 7, 0,5, 5, a[5], 6);\n  }\n  if(a[6] == 7){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("7.Test");\n    showFailMessage(g, 7, 0, 6, 7, a[6], 7);\n  }\n\n  if(a[7] == 8){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("8.Test");\n    showFailMessage(g, 7, 0, 7, 8, a[7], 8);\n  }\n  int b[] = {2};\n  int h[] = {2};\n  sort(b, 0, 0);\n  if(b[0] == 2){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("9.Test");\n    showFailMessage(h, 0, 0, 0, 2, b[0], 9);\n  }\n  int c[] = {0,0,8,3,4,2,22,21,1111,222222,1024,32,42};\n  int i[] = {0,0,8,3,4,2,22,21,1111,222222,1024,32,42};\n  sort(c, 0, 12);\n  if(c[0] == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("10.Test");\n    showFailMessage(i, 12, 0, 0, 0, c[0], 10);\n  }\n  if(c[1] == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("11.Test");\n    showFailMessage(i, 12, 0, 1, 0, c[1], 11);\n  }\n  if(c[2] == 2){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("12.Test");\n    showFailMessage(i, 12, 0, 2, 2, c[2], 12);\n  }\n\n  if(c[3] == 3){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("13.Test");\n    showFailMessage(i, 12, 0, 3, 3, c[3], 13);\n  }\n\n  if(c[4] == 4){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("14.Test");\n    showFailMessage(i, 12, 0, 4, 4, c[4], 14);\n  }\n\n  if(c[5] == 8){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("15.Test");\n    showFailMessage(i, 12, 0, 5, 8, c[5], 15);\n  }\n\n  if(c[6] == 21){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("16.Test");\n    showFailMessage(i, 12, 0, 6, 21, c[6], 16);\n  }\n\n  if(c[7] == 22){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("17.Test");\n    showFailMessage(i, 12, 0, 7, 22, c[7], 17);\n  }\n\n  if(c[8] == 32){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("18.Test");\n    showFailMessage(i, 12, 0, 8, 32, c[8], 18);\n  }\n  if(c[9] == 42){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("19.Test");\n    showFailMessage(i, 12, 0, 9, 42, c[9], 19);\n  }\n\n  if(c[10] == 1024){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("20.Test");\n    showFailMessage(i, 12, 0, 10, 1024, c[10], 20);\n  }\n\n  if(c[11] == 1111){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("21.Test");\n    showFailMessage(i, 12, 0, 11, 1111, c[11], 21);\n  }\n\n  if(c[12] == 222222){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("22.Test");\n    showFailMessage(i, 12, 0, 12, 222222, c[12], 22);\n  }\n\n}\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Quicksort rekursiv", test))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 40}, {'name': 'SORT', 'points': 40}, {'name': 'RECURSION', 'points': 40}, {'name': 'schwierig'}], 'orderBy': 6700, 'prerequisites': [], 'unlockableAssets': []}}
+

@@ -1,0 +1,40 @@
+shortname: "Escape-Sequenzen" #E3
+title: "Sonderzeichen ausgeben mit Escape-Sequenzen"
+taskid: 60
+defaultEditorInput: |
+solution: |
+  #include <stdio.h>
+  int main(){
+    printf("Er kam lässig heran und sagte nur \"Na, wie geht's?\".\nKommentare beginnen mit /* und enden mit */. Verwechseln Sie das bitte nicht mit \\* bzw. *\\!");
+  }
+lang: "c" 
+task: |
+  Schreiben Sie ein Programm, das folgenden Text ausgibt:
+  ```
+  Er kam lässig heran und sagte nur "Na, wie geht's?".
+  Kommentare beginnen mit /* und enden mit */. Verwechseln Sie das bitte nicht mit \* bzw. *\!
+  ```
+  
+  ### Beispielausgabe
+  ```
+  Er kam lässig heran und sagte nur "Na, wie geht's?".
+  Kommentare beginnen mit /* und enden mit */. Verwechseln Sie das bitte nicht mit \* bzw. *\!
+  ```
+tests: 
+  - testtype: "c-input-output" 
+    testCases: 
+      - args: []
+        stdin: |
+    
+        stdout: |
+          Er kam lässig heran und sagte nur "Na, wie geht's?".
+          Kommentare beginnen mit /* und enden mit */. Verwechseln Sie das bitte nicht mit \* bzw. *\!
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags:
+      - {"name": "IO", "points": 10}
+      - {"name": "sehr einfach"}
+    orderBy: 200
+    prerequisites: []
+    unlockableAssets: ["new-york-city-coat-pants", "new-york-city-coat-shirt"]

@@ -1,0 +1,117 @@
+shortname: "Caesar-Verschlüsselung" #D5
+title: "Nachricht mit Caesar-Verschlüsselung verschlüsseln"
+taskid: 405
+defaultEditorInput: |
+lang: "c"
+task: |
+  Machen Sie sich <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Caesar-Verschl%C3%BCsselung">**hier**</a> mit dem Prinzip der Caesar-Verschlüsselung vertraut:
+    
+  Schreiben Sie ein Programm, dass eine Nachricht und einen Integer-Wert von der Standardeingabe liest und diese mit dem Caesar-Verfahren verschlüsselt und ausgibt. Die Zahl gibt dabei an, um wie viele Positionen das Alphabet verschoben werden soll.
+   
+  *Anforderungen*
+  
+  - Es soll zwischen Groß-und Kleinschreibung unterschieden werden.
+  - Satz-, Leer- und Sonderzeichen und Zahlen sollen erhalten bleiben.
+  - Sie können davon ausgehen, dass eine Nachricht maximal 100 Zeichen beinhaltet.
+  - Sie können davon ausgehen, dass die Nachricht keine Zeilenumbrüche enthält.
+   
+  ### Beispieleingabe
+  ```
+  Hello, world!
+  5
+  ```
+   
+  ### Beispielausgabe
+  ```
+  Mjqqt, btwqi! 
+  ```
+solution: |
+  #include<stdio.h>
+   
+  int main() {
+    char msg[100], ch;
+    int key;
+    int a;
+    // Nachricht lesen
+    int j = 0;
+    while((msg[j] = getchar()) != '\n'){
+      j++;
+    }
+    msg[j] = '\0';
+    // Integer lesen
+    scanf("%d", &key);
+    // Überlauf Abfangen (key > 26)
+    key = key%26;
+    for (int i = 0; msg[i] != '\0'; i++) {
+      ch = msg[i];
+      int a = (int)ch;
+      if(a >= 97 && a <= 122){
+        // Verschieben
+        a = a + key;
+        // Überlauf abfangen
+        if(a > 122){
+          a = a - 25 - 1;
+        }
+        ch = (char)a;
+        msg[i] = ch;
+      }
+      else if(a >= 65 && a <= 90){
+        a = a + key;
+        if(a > 90){
+          a = a - 25 - 1;
+        }
+        ch = (char)a;
+        msg[i] = ch;
+      }
+    }
+    printf(msg);
+    printf("\n");
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          Hello, world!
+          5
+        stdout: |
+          Mjqqt, btwqi!
+      - args: []
+        stdin: |
+          I'm digging a hole
+          17
+        stdout: |
+          Z'd uzxxzex r yfcv
+      - args: []
+        stdin: |
+          I like Linux!
+          245
+        stdout: |
+          T wtvp Wtyfi!
+      - args: []
+        stdin: |
+          HieR sinD viEle SonderZeichen: , - \ &
+          45
+        stdout: |
+          AbxK lbgW obXex LhgwxkSxbvaxg: , - \ &
+      - args: []
+        stdin: |
+          
+          2
+        stdout: |
+          
+      - args: []
+        stdin: |
+          XF3UNywQaV
+          47
+        stdout: |
+          SA3PItrLvQ
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 4800
+    prerequisites: []
+    unlockableAssets: []

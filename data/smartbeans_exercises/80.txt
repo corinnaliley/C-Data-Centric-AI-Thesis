@@ -1,0 +1,48 @@
+SHORTNAME:
+Rekursive Summe
+
+TITLE:
+Summe rekursiv berechnen
+
+TASKID:
+80
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine rekursive Funktion mit dem Prototypen `int sum(int n);`, die folgende Definition realisiert:
+```
+sum(n) = 
+         0           ,falls n=0
+         sum(n-1)+n  ,falls n>0
+         sum(n+1)+n  ,falls n<0
+```
+
+
+SOLUTION:
+int sum(int n) {
+  if (n == 0) {
+    return 0;
+  }
+  if (n > 0) {
+    return sum(n - 1) + n;
+  }
+  if (n < 0) {
+    return sum(n + 1) + n;
+  }
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, int input1, int exp, int act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (sum(%d))\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input1, exp, act);\n}\n\n\nvoid test_sum(void){\n  int result = sum(0);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, 0, 0, result);\n  } \n\n  result = sum(1);\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, 1, 1, result);\n  } \n\n  result = sum(-1);\n  if(result == -1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, -1, -1, result);\n  } \n\n  result = sum(2);\n  if(result == 3){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, 2, 3, result);\n  } \n\n  result = sum(-2);\n  if(result == -3){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, -2, -3, result);\n  } \n\n  result = sum(10);\n  if(result == 55){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, 10, 55, result);\n  } \n\n  result = sum(-10);\n  if(result == -55){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("7.Test");\n    showFailMessage(7, -10, -55, result);\n  } \n}\n\nint init_suite1(void)\n{\n  return 0;\n}\n\nint clean_suite1(void)\n{\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Rekursive Summe", test_sum)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'RECURSION', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 3200, 'prerequisites': [], 'unlockableAssets': ['e-girl-hat', 'e-girl-pants', 'e-girl-shirt']}}
+

@@ -1,0 +1,661 @@
+[
+  {
+    "query": "Wie bekomme ich WSL in vscode eingebunden?",
+    "type": "redundant",
+    "references": ["tutor_knowledge_base.json"],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "essential",
+        "evidence": "Tippt der Benutzer unter UNIX C-d, so wird das vom Betriebssystem als Dateiende interpretiert.",
+        "page": 28
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "evidence": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewandelten Werte; tritt jedoch bereits vor dem Lesen und der Umwandlung des ersten Wertes ein Fehler ein (und das Dateiende zählt in diesem Sinne als Fehler), so ist der Funktionswert EOF (End Of File). ",
+        "page": 28
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "evidence": "while (scanf(\"%d\", while ( scanf ( \" % d \" , & wert ) != EOF ) { /* Zahl lesen */\nanzahl = anzahl + 1;\nprintf ( \" Der % d . Wert : % d \\ n \" , anzahl , wert );\n}\n ",
+        "page": 28
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie kann ich mein Programm abbrechen?",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
+      "importance": "essential",
+        "evidence": "Zwei Funktionen (abort und exit) erlauben die Beendigung eines Programms an be-liebiger Stelle, also ohne geschachtelte Funktionsaufrufe erst bis ins Hauptprogramm zurückverfolgen zu müssen: \n\nvoid abort(void);\nvoid exit(int status ); ",
+        "page": 102
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+        "evidence": "Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die rufende Funktion zurück. Für main ist die rufende Funktion das Betriebssystem. ",
+        "page": 6
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wofür braucht man sizeof?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-157-166.pdf",
+        "evidence": "Hier ist der Operator sizeof unentbehrlich! Wieviel Speicher eine Struktur benötigt, kann nämlich von Rechner zu Rechner sehr unterschiedlich sein, selbst wenn die einzel-nen Komponenten auf den Rechnern jeweils gleichviel Speicher benötigen. Dahinter steht eine Vorschrift des Standards: Die Komponenten einer Struktur müssen im Speicher des Rechners zwar dieselbe Reihenfolge besitzen wie in der Deklaration – sie müssen aber nicht lückenlos aufeinanderfolgen! Entsprechend addiert der Operator sizeof nicht ein-fach den Speicherbedarf der Komponenten, sondern berücksichtigt auch eventuelle Lücken. Als Grundregel sollte man sich einfach merken: Bei jedem Aufruf von malloc steckt im Argument der Operator sizeof!  ",
+        "page": 45
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Bei binärer Suche, wie bestimmt man den mittleren Index?",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "importance": "essential",
+        "evidence": "Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folgendermaßen geschehen:\nint v[20], *start = v, *ende = v + 20, *mitte;\nmitte = start + (ende - start )/2;\nWendet man nun einfache mathematische Termumformungen an, könnte man auf folgende kürzere Schreibweise kommen\nmitte = (start + ende )/2; /* nicht zulaessig */\ndie für beliebige Ganzzahlwerte sicher richtig wäre, und mit einer Operation weniger auskommt. Für Zeiger ist dieser Ausdruck jedoch nicht zulässig. ",
+        "page": 126
+      },
+    {
+        "gold_id": "208.yaml",
+        "evidence": "SOLUTION: #include <stdio.h>\nint suche(int *array, int len, int value) { int low = 0, high = len-1; while (low <= high) { int mitte = low + ((high - low) / 2); if (array[mitte] == value) { return 1; } if (value > array[mitte]) { high = mitte - 1; } else { low = mitte + 1; } } return 0; }",
+        "page": 0
+      },
+    {
+        "gold_id": "522.yaml",
+        "evidence": "SOLUTION: int rec_contains(int **pos, int *start, int *end, int x) { if (start == end) { *pos = NULL; return 0; }\nif (start + 1 == end) { if (*start == x) { *pos = start; return 1; } else { *pos = NULL; return 0; } }\nint *middle = start + (end - start) / 2; if (x < *middle) { return rec_contains(pos, start, middle, x); } else { return rec_contains(pos, middle, end, x); } }",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie funktioniert binäre Suche?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "208.yaml",
+        "evidence": "Anforderungen\n\n    Die Funktion gibt 1 zurück, wenn value in array vorhanden ist und 0, wenn value nicht in array vorhanden ist.\n    Die Suche erfolgt iterativ und nach dem Prinzip devide and conquer.\n    Dafür wird zuerst das mittlere Element von array betrachtet.\n    Ist der Wert gleich dem Wert von value, so ist die Suche beendet.\n    Ansonsten wird das Array in zwei Hälften aufgeilt:\n    War value kleiner als der Mittelwert?\n    Dann suche im rechten Teil der Liste weiter, ansonsten führe die Suche im linken Teil fort.",
+        "page": 0
+      },
+    {
+        "gold_id": "522.yaml",
+        "evidence": "Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.\nBesteht das Feld nur aus einer Komponente ist die Suche beendet. Ob die Suche erfolgreich war oder nicht, ergibt sich aus dem Wert der einzigen vorhandenen Feldkomponente.\nErmittle die mittle Feldkomponente. Zerlege das Feld in zwei Teile, den vorderen Teil vom Anfang bis zu mittleren Feldkomponeten (exklusive) und den hinteren Teil ab der mittleren Komponte (inlusive) bis zum Ende. Ist der gesuchte Wert kleiner als der Wert der mittleren Feldkomponente, setze die Suche bei Schritt 1. auf dem vorderen Teilfeld fort, sonst bei Schritt 1. auf dem hinteren Teilfeld.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
+        "evidence": "Meist hat man die Wahl zwischen verschiedene Editoren, d.h. Programmen, mit denen man Texte, zum Beispiel auch C–Quellprogramme eingeben kann. Wichtig ist, dass der Editor den eingegebenen Quelltext ohne Formatierungsanweisungen oder Anweisungen zur Dokumentorganisation speichert. ",
+        "page": 183
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
+        "evidence": "Dazu benötigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org) zusam-men mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc) installiert. Beide kann man kostenlos im Internet herunterladen. ",
+        "page": 184
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "SmartBeans zeigt mir an, dass die Ausgabe nicht identisch ist, aber ich sehe nicht, wo. Kannst du nochmal schauen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
+      "importance": "essential",
+        "evidence": "liefert bei einem Aufruf pow (x, y) die Potenz",
+        "page": 101
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
+        "evidence": "Von den übrigen Funktionen sind drei besonders erwähnenswert, die jeweils zwei double–Parameter besitzen und einen double–Funktionswert liefern: ",
+        "page": 100
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie kann ich ein Linux Terminal in VS-Code öffnen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "59.yaml",
+      "importance": "essential",
+        "evidence": "SOLUTION: #include<stdio.h> int main() { for(int i=0; i<5; i++) { for(int j=0; j<5; j++) { printf(\"%3d\", (i+1)*(j+1)); } printf(\"\\n\"); } }",
+        "page": 0
+      },{
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "evidence": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen (%)\neingeleitet. Ihm muss ein Kennbuchstabe (oder auch eine Kennbuchstaben–Kombinati-\non) f¨ur den Typ des Wertes folgen; dazu k¨onnen weitere Angaben kommen, die uns zum\njetzigen Zeitpunkt aber noch nicht zu interessieren brauchen. Jede dieser Angaben wird\nals Formatbeschreiber bezeichnet,",
+        "page": 24
+      }
+    ],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "525.yaml",
+        "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
+        "page": 0
+      },
+    {
+        "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+        "evidence": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Kann man in der Klausur auch kompilieren und testen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "525.yaml",
+        "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
+        "page": 0
+      },
+    {
+        "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+        "evidence": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Ist das realistisch, die Klausur in 2 Wochen zu bestehen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+        "evidence": "Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinhalbstündi-gen Vorlesung, wobei der Schwierigkeitsgrad von Kapitel zu Kapitel steigt. Lässt man einige Abschnitte aus, so kann man in einem Drei-Wochen-Kurs einen Großteil des hier gebotenen Stoffs vermitteln. Die Auslassungen können sich interessierte Teilnehmer im Selbststudium erarbeiten. ",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie viele der Übungsaufgaben sollte man machen?",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Was für Aufgaben kommen in der Klausur dran?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "79.yaml",
+        "evidence": "klausur",
+        "page": 0
+      },
+    {
+        "gold_id": "209.yaml",
+        "evidence": "klausur",
+        "page": 0
+      },
+      {
+        "gold_id": "404.yaml",
+        "evidence": "klausur",
+        "page": 0
+      },
+      {
+        "gold_id": "512.yaml",
+        "evidence": "klausur",
+        "page": 0
+      },
+      {
+        "gold_id": "518.yaml",
+        "evidence": "klausur",
+        "page": 0
+      },
+    {
+        "gold_id": "523.yaml",
+        "evidence": "klausur",
+        "page": 0
+      },
+    {
+        "gold_id": "524.yaml",
+        "evidence": "klausur",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Können wir vielleicht eine Aufgabe gemeinsam machen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "517.yaml",
+        "evidence": "Testen Sie wie folgt.\n\n    Speicher für ein int-Feld anzahl der Länge length auf dem Heap anfordern (hier kann ein Fehler auftreten).\n    Für jeden Wert k aus 1, 2, ..., length wird im Feld anzahl abgespeichert, wie oft k im Feld perm vorkommt.\n    Enthalten alle Komponenten des Feldes anzahl den Wert 1 handelt es sich um eine passende Permutation.\n    Vor Beendigung der Funktion wird der angeforderten Speicher wieder freigegeben.",
+        "page": 0
+      },
+    {
+        "gold_id": "517.yaml",
+        "evidence": "SOLUTION: #include <stdio.h> #include <stdlib.h>\nint is_perm(int perm[], int laenge) {\nint *anzahl; int wert = 1; int i;\nif (perm == NULL) return -1;\n/* Test auf wohldefiniert Eingabe , siehe unten /for (i = 0; i < laenge; i++) {if (perm[i] < 1 || perm[i] > laenge)return 0;/ Fehler waere auch OK */ }\nif ((anzahl = malloc(laenge * sizeof(int))) == NULL) return -3;\nfor (i = 0; i < laenge; i++) anzahl[i] = 0;\nfor (i = 0; i < laenge; i++) ++anzahl[perm[i] - 1];\nfor (i = 0; i < laenge; i++) wert = wert & (anzahl[i] == 1);\nfree(anzahl); return wert; }",
+        "page": 0
+      },
+    {
+        "gold_id": "73.yaml",
+        "evidence": "SOLUTION: int permtest(unsigned int* p, int laenge) { int map[laenge + 1]; for (int i = 0; i <= laenge; i++) map[i] = 0; for (int i = 0; i < laenge; i++) { if (p[i] <= 0 || p[i] > laenge) return 0; if (map[p[i]]) return 0; map[p[i]] = 1; } return 1; }",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+    "type": "complementary",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+        "evidence": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n    In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.\n    In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw.“\n\n„Die Funktionsdeklaration hat in ANSI–C die Form typ name (typ1 [parameter1], ..., typN [parameterN]); und wird als Prototyp bezeichnet.“",
+        "page": 69
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+        "evidence": "„Die Funktionsdefinition hat die Form typ name (typ1 parameter1, ..., typN parameterN ) { lokale deklarationen anweisungsfolge }“",
+        "page": 70
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "importance": "essential",
+        "evidence": "main ist, wie bereits gesagt, das Hauptprogramm, d.h. die Ausführung des gesamten Pro-gramms beginnt am Anfang von main. Die Funktionen funkt1, . . . , funktN können vom Hauptprogramm oder auch von den Funktionen aufgerufen werden. Insbesondere ist auch Rekursion erlaubt, d.h. eine Funktion darf sich selbst aufrufen. ",
+        "page": 4
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "importance": "essential",
+        "evidence": "Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, die ihrerseits Zeiger auf Strings sind. Auch solche Variablen kann man explizit definieren: Durch char ** tabelle; ist tabelle ein Zeiger auf eine Variable mit dem Typ char *, also Zeiger auf eine Variable mit einem Zeigertyp.",
+        "page": 132
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "evidence": "Statt dessen wird die Bitfolge unverändert übertragen. Durch die Funktion printf wird diese Bitfolge nur wieder als int–Wert interpretiert",
+        "page": 129
+      },
+    {
+        "gold_id": "77.yaml",
+        "evidence": "SOLUTION: #include <stdio.h>\nint sudokucheck(const int** s) { const int laenge = 9;\nfor(int i = 0; i < laenge; i++) { int helper[] = {2,2,2,2,2,2,2,2,2}; for(int j = 0; j < laenge; j++) { if((laenge) + j) < 1 || (laenge) + j) - 1)]) {helper[((s + (ilaenge) + j) - 1)]--; } else { return 0; } if(helper[((laenge) + i) - 1)]) {helper[((s + (jlaenge) + i) - 1)]--; } else { return 0; } if(!(i % 3) && !(j % 3)) { int block[] = {1,1,1,1,1,1,1,1,1}; for(int k = 0; k < 3; k++) { for(int l = 0; l < 3; l++) { if(block[((laenge) + j + (klaenge) + l) - 1)]) { block[((laenge) + j + (klaenge) + l) - 1)]--; } else { return 0; } } } } } } return 1; }",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "evidence": "Speicher, den man sich mit malloc beschafft, besitzt übrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit für deren Zuweisung sorgen",
+        "page": 143
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "evidence": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der Speicherplatzzuordnung einen wohldefinierten Anfangswert erhalten, muss man ihnen erst einen Wert zuweisen, bevor man auf ihren Wert zugreifen kann.",
+        "page": 95
+      },
+    {
+        "gold_id": "517.yaml",
+        "evidence": "SOLUTION: #include <stdio.h> #include <stdlib.h>\nint is_perm(int perm[], int laenge) {\nint *anzahl; int wert = 1; int i;\nif (perm == NULL) return -1;\n/* Test auf wohldefiniert Eingabe , siehe unten /for (i = 0; i < laenge; i++) {if (perm[i] < 1 || perm[i] > laenge)return 0;/ Fehler waere auch OK */ }\nif ((anzahl = malloc(laenge * sizeof(int))) == NULL) return -3;\nfor (i = 0; i < laenge; i++) anzahl[i] = 0;\nfor (i = 0; i < laenge; i++) ++anzahl[perm[i] - 1];\nfor (i = 0; i < laenge; i++) wert = wert & (anzahl[i] == 1);\nfree(anzahl); return wert; }",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+        "evidence": "Die deutschen Umlaute und das ß gehören nicht zum Zeichensatz von ANSI–C! Weitestgehend entsprechen diese Anforderungen des Standard der Realität des ASCII–Code (American Standard Code for Information Interchange), der insgesamt 128 Zeichen umfasst“",
+        "page": 12
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "evidence": "Die Länge des Strings ist die Anzahl der Bytes vor dem Nullbyte im Feld. Die Länge des char–Feldes in dem die Zeichen des Strings gespeichert sind ist die Anzahl der Bytes, die das komplette Feld belegt.",
+        "page": 113
+      },
+    {
+        "gold_id": "417.yaml",
+        "evidence": "SOLUTION: #include <string.h>\nchar* static_str(char* string){ static char str_return[150]; strcpy(str_return, string); return str_return; }\nchar* malloc_str(char string[], int len){ char* ptr = malloc(len*sizeof(char)); strcpy(ptr, string); return ptr; }",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "evidence": "Ein Feld von Zeichen wird dadurch zu einem String, dass man hinter dem letzten\n” echten“ Zeichen ein Null–Zeichen speichert. Bei Stringkon-\nstanten sorgt der Compiler sogar dafür, dass dieses Null–Zeichen automatisch angehängt wird. Das Null–Zeichen hat die Ordnungszahl 0 und kann im Quelltext als \\0 geschrieben werden. ",
+        "page": 47
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-193-206.pdf",
+        "evidence": "Wenn der zu kopierende String aus n oder mehr Zeichen besteht, wird der kopierte String nicht durch ein Stringende-Zeichen abgeschlossen.",
+        "page": 188
+      },
+    {
+        "gold_id": "417.yaml",
+        "evidence": "SOLUTION: #include <string.h>\nchar* static_str(char* string){ static char str_return[150]; strcpy(str_return, string); return str_return; }\nchar* malloc_str(char string[], int len){ char* ptr = malloc(len*sizeof(char)); strcpy(ptr, string); return ptr; }",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "evidence": "Vereinbart man Stringvariablen, so muss man bei der Längenangabe das Null–Zeichen stets mitzählen. Von den Vereinbarungen\nchar text1 [4] = \"Text\", /* nicht korrekt */\ntext2 [5] = \"Text\",\ntext3 [6] = \"Text\";\nist die erste also nicht korrekt, weil sie das abschließende Null–Zeichen nicht berücksichtigt.",
+        "page": 47
+      },
+    {
+        "gold_id": "417.yaml",
+        "evidence": "SOLUTION: #include <string.h>\nchar* static_str(char* string){ static char str_return[150]; strcpy(str_return, string); return str_return; }\nchar* malloc_str(char string[], int len){ char* ptr = malloc(len*sizeof(char)); strcpy(ptr, string); return ptr; }",
+        "page": 0
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "evidence": "Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulässigen Indi-zes auf ein Feld zugreift: Der Abstand wird ausgerechnet und zum Zugriff verwendet. So bewirkt v[-1] gerade den Zugriff auf den Speicherbereich direkt vor dem Beginn des Vektors. Versuchte Zugriffe auf Feldkomponenten jenseits der Feldgrenzen nennt man In-dexüberschreitung ",
+        "page": 113
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "evidence": "An der Stelle, auf die zum Beispiel durch v[-1] zugegriffen wird, steht ja in der Regel eine andere Variable des Programms,",
+        "page": 113
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Welche Editoren stehen in der Klausur zur Verfügung?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+        "evidence": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Gibt es in der Klausur Schmierpapier?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "tutor_knowledge_base.txt",
+        "evidence": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "tutor_knowledge_base.txt",
+        "evidence": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "tutor_knowledge_base.txt",
+        "evidence": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-1-16",
+        "evidence": "Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die rufende Funktion zurück. Für main ist die rufende Funktion das Betriebssystem. Verschiedene Funktionswerte von main können verabredet werden, um dem Betriebs-system den korrekten (0) ",
+        "page": 6
+      },
+    {
+        "gold_id": "519.yaml",
+        "evidence": "SOLUTION: #include <stdio.h>\nint main(){ printf(\"Hello World!\"); return 0; }",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+        "evidence": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der Spei-cherplatzzuordnung einen wohldefinierten Anfangswert erhalten, muss man ihnen erst einen Wert zuweisen, bevor man auf ihren Wert zugreifen kann. Diese Zuweisung kann in der Form einer Anfangswertzuweisung erfolgen oder auch durch eine explizite Wertzuweisung; beides löst der Compiler letztlich ohnehin in gleicher Weise auf.",
+        "page": 95
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+      "importance": "essential",
+        "evidence": "Speicher, den man sich mit malloc beschafft, besitzt übrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit für deren Zuweisung sorgen. ",
+        "page": 143
+      },
+    {
+        "gold_id": "tutor_knowledge_base.txt",
+        "evidence": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable.",
+        "page": 0
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+        "evidence": "Variablen besitzen dagegen einen Speicherplatz und Typ und in der Regel auch einen Wert, nämlich den, der an diesem Speicherplatz steht. Es ist jederzeit möglich, diesen Wert zu ändern. Solange der Wert einer Variablen nicht gesetzt wurde, braucht sie keinen wohldefinierten Wert zu besitzen.",
+        "page": 17
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+        "evidence": "Ein C–Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen. Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisiert das Hauptprogramm. Alle anderen Funktionen sind Unterprogramme und müssen andere Namen tragen. Das kleinste Programm besteht nur aus der Funktion main. Fehlt sie, gibt der Linker eine Fehlermeldung aus. ",
+        "page": 4
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+        "evidence": "Das Objekt–Programm wird gebunden; dieses geschieht erneut durch ein spezielles Programm, den Linker. Der Linker fügt das eigene Programm mit den benötigten Routinen aus den Programm–Bibliotheken zu einem ausführbaren Programm (”Binary“) zusammen. Auch dabei können Fehler auftreten, nämlich dass der Linker benötigte Routinen nicht findet.",
+        "page": 3
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+        "evidence": "Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisiert das Hauptprogramm.",
+        "page": 4
+      },
+    {
+        "gold_id": "tutor_knowledge_base.txt",
+        "evidence": "Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler.",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "525.yaml",
+        "evidence": "Programmieren Sie eine main-Funktion (ohne Benutzereingaben), die auf der Kommandozeile genau zwei Argumente übergeben bekommt.",
+        "page": 0
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "evidence": "Jedes C–Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. Diese Hauptfunktion wird beim Start des Programms vom Betriebssystem auf-gerufen. Und sie erhält beim Aufruf zwei Argumente!",
+        "page": 134
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "evidence": "(int argc , char *argv [])",
+        "page": 134
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Was ist eine statische Dimensionierung bei Matrizen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "57.yaml",
+        "evidence": "Schreiben Sie ein Programm, das zwei Matrizen liest, ihr Produkt berechnet und ausgibt. Dimensionieren Sie die Matrizen (statisch) mit benannten Konstanten. Das Programm kann dadurch (ohne weiteres) keine größeren Matrizen verarbeiten, aber es soll beliebige kleinere Matrizen verarbeiten können. Vom Benutzer sollte daher vorher das tatsächlich zu verarbeitende Format erfragt werden.",
+        "page": 0
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "evidence": "Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine obere Schranke für die Größe der vorkommenden Matrizen und definiert alle Matrizen mit dieser Größe.",
+        "page": 116
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "evidence": "Felder können durch `typ name[anzahl];` vereinbart werden. Der Wert anzahl muss ein konstanter Ausdruck mit ganzzahligem, positivem Wert sein.",
+        "page": 111
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "417.yaml",
+            "importance": "essential",
+        "evidence": "Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilfe der Funktion strcpy() dort hinein",
+        "page": 0
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "evidence": "Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführung eines Programms zur Verfügung, auch wenn man zeitweilig nicht auf sie zugreifen kann, weil sie in einigen Modulen nicht deklariert oder in einigen Funktionen verschattet ist. Statisch sind alle externen Variablen – gleichviel, ob sie das Attribut static tragen oder nicht. ",
+        "page": 94
+      },
+    {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "evidence": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhalten! Solche Variablen sind eine Mischung aus externen static–Variablen und internen Variablen:\n\n    Wie auf interne Variablen kann man auf sie nur in dem Block zugreifen, der ihre Definition enthält. Das impliziert insbesondere, dass sie wie static–Variablen lokal sind, also nicht aus anderen Modulen heraus gelesen oder verändert werden können.\n    Wie bei externen Variablen erfolgt die Zuordnung des Speicherplatzes einmalig durch den Compiler, was entsprechend auch wieder nur konstante Ausdrücke als Anfangs-werte erlaubt. ",
+        "page": 95
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Warum kann ich einen char mit einem int vergleichen?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  },
+  {
+    "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
+    "type": "redundant",
+    "references": [{
+        "gold_id": "",
+        "evidence": "",
+        "page": 0
+      }],
+    "supplementary_answer": ""
+  }
+]

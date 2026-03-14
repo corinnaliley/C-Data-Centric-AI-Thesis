@@ -1,0 +1,163 @@
+shortname: "Zahlenreihen VII" #N20
+title: "Berechnung von Zahlenreihen"
+taskid: 520
+defaultEditorInput: |
+lang: "c"
+task: |
+  Die Folge S = s<sub>0</sub>, s<sub>1</sub>, s<sub>2</sub>, ... ist, mit natürlichen Zahlen `k`, `n`, deﬁniert wie folgt
+
+  - s<sub>0</sub> = 0, s<sub>1</sub> = 1
+  - s<sub>k</sub> = s<sub>n</sub> für k > 1 mit k = 2n
+  - s<sub>k</sub> = s<sub>n</sub> + s<sub>n+1</sub> für k > 1 mit k = 2n+1
+
+  Daraus ergibt sich folgender Anfang der Folge `S`.
+
+  s<sub>0</sub>=0, s<sub>1</sub>=1, s<sub>2</sub>=1, s<sub>3</sub>=2, s<sub>4</sub>=1, s<sub>5</sub>=3, s<sub>6</sub>=2, ...
+
+  Programmieren Sie eine Funktion, die das k -te Glied der Folge S berechnet, mit folgendem Prototyp.
+
+  ```
+  long rekS(unsigned int k);
+  ```
+
+  *Anforderungen*
+  - Die Berechnung erfolgt **rekursiv**, d.h. die Funktion muss sich selbst aufrufen.
+  - Mögliche Ganzzahlüberläufe werden erkannt und verhindert. Wird ein Überlauf erkannt ist der Funktionswert -1.
+
+  ### Beispielaufruf
+  ```
+  rekS(3)
+  ```
+  ### Beispielergebnis
+  ```
+  2
+  ```
+
+solution: |
+  long rekS(unsigned int k){
+      if (k == 0)
+          return 0;
+      if (k == 1)
+          return 1;
+      if (k%2 == 0)
+          return rekS(k/2);
+      if (k%2 == 1)
+          return rekS(k/2) + rekS ((k/2)+1);
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h" 
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int act, int exp){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (%d)\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, exp, act);
+        }
+
+
+        void test1(void){
+          if(rekS(0) == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(1, 0, rekS(0), 0);
+          }
+
+          if(rekS(1) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(2, 1, rekS(1), 1);
+          }
+
+          if(rekS(2) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(3, 2, rekS(2), 1);
+          }
+
+          if(rekS(3) == 2){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(4, 3, rekS(3), 2);
+          }
+
+          if(rekS(4) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(5, 4, rekS(4), 1);
+          }
+
+          if(rekS(5) == 3){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(6, 5, rekS(5), 3);
+          }
+
+          if(rekS(6) == 2){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessage(7, 6, rekS(6), 2);
+          }
+          if(rekS(15) == 4){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessage(8, 15, rekS(15), 4);
+          }
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Zahlenreihen VII", test1))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 2760
+    prerequisites: []
+    unlockableAssets: []

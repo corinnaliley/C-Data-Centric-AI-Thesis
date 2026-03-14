@@ -1,0 +1,38 @@
+SHORTNAME:
+Polynom
+
+TITLE:
+Berechnung eines Polynom 3. Grades
+
+TASKID:
+805
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+long f(long x) {
+    return 7*x*x*x + x*x + 6*x + 2;
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine Funktion
+```
+long f(long x)
+```
+die das Ergebnis der mathematischen Funktion `f(x) = 7x³ + x² + 6x + 2` berechnet und zurúckgibt.
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, int input1, long exp, long act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (%d)\\n\\\n            Erwartete Ausgabe:    (%ld)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", test_num, input1, exp, act);\n}\nvoid test_quadrat(void){\n  if(f(0) == 2){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessage(1, 0, 2, f(0));\n  }\n\n  if(f(1) == 16){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessage(2, 1, 16, f(1));\n  }\n\n  if(f(-1) == -10){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessage(3, -1, -10, f(-1));\n  }\n\n  if(f(5) == 932){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessage(4, 5, 932, f(5));\n  }\n\n  if(f(-7) == -2392){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessage(5, -7, -2392, f(-7));\n  }\n\n  if(f(46573) == 707134480065388){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessage(6,46573, 707134480065388, f(46573));\n  }\n}\nint init_suite1(void){ return 0; }\nint clean_suite1(void){ return 0; }\nvoid cleanup(){}\n\nint main(){\n  CU_pSuite pSuite = NULL;\n\n  /* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "test of mathematical function", test_quadrat)))\n  {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'DATATYPE', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1300, 'prerequisites': [], 'unlockableAssets': []}}
+

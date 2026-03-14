@@ -1,0 +1,186 @@
+shortname: "ggT" #S15
+title: "Berechnen des größten gemeinsamen Teilers"
+taskid: 87
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie eine rekursive Funktion
+  ```
+  unsigned long ggT (unsigned long a, unsigned long b);
+  ```
+  die den größten gemeinsamen Teiler der nichtnegativen ganzen Zahlen a und b berechnet. Verwenden Sie die Formel
+  ```
+  ggT(a,b) = 
+             ggT(b, a mod b) ,falls b>0
+             a               ,falls b=0
+  ```
+  Dabei bezeichnet `x mod y` - wie in der Informatik üblich - den Rest der Ganzzahldivision `x/y`.
+solution: |
+  unsigned long ggT (unsigned long a, unsigned long b){
+    if(b == 0){
+      return a;
+    }
+    return ggT(b, a%b);
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, unsigned long input1, unsigned long input2, unsigned long exp, unsigned long act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (ggT(%ld, %ld))\n\
+                    Erwartete Ausgabe:    (%ld)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", test_num, input1, input2, exp, act);
+        }
+
+
+
+        void test_ggT(void){
+          unsigned long result = ggT(0,0);
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, 0, 0, 0, result);
+          } 
+
+          result = ggT(1,0);
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, 1, 0, 1, result);
+          } 
+
+          result = ggT(0,1);
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("3.Test");
+            showFailMessage(3, 0, 1, 1, result);
+          } 
+
+          result = ggT(3,0);
+          if(result == 3){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("4.Test");
+            showFailMessage(4, 3, 0, 3, result);
+          } 
+
+          result = ggT(6,3);
+          if(result == 3){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("5.Test");
+            showFailMessage(5, 6, 3, 3, result);
+          } 
+
+          result = ggT(12,3);
+          if(result == 3){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("6.Test");
+            showFailMessage(6, 12, 3, 3, result);
+          } 
+
+          result = ggT(12,8);
+          if(result == 4){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("7.Test");
+            showFailMessage(7, 12, 8, 4, result);
+          } 
+
+          result = ggT(8,12);
+          if(result == 4){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("8.Test");
+            showFailMessage(8, 8, 12, 4, result);
+          } 
+
+          result = ggT(15,8);
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("9.Test");
+            showFailMessage(9, 15, 8, 1, result);
+          } 
+
+          result = ggT(8,15);
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("10.Test");
+            showFailMessage(10, 8, 15, 1, result);
+          } 
+
+          result = ggT(3418498731,4294967292);
+          if(result == 3){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("11.Test");
+            showFailMessage(11, 3418498731, 4294967292, 3, result);
+          } 
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "test of ggT", test_ggT)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "DATATYPE", "points": 10 }
+      - { "name": "RECURSION", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 3250
+    prerequisites: []
+    unlockableAssets: []

@@ -1,0 +1,64 @@
+SHORTNAME:
+Loch im Eimer
+
+TITLE:
+Austritt von Wasser aus einem Loch im Eimer berechnen
+
+TASKID:
+413
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Sie haben einen Eimer, der `l` Liter Flüssigkeit fasst. Leider hat er ein Loch. Es ist zwar nicht groß, aber in jeder Minute entweichen `leak` Prozent Flüssigkeit aus dem Eimer. Wie viele Minuten dauert es, bis der Eimer bis auf die letzten 10 ml entleert wurde?
+
+Programmieren Sie eine Funktion 
+```
+int eimer(double l, double leak)
+```
+
+die diese Frage beantwortet und die Anzahl der Minuten als `int` zurückgibt.
+ 
+*Hinweise.*
+ 
+- 1 Liter = 1000 Milliliter
+- Sie können davon ausgehen, dass alle übergebenen Werte positiv sind und `leak` nicht 0 und <= 100 ist.
+ 
+### Beispielaufruf
+ 
+```
+int e = eimer(7, 25);
+```
+ 
+### Beispielergebnis
+ 
+```
+e = 23
+```
+
+
+SOLUTION:
+int eimer(double l, double leak){
+  double ml = l*1000;
+  int min = 0;
+  while(ml > 10){
+      ml = ml*(1-leak/100);
+      min++;
+  }
+  return min;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include "CUnit/Basic.h"\n#include "solution.c"\n#include <CUnit/CUnit.h>\n#include <string.h>\n\nvoid test_eimer(void) {\n  // Beispiel\n  if (eimer(7, 25) == 23) {\n    CU_PASS("Erfolg! Eingabe (7, 25) Erwartete Ausgabe (23)");\n  } else {\n    printf("\\n    1.Test: Fehler!\\n\\\n            Eingabe:              (7, 25)\\n\\\n            Erwartete Ausgabe:    (23)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", eimer(7, 25));\n    CU_FAIL("1.Test");\n  }\n  // Beispiel Variante\n  if (eimer(7, 40) == 13) {\n    CU_PASS("Erfolg! Eingabe (7, 40) Erwartete Ausgabe (13)");\n  } else {\n    printf("\\n    2.Test: Fehler!\\n\\\n            Eingabe:              (7, 40)\\n\\\n            Erwartete Ausgabe:    (13)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", eimer(7, 40));\n    CU_FAIL("2.Test");\n  }\n  // Kommazahl 1\n  if (eimer(4.5, 36) == 14) {\n    CU_PASS("Erfolg! Eingabe (4.5, 36) Erwartete Ausgabe (14)");\n  } else {\n    printf("\\n    3.Test: Fehler!\\n\\\n            Eingabe:              (4.5, 36)\\n\\\n            Erwartete Ausgabe:    (14)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", eimer(4.5, 36));\n    CU_FAIL("3.Test");\n  }\n\n  // Kommazahl 2\n  if (eimer(3.25, 50.5) == 9) {\n    CU_PASS("Erfolg! Eingabe (3.25, 50.5) Erwartete Ausgabe (9)");\n  } else {\n    printf("\\n    4.Test: Fehler!\\n\\\n            Eingabe:              (3.25, 50.5)\\n\\\n            Erwartete Ausgabe:    (9)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", eimer(3.25, 50.5));\n    CU_FAIL("4.Test");\n  }\n\n  // Eimer ist leer\n  if (eimer(0, 0) == 0) {\n    CU_PASS("Erfolg! Eingabe (0, 0) Erwartete Ausgabe (0)");\n  } else {\n    printf("\\n    5.Test: Fehler!\\n\\\n            Eingabe:              (0, 0)\\n\\\n            Erwartete Ausgabe:    (0)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", eimer(0, 0));\n    CU_FAIL("5.Test");\n  }\n\n  // Hundert Prozent\n  if (eimer(10, 100) == 1) {\n    CU_PASS("Erfolg! Eingabe (10, 100) Erwartete Ausgabe (1)");\n  } else {\n    printf("\\n    6.Test: Fehler!\\n\\\n            Eingabe:              (10, 100)\\n\\\n            Erwartete Ausgabe:    (1)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", eimer(10, 100));\n    CU_FAIL("6.Test");\n  }\n\n  // Random\n  if (eimer(7.6, 23) == 26) {\n    CU_PASS("Erfolg! Eingabe (7.6, 23) Erwartete Ausgabe (26)");\n  } else {\n    printf("\\n    7.Test: Fehler!\\n\\\n            Eingabe:              (7.6, 23)\\n\\\n            Erwartete Ausgabe:    (26)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", eimer(7.6, 23));\n    CU_FAIL("7.Test");\n  }\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup() {}\n\nint main() {\n  CU_pSuite pSuite = NULL;\n\n  /* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Loch im Eimer", test_eimer))) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'DATATYPE', 'points': 10}, {'name': 'einfach'}], 'orderBy': 3050, 'prerequisites': [], 'unlockableAssets': []}}
+

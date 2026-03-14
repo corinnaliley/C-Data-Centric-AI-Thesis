@@ -1,0 +1,183 @@
+shortname: "Zahlenreihen III" #N15
+title: "Berechnung von Zahlenreihen"
+taskid: 515
+defaultEditorInput: |
+lang: "c"
+task: |
+  Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und a<sub>n</sub>=-2a<sub>n-1</sub>+3a<sub>n-2</sub> für n>1.
+
+  Daraus ergibt sich folgender Anfang der Folge `A`.
+
+  a<sub>0</sub>=0, a<sub>1</sub>=1, a<sub>2</sub>=-2, a<sub>3</sub>=7, a<sub>4</sub>=-20, a<sub>5</sub>=61, a<sub>6</sub>=-182, ...
+
+  Programmieren Sie eine Funktion mit folgendem Prototyp
+  
+  ```
+  long iteA(unsigned int n);
+  ```
+  
+  die das `n`-te Glied der Folge `A` **rekursiv** berechnet, d.h. die Funktion muss sich selbst aufrufen.
+
+  *Hinweise:*
+  
+  - Ignorieren Sie mögliche Überläufe..
+
+  ### Beispielaufruf
+  ```
+  iteA(5)
+  ```
+  ### Beispielergebnis
+  ```
+  61
+  ```
+solution: |
+  long iteA(unsigned int n) {
+    if (n == 0) {
+      return 0;
+    }
+    if (n == 1) {
+      return 1;
+    }
+    return (-2) * iteA(n - 1) + 3 * iteA(n - 2);
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int exp, int act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (%d)\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, exp, act);
+        }
+
+        void test1(void){
+          long result = iteA(0);
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, 0, 0, result);
+          } 
+
+          result = iteA(1);
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, 1, 1, result);
+          }
+
+          result = iteA(2);
+          if(result == -2){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("3.Test");
+            showFailMessage(3, 2, -2, result);
+          }
+
+          result = iteA(5);
+          if(result == 61){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("4.Test");
+            showFailMessage(4, 5, 61, result);
+          }  
+
+          result = iteA(7);
+          if(result == 547){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("5.Test");
+            showFailMessage(5, 7, 547, result);
+          } 
+          
+          result = iteA(8);
+          if(result == -1640){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("6.Test");
+            showFailMessage(6, 8, -1640, result);
+          }
+
+          result = iteA(9);
+          if(result == 4921){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("7.Test");
+            showFailMessage(7, 9, 4921, result);
+          }
+
+          result = iteA(10);
+          if(result == -14762){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("8.Test");
+            showFailMessage(8, 10, -14762, result);
+          }
+
+          result = iteA(15);
+          if(result == 3587227){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("9.Test");
+            showFailMessage(9, 15, 3587227, result);
+          }    
+
+          result = iteA(18);
+          if(result == -96855122){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("10.Test");
+            showFailMessage(10, 18, -96855122, result);
+          }
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Zahlenreihen III", test1))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 2500
+    prerequisites: []
+    unlockableAssets: []

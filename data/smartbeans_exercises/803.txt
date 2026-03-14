@@ -1,0 +1,38 @@
+SHORTNAME:
+Quadratfunktion
+
+TITLE:
+Berechnung von Quadratzahlen in einer Funktion
+
+TASKID:
+803
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+int quadrat(int n) {
+    return n*n;
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine Funktion
+```
+int quadrat(int n)
+```
+die eine Zahl `n` als Eingabe erhält und ihr Quadrat zurückgibt.
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, int input1, int exp, int act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (%d)\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input1, exp, act);\n}\n\nvoid test_quadrat(void){\n  if(quadrat(0) == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessage(1, 0, 0, quadrat(0));\n  }\n\n  if(quadrat(1) == 1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessage(2, 1, 1, quadrat(1));\n  }\n\n  if(quadrat(-1) == 1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessage(3, -1, 1, quadrat(-1));\n  }\n\n  if(quadrat(5) == 25){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessage(4, 5, 25, quadrat(5));\n  }\n\n  if(quadrat(-7) == 49){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessage(5, -7, 49, quadrat(-7));\n  }\n\n  if(quadrat(727) == 528529){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessage(6,727, 528529, quadrat(727));\n  }\n}\nint init_suite1(void){ return 0; }\nint clean_suite1(void){ return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\nif (CUE_SUCCESS != CU_initialize_registry())\n  return 1;\n\n/* add a suite to the registry */\npSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\nif (NULL == pSuite) {\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n\n/* add the tests to the suite */\n/* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\nif ((NULL == CU_add_test(pSuite, "test of quadrat", test_quadrat)))\n{\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n/* Run all tests using the CUnit Basic interface */\nCU_basic_set_mode(CU_BRM_VERBOSE);\nCU_basic_run_tests();\nunsigned int cu_result = CU_get_number_of_failure_records();\nCU_cleanup_registry();\nreturn cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1200, 'prerequisites': [], 'unlockableAssets': ['business-male-pants', 'business-male-shirt']}}
+

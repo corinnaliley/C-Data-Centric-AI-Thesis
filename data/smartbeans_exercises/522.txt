@@ -1,0 +1,72 @@
+SHORTNAME:
+Binäre Suche Variante
+
+TITLE:
+rekursiv binär nach Element aus Array suchen
+
+TASKID:
+522
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgendem Algorithmus suchen.
+
+  1. Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.
+  2. Besteht das Feld nur aus einer Komponente ist die Suche beendet. Ob die Suche erfolgreich war oder nicht, ergibt sich aus dem Wert der einzigen vorhandenen Feldkomponente.
+  3. Ermittle die mittle Feldkomponente. Zerlege das Feld in zwei Teile, den vorderen Teil vom Anfang bis zu mittleren Feldkomponeten (exklusive) und den hinteren Teil ab der mittleren Komponte (inlusive) bis zum Ende. Ist der gesuchte Wert kleiner als der Wert der mittleren Feldkomponente, setze die Suche bei Schritt 1. auf dem vorderen Teilfeld fort, sonst bei Schritt 1. auf dem hinteren Teilfeld.
+
+Programmieren Sie eine **rekursive** Funktion, d.h. die Funktion muss sich selbst aufrufen, mit Prototyp
+
+```
+int rec_contains(int **pos, int *start, int *end, int x);
+```
+
+die das oben beschriebene Verfahren anwendet, um ein Feld von `int`-Werten zu durchsuchen.
+
+*Anforderungen*
+
+  - Der Zeiger `start` verweist auf die erste Feldkomponente der Zeiger `end` **hinter** die letzte Feldkomponente des Felds in dem der Wert `x` gesucht werden soll.
+  - Über den Zeiger `pos` wird (ein Zeiger auf) die Position des gefundenen Werts im Feld zurückgeliefert. Konnte der Wert nicht gefunden werden wird in `pos` der Null-Zeiger zurückgeliefert.
+  - Der Rückgabewert der Funktion kann als Wahrheitswert behandelt werden und gibt an, ob der Wert `x` im Feld enthalten ist.
+
+
+SOLUTION:
+int rec_contains(int **pos, int *start, int *end, int x) {
+  if (start == end) {
+    *pos = NULL;
+    return 0;
+  }
+
+  if (start + 1 == end) {
+    if (*start == x) {
+      *pos = start;
+      return 1;
+    } else {
+      *pos = NULL;
+      return 0;
+    }
+  }
+
+  int *middle = start + (end - start) / 2;
+  if (x < *middle) {
+    return rec_contains(pos, start, middle, x);
+  } else {
+    return rec_contains(pos, middle, end, x);
+  }
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nint flag = 0;\n\nvoid showFailMessage(int test_num, int *array, int length, int input2, char *exp, int exp_pos, int act, int *act_pos){\n  if(flag == 0){\n    printf("\\n\\nIn den Tests werden nur das Feld und der gesuchte Wert mit denen die Funktion aufgerufen wird angegeben. Sie können davon ausgehen, dass die übergebenen Pointer richtig sind.\\n");            \n  }\n  char  array_string[5000];\n  if(array == NULL){\n    sprintf(array_string, "NULL");\n  } else {\n    sprintf(array_string, "{");\n    for(int j = 0; j < length; j++){\n      sprintf(array_string, "%s%d", array_string, array[j]);\n      if(j < length-1){\n        sprintf(array_string, "%s, ", array_string);\n      }\n    }\n    sprintf(array_string, "%s}", array_string);\n  }\n  char exp_string[5000];\n  if(exp_pos == -1){\n    sprintf(exp_string, "NULL");\n  } else {\n    sprintf(exp_string, "start + %d", exp_pos);\n  }\n\n  char act_string[5000];\n  if(act_pos == NULL){\n    sprintf(act_string, "NULL");\n  } else {\n    sprintf(act_string, "start + %ld", act_pos-array);\n  }\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (Feld = %s,\\n\\\n                                   x = %d,\\n\\\n            Erwartete Ausgabe:    (%s und pos == %s)\\n\\\n            Tatsächliche Ausgabe: (%d und pos == %s)\\n", test_num, array_string, input2, exp, exp_string, act, act_string);\n  flag = 1;\n}\n\n\nvoid test(void){\n  \n  int array[] = {1, 2, 4, 4, 6, 7, 10, 20, 55, 69, 70, 71, 72};\n  int b[] = {-6};\n  int c[] = {};\n  int *pos;\n  if(rec_contains(&pos, array, array + 13, 0) == 0 && pos == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, array, 13, 0, "0", -1, rec_contains(&pos, array, array + 13, 0), pos);\n  }\n\n  if(rec_contains(&pos, array, array + 13, 73) == 0 && pos == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, array, 13, 73, "0", -1, rec_contains(&pos, array, array + 13, 0), pos);\n  }\n  int result = rec_contains(&pos, array, array + 13, 1);\n  if(result > 0 && pos == array){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, array, 13, 1, "> 0", 0, result, pos);\n  }\n\n  result = rec_contains(&pos, array, array + 13, 10);\n  if(result > 0 && pos == array + 6){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, array, 13, 1, "> 0", 6, result, pos);\n  }\n\n  result = rec_contains(&pos, array, array + 13, 72);\n  if( result > 0 && pos == array + 12){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, array, 13, 72, "> 0", 12, result, pos);\n  }\n\n  result = rec_contains(&pos, b, b + 1, 0);\n  if(result == 0 && pos == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, b, 1, 0, "0", -1, result, pos);\n  }\n\n  result = rec_contains(&pos, b, b + 1, -6);\n  if(result > 0 && pos == b){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("7.Test");\n    showFailMessage(7, b, 1, -6, "> 0", 0, result, pos);\n  }\n\n  result = rec_contains(&pos, c, c, 1);\n  if(result == 0 && pos == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("8.Test");\n    showFailMessage(8, c, 0, 1, "0", -1, result, pos);\n  }\n\n\n}\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Binäre Suche Variante", test))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 40}, {'name': 'POINTER', 'points': 40}, {'name': 'RECURSION', 'points': 40}, {'name': 'schwierig'}], 'orderBy': 6750, 'prerequisites': [], 'unlockableAssets': []}}
+

@@ -1,0 +1,106 @@
+SHORTNAME:
+b-adische Darstellung
+
+TITLE:
+Zahlen in b-adische Darstellung umwandeln
+
+TASKID:
+70
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, dass eine natürliche Zahl `z` und eine weitere natürliche Zahl `b` zwischen 2 und 36 dezimal einliest und die `b`-adische Darstellung von `z` ausgibt. Für die Ziffern der b-adischen Darstellung sollen die Zeichen `0, 1, ... , 9, a, b, ... , z` in dieser Reihenfolge benutzt werden. Ermitteln Sie zunächst, welche Länge die b-adische Darstellung von `z` hat. Dann allokieren Sie Speicher für einen String entsprechender Länge, der die Ziffern aufnimmt, der String soll dann ausgegeben werden. Anschließend geben Sie den Speicherplatz für den String wieder frei.
+
+### Beispieleingabe
+```
+4242 35
+```
+### Beispielausgabe
+```
+3g7
+```
+
+
+SOLUTION:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int inttochar(int a);
+void p(char* s);
+
+int main(){
+  unsigned int z=0;
+  int b=0;
+  scanf("%d %d", &z, &b);
+  if(z<0){
+    printf("FEHLER: Erstes Argument b: Darstellung von z mit z als Natürliche Zahl ");
+    return 1;
+  }
+  if(b<2 || 36<b){
+    printf("FEHLER: Zweites Argument b: b-adische Darstellung mit b von 2 bis 36");
+    return 1;
+  }
+  int i=1, c=b;
+  while(c<z){
+    c *= b;
+    i++;
+  }
+  char* adic;
+  adic = (char*) malloc(sizeof(char) * (i+1));
+  if(adic == NULL){
+    printf("OUT OF MEMORY FAILURE");
+    return 1;
+  }
+  int j=0;
+  for(j=0; c > 1; j++){
+    c/=b;
+    adic[j] = inttochar(z/c);
+    
+    z -= c*(z/c);
+  }
+  adic[j]='\0';
+  printf("%s", adic);
+  free(adic);
+  
+  return 0;
+}
+
+int inttochar(int a){
+  if(a<0){
+    printf("FEHLER! method: inttochar gets negative input");
+    return -1;
+  }
+  else if(a<10)
+    return a+48;
+  else if(a<36)
+    return a+87;
+  else{
+    printf("FEHLER! method: inttochar gets to high input (max. 35) ");
+    return -1;
+  }
+}
+void p(char* s){
+  printf("String:	%s", s);
+  
+  printf("Stelle	Zeichen	Zahl");
+  for(int i=0; *(s+i) != '\0'; i++){
+    printf("%d%c%d", i, *(s+i), *(s+i));
+  }
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '4242 35\n', 'stdout': '3g7\n'}, {'args': [], 'stdin': '5 2\n', 'stdout': '101\n'}, {'args': [], 'stdin': '4242 10\n', 'stdout': '4242\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 20}, {'name': 'MEMORY', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5800, 'prerequisites': [], 'unlockableAssets': []}}
+

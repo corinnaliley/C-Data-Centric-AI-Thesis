@@ -1,0 +1,117 @@
+shortname: "Quadratfunktion" #L3
+title: "Berechnung von Quadratzahlen in einer Funktion"
+taskid: 803
+defaultEditorInput: |
+solution: |
+  int quadrat(int n) {
+      return n*n;
+  }
+lang: "c"
+task: |
+  Schreiben Sie eine Funktion
+  ```
+  int quadrat(int n)
+  ```
+  die eine Zahl `n` als Eingabe erhält und ihr Quadrat zurückgibt.
+tests: 
+  - testtype: "c-code"
+    testCases: 
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int exp, int act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (%d)\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, exp, act);
+        }
+
+        void test_quadrat(void){
+          if(quadrat(0) == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(1, 0, 0, quadrat(0));
+          }
+
+          if(quadrat(1) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(2, 1, 1, quadrat(1));
+          }
+
+          if(quadrat(-1) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(3, -1, 1, quadrat(-1));
+          }
+
+          if(quadrat(5) == 25){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(4, 5, 25, quadrat(5));
+          }
+
+          if(quadrat(-7) == 49){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(5, -7, 49, quadrat(-7));
+          }
+
+          if(quadrat(727) == 528529){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(6,727, 528529, quadrat(727));
+          }
+        }
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+        if (CUE_SUCCESS != CU_initialize_registry())
+          return 1;
+
+        /* add a suite to the registry */
+        pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+        if (NULL == pSuite) {
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+
+        /* add the tests to the suite */
+        /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+        if ((NULL == CU_add_test(pSuite, "test of quadrat", test_quadrat)))
+        {
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+        /* Run all tests using the CUnit Basic interface */
+        CU_basic_set_mode(CU_BRM_VERBOSE);
+        CU_basic_run_tests();
+        unsigned int cu_result = CU_get_number_of_failure_records();
+        CU_cleanup_registry();
+        return cu_result;
+        }
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags: 
+      - {"name": "MATH", "points": 10}
+      - {"name": "CONTROL", "points": 10}
+      - {"name": "einfach"}
+    orderBy: 1200
+    prerequisites: []
+    unlockableAssets: ["business-male-pants", "business-male-shirt"]

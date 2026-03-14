@@ -1,0 +1,76 @@
+SHORTNAME:
+Strings verketten
+
+TITLE:
+Zwei Strings aneinanderketten
+
+TASKID:
+51
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include<stdio.h>
+  
+  #define MAXLEN 15
+  
+  int error() {
+    printf("Fehler\n");
+    return 1;
+  }
+  int main() {
+    char str1[MAXLEN] = {0};
+    char str2[MAXLEN] = {0};
+    int str1_length = 0;
+    int str2_length = 0;
+    while(1) {
+      int c = getchar();
+      if(c == EOF)
+        return error();
+      if(c == '\n')
+        break;
+      if(str1_length == MAXLEN-1)
+        return error();
+      str1[str1_length++] = c;
+    }
+    while(1) {
+      int c = getchar();
+      if(c == EOF || c == '\n')
+        break;
+      if(str2_length == MAXLEN-1)
+        return error();
+      str2[str2_length++] = c;
+    }
+    printf("%s%s", str2, str1);
+  }
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, das zwei Zeilen als Strings einliest und den ersten String an den zweiten String anhängt. Die eingelesenen Strings sollen jeweils maximal 15 Zeichen (einschließlich abschließendem Nullbyte) lang sein. Ist dieses nicht der Fall, soll das Programm mit der Meldung "Fehler" abgebrochen werden.
+
+Achtung: Steuerzeichen können in der Auswertung unsichtbar sein.
+
+### Beispieleingabe
+```
+hase
+123
+```
+### Beispielausgabe
+```
+123hase
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': 'Welt\nHallo\n', 'stdout': 'HalloWelt\n'}, {'args': [], 'stdin': 'koenigin\nFrosch\n', 'stdout': 'Froschkoenigin\n'}, {'args': [], 'stdin': '123\nhase\n', 'stdout': 'hase123\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 4600, 'prerequisites': [], 'unlockableAssets': ['das_doppelte_boehnchen-shirt']}}
+

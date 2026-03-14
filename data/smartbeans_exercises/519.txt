@@ -1,0 +1,45 @@
+SHORTNAME:
+Hello World!
+
+TITLE:
+Ausgeben von Hello World!
+
+TASKID:
+519
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben sie ein Programm das `Hello World!` ausgibt. 
+
+### Beispieleingabe
+```
+```
+### Beispielausgabe
+```
+Hello World!
+```
+
+
+SOLUTION:
+#include <stdio.h>
+ 
+int main(){
+  printf("Hello World!");
+  return 0;
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': 'Hello World!\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'IO', 'points': 10}, {'name': 'sehr einfach'}], 'orderBy': 10, 'prerequisites': [], 'unlockableAssets': ['bikini-pants', 'bikini-shirt']}}
+

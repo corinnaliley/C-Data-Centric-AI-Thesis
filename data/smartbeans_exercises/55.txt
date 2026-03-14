@@ -1,0 +1,57 @@
+SHORTNAME:
+Compilieren
+
+TITLE:
+Compilieren mit Linkeranweisung
+
+TASKID:
+55
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+// Quadratwurzelberechnung 
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+  printf("Die Wurzel aus %f ist etwa %f.\n", 2.0f, sqrt(2.0f));
+  return 0;
+}
+
+
+LANG:
+c
+
+TASK:
+```c
+// Quadratwurzelberechnung 
+#include <stdio.h>
+#include <math.h>
+ 
+int main() {
+  printf("Die Wurzel aus %f ist etwa %f.\n", 2.0f, sqrt(2.0f));
+  return 0;
+}
+```
+Schreiben Sie das Programm in eine Datei namens wurzel.c, compilieren sie mit dem Aufruf
+
+```
+gcc -Wall -std=c11 -o wurzel wurzel.c -lm
+```
+und führen das Programm aus.
+Die Option -lm am Ende ist für den Linker bestimmt. Er wird damit angewiesen, die Bibliothek der mathematischen Funktionen zu verwenden.
+
+Geben Sie danach die .c Datei wie gewohnt ab.
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': 'Die Wurzel aus 2.000000 ist etwa 1.414214.\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'BINDING', 'points': 10}, {'name': 'sehr einfach'}], 'orderBy': 300, 'prerequisites': [], 'unlockableAssets': ['gardener-pants', 'gardener-shirt']}}
+

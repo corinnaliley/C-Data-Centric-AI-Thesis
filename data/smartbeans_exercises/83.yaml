@@ -1,0 +1,187 @@
+shortname: "Zahlenreihen V" #K2
+title: "Berechnung von Zahlenreihen"
+taskid: 83
+defaultEditorInput: |
+lang: "c"
+task: |
+  Sei x eine ganze Zahl. Ausgehend von x kann eine Folge x0, x1, x2, ... mit folgender Vorschrift gebildet werden.
+
+  - Für n &lt; 0 gilt x<sub>n</sub>=0
+  - Für n = 0 gilt x<sub>0</sub>=x
+  - Für n &gt; 0 gilt
+    - x<sub>n</sub>= 3x<sub>n-1</sub> + 1 falls x<sub>n-1</sub> ungerade ist
+    - x<sub>n</sub>= x<sub>n-1</sub>/2 falls x<sub>n-1</sub> gerade ist
+
+  *Beispiel*. Der Startwert x=3 liefert die Folge x<sub>0</sub>=3, x<sub>1</sub>=10, x<sub>2</sub>=5, x<sub>3</sub>=16, x<sub>4</sub>=8, x<sub>5</sub>=4, x<sub>6</sub>=2, x<sub>7</sub>=1, x<sub>8</sub>=4, ...
+
+  Programmieren Sie eine Funktion mit Prototyp 
+  ```
+  int sequence(int x, int n);
+  ```
+
+  die folgende Anforderungen erfüllt.
+
+  *Anforderungen*
+
+  - Der Aufruf `sequence(x,n)` liefert den Wert des n-te Folgenglied (xn) bei Startwert x (x<sub>0</sub>=x). Beispiel. Der Aufruf `sequence(3, 4)` liefert den Wert 8, den Wert von x4 im obrigen Beispiel.
+  - Die Berechnung erfolgt iterativ, d.h. die Funktion ruft sich nicht selbst auf.
+  - Mögliche Ganzzahlüberläufe werden erkannt und verhindert. Wird ein Überlauf erkannt ist der Funktionswert -1.
+
+  ---
+
+  *Lösen - Testen - Abgeben*
+  - Zum Testen ihrer Lösung laden Sie die Datei `a02-testing.c` <a target="_blank" rel="noopener noreferrer" href="https://owncloud.gwdg.de/index.php/s/UOXlb9P4CBcLIry">**hier**</a> herunter.
+  - Kompilieren Sie den Testcode `gcc -c -Wall -std=c11 a02-testing.c`.
+  - Schreiben Sie ihre eigene Lösungsdatei z.B. `a02.c`.
+  - Kompilieren Sie Ihre Lösung `gcc -c -Wall -std=c11 a02.c`. 
+  - Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm `gcc -o a02 a02.o a02-testing.o`
+  - Testen Sie Ihre Lösung, dafür können Sie den Testcode bliebig anpassen.
+  - Zum Abgeben der Lösung laden Sie nur die von Ihnen erstellte Datei, z.B. `a02.c` hoch.
+
+solution: |
+    int sequence(int x, int n) {
+      int x0 = x, xn = 0, count = n;
+      if (n < 0) {
+        return 0;
+      } else if (n == 0) {
+        return x0;
+      } else {
+        while (count > 0) {
+          if ((x0 % 2) == 0) {
+            xn = x0/2;
+            x0 = xn;
+          } else {
+            xn = 3*x0 + 1;
+            if (xn < x0) {
+              return -1;
+            }
+            x0 = xn;
+          }
+          count -= 1;
+        }
+        return xn;
+      }
+    }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int input2, int exp, int act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (sequence(%d, %d))\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, input2, exp, act);
+        }
+
+        void test(void){
+          if(sequence(0,0) == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(1, 0, 0, 0, sequence(0,0));
+          }
+
+          if(sequence(5,0) == 5){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(2, 5, 0, 5, sequence(5,0));
+          }
+
+          if(sequence(5,1) == 16){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(3, 5, 1, 16, sequence(5,1));
+          }
+
+          if(sequence(2147483647,10) == -1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(4, 2147483647, 10, -1, sequence(2147483647,10));
+          }
+
+          if(sequence(-1,0) == -1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(5, -1, 0, -1, sequence(-1,0));
+          }
+
+          if(sequence(10,-1) == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(6, 10, -1, 0, sequence(10,-1));
+          }
+
+          if(sequence(-44,-55) == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessage(7, -44,-55, 0, sequence(-44,-55));
+          }
+
+          if(sequence(10,1) == 5){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessage(8, 10,1, 5, sequence(10,1));
+          }
+
+          if(sequence(45,16) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("9.Test");
+            showFailMessage(9, 45,16, 1, sequence(45,16));
+          }
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main() {
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Zahlenreihen V", test))) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 2700
+    prerequisites: []
+    unlockableAssets: ["kitty-hat", "kitty-shirt"]

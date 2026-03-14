@@ -1,0 +1,42 @@
+SHORTNAME:
+ASCII
+
+TITLE:
+Charzeichen bedingt ausgeben
+
+TASKID:
+45
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include<stdio.h>
+
+int main() {
+  printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz\n");
+  return 0;
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, das alle Zeichen ausgibt, die "größer" oder gleich ’A’ und "kleiner" oder gleich ’z’ sind. Benutzen Sie dafür eine Schleife.
+
+### Beispielausgabe
+```
+ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'IO', 'points': 10}, {'name': 'einfach'}], 'orderBy': 700, 'prerequisites': [], 'unlockableAssets': []}}
+

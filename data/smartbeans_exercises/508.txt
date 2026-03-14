@@ -1,0 +1,67 @@
+SHORTNAME:
+iterierte Quersumme
+
+TITLE:
+iterierte Quersumme berechnen
+
+TASKID:
+508
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include <stdio.h>
+
+int main() {
+  int n;
+  scanf ("%d", &n);
+
+  int sum = n;
+  while (sum > 9) {
+    n = sum;
+    sum = 0;
+    while (n > 0) {
+      sum += n % 10;
+      n /= 10;
+    }
+  }
+ 
+  printf("%d\n", sum);
+
+  return 0;
+}
+
+
+LANG:
+c
+
+TASK:
+Die Quersumme einer Zahl ist die Summe der einzelnen Ziffern.
+Bei der iterierten Quersumme einer Zahl wird so lange immer wieder die Quersumme berechnet bis diese einstellig ist.
+
+*Beispiel*.  iQS(35916) = iQS(3+5+9+1+6) = iQS(24) = iQS(2+4) = 6
+
+Schreiben Sie ein Programm, dass eine Zahl > 0 einliest und deren iterierte Quersumme ausgibt.
+
+### Beispieleingabe
+```
+18
+214493
+```
+### Beispielausgabe
+```
+9
+5
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '4\n', 'stdout': '4\n'}, {'args': [], 'stdin': '18\n', 'stdout': '9\n'}, {'args': [], 'stdin': '21\n', 'stdout': '3\n'}, {'args': [], 'stdin': '21449\n', 'stdout': '2\n'}, {'args': [], 'stdin': '1\n', 'stdout': '1\n'}, {'args': [], 'stdin': '694\n', 'stdout': '1\n'}, {'args': [], 'stdin': '371\n', 'stdout': '2\n'}, {'args': [], 'stdin': '430\n', 'stdout': '7\n'}, {'args': [], 'stdin': '2147483647\n', 'stdout': '1\n'}, {'args': [], 'stdin': '214493\n', 'stdout': '5\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1900, 'prerequisites': [], 'unlockableAssets': []}}
+

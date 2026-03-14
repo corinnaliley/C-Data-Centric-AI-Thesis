@@ -1,0 +1,90 @@
+SHORTNAME:
+Four is Magic
+
+TITLE:
+Schreiben von Zeichenketten in Datei
+
+TASKID:
+209
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Programmieren Sie eine Funktion `void magic(char *path, int number);`, die
+einen String mit dem Pfad zu einer Datei `path` und einen ganzzahligen Wert
+`number` zwischen `0` und `9` übergeben bekommt. In die Datei am Pfad `path`
+soll ein String folgender Form geschrieben werden: Der String besteht aus
+endlich vielen Satzteilen, die je mit einem Komma getrennt werden. Das erste
+Wort eines Satzteiles ist das englische Zahlwort von `number` gefolgt von "is"
+und dem englischen Zahlwort von *der Anzahl der Zeichen des Zahlwortes von*
+`number`. Diese Teile werden solange gebildet und aneinander gereiht, bis `4`
+(four) erreicht wurde, dann lautet der String "four is magic".
+
+
+### Beispielaufruf
+```
+magic("beispiel_1.txt", 0);
+magic("beispiel_2.txt", 1);
+```
+### Beispielergebnis
+```
+beispiel_1.txt: 
+  zero is four, four is magic.
+beispiel_2.txt: 
+  one is three, three is five, five is four, four is magic.
+```
+
+### Hinweis
+Benutzen Sie `<string.h>`, um geeignete Funktionen zur
+Stringbearbeitungen zu benutzen.
+
+
+SOLUTION:
+#include <stdio.h>
+#include <string.h>
+
+char *names[10] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+
+void magic(char *path, int number) {
+  FILE *fp;
+  fp = fopen (path,"w");
+  if(fp == NULL) {
+    printf("Error on opening file");
+    return;
+  }
+  char stringtoput[1000];
+  char *is = "is";
+  int count = number;
+
+  while (count != 4) {
+    strcat(stringtoput, names[count]);
+    strcat(stringtoput, " ");
+    strcat(stringtoput, is);
+    strcat(stringtoput, " ");
+    count = strlen(names[count]) ;
+    strcat(stringtoput, names[count]);
+    strcat(stringtoput, ", ");
+  }
+  strcat(stringtoput, "four is magic.");
+  // printf("%s\n",stringtoput);
+
+  for (int i = 0; i < strlen(stringtoput); i++) {
+    fputc(stringtoput[i], fp);
+  }
+  fclose(fp);
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid test(void){\n  FILE *fp, *fp2;\n  char string2[] = "one is three, three is five, five is four, four is magic.";\n  fp = fopen("magic.txt", "w");\n  magic("magic.txt", 1);\n  fp2 = fopen("magic.txt", "r");\n  int tmp2, j = 0;\n  while((tmp2 = fgetc(fp2)) != EOF) {\n    CU_ASSERT_EQUAL(string2[j], tmp2);\n    j++;\n  }\n  fclose(fp);\n  fclose(fp2);\n}\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Four is Magic", test))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'test': {'tags': [{'name': 'FILE', 'points': 80}, {'name': 'klausur'}], 'orderBy': 7200, 'prerequisites': [], 'unlockableAssets': []}}
+

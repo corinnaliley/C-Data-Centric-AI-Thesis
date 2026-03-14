@@ -1,0 +1,48 @@
+SHORTNAME:
+variable Permutation
+
+TITLE:
+Permutation variabler Länge erkennen
+
+TASKID:
+73
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Ein Permutation der Länge `n` ist eine Abbildung der Menge {1, 2, ..., n} auf sich selbst. Programmieren und testen Sie eine Funktion
+```
+int permtest( const unsigned int* p, int laenge)
+```
+die von einem übergebenen Feld der Länge `laenge` testet, ob der Inhalt eine Permutation repräsentiert und in diesem Fall den Wert `1` zurückliefert und sonst `0`. 
+
+
+SOLUTION:
+int permtest(unsigned int* p, int laenge) {
+  int map[laenge + 1];
+  for (int i = 0; i <= laenge; i++)
+    map[i] = 0;
+  for (int i = 0; i < laenge; i++) {
+    if (p[i] <= 0 || p[i] > laenge)
+      return 0;
+    if (map[p[i]])
+      return 0;
+    map[p[i]] = 1;
+  }
+  return 1;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFail(int test_num, unsigned int *input1, int input2, int exp, int act){\n  char input_string[1000];\n  sprintf(input_string, "{");\n  for(int i = 0; i < input2; i++) {\n    sprintf(input_string, "%s%u", input_string, input1[i]);\n    if(i < input2-1){\n      sprintf(input_string, "%s, ", input_string);\n    }\n  }\n  sprintf(input_string, "%s}", input_string);\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (p: %s\\n\\\n                                   laenge: %d))\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input_string, input2, exp, act);\n}\n\nvoid test_permtest_length_1(void){\n  unsigned int perm[1] = {1};\n  int res = permtest(perm,1);\n  if(res == 1){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("1.Test");\n    showFail(1, perm, 1, 1, res);\n  }\n\n  unsigned int perm2[1] = {0};\n  res = permtest(perm2,1);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("2.Test");\n    showFail(2, perm2, 1, 0, res);\n  }\n\n  unsigned int perm3[1] = {2};\n  res = permtest(perm3,1);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("3.Test");\n    showFail(3, perm3, 1, 0, res);\n  }\n\n}\n\nvoid test_permtest_length_9(void){\n  unsigned int perm[9] = {1,3,6,8,2,9,4,7,5};\n  int res = permtest(perm,9);\n\n  if(res == 1){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("4.Test");\n    showFail(4, perm, 9, 1, res);\n  }\n\n  unsigned int perm2[9] = {1,3,0,8,2,9,4,7,5};\n  res = permtest(perm2,9);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("5.Test");\n    showFail(5, perm2, 9, 0, res);\n  }\n\n  unsigned int perm3[9] = {1,3,6,8,2,9,10,7,5};\n  res = permtest(perm3,9);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("6.Test");\n    showFail(6, perm3, 9, 0, res);\n  }\n\n  unsigned int perm4[9] = {2,3,4,5,6,7,8,9,10};\n  res = permtest(perm4,9);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("7.Test");\n    showFail(7, perm4, 9, 0, res);\n  }\n\n  unsigned int perm5[9] = {1,3,6,8,2,9,4,7,6};\n  res = permtest(perm5,9);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("8.Test");\n    showFail(8, perm5, 9, 0, res);\n  }\n\n}\n\nvoid test_permtest_length_12(void){\n  unsigned int perm[12] = {1,3,6,8,2,10,9,11,12,4,7,5};\n  int res = permtest(perm,12);\n  if(res == 1){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("9.Test");\n    showFail(9, perm, 12, 1, res);\n  }\n\n  unsigned int perm2[12] = {11,1,3,0,8,2,9,4,7,5,10,6};\n  res = permtest(perm2,12);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("10.Test");\n    showFail(10, perm2, 12, 0, res);\n  }\n\n  unsigned int perm3[12] = {1,3,13,6,8,2,9,10,7,5,11,4};\n  res = permtest(perm3,12);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("11.Test");\n    showFail(11, perm3, 12, 0, res);\n  }\n\n  unsigned int perm4[12] = {2,3,4,5,6,7,8,9,10,11,12,13};\n  res = permtest(perm4,12);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("12.Test");\n    showFail(12, perm4, 12, 0, res);\n  }\n\n  unsigned int perm5[12] = {1,3,6,8,2,9,4,7,6,10,5,12};\n  res = permtest(perm5,12);\n  if(res == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("13.Test");\n    showFail(13, perm5, 12, 0, res);\n  }\n\n}\n\n\nint init_suite1(void)\n{\n  return 0;\n}\n\nint clean_suite1(void)\n{\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "test of permtest, length: 1", test_permtest_length_1)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  if ((NULL == CU_add_test(pSuite, "test of permtest, length: 9", test_permtest_length_9)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n        \n  if ((NULL == CU_add_test(pSuite, "test of permtest, length: 12", test_permtest_length_12)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n} \n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 20}, {'name': 'DATATYPE', 'points': 20}, {'name': 'mittel'}], 'orderBy': 3600, 'prerequisites': [], 'unlockableAssets': []}}
+

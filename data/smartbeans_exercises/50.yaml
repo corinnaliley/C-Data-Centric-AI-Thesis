@@ -1,0 +1,81 @@
+shortname: "Selectionsort" #S9
+title: "Sortieren eines Feldes mit Selectionsort"
+taskid: 50
+defaultEditorInput: |
+lang: "c"
+task: |
+  Es soll eine feste Anzahl `n` von ganzen Zahlen eingelesen und in einem Feld abgespeichert werden. Dann soll der Inhalt des Feldes ausgegeben, das Feld sortiert, und der Inhalt des Feldes erneut ausgegeben werden.
+
+  Realisieren Sie dazu Sortieren durch direkte Auswahl (Selectionsort): Wenn `n` Zahlen zu sortieren sind, bestimmt man zunächst das kleinste Element und vertauscht es mit dem, das an Position 1 steht. Dann bestimmt man von den Elementen an den Positionen `2`, ..., `n` das kleinste Element und vertauscht es mit dem an Position 2, usw. 
+  ### Eingabe
+  Eine Zeile mit einer ganzen Zahl `n`.
+  Eine Zeile mit `n` ganzen Zahlen, die gespeichert und sortiert werden sollen.
+  ### Beispieleingabe
+  ```
+  6
+  5 3 4 2 2 1
+  ```
+  ### Beispielausgabe
+  ```
+  5 3 4 2 2 1
+  1 2 2 3 4 5
+  ```
+solution: |
+  #include<stdio.h>
+
+  int sort(int n, int array[]) {
+    for(int i=0; i<n; i++) {
+      for(int j=1; j<n; j++) {
+        if(array[j-1] > array[j]) {
+          int tmp = array[j-1];
+          array[j-1] = array[j];
+          array[j] = tmp;
+        }
+      }
+    }
+  }
+
+  int printarray(int n, int array[]) {
+    for(int i=0; i<n; i++)
+      printf("%d ", array[i]);
+    printf("\n");
+  }
+  
+  int main() {
+    int n;
+    scanf("%d", &n);
+    int array[n];
+    for(int i=0; i<n; i++)
+      scanf("%d", &(array[i]));
+    printarray(n, array);
+    if(n != 1)
+      sort(n, array);
+    printarray(n, array);
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          5
+          5 4 3 2 1
+        stdout: |
+          5 4 3 2 1
+          1 2 3 4 5
+      - args: []
+        stdin: |
+          1
+          10
+        stdout: |
+          10
+          10
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 20 }
+      - { "name": "SORT", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 4000
+    prerequisites: []
+    unlockableAssets: ["granny-smith-hat", "granny-smith-pants", "granny-smith-shirt"]

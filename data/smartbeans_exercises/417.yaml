@@ -1,0 +1,197 @@
+shortname: "String Basics III" #D17
+title: "Einführung in Strings"
+taskid: 417
+defaultEditorInput: |
+lang: "c"
+task: |
+  Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. 
+  Sie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.
+   
+  Schreiben Sie hierfür zwei Methoden:
+   
+  ```
+  char* static_str(char* string)
+  ```   
+  nimmt einen Zeiger auf ein Char-Feld `string` entgegen.
+  Legen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.
+  Geben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.
+   
+  Zu Lernzwecken können Sie auch ausprobieren was passiert, wenn das Array innerhalb der Funktion nicht statisch ist.
+   
+  ---
+  
+  ```
+  char* malloc_str(char string[], int len)
+  ```
+  nimmt ein char-array `string` entgegen, sowie dessen Länge `len`.
+  Allokieren Sie mit `malloc()` ausreichend Speicherplatz und kopieren Sie den Inhalt von `string` dorthin.
+  Geben Sie dann einen Zeiger auf den neu erstellten String zurück.
+   
+  ### Beispielaufruf
+   
+  ```
+  char* str1 = static_str("Möglichkeit 1");
+   
+  char str2[] = "Möglichkeit 2 (schöner)";
+  char* str2ptr = malloc_str(str2, 24);
+  ```
+   
+  ### Beispielergebnis
+   
+  ```
+  printf("%s", str1);
+  >>> Möglichkeit 1
+   
+  printf("%s", str2ptr);
+  >>> Möglichkeit 2 (schöner)
+  ```
+
+solution: |
+  #include <string.h>
+   
+  char* static_str(char* string){
+    static char str_return[150];
+    strcpy(str_return, string);
+    return str_return;
+  }
+   
+  char* malloc_str(char string[], int len){
+    char* ptr = malloc(len*sizeof(char));
+    strcpy(ptr, string);
+    return ptr;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        #include <string.h>
+        
+        void test_static_malloc_str(void){ 
+          
+          //  == Beispiel == 
+          
+          char* bsp1 = static_str("Möglichkeit 1");
+          if(strcmp(bsp1, "Möglichkeit 1") == 0){
+            CU_PASS("Erfolg (static_str)! Eingabe (Möglichkeit 1) Erwartete Rückgabe (Möglichkeit 1)");
+          }
+          else{
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (static_str(\"Möglichkeit 1\"))\n\
+                    Erwartete Ausgabe:    (\"Möglichkeit 1\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n",bsp1);
+            CU_FAIL("1.Test");
+          }
+            
+          char bsp2[] = "Möglichkeit 2 (schöner)";
+          char* bsp2ptr = malloc_str(bsp2, 24);
+          if(strcmp(bsp2ptr, "Möglichkeit 2 (schöner)") == 0){
+            CU_PASS("Erfolg (malloc_str)! Eingabe (Möglichkeit 2 (schöner)) Erwartete Rückgabe (Möglichkeit 2 (schöner))");
+          }
+          else{
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (malloc_str(\"Möglichkeit 2 (schöner)\"))\n\
+                    Erwartete Ausgabe:    (\"Möglichkeit 2 (schöner)\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n",bsp2ptr);
+            CU_FAIL("2.Test");
+          }
+          
+          //  == Leerer String ==
+          
+          char* empty1 = static_str("");
+          if(strcmp(empty1, "") == 0){
+            CU_PASS("Erfolg (static_str)! Eingabe () Erwartete Rückgabe ()");
+          }
+          else{
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (static_str(\"\"))\n\
+                    Erwartete Ausgabe:    (\"\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n",empty1);
+            CU_FAIL("3.Test");
+          }
+            
+          char empty2[] = "";
+          char* empty2ptr = malloc_str(empty2, 0);
+          if(strcmp(empty2ptr, "") == 0){
+            CU_PASS("Erfolg (malloc_str)! Eingabe () Erwartete Rückgabe ()");
+          }
+          else{
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              (malloc_str(\"\"))\n\
+                    Erwartete Ausgabe:    (\"\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n",empty2ptr);
+            CU_FAIL("4.Test");
+          }
+        
+          //  == Random ==
+          
+          char* r1 = static_str("iTnRabZZaK");
+          if(strcmp(r1, "iTnRabZZaK") == 0){
+            CU_PASS("Erfolg (static_str)! Eingabe (iTnRabZZaK) Erwartete Rückgabe (iTnRabZZaK)");
+          }
+          else{
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              (static_str(\"iTnRabZZaK\"))\n\
+                    Erwartete Ausgabe:    (\"iTnRabZZaK\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n",r1);
+            CU_FAIL("5.Test");
+          }
+            
+          char r2[] = "iTnRabZZaK";
+          char* r2ptr = malloc_str(r2, 11);
+          if(strcmp(r2ptr, "iTnRabZZaK") == 0){
+            CU_PASS("Erfolg (malloc_str)! Eingabe (iTnRabZZaK) Erwartete Rückgabe (iTnRabZZaK)");
+          }
+          else{
+            printf("\n    6.Test: Fehler!\n\
+                    Eingabe:              (malloc_str(\"iTnRabZZaK\"))\n\
+                    Erwartete Ausgabe:    (\"iTnRabZZaK\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n",r2ptr);
+            CU_FAIL("6.Test");
+          }
+        }
+          
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+          
+        int main(){
+          CU_pSuite pSuite = NULL;
+        
+          /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+          
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite){
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+          
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "String Basics III", test_static_malloc_str))){
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 4520
+    prerequisites: []
+    unlockableAssets: []

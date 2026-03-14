@@ -1,0 +1,87 @@
+SHORTNAME:
+Intervall
+
+TITLE:
+Intervall Durchschnitt berechnen
+
+TASKID:
+518
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Der Datentyp `interval_t` zur Beschreibung von abgeschlossenen Intervallen ganzer Zahlen durch die untere 
+und obere Intervallgrenze, ist wie folgt gegeben.
+
+```
+typedef struct {
+  long low;   // lower bound
+  long up;    // upper bound
+} interval_t;
+```
+
+Ein Intervall ist genau dann leer, wenn seine untere Intervallgrenze größer ist als seine obere. 
+Der Durchschnitt zweier Intervalle ist wieder ein (möglicherweise leeres) Intervall.
+
+Programmieren Sie eine Funktion, die bestimmt ob der Durchschnitt der übergebenen
+Intervalle leer ist, mit folgendem Prototyp.
+
+```
+int is_empty_intersection(const interval_t *a, const interval_t *b);
+```
+
+*Anforderungen:*
+
+- Das Durchschnittsintervall der Intervalle, auf die a und b verweisen, wird bestimmt.
+- Ein übergebener Null-Zeiger wird wie ein leeres Intervall behandelt.
+- Die untere Intervallgrenze des Durchschnittsintervalls ist gegeben durch das Maximum der beiden unteren Intervallgrenzen, die obere Intervallgrenze durch das Minimum der beiden oberen Intervallgrenzen.
+- Die Funktion liefert 0 zurück wenn das Durchschnittsintervall nicht leer ist, sonst wird ein positiver Wert zurückgeliefert.
+- Definieren Sie die Struktur `interval_t` in der Abgabedatei.
+
+
+SOLUTION:
+#include <stdlib.h>
+
+typedef struct {
+  long low;   // lower bound
+  long up;    // upper bound
+} interval_t;
+
+int is_empty_intersection(const interval_t *a, const interval_t *b) {
+  if (a == NULL || a->low > a->up || b == NULL || b->low > b->up)
+    return 1;
+
+  interval_t inter;
+
+  /* max lower bound */
+  if (a->low > b->low)
+    inter.low = a->low;
+  else
+    inter.low = b->low;
+
+  /* min upper bound */
+  if (a->up < b->up)
+    inter.up = a->up;
+  else
+
+    inter.up = b->up;
+
+  /* ( upper < lower ) <= > empty */
+
+  return (inter.up < inter.low);
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h" \n#include "solution.c"\n\nvoid showFailMessage(int test_num, int low_a, int up_a, int low_b, int up_b, int exp, int act){\n  char  exp_formated[5000];\n  if(exp == 0){\n    sprintf(exp_formated, "0");\n  } else {\n    sprintf(exp_formated, "> 0");\n  }\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (a: low = %d, up = %d\\n\\\n                                   b: low = %d, up = %d)\\n\\\n            Erwartete Ausgabe:    (%s)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, low_a, up_a, low_b, up_b, exp_formated, act);\n}\n\nvoid test1(void){\n  interval_t a;\n  interval_t b;       \n\n  // Testcase no intersection a smaller b\n  a.low = 0;\n  a.up = 1;\n  b.low = 3;\n  b.up = 4;     \n  int result = is_empty_intersection(&a, &b);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, a.low, a.up, b.low, b.up, 1, result);\n  } \n\n  a.low = -10;\n  a.up = -8;\n  b.low = -3;\n  b.up = 0;     \n  result = is_empty_intersection(&a, &b);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, a.low, a.up, b.low, b.up, 1, result);\n  }\n\n  // Testcase no intersection b smaller a        \n  a.low = 3;\n  a.up = 4;  \n  b.low = 0;\n  b.up = 1;   \n  result = is_empty_intersection(&a, &b);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, a.low, a.up, b.low, b.up, 1, result);\n  } \n  \n  a.low = -3;\n  a.up = 0;     \n  b.low = -10;\n  b.up = -8;\n  result = is_empty_intersection(&a, &b);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, a.low, a.up, b.low, b.up, 1, result);\n  }\n\n  // Testcase NULL\n  result = is_empty_intersection(NULL, &b);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, a.low, a.up, b.low, b.up, 1, result);\n  }\n\n  result = is_empty_intersection(&a, NULL);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, a.low, a.up, b.low, b.up, 1, result);\n  }\n\n  result = is_empty_intersection(NULL, NULL);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("7.Test");\n    showFailMessage(7, a.low, a.up, b.low, b.up, 1, result);\n  }\n\n  // Testcase same interval\n  a.low = 0;\n  a.up = 0;     \n  result = is_empty_intersection(&a, &a);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("8.Test");\n    showFailMessage(8, a.low, a.up, b.low, b.up,0, result);\n  } \n\n  a.low = 1;\n  a.up = 5;     \n  result = is_empty_intersection(&a, &a);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("9.Test");\n    showFailMessage(9, a.low, a.up, b.low, b.up, 0, result);\n  } \n\n  // Testcase intersection in only one point \n  a.low = 10;\n  a.up = 15;\n  b.low = 15;\n  b.up = 20;     \n  result = is_empty_intersection(&a, &b);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("10.Test");\n    showFailMessage(10, a.low, a.up, b.low, b.up, 0, result);\n  }\n\n  a.low = 10;\n  a.up = 15;\n  b.low = 5;\n  b.up = 10;     \n  result = is_empty_intersection(&a, &b);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("11.Test");\n    showFailMessage(11, a.low, a.up, b.low, b.up, 0, result);\n  }\n\n  // Testcase random intersection\n  a.low = 16853;\n  a.up = 18631;\n  b.low = 17548;\n  b.up = 19452;     \n  result = is_empty_intersection(&a, &b);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("12.Test");\n    showFailMessage(12, a.low, a.up, b.low, b.up, 0, result);\n  }\n\n  a.low = -18631;\n  a.up = -16853;  \n  b.low = -19452;       \n  b.up = -17548;            \n  result = is_empty_intersection(&a, &b);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("13.Test");\n    showFailMessage(13, a.low, a.up, b.low, b.up, 0, result);\n  }\n\n  // Testcase a in b\n  a.low = 100;\n  a.up = 200;\n  b.low = 0;\n  b.up = 300;     \n  result = is_empty_intersection(&a, &b);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("14.Test");\n    showFailMessage(14, a.low, a.up, b.low, b.up, 0, result);\n  }\n\n  // Testcase b in a\n  a.low = -80;\n  a.up = -12;\n  b.low = -13;\n  b.up = -12;     \n  result = is_empty_intersection(&a, &b);\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("15.Test");\n    showFailMessage(15, a.low, a.up, b.low, b.up, 0, result);\n  }\n\n  // Testcase a empty \n  a.low = 5;\n  a.up = 0;\n  b.low = 0;\n  b.up = 8;     \n  result = is_empty_intersection(&a, &b);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("16.Test");\n    showFailMessage(16, a.low, a.up, b.low, b.up, 1, result);\n  }\n\n  // Testcase b empty \n  a.low = 6;\n  a.up = 10;\n  b.low = 9;\n  b.up = 7;     \n  result = is_empty_intersection(&a, &b);\n  if(result > 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("17.Test");\n    showFailMessage(17, a.low, a.up, b.low, b.up, 1, result);\n  }\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Intervall", test1))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRUCT', 'points': 80}, {'name': 'MATH', 'points': 80}, {'name': 'klausur'}], 'orderBy': 6900, 'prerequisites': [], 'unlockableAssets': ['nico_beanz-hat', 'nico_beanz-pants', 'nico_beanz-shirt']}}
+

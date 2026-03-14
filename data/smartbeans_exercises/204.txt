@@ -1,0 +1,61 @@
+SHORTNAME:
+Kreisfläche
+
+TITLE:
+Fläche eines Kreises berechnen
+
+TASKID:
+204
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Mit `#define` ist es möglich, Zeichenketten anzugeben, die vor der
+Übersetzung des Programms im Quelltext vom Präprozessors gegen eine Konstante
+ausgetauscht werden.
+
+Programmieren Sie zwei Funktionen 
+```double kreisflaeche(double durchmesser);```
+```double kreisumfang(double durchmesser);```
+
+die abhängig von einem gegebenen Durchmesser `d` die Kreisfläche und den Kreisumfang berechnen. Benutzen Sie, um Pi konstant auf die achte Nachkommastelle genau zu definieren, ein geeignetes `#define-Makro`. 
+Verwenden Sie ausschließlich `double`.
+
+### Beispielaufruf
+```
+kreisflaeche(1)
+kreisumfang(100)
+```
+
+### Beispielergebnis
+```
+0.78539
+314.15926
+```
+
+
+SOLUTION:
+#define PI 3.14159265
+
+double kreisflaeche(double d) {
+  return (d*d*PI / 4);
+}
+
+double kreisumfang(double d) {
+  return (d*PI);
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n#include <math.h>\n\nvoid showFailMessagekreisflaeche(double input1, double exp, double act, int test_num){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (kreisflaeche(%lf)))\\n\\\n            Erwartete Ausgabe:    (%lf)\\n\\\n            Tatsächliche Ausgabe: (%lf)\\n", test_num, input1, exp, act);\n}\n\nvoid showFailMessagekreisumfang(double input1, double exp, double act, int test_num){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (kreisumfang(%lf)))\\n\\\n            Erwartete Ausgabe:    (%lf)\\n\\\n            Tatsächliche Ausgabe: (%lf)\\n", test_num, input1, exp, act);\n}\nint fequal(double a, double b){\n  float precision = 0.0001;\n  return fabs(a-b) < precision;\n}\n\n\nvoid test(void){\n  double tmp = 3.14159265;\n  if(fequal(kreisflaeche(0.0), 0)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessagekreisflaeche(0.0, 0.0, kreisflaeche(0.0), 1 );\n  }\n  if(fequal(kreisflaeche(1.0), 0.785398)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessagekreisflaeche(1.0, 0.785398, kreisflaeche(1.0), 2 );\n  }\n\n  if(fequal(kreisflaeche(1.5), 1.767146)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessagekreisflaeche(1.5, 1.767146, kreisflaeche(1.5), 3 );\n  }\n  if(fequal(kreisflaeche(5.78), 26.238896)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessagekreisflaeche(5.78, 26.238896, kreisflaeche(5.78), 4 );\n  }\n  if(fequal(kreisflaeche(10.987654321), 94.819980)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessagekreisflaeche(10.987654321, 94.819980, kreisflaeche(10.987654321), 5 );\n  }\n\n  if(fequal(kreisflaeche(100), 7853.981625)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessagekreisflaeche(100, 7853.981625, kreisflaeche(100), 6 );\n  }\n\n\n\n  if(fequal(kreisumfang(0.0), 0)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("7.Test");\n    showFailMessagekreisumfang(0.0, 0.0, kreisumfang(0.0), 7 );\n  }\n  if(fequal(kreisumfang(1.0), 3.141593)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("8.Test");\n    showFailMessagekreisumfang(1.0, 3.141593, kreisumfang(1.0), 8 );\n  }\n\n  if(fequal(kreisumfang(1.5), 4.712389)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("9.Test");\n    showFailMessagekreisumfang(1.5, 4.712389, kreisumfang(1.5), 9 );\n  }\n  if(fequal(kreisumfang(5.78), 18.158406)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("10.Test");\n    showFailMessagekreisumfang(5.78, 18.158406, kreisumfang(5.78), 10 );\n  }\n  if(fequal(kreisumfang(10.987654321), 34.518734)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("11.Test");\n    showFailMessagekreisumfang(10.987654321, 34.518734, kreisumfang(10.987654321), 11 );\n  }\n\n  if(fequal(kreisumfang(100), 314.159265)){\n    CU_PASS("Erfolg!")\n  } else {\n    CU_FAIL("12.Test");\n    showFailMessagekreisumfang(100, 314.159265, kreisumfang(100), 12 );\n  }\n\n}\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Kreisfläche", test))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 3100, 'prerequisites': [], 'unlockableAssets': ['80ies-male-hat', '80ies-male-pants', '80ies-male-shirt']}}
+

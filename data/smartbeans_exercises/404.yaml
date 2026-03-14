@@ -1,0 +1,207 @@
+shortname: "Bubblesort Variation" #D4
+title: "Bubblesort mit wechselnder Laufrichtung"
+taskid: 404
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie eine rekursive Funktion 
+  
+  ```
+  int recSort(int* start, int* end, int reverse)
+  ```
+  
+  die ein Feld absteigend sortiert und zurückgibt, wie viele Vertauschungen dafür notwendig waren.
+   
+  - `start` zeigt auf den ersten Eintrag des Feldes
+  - `end` zeigt auf den letzten Eintrag des Feldes
+  - `reverse` bestimmt die Laufrichtung des Algorithmus (`0` = vorwärts, `1` =rückwärts)
+
+  Implementieren Sie dafür folgenden Sortieralgorithmus:
+  
+  - Der Algorithmus terminiert, wenn keine Einträge vertauscht wurden, oder das Feld nur einen einzigen Eintrag enthält.
+  - Durchlaufe das Feld in Laufrichtung `reverse`.
+    - Vergleiche den Inhalt zweier aufeinander folgender Einträge.
+      - Vertausche die Einträge, wenn der linke Eintrag kleiner ist als der rechte.
+  - Führe den Algorithmus erneut durch, aber:
+    - Kehre die Laufrichtung um.
+    - Verkleinere das Feld:
+      - auf Position `0` bis `n-1`, wenn `reverse = 0`. (Lasse das letzte Element weg)
+      - auf Position `1` bis `n`, wenn `reverse = 1`. (Lasse das erste Element weg)
+
+  *Hinweise*
+  
+  - Versuchen Sie, maximal eine for-Schleife zu verwenden.
+  - Es ist ratsam, den Startpunkt des Feldes innerhalb der Funktion durch eine lokale Variable zu repräsentieren.
+
+  ### Beispielaufruf
+  ```
+  int a[4] = {5, 3, 7, 1};
+  recSort(a, a+3, 0);
+  ```
+
+  ### Beispielergebnis
+  ```
+  2
+  ```
+solution: |
+  int recSort(int* start, int* end, int reverse) {
+    //Feld ist sortiert, wenn nur noch ein Element im Feld ist
+    if (start >= end || end-start == 1)
+        return 0;
+    //Feld ist sortiert, wenn es leer ist
+    if (start == NULL || end == NULL)
+        return 0;
+    int swaps = 0;
+    //p = lokale Variable für startpunkt
+    int *p;
+    if (reverse)
+        p = end;
+    else
+        p = start+1;
+    int h;
+    while(p <= end && p > start) {
+        if (*(p-1)<*p) {
+            h = *(p-1);
+            *(p-1) = *p;
+            *p = h;
+            swaps++;
+        }
+        if (reverse)
+            p--;
+        else
+            p++;
+    }
+    if (swaps == 0)
+        return swaps;
+    if (reverse)
+        swaps+=recSort(start+1, end, 0);
+    else
+        swaps+=recSort(start, end-1, 1);
+    return swaps;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include <string.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        
+        void test_recSort(void){
+        
+          //Testcase Beispiel
+          int a[4] = {5, 3, 7, 1};
+          int result = recSort(a, a+3, 0);
+          if(result == 2){
+            CU_PASS("Erfolg! Eingabe (5, 3, 7, 1, reverse = 0) Erwartete Ausgabe (2)");
+          }
+          else{
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (5, 3, 7, 1, reverse = 0)\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%d)\n",result);
+            CU_FAIL("1.Test");
+          }
+        
+          //Testcase Beispiel umgekehrt
+          int b[4] = {5, 3, 7, 1};
+          result = recSort(b, b+3, 1);
+          if(result == 2){
+            CU_PASS("Erfolg! Eingabe (5, 3, 7, 1, reverse = 1) Erwartete Ausgabe (2)");
+          }
+          else{
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (5, 3, 7, 1, reverse = 1)\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%d)\n",result);
+            CU_FAIL("2.Test");
+          }
+        
+          //Testcase random
+          int c[6] = {9, 1, 11, 9, 10, 14};
+          result = recSort(c, c+5, 0);
+          if(result == 11){
+            CU_PASS("Erfolg! Eingabe (9, 1, 11, 9, 10, 14, reverse = 0) Erwartete Ausgabe (11)");
+          }
+          else{
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (9, 1, 11, 9, 10, 14, reverse = 0)\n\
+                    Erwartete Ausgabe:    (11)\n\
+                    Tatsächliche Ausgabe: (%d)\n",result);
+            CU_FAIL("3.Test");
+          }
+        
+          //Testcase Feld ist schon sortiert
+          int d[5] = {5, 4, 3, 2, 1};
+          result = recSort(d, d+4, 1);
+          if(result == 0){
+            CU_PASS("Erfolg! Eingabe (5, 4, 3, 2, 1, reverse = 1) Erwartete Ausgabe (0)");
+          }
+          else{
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              (5, 4, 3, 2, 1, reverse = 1)\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%d)\n",result);
+            CU_FAIL("4.Test");
+          }
+        
+          //Testcase Feld ist leer
+          result = recSort(a, a, 0);
+          if(result == 0){
+            CU_PASS("Erfolg! Eingabe ([], reverse = 0) Erwartete Ausgabe (0)");
+          }
+          else{
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              ([], reverse = 0)\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%d)\n",result);
+            CU_FAIL("5.Test");
+          }
+        }
+
+        
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+        
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Bubblesort Variation", test_recSort))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 80 }
+      - { "name": "SORT", "points": 80 }
+      - { "name": "klausur" }
+    orderBy: 7050
+    prerequisites: []
+    unlockableAssets: ["child-bean-pink-hat", "child-bean-pink-pants","child-bean-pink-shirt"]

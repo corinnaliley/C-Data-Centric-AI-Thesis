@@ -1,0 +1,52 @@
+SHORTNAME:
+Quersumme Variante
+
+TITLE:
+Quersumme iterativ berechnen
+
+TASKID:
+47
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include<stdio.h>
+
+int main() {
+  int n;
+  scanf("%d", &n);
+  int quersumme = 0;
+  while(n>0) {
+    quersumme = quersumme + n % 10; // alternativ: quersumme += n%10;
+    n = n / 10; // alternativ: n /= 10;
+  }
+  printf("%d", quersumme);
+}
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, das eine nichtnegative ganze Zahl einliest, ihre Quersumme **iterativ** statt rekursiv berechnet und ausgibt.
+
+### Beispieleingabe
+```
+123
+```
+### Beispielausgabe
+```
+6
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '123\n', 'stdout': '6\n'}, {'args': [], 'stdin': '18\n', 'stdout': '9\n'}, {'args': [], 'stdin': '9999\n', 'stdout': '36\n'}, {'args': [], 'stdin': '555551\n', 'stdout': '26\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 1800, 'prerequisites': [], 'unlockableAssets': []}}
+

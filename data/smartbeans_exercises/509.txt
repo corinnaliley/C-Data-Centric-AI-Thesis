@@ -1,0 +1,65 @@
+SHORTNAME:
+alternierende Quersummen
+
+TITLE:
+alternierende Quersumme berechnen
+
+TASKID:
+509
+
+DEFAULTEDITORINPUT:
+
+
+SOLUTION:
+#include <stdio.h>
+
+int main() {
+  int n;
+  scanf("%d", &n);
+
+  int sum = 0;
+  int sign = 1;
+  while (n > 0) {
+    sum += sign * n % 10;
+    n /= 10;
+    sign *= -1;
+  }
+
+  printf("%d\n", sum);
+
+  return 0;
+}
+
+
+LANG:
+c
+
+TASK:
+Die Quersumme einer Zahl ist die Summe der einzelnen Ziffern.
+Die alternierende Quersumme einer Zahl wird gebildet indem man die einzelnen Ziffern der Zahl abwechselnd subtrahiert und addiert. Dabei beginnt man von rechts mit der Einerstelle, also der letzte Stelle/Ziffer. 
+
+*Beispiel*.  aQS(35916) = 6-1+9-5+3 = 12
+
+Schreiben Sie ein Programm, dass eine Zahl > 0 einliest und deren alternierende Quersumme ausgibt.
+
+### Beispieleingabe
+```
+18
+214493
+```
+### Beispielausgabe
+```
+7
+-7
+```
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '4\n', 'stdout': '4\n'}, {'args': [], 'stdin': '18\n', 'stdout': '7\n'}, {'args': [], 'stdin': '21\n', 'stdout': '-1\n'}, {'args': [], 'stdin': '21449\n', 'stdout': '10\n'}, {'args': [], 'stdin': '1\n', 'stdout': '1\n'}, {'args': [], 'stdin': '694\n', 'stdout': '1\n'}, {'args': [], 'stdin': '371\n', 'stdout': '-3\n'}, {'args': [], 'stdin': '430\n', 'stdout': '1\n'}, {'args': [], 'stdin': '2147483647\n', 'stdout': '12\n'}, {'args': [], 'stdin': '214493\n', 'stdout': '-7\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'CONTROL', 'points': 10}, {'name': 'einfach'}], 'orderBy': 2000, 'prerequisites': [], 'unlockableAssets': []}}
+

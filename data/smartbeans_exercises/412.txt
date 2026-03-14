@@ -1,0 +1,60 @@
+SHORTNAME:
+Zahlenreihen VI
+
+TITLE:
+Berechnung von Zahlenreihen
+
+TASKID:
+412
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Die Folge `P` ist definiert durch p<sub>0</sub>=3, p<sub>1</sub>=0, p<sub>2</sub>=2, sowie für k>2 durch p<sub>k</sub>=p<sub>k-2</sub>+p<sub>k-3</sub>.
+Daraus ergibt sich folgender Anfang der Folge `P`:
+
+p<sub>0</sub>=3, p<sub>1</sub>=0, p<sub>2</sub>=2, p<sub>3</sub>=3, p<sub>4</sub>=2, p<sub>5</sub>=5, p<sub>5</sub>=5, p<sub>7</sub>=7, p<sub>8</sub>=10,...
+ 
+Programmieren Sie eine Funktion mit folgendem Prototyp: 
+```
+long iteP(unsigned int k);
+```
+ 
+die das `k`-te Glied der Folge `P` **iterativ** berechnet, d.h. die Funktion darf sich nicht selbst aufrufen.
+ 
+*Hinweis.* Kümmern Sie sich nicht um mögliche Überläufe, diese Problematik kann ignoriert werden.
+
+
+SOLUTION:
+long iteP(unsigned int k){
+  long pkminus1 = 2;
+  long pkminus2 = 0;
+  long pkminus3 = 3;
+  long result;
+  if(k == 0) return 3;
+  if(k == 1) return 0;
+  if(k == 2) return 2;
+  for(int i = 3; i<=k; i++){
+    result = pkminus2+pkminus3;
+    pkminus3 = pkminus2;
+    pkminus2 = pkminus1;
+    pkminus1 = result;
+  }
+
+  return result;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n#include <string.h>\n\nvoid test_iteP(void){ \n  long P[] = {3, 0, 2, 3, 2, 5, 5, 7, 10, 12, 17, 22, 29, 39, 51, 68, 90, 119, 158, 209};\n\n  if(iteP(0) == 3){\n    CU_PASS("Erfolg! Eingabe (0) Erwartetes Ergebnis (3)");\n  }\n  else{\n    printf("\\n    1.Test: Fehler!\\n\\\n            Eingabe:              (0)\\n\\\n            Erwartete Ausgabe:    (3)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(0) );\n    CU_FAIL("1.Test");\n  }\n\n  if(iteP(1) == 0){\n    CU_PASS("Erfolg! Eingabe (1) Erwartetes Ergebnis (0)");\n  }\n  else{\n    printf("\\n    2.Test: Fehler!\\n\\\n            Eingabe:              (1)\\n\\\n            Erwartete Ausgabe:    (0)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(1) );\n    CU_FAIL("2.Test");\n  }\n\n  if(iteP(2) == 2){\n    CU_PASS("Erfolg! Eingabe (2) Erwartetes Ergebnis (2)");\n  }\n  else{\n    printf("\\n    3.Test: Fehler!\\n\\\n            Eingabe:              (2)\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(2) );\n    CU_FAIL("3.Test");\n  }\n\n  if(iteP(3) == 3){\n    CU_PASS("Erfolg! Eingabe (3) Erwartetes Ergebnis (3)");\n  }\n  else{\n    printf("\\n    4.Test: Fehler!\\n\\\n            Eingabe:              (3)\\n\\\n            Erwartete Ausgabe:    (3)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(3) );\n    CU_FAIL("4.Test");\n  }\n\n  if(iteP(4) == 2){\n    CU_PASS("Erfolg! Eingabe (4) Erwartetes Ergebnis (2)");\n  }\n  else{\n    printf("\\n    5.Test: Fehler!\\n\\\n            Eingabe:              (4)\\n\\\n            Erwartete Ausgabe:    (2)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(4) );\n    CU_FAIL("5.Test");\n  }\n\n  if(iteP(5) == 5){\n    CU_PASS("Erfolg! Eingabe (5) Erwartetes Ergebnis (5)");\n  }\n  else{\n    printf("\\n    6.Test: Fehler!\\n\\\n            Eingabe:              (5)\\n\\\n            Erwartete Ausgabe:    (5)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(5) );\n    CU_FAIL("6.Test");\n  }\n\n  if(iteP(6) == 5){\n    CU_PASS("Erfolg! Eingabe (6) Erwartetes Ergebnis (5)");\n  }\n  else{\n    printf("\\n    7.Test: Fehler!\\n\\\n            Eingabe:              (6)\\n\\\n            Erwartete Ausgabe:    (5)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(6) );\n    CU_FAIL("7.Test");\n  }\n\n  if(iteP(7) == 7){\n    CU_PASS("Erfolg! Eingabe (7) Erwartetes Ergebnis (7)");\n  }\n  else{\n    printf("\\n    8.Test: Fehler!\\n\\\n            Eingabe:              (7)\\n\\\n            Erwartete Ausgabe:    (7)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(7) );\n    CU_FAIL("8.Test");\n  }\n\n  if(iteP(10) == 17){\n    CU_PASS("Erfolg! Eingabe (10) Erwartetes Ergebnis (17)");\n  }\n  else{\n    printf("\\n    9.Test: Fehler!\\n\\\n            Eingabe:              (10)\\n\\\n            Erwartete Ausgabe:    (17)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(10) );\n    CU_FAIL("9.Test");\n  }\n\n  if(iteP(15) == 68){\n    CU_PASS("Erfolg! Eingabe (15) Erwartetes Ergebnis (68)");\n  }\n  else{\n    printf("\\n    10.Test: Fehler!\\n\\\n            Eingabe:              (10)\\n\\\n            Erwartete Ausgabe:    (68)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(15) );\n    CU_FAIL("10.Test");\n  }\n\n  if(iteP(19) == 209){\n    CU_PASS("Erfolg! Eingabe (19) Erwartetes Ergebnis (209)");\n  }\n  else{\n    printf("\\n    11.Test: Fehler!\\n\\\n            Eingabe:              (19)\\n\\\n            Erwartete Ausgabe:    (209)\\n\\\n            Tatsächliche Ausgabe: (%ld)\\n", iteP(19) );\n    CU_FAIL("11.Test");\n  }\n}\n  \nint init_suite1(void){ return 0; }\nint clean_suite1(void){ return 0; }\nvoid cleanup(){}\n  \nint main(){\n  CU_pSuite pSuite = NULL;\n\n  /* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n  \n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite){\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n  \n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Zahlenreihen VI", test_iteP))){\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'einfach'}], 'orderBy': 2750, 'prerequisites': [], 'unlockableAssets': []}}
+

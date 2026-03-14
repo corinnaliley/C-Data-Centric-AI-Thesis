@@ -1,0 +1,66 @@
+SHORTNAME:
+Josephus-Problem
+
+TITLE:
+Berechnung Josephus-Problem mit Schrittzahl 2
+
+TASKID:
+502
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Das allgemeine Josephus-Problem kann <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Josephus-Problem">**hier**</a> auf Wikipedia nachgelesen werden.
+
+Für den Fall, dass anfangs n Elemente mit n > 0 vorhanden sind und jedes 2. Element entfernt werden soll lässt sich das zuletzt entfernte Objekt mit folgendem Bildungsgesetz `J` bestimmen:
+
+- Für n = 1 gilt J(n) = 1
+- Für n &gt; 1 gilt
+  - J(n) = 2*J(n/2) - 1,      falls n gerade ist
+  - J(n) = 2*J((n-1)/2) + 1,  falls n ungerade ist
+
+Schreiben Sie eine rekursive Funktion 
+```
+int josephus(int n)
+```
+die für ein gegebenes `n` die Nummer `J(n)` des zuletzt entfernten Objektes findet.
+
+### Beispielaufruf
+```
+josephus(4)
+josephus(7)
+josephus(12)
+```
+### Beispielergebnis
+```
+1
+7
+9
+```
+
+
+SOLUTION:
+int josephus(int n) {
+  if (n == 1)
+      return 1;
+  if (n %2 == 0) {
+    return 2*josephus(n/2) -1;
+  }
+  else
+    return 2*josephus(n/2)+1;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int test_num, int input1, int exp, int act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (%d)\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input1, exp, act);\n}\n\n\nvoid test(void){\n  if(josephus(1)==1){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, 1, 1, josephus(1));\n  }\n\n  if(josephus(2)==1){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, 2, 1, josephus(2));\n  }\n\n  if(josephus(3)==3){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, 3, 3, josephus(3));\n  }\n\n  if(josephus(6)==5){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, 6, 5, josephus(6));\n  }\n\n  if(josephus(7)==7){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, 7, 7, josephus(7));\n  }\n\n  if(josephus(13)==11){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("6.Test");\n    showFailMessage(6, 13, 11, josephus(13));\n  }\n\n  if(josephus(16)==1){\n    CU_PASS("Erfolg! Eingabe (16) Erwartete Ausgabe (1)");\n  }\n  else{\n    CU_FAIL("7.Test");\n    showFailMessage(7, 16, 1, josephus(16));\n  }\n}\n\nint init_suite1(void){ return 0; }\nint clean_suite1(void){ return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Josephus-Problem", test)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 10}, {'name': 'einfach'}], 'orderBy': 2900, 'prerequisites': [], 'unlockableAssets': []}}
+

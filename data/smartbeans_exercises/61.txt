@@ -1,0 +1,83 @@
+SHORTNAME:
+variables Polynom
+
+TITLE:
+variables Polynom mit Hornerschema berechnen
+
+TASKID:
+61
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, dass die Koeffizienten eines Polynoms `p(x)` mit vorgegebenem Grad `n` einliest und anschließend bis zum Eingabeende Stellen `x` anfordert und den Wert `p(x)` des Polynoms an dieser Stelle berechnet und (direkt) ausgibt. Berechnen Sie alle Werte mit `double`-Gleitkommazahlen.
+Formen Sie das Polynom geeignet um (Hornerschema), um sich die Berechnung zu erleichtern. Beispiel:
+```
+p(x) = 5.1x³ − 1.8x² − 0.02x + 17.3 = 17.3 + x(−0.02 + x(−1.8 + 5.1x)).
+```
+Dadurch müssen Sie auch die Potenz nicht ausrechnen.
+
+### Eingabe
+- Eine Ganzzahl `n`, der Grad des Polynoms.
+- `n+1` Gleitkommazahlen, die Koeffizienten des Polynoms.
+- Bis zum Ende der Eingabe: Stellen `a`, an denen das Polynom berechnet werden soll.
+
+### Beispieleingabe
+```
+3
+5.1 -1.8 -0.02 17.3
+5
+1
+-3.1415
+```
+### Beispielausgabe
+```
+609.700000
+20.580000
+-158.519430
+```
+
+
+SOLUTION:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+  int grad;
+  scanf("%d", &grad);
+  double* coefs = malloc((grad+1)* sizeof(double));
+  if(coefs == NULL){
+    printf("Could not get Malloc");
+    return 1;
+  }
+  int i = 0;
+  while(i < grad+1){
+    scanf("%lf", coefs+i);
+    i++;
+  }
+  double x;
+  double sum;
+  while(scanf("%lf", &x)!=EOF){
+    sum = coefs[1] + coefs[0]*x;
+    for(int i = 2; i < grad+1; i++){
+      sum = coefs[i] + x*sum;
+    }
+    printf("%lf\n", sum);
+  }
+  free(coefs);
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '3\n5.1 -1.8 -0.02 17.3\n5\n1\n-3.1415\n', 'stdout': '609.700000\n20.580000\n-158.519430\n'}, {'args': [], 'stdin': '1\n1 -1\n1\n', 'stdout': '0.000000\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'MATH', 'points': 20}, {'name': 'DATATYPE', 'points': 20}, {'name': 'mittel'}], 'orderBy': 3300, 'prerequisites': [], 'unlockableAssets': ['abstract-art-pants', 'abstract-art-shirt']}}
+

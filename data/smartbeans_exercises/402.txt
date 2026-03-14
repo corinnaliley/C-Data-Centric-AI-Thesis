@@ -1,0 +1,67 @@
+SHORTNAME:
+Strings filtern
+
+TITLE:
+Kleinbuchstaben und Großbuchstaben filtern
+
+TASKID:
+402
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie eine Funktion 
+
+```
+char* string_filter(const char* text)
+```  
+
+die einen Zeiger auf einen String entgegennimmt, entsprechend der Anforderungen filtert und das Ergebnis zurückgibt.
+
+*Anforderungen*
+
+- Der Rückgabestring soll nur noch Kleinbuchstaben und Großbuchstaben enthalten.
+
+### Beispielaufruf
+```
+string_filter("...Hallo Welt!!");
+```
+
+### Beispielergebnis
+```
+HalloWelt
+```
+
+
+SOLUTION:
+#include <string.h>
+#include <stdlib.h>
+char* string_filter(const char* text){
+  size_t textlen = strlen(text);
+  char* return_text = malloc((textlen+1)*sizeof(char));
+  int pos = 0;
+  for(int i = 0; i < textlen; i++){
+    char c = text[i];
+    if((c >= 'A' && c <= 'Z')|| (c >= 'a' && c <= 'z')){
+      return_text[pos] = text[i];
+      pos++;
+    }
+  }
+  return_text[pos] = '\0';
+  return return_text;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include <string.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid test_string_filter(void){\n\n  //Testcase Beispiel\n  if(strcmp(string_filter("...Hallo Welt!!"), "HalloWelt")==0){\n    CU_PASS("Erfolg! Eingabe (...Hallo Welt!!) Erwartete Ausgabe (HalloWelt)");\n  }\n  else{\n    printf("\\n    1.Test: Fehler!\\n\\\n            Eingabe:              (...Hallo Welt!!)\\n\\\n            Erwartete Ausgabe:    (HalloWelt)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n",string_filter("...Hallo Welt!!") );\n    CU_FAIL("1.Test");\n  }\n\n  //Testcase Zahlen\n  if(strcmp(string_filter("W1A2S2 d4a5 L6O7S8"), "WASdaLOS")==0){\n    CU_PASS("Erfolg! Eingabe (W1A2S2 d4a5 L6O7S8) Erwartete Ausgabe (WASdaLOS)");\n  }\n  else{\n    printf("\\n    2.Test: Fehler!\\n\\\n            Eingabe:              (W1A2S2 d4a5 L6O7S8)\\n\\\n            Erwartete Ausgabe:    (WASdaLOS)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n",string_filter("W1A2S2 d4a5 L6O7S8") );\n    CU_FAIL("2.Test");\n  }\n\n  //Testcase Leerzeichen\n  if(strcmp(string_filter("  "), "")==0){\n    CU_PASS("Erfolg! Eingabe (  ) Erwartete Ausgabe ()");\n  }\n  else{\n    printf("\\n    3.Test: Fehler!\\n\\\n            Eingabe:              (  )\\n\\\n            Erwartete Ausgabe:    ()\\n\\\n            Tatsächliche Ausgabe: (%s)\\n",string_filter("  ") );\n    CU_FAIL("3.Test");\n  }\n\n  //Testcase leerer String\n  if(strcmp(string_filter(""), "")==0){\n    CU_PASS("Erfolg! Eingabe () Erwartete Ausgabe ()");\n  }\n  else{\n    printf("\\n    4.Test: Fehler!\\n\\\n            Eingabe:              ()\\n\\\n            Erwartete Ausgabe:    ()\\n\\\n            Tatsächliche Ausgabe: (%s)\\n",string_filter("") );\n    CU_FAIL("4.Test");\n  }\n\n  //Testcase Leerzeichen zu Beginn\n  if(strcmp(string_filter(" helloworld "), "helloworld")==0){\n    CU_PASS("Erfolg! Eingabe ( helloworld ) Erwartete Ausgabe (helloworld)");\n  }\n  else{\n    printf("\\n    5.Test: Fehler!\\n\\\n            Eingabe:              ( helloworld )\\n\\\n            Erwartete Ausgabe:    (helloworld)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n",string_filter(" helloworld ") );\n    CU_FAIL("5.Test");\n  }\n\n  //Testcase random\n  if(strcmp(string_filter("BO??a2aK60TL/nwH"), "BOaaKTLnwH")==0){\n    CU_PASS("Erfolg! Eingabe (BO??a2aK60TL/nwH) Erwartete Ausgabe (BOaaKTLnwH)");\n  }\n  else{\n    printf("\\n    6.Test: Fehler!\\n\\\n            Eingabe:              (BO??a2aK60TL/nwH)\\n\\\n            Erwartete Ausgabe:    (BOaaKTLnwH)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n",string_filter("BO??a2aK60TL/nwH") );\n    CU_FAIL("6.Test");\n  }\n\n  //Testcase nur Alphabet\n  if(strcmp(string_filter("helloworld"), "helloworld")==0){\n    CU_PASS("Erfolg! Eingabe (helloworld) Erwartete Ausgabe (helloworld)");\n  }\n  else{\n    printf("\\n    7.Test: Fehler!\\n\\\n            Eingabe:              (helloworld)\\n\\\n            Erwartete Ausgabe:    (helloworld)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n",string_filter("helloworld") );\n    CU_FAIL("7.Test");\n  }\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Strings filtern", test_string_filter))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'MEMORY', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5300, 'prerequisites': [], 'unlockableAssets': ['beany-botter-hat', 'beany-botter-shirt']}}
+

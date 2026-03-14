@@ -1,0 +1,65 @@
+SHORTNAME:
+Bubblesort
+
+TITLE:
+Sortieren eines Feldes mit Bubblesort
+
+TASKID:
+206
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Programmieren Sie eine Funktion 
+```
+void sort(int *a, int len);
+```
+
+die das übergebene nicht-leere Feld rekursiv **aufsteigend** sortiert. 
+In jedem Rekursionsschritt wird das größte Element an das Ende des Feldes sortiert, indem nacheinander das aktuelle Element mit seinem direkten nachfolgenden Nachbarelement verglichen und gegebenenfalls getauscht wird. 
+Dadurch wandert das Maximum des aktuell zu sortierenden Feldes an die hinterste Position, sodass das im nächsten Rekursionschritt zu sortierende Feld um eins verkleinert wird. 
+Die Sortierfunktion ruft sich selbst mit angepassten Parametern auf. 
+
+### Beispielaufruf
+```
+int a[] = {1,3,4,5,2,0};
+sort(a, 6);
+```
+
+### Beispielergebnis
+```
+0, 1, 2, 3, 4, 5
+```
+
+
+SOLUTION:
+void sort(int *a, int len) {
+  if (len == 1) {
+    return;
+  }
+
+  int tmp;
+  for (int i = 0; i < len-1; i++) {
+    if (a[i] > a[i+1]) {
+      tmp = a[i];
+      a[i] = a[i+1];
+      a[i+1] = tmp;
+    }
+  }
+  sort(a, len-1);
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessage(int* arr, int length, int input, int exp,int act, int test_num){\n  char  arr_formated[5000];\n  sprintf(arr_formated, "{");\n  for(int j = 0; j < length; j++){\n    sprintf(arr_formated, "%s%d", arr_formated, arr[j]);\n    if(j < length -1){\n      sprintf(arr_formated, "%s, ", arr_formated);\n    }\n  }\n  sprintf(arr_formated, "%s}", arr_formated);\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (sort(%s, %d);\\n\\\n                                   a[%d];)\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, arr_formated, length, input, exp, act);\n}\n\nvoid test(void){\n  int a[] = {1,3,4,5,2,0};\n  int g[] = {1,3,4,5,2,0};\n  sort(a, 6);\n  if(a[0] == 0){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessage(g, 6, 0, 0, a[0], 1);\n  }\n  if(a[1] == 1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessage(g, 6, 1, 1, a[1], 2);\n  }\n  if(a[2] == 2){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessage(g, 6, 2, 2, a[2], 3);\n  }\n\n  if(a[3] == 3){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessage(g, 6, 3, 3, a[3], 4);\n  }\n  if(a[4] == 4){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessage(g, 6, 4, 4, a[4], 5);\n  }\n  if(a[5] == 5){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessage(g, 6, 5, 5, a[5], 6);\n  }\n  int b[] = {1};\n  int h[] = {1};\n\n  sort(b, 1);\n  if(b[0] == 1){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("7.Test");\n    showFailMessage(h, 1, 0, 1, b[0], 7);\n  }\n  int c[] = {100,10000,999,1112,100,829229};\n  int i[] = {100,10000,999,1112,100,829229};\n  sort(c, 6);\n  if(c[0] == 100){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("8.Test");\n    showFailMessage(i, 6, 0, 100, c[0], 8);\n  }\n\n  \n  if(c[1] == 100){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("9.Test");\n    showFailMessage(i, 6, 1, 100, c[1], 9);\n  }\n  \n  if(c[2] == 999){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("10.Test");\n    showFailMessage(i, 6, 2, 999, c[2], 10);\n  }\n  \n  if(c[3] == 1112){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("11.Test");\n    showFailMessage(i, 6, 3, 1112, c[3], 11);\n  }\n  \n  if(c[4] == 10000){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("12.Test");\n    showFailMessage(i, 6, 4, 10000, c[4], 12);\n  }\n  \n  if(c[5] == 829229){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("13.Test");\n    showFailMessage(i, 6, 5, 829229, c[5], 13);\n  }\n}\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Bubblesort", test))) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 20}, {'name': 'SORT', 'points': 20}, {'name': 'mittel'}], 'orderBy': 4100, 'prerequisites': [], 'unlockableAssets': ['child-bean-blue-hat', 'child-bean-blue-pants', 'child-bean-blue-shirt']}}
+

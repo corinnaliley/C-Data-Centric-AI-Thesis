@@ -1,0 +1,95 @@
+SHORTNAME:
+Alphabet umwandeln
+
+TITLE:
+Text aus einem Alphabet in ein anderes umwandeln
+
+TASKID:
+521
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Ein Alphabet ist eine Zeichenfolge in der kein Zeichen mehr als einmal vorkommt.
+
+Ein Text über einem Alphabet ist eine Zeichenfolge, die nur aus Zeichen des Alphabets besteht.
+
+Für zwei Alphabete mit derselben Anzahl an Zeichen, kann man einen Text über dem einen Alphabet (Quellalphabet) in einen Text über dem anderen Alphabet (Zielalphabet) übersetzen, indem man die Zeichen einzeln übersetzt.
+
+Die Übsetzung eines Zeichens aus dem Quellalphabet ist das Zeichen aus dem Zielalphabet an derselben Position.
+
+*Beispiel*
+
+`1234567890` Quellalphabet
+
+`0987654321` Zielalphabet
+
+Der Text `149` über dem Quellalphabet wird zum Text `072` über dem Zielalphabet übersetzt.
+
+Programmieren Sie eine Funktion mit Prototyp
+
+```
+char *substitute(const char *source, const char *target, const char *text);
+```
+
+und Parametern:
+
+- `source`, ein Zeiger auf ein `char`-Feld in dem ein Quellalphabet, als String, gespeichert ist,
+- `target`, einen Zeiger auf ein `char`-Feld in dem ein Zielalphabet, als String, gespeichert ist,
+- `text` , einen Zeiger auf ein `char`-Feld in dem ein zu übersetzender String gespeichert ist.
+
+Die Funktion substitute liefert einen Zeiger auf ein `char`-Feld zurück, in dem sich die Übersetzung des Strings `text` über dem Quellalphabet `source` in das Zielalphabet `target` beﬁndet.
+
+*Anforderungen*
+
+- Die Funktion liefert bei einem Fehler den Nullzeiger, sonst einen Zeiger auf den übersetzten Text zurück.
+- Der Speicher für das Feld, in dem der übersetzte Text zurückgeliefert wird, wird auf dem Heap reserviert, dabei kann ein Fehler auftreten.
+- Enthält der zu übersetzende Text Zeichen, die nicht im Quellalphabet vorhanden sind, ist das ein Fehler.
+- Tritt ein Fehler auf nachdem Speicher auf dem Heap angefordet wurde, muss dieser Speicher vor dem Ende der Funktion wieder freigeben werden.
+- Sie brauchen nicht zu prüfen, ob `source` und `target` auf den Anfang von `char`-Felder zeigen, ob diese Strings enthalten und ob in diese Strings gültige Alphabete gleicher Länge sind.
+- Sie brauchen nicht zu prüfen, ob `text` auf den Anfang eines `char`-Feldes zeigen, das einen String enthält.
+- Berücksichtigen Sie das Null-Zeichen bei der Ermittlung des Speicherplatzes für den resultierenden (übersetzten) String aus dem übergebenen (zu übersetzenden) String.
+
+
+SOLUTION:
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+  
+char *substitute(const char *source, const char *target, const char *text){
+    int length = strlen(text);
+    char * result = malloc(sizeof(char) * (length +1));
+    if (result == NULL)
+        return NULL;
+    for(int i = 0; i < length; i++){
+        int flag = 0;
+        for(int j = 0; j < strlen(source); j++){
+            if( source[j] == text[i]){
+                result[i] = target[j];
+                flag = 1;
+            }
+        }
+        if (flag == 0){
+            free(result);
+            return NULL;
+        }
+    }
+    //result[length-1] = 'G';
+    result[length] = '\0';
+    return result;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h" \n#include "solution.c"\n\nvoid showFailMessage(int test_num, char *input1, char *input2, char *input3, char *act, char *exp){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (substitute(\\"%s\\",\\n\\\n                                              \\"%s\\",\\n\\\n                                              \\"%s\\"))\\n\\\n            Erwartete Ausgabe:    (\\"%s\\")\\n\\\n            Tatsächliche Ausgabe: (\\"%s\\")\\n", test_num, input1, input2, input3, exp, act);\n}\n\nvoid test1(void){\n  if(strcmp(substitute("abcde", "fghij", "dbcaeddaebc"), "ighfjiifjgh") == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("1.Test");\n    showFailMessage(1, "abcde", "fghij", "dbcaeddaebc",substitute("abcde", "fghij", "dbcaeddaebc"), "ighfjiifjgh" );\n  }        \n\n  if(strcmp(substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "HALLOWELT"), "hallowelt") == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("2.Test");\n    showFailMessage(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "HALLOWELT" ,substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "HALLOWELT"), "hallowelt" );\n  }\n\n  if(strcmp(substitute("!?%$&/()=", "abcdefghi", "!?%$&/()="), "abcdefghi") == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("3.Test");\n    showFailMessage(3, "!?%$&/()=", "abcdefghi", "!?%$&/()=", substitute("!?%$&/()=", "abcdefghi", "!?%$&/()="), "abcdefghi" );\n  }\n\n  if(substitute("ABCDE", "abcde", "XYZ") == NULL){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("4.Test");\n    showFailMessage(4, "ABCDE", "abcde", "XYZ", substitute("ABCDE", "abcde", "XYZ"), NULL );\n  }\n\n  if(strcmp(substitute("1234567890", "0987654321", "149"), "072") == 0){\n    CU_PASS("Erfolg!");\n  }\n  else{\n    CU_FAIL("5.Test");\n    showFailMessage(5, "1234567890", "0987654321", "149", substitute("1234567890", "0987654321", "149"), "072" );\n  }\n}\n\nint init_suite1(void) { return 0; }\nint clean_suite1(void) { return 0; }\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Alphabet umwandeln", test1))) {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'MEMORY', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5550, 'prerequisites': [], 'unlockableAssets': ['maximiert-pants', 'maximiert-shirt']}}
+

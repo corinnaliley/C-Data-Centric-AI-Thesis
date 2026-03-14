@@ -1,0 +1,305 @@
+shortname: "CSV Parser" #N5
+title: "Versuchen Sie sich im Parsen einer CSV Datei"
+taskid: 505
+defaultEditorInput: |
+lang: "c"
+task: |
+  Eine CSV Datei ist eine spezielle Textdatei für das Speichern von strukturierten Daten. Auf Wikipedia können Sie sich [hier](https://de.wikipedia.org/wiki/CSV_(Dateiformat)) mit dem genauen Aufbau vertraut machen.
+  
+  Schreiben Sie eine Funktion 
+  ```
+  char ***parse_csv(char *csv)
+  ``` 
+  die den Inhalt einer CSV Datei als String übergeben bekommt und diesen parst. 
+
+  *Anforderungen*
+  
+  - Der CSV String soll dabei als zweidimensional Feld verstanden werden. 
+  - Die verschiedenen Zeilen sind durch `\n` getrennt. Auch hinter der letzte Zeile folgt ein `\n`. 
+  - Die Einträge innerhalb der Zeilen sind durch das Trennzeichen `;` getrennt. 
+  - Der String enthält immer mind. ein Element.
+
+  Über den zurückgelieferten Pointer soll auf jedes Element aus dem String einzeln wie bei einem Feld zugegriffen werden können.
+
+  ### Beispielaufruf
+  ```
+  char * csv_string = "Ein;Beispiel;für\ndas;bessere;Verständnis\nder;Aufgabe;N5\n";
+  char *** csv_array = parse_csv(csv_string);
+  printf("%s\n", csv_array[0][0]);
+  printf("%s\n", csv_array[1][2]);
+  printf("%s\n", csv_array[2][1]);
+  ```
+  ### Beispielergebnis
+  ```
+  Ein
+  Verständnis
+  Aufgabe
+  ```
+solution: |
+  #include <stdlib.h>
+
+  #define DELIMITER ';'
+  #define ENDLINE '\n'
+
+  char ***parse_csv(char *csv) {
+    int lines = 0;
+    int columns = 1;
+
+    char *p = csv;
+
+    while (*p) {
+      if (lines == 0 && *p == DELIMITER) {
+        columns++;
+      } else if (*p == ENDLINE) {
+        lines++;
+      }
+      p++;
+    }
+
+    // Allocate memory to save all csv data
+    char *data = (char *)malloc((size_t)((p - csv) * sizeof(char)));
+    if (data == NULL) {
+      return NULL;
+    }
+
+    // Allocate memory to hold line pointers
+    char ***line_array = (char ***)malloc((size_t)(lines * sizeof(char **)));
+    if (line_array == NULL) {
+      return NULL;
+    }
+
+    for (int line = 0; line < lines; line++) {
+      // Allocate memory to hold cell pointers
+      char **cell_array = (char **)malloc((size_t)(columns * sizeof(char *)));
+      if (cell_array == NULL) {
+        return NULL;
+      }
+
+      line_array[line] = cell_array;
+    }
+
+    // As a last step, iterate over the csv data and do the following..
+    // .. 1. Copy the csv content to the data memory
+    // .. 2. Assign the corresponding pointers to each entry
+
+    p = csv;
+    char *d = data;
+    line_array[0][0] = d;
+    int line = 0;
+    int column = 0;
+    int end = 0;
+    while (*p) {
+      if (end == 1) {
+        return NULL;
+      }
+      if (*p == DELIMITER) {
+        if (column < columns) {
+          column++;
+          line_array[line][column] = d + 1;
+          *d = '\0';
+        } else {
+          return NULL;
+        }
+      } else if (*p == ENDLINE) {
+        column = 0;
+        line++;
+        if (line < lines) {
+          line_array[line][column] = d + 1;
+          *d = '\0';
+        } else {
+          end = 1;
+        }
+      } else {
+        *d = *p;
+      }
+      d++;
+      p++;
+    }
+
+    return line_array;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include <string.h>
+        #include "solution.c"
+
+        void showFailMessage(int test_num, char* input1, int input2, int input3, char* exp, char* act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (\"%s\"\n\
+                                           csv_array[%d][%d])\n\
+                    Erwartete Ausgabe:    (\"%s\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n", test_num, input1, input2, input3, exp, act);
+        }
+
+        void test(void){
+          char * testcsv = "eins;zwei\ndrei;vier\nfünf;sechs\n";
+          char * testcsvprint = "eins;zwei\\ndrei;vier\\nfünf;sechs\\n";
+          char ***csv = parse_csv(testcsv);
+          if(strcmp(csv[0][0], "eins") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, testcsvprint, 0, 0, "eins", csv[0][0]);
+          }
+
+          if(strcmp(csv[0][1], "zwei") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, testcsvprint, 0, 1, "zwei", csv[0][1]);
+          }
+
+          if(strcmp(csv[1][0], "drei") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("3.Test");
+            showFailMessage(3, testcsvprint, 1, 0, "drei", csv[1][0]);
+          }
+
+          if(strcmp(csv[1][1], "vier") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("4.Test");
+            showFailMessage(4, testcsvprint, 1, 1, "vier", csv[1][1]);
+          }
+
+          if(strcmp(csv[2][0], "fünf") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("5.Test");
+            showFailMessage(5, testcsvprint, 2, 0, "fünf", csv[2][0]);
+          }
+
+          if(strcmp(csv[2][1], "sechs") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("6.Test");
+            showFailMessage(6, testcsvprint, 2, 1, "sechs", csv[2][1]);
+          }
+          free(csv);
+
+          
+          testcsv = "Erstens\n";
+          testcsvprint = "Erstens\\n";
+          csv = parse_csv(testcsv);
+          if(strcmp(csv[0][0], "Erstens") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("7.Test");
+            showFailMessage(7, testcsvprint, 0, 0, "Erstens", csv[0][0]);
+          }
+          free(csv);
+
+
+          testcsv = "eins test; zweitest ;3;4\nfünf;sechs;sieben;acht\n    neun;zehn;elf;1 2  \n";
+          testcsvprint = "eins test; zweitest ;3;4\\nfünf;sechs;sieben;acht\\n    neun;zehn;elf;1 2  \\n";
+          csv = parse_csv(testcsv);
+          if(strcmp(csv[0][0], "eins test") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("8.Test");
+            showFailMessage(8, testcsvprint, 0, 0, "eins test", csv[0][0]);
+          }
+
+          if(strcmp(csv[0][3], "4") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("9.Test");
+            showFailMessage(9, testcsvprint, 0, 3, "4", csv[0][3]);
+          }        
+
+          if(strcmp(csv[2][0], "    neun") == 0){
+            CU_PASS("Erfolg!");            
+          }
+          else{
+            CU_FAIL("10.Test");
+            showFailMessage(10, testcsvprint, 2, 0, "    neun", csv[2][0]);
+          }
+          if(strcmp(csv[2][3], "1 2  ") == 0){
+            CU_PASS("Erfolg!)");            
+          }
+          else{
+            CU_FAIL("11.Test");
+            showFailMessage(11, testcsvprint, 2, 3, "1 2  ", csv[2][3]);
+          }
+          free(csv);
+
+          testcsv = "ein sehhhrr seeeehhhrrr langer Text der sehr lang ist eig schon viel zu lang und er wird immer noch länger!!!!&§/$; \n";
+          testcsvprint = "ein sehhhrr seeeehhhrrr langer Text der sehr lang ist eig schon viel zu lang und er wird immer noch länger!!!!&§/$;a\\n";
+          csv = parse_csv(testcsv);
+          if(strcmp(csv[0][0], "ein sehhhrr seeeehhhrrr langer Text der sehr lang ist eig schon viel zu lang und er wird immer noch länger!!!!&§/$") == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("12.Test");
+            showFailMessage(12, testcsvprint, 0, 0, "ein sehhhrr seeeehhhrrr langer Text der sehr lang ist eig schon viel zu lang und er wird immer noch länger!!!!&§/$", csv[0][0]);
+          }
+          if(strcmp(csv[0][1], " ") == 0){
+            CU_PASS("Erfolg!");
+            
+          }
+          else{
+            CU_FAIL("13.Test");
+            showFailMessage(13, testcsvprint, 0, 1, " ", csv[0][1]);
+          }
+          free(csv);
+        }
+
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "CSV Parser", test)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "POINTER", "points": 160 }
+      - { "name": "MEMORY", "points": 160 }
+      - { "name": "insane" }
+    orderBy: 7400
+    prerequisites: []
+    unlockableAssets: []

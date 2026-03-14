@@ -1,0 +1,225 @@
+shortname: "einfacher Übersetzer" #D9
+title: "Übersetzen eines Satzes mit Wörterbuches"
+taskid: 409
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie eine Funktion 
+  
+  ```
+  char* simpleTranslate(char* text, translation_t* dictionary, size_t dict_size)
+  ```
+  
+  welche die Funktion eines einfachen Übersetzers implementiert. Die Funktion bekommt die folgenden Argumente übergeben:
+   
+  - `char* text` Ein Zeiger auf den Text, der übersetzt werden soll.
+  - `translation_t* dictionary` Ein Zeiger auf ein Feld aus `translation_t`-Objekten, die ein Wörterbuch repräsentieren.
+  - `size_t dict_size` Die Anzahl der `translation_t`-Elemente im Dictionary.
+   
+  Ein `translation_t`-Element hat folgende Struktur:
+   
+  ```
+  typedef struct {
+    char* src; // Ausgangswort
+    char* dest; // Zielwort (Übersetzung)
+  } translation_t;
+  ```
+   
+  *Anforderungen*
+   
+  - Die Funktion gibt einen Zeiger auf einen String zurück, in dem jedes Wort entsprechend des `dictionary` übersetzt wurde.
+  - Sie können davon ausgehen, dass der Ausgangstext nur `char`-Zeichen und Leerzeichen enthält.
+  - Sie können davon ausgehen, dass der übersetzte Text nicht länger als 500 Zeichen ist.
+  - Der Rückgabestring muss auf dem Heap gespeichert sein. Allokieren Sie also Speicher mit `malloc()`.
+  - Definieren Sie die Struktur `translation_t` in der Abgabedatei.   
+   
+  *Hinweise*
+    
+  - Diese Aufgabe ist ziemlich kniffelig! Hilfreich sind die Funktionen <a target="_blank" rel="noopener noreferrer" href="https://www.tutorialspoint.com/c_standard_library/c_function_strcat.htm">**strcat**</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.tutorialspoint.com/c_standard_library/c_function_strcpy.htm">**strcpy**</a> und <a target="_blank" rel="noopener noreferrer" href="https://www.tutorialspoint.com/c_standard_library/c_function_strtok.htm">**strtok**</a>. 
+   
+  ### Beispielaufruf
+  ```
+  translation_t dictionary[2] = {{"Hallo", "Hello"}, {"Welt", "World"}};
+  char* text_trans = simpleTranslate("Hallo Welt", dictionary, 2);
+  ```
+   
+  ### Beispielergebnis
+  ```
+  text_trans = "Hello World"
+  ```
+solution: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  typedef struct {
+    char *src;
+    char *dest;
+  } translation_t;
+
+  const char *translateWord(char *word, translation_t *dictionary,
+                            size_t dict_size) {
+    char *translation;
+    for (int i = 0; i < dict_size; i++) {
+      if (strcmp(dictionary[i].src, word) == 0) {
+        return dictionary[i].dest;
+      }
+    }
+    return NULL;
+  }
+
+  char *simpleTranslate(char *text, translation_t *dictionary, size_t dict_size) {
+    char *trans_text = malloc(500 * sizeof(char));
+    if (trans_text == NULL) {
+      printf("Keinen Speicher bekommen");
+      return NULL;
+    }
+    strcpy(trans_text, "\0");
+    char *token = strtok(text, " ");
+    int i = 0;
+    while (token != NULL) {
+      const char *trans_token = translateWord(token, dictionary, dict_size);
+      if (trans_token == NULL) {
+        return NULL;
+      }
+      if (i != 0) {
+        strcat(trans_text, " ");
+      }
+      strcat(trans_text, trans_token);
+      token = strtok(NULL, " ");
+      i++;
+    }
+    return trans_text;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include <string.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        
+        void test_simpleTranslate(void){
+          translation_t dictionary[11] = {{"Ich", "I"}, {"mag", "like"}, {"Züge", "trains"}, {"Juhu", "Yay"}, {"es", "it"}, {"funktioniert", "works"}, {"Nein", "no"}, {"bin", "am"}, {"eine", "a"}, {"kluge", "smart"}, {"Bohne", "bean"}};
+          
+          //Testcase "I like trains"
+          char teststring1[] = "Ich mag Züge";
+          char* trains = simpleTranslate(teststring1, dictionary, 11);
+          if(strcmp(trains, "I like trains") == 0){
+            CU_PASS("Erfolg! Eingabe (Ich mag Züge) Erwartete Ausgabe (I like trains).");
+          }
+          else{
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (Ich mag Züge)\n\
+                    Erwartete Ausgabe:    (I like trains)\n\
+                    Tatsächliche Ausgabe: (%s)\n",trains);
+            CU_FAIL("1.Test");
+          }
+          free(trains);
+          
+          //Testcase "Juhu es funktioniert"
+          char teststring2[] = "Juhu es funktioniert";
+          char* itworks = simpleTranslate(teststring2, dictionary, 11);
+          if(strcmp(itworks, "Yay it works") == 0){
+            CU_PASS("Erfolg! Eingabe (Juhu es funktioniert) Erwartete Ausgabe (Yay it works).");
+          }
+          else{
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (Juhu es funktioniert)\n\
+                    Erwartete Ausgabe:    (Yay it works)\n\
+                    Tatsächliche Ausgabe: (%s)\n",trains);
+            CU_FAIL("2.Test");
+          }
+          free(itworks);
+          
+          //Testcase "Nein Nein Nein Nein Nein"
+          char teststring3[] = "Nein Nein Nein Nein Nein";
+          char* no = simpleTranslate(teststring3, dictionary, 11);
+          if(strcmp(no, "no no no no no") == 0){
+            CU_PASS("Erfolg! Eingabe (Nein Nein Nein Nein Nein) Erwartete Ausgabe (no no no no no).");
+          }
+          else{
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (Nein Nein Nein Nein Nein)\n\
+                    Erwartete Ausgabe:    (no no no no no)\n\
+                    Tatsächliche Ausgabe: (%s)\n",trains);
+            CU_FAIL("3.Test");
+          }
+          free(no);
+          
+          //Testcase leerer String
+          char teststring4[] = "";
+          char* empty = simpleTranslate(teststring4, dictionary, 11);
+          if(strcmp(empty, "") == 0){
+            CU_PASS("Erfolg! Eingabe () Erwartete Ausgabe ().");
+          }
+          else{
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              ()\n\
+                    Erwartete Ausgabe:    ()\n\
+                    Tatsächliche Ausgabe: (%s)\n",trains);
+            CU_FAIL("4.Test");
+          }
+          free(empty);
+          
+          //Testcase kluge Bohne
+          char teststring5[] = "Ich bin eine kluge Bohne";
+          char* bean = simpleTranslate(teststring5, dictionary, 11);
+          if(strcmp(bean, "I am a smart bean") == 0){
+            CU_PASS("Erfolg! Eingabe (Ich bin eine kluge Bohne) Erwartete Ausgabe (I am a smart bean).");
+          }
+          else{
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              (Ich bin eine kluge Bohne)\n\
+                    Erwartete Ausgabe:    (I am a smart bean)\n\
+                    Tatsächliche Ausgabe: (%s)\n",trains);
+            CU_FAIL("5.Test");
+          }
+          free(bean);
+        }
+        
+          
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+        
+        int main(){
+        CU_pSuite pSuite = NULL;
+        
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+            
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+              
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "einfacher Übersetzer", test_simpleTranslate))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+            
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRUCT", "points": 160 }
+      - { "name": "insane" }
+    orderBy: 7800
+    prerequisites: []
+    unlockableAssets: []

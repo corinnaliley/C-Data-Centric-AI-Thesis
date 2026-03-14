@@ -1,0 +1,153 @@
+shortname: "Rekursive Summe" #Z6
+title: "Summe rekursiv berechnen"
+taskid: 80
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie eine rekursive Funktion mit dem Prototypen `int sum(int n);`, die folgende Definition realisiert:
+  ```
+  sum(n) = 
+           0           ,falls n=0
+           sum(n-1)+n  ,falls n>0
+           sum(n+1)+n  ,falls n<0
+  ```
+solution: |
+  int sum(int n) {
+    if (n == 0) {
+      return 0;
+    }
+    if (n > 0) {
+      return sum(n - 1) + n;
+    }
+    if (n < 0) {
+      return sum(n + 1) + n;
+    }
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int exp, int act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (sum(%d))\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, exp, act);
+        }
+
+
+        void test_sum(void){
+          int result = sum(0);
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, 0, 0, result);
+          } 
+
+          result = sum(1);
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, 1, 1, result);
+          } 
+
+          result = sum(-1);
+          if(result == -1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("3.Test");
+            showFailMessage(3, -1, -1, result);
+          } 
+
+          result = sum(2);
+          if(result == 3){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("4.Test");
+            showFailMessage(4, 2, 3, result);
+          } 
+
+          result = sum(-2);
+          if(result == -3){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("5.Test");
+            showFailMessage(5, -2, -3, result);
+          } 
+
+          result = sum(10);
+          if(result == 55){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("6.Test");
+            showFailMessage(6, 10, 55, result);
+          } 
+
+          result = sum(-10);
+          if(result == -55){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("7.Test");
+            showFailMessage(7, -10, -55, result);
+          } 
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Rekursive Summe", test_sum)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "RECURSION", "points": 10 }
+      - { "name": "CONTROL", "points": 10}
+      - { "name": "einfach" }
+    orderBy: 3200
+    prerequisites: []
+    unlockableAssets: ["e-girl-hat", "e-girl-pants", "e-girl-shirt"]

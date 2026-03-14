@@ -1,0 +1,63 @@
+SHORTNAME:
+Primfaktorzerlegung
+
+TITLE:
+Primfaktorzerlegung berechnen
+
+TASKID:
+62
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Rufen Sie in der Konsole den Befehl `factor 144` auf. Die Ausgabe 
+```
+144: 2 2 2 2 3 3
+```
+gibt die Primzahlzerlegung von 144 an. Programmieren Sie dies in C nach, um beliebige ganze Zahlen bis zur Größe `UINT MAX` verarbeiten zu können. Die zu verarbeitende Zahl soll mit scanf eingelesen werden und die Primfaktoren sollen in aufsteigender Reihenfolge ausgegeben werden.
+
+### Beispieleingabe
+```
+144
+```
+### Beispielausgabe
+```
+144: 2 2 2 2 3 3
+```
+
+
+SOLUTION:
+#include <stdio.h>
+
+int main(void) {
+  unsigned int zahl;
+  scanf("%i", &zahl);
+  printf("%i: ", zahl);
+
+  int i = 2;
+  while (i < zahl) {
+    while (zahl % i != 0) {
+      i++;
+    }
+    while (zahl % i == 0) {
+      zahl /= i;
+      printf("%i ", i);
+    }
+  }
+  return 0;
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '144\n', 'stdout': '144: 2 2 2 2 3 3\n'}, {'args': [], 'stdin': '12\n', 'stdout': '12: 2 2 3\n'}, {'args': [], 'stdin': '113\n', 'stdout': '113: 113\n'}, {'args': [], 'stdin': '114\n', 'stdout': '114: 2 3 19\n'}, {'args': [], 'stdin': '226\n', 'stdout': '226: 2 113\n'}, {'args': [], 'stdin': '1\n', 'stdout': '1: \n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'DATATYPE', 'points': 20}, {'name': 'MATH', 'points': 20}, {'name': 'mittel'}], 'orderBy': 3900, 'prerequisites': [], 'unlockableAssets': ['doppelt_haelt_besser-hat', 'doppelt_haelt_besser-pants', 'doppelt_haelt_besser-shirt']}}
+

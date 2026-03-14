@@ -1,0 +1,414 @@
+shortname: "Methoden für Strings I" #Z4
+title: "verschiedene Methoden zur Stringbehandlung"
+taskid: 74
+defaultEditorInput: |
+lang: "c"
+task: |
+  Realisieren Sie folgende Funktionen:
+  ```
+  int strendX(const char *s, const char *t);
+  ```
+  liefert `1`, wenn der String `t` am Ende des String `s` steht, und `0` sonst.
+  ```
+  char *strchrX(const char *s, int c);
+  ```
+  liefert den Zeiger auf das letzte Vorkommen des Zeichens `c` im String `s` bzw. den `NULL`-Zeiger, wenn `c` in `s` nicht vorkommt.
+  ```
+  char *strstrX(const char *s, const char *t)
+  ```
+  liefert den Zeiger auf das erste Vorkommen des String `t` im String `s` bzw. den `NULL`-Zeiger, wenn `t` in `s` nicht vorkommt.
+solution: |
+  #include<stdio.h>
+  #include<string.h>
+
+  int strendX(const char *s, const char *t) {  
+    int laenge_s = strlen(s);
+    int laenge_t = strlen(t);
+    if (laenge_t > laenge_s) {
+      return 0;
+      }  
+    char *p = s + laenge_s-1;
+    char *q = t + laenge_t-1;  
+    while (q >= t) {
+      if (*q-- != *p--) { 
+        return 0;
+      }
+    }  
+    return 1; 
+  }
+
+  char *strchrX(const char *s, int c) {
+    int laenge_s = strlen(s);
+    char *p = s + laenge_s-1;
+    while (p >= s) {
+      if (c == *p) {
+        return p;
+      }
+      p--;
+    }
+    return NULL;  
+  }
+
+  char *strstrX(const char *s, const char *t) {
+    int laenge_s = strlen(s);
+    int laenge_t = strlen(t); 
+    
+    char *end_s = s + laenge_s;
+    char *copy_s = s;
+    char *copy_t = t;
+    
+    char *p = s;
+    char *q = t;
+    
+    if (laenge_t == 0) {
+      return s;
+    }
+      
+    while (copy_s < end_s) {
+      if (*copy_s == *copy_t) {
+        while(laenge_t--) {
+          if (*copy_s++ != *copy_t++) {
+            return NULL;
+          }
+        } 
+        if (laenge_t == -1) {
+          return p;
+        }
+      }
+      copy_s++;
+      p++;
+    }
+    return NULL;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessageStrendX(int test_num, char *input1, char *input2, int exp, int act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (strendX(\"%s\", \"%s\"))\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, input2, exp, act);
+        }
+
+        void test_strend(void){
+          int result = strendX("","");
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("1.Test");
+            showFailMessageStrendX(1, "", "", 1, result);
+          }
+
+          result = strendX(" ","");
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("2.Test");
+            showFailMessageStrendX(2, " ", "", 1, result);
+          }
+          
+          result = strendX(""," ");
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("3.Test");
+            showFailMessageStrendX(3, "", " ", 0, result);
+          }
+
+          result = strendX("Hallo","o");
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("4.Test");
+            showFailMessageStrendX(4, "Hallo", "o", 1, result);
+          }
+
+          result = strendX("o","Hallo");
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("5.Test");
+            showFailMessageStrendX(5, "o", "Hallo", 0, result);
+          }
+
+          result = strendX("Hallo","Hallo");
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("6.Test");
+            showFailMessageStrendX(6, "Hallo", "Hallo", 1, result);
+          }
+
+          result = strendX("Eisenbahn","bahn");
+          if(result == 1){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("7.Test");
+            showFailMessageStrendX(7, "Eisenbahn", "bahn", 1, result);
+          }
+
+          result = strendX("Eisenbahn","bah");
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("8.Test");
+            showFailMessageStrendX(8, "Eisenbahn", "bah", 0, result);
+          }
+
+          result = strendX("Eisenbahnwaggon","bahn");
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("9.Test");
+            showFailMessageStrendX(9, "Eisenbahnwaggon", "bahn", 0, result);
+          }
+        }
+
+        void showFailMessageStrchrX(int test_num, char *input1, char input2, char *exp, char *act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (strchrX(\"%s\", \'%c\'))\n\
+                    Erwartete Ausgabe:    (%s)\n\
+                    Tatsächliche Ausgabe: (%s)\n", test_num, input1, input2, exp, act);
+        }
+
+        void test_strchr(void){
+          char empty[1] = "\0";
+          char hallo[5] = "Hallo";
+          char *emptyString = empty;
+          char *Hallo = hallo;
+          char *lo = &hallo[3];
+          char *o = &hallo[4];
+          char *Hallo2 = &hallo[0];
+
+          char *result = strchrX(emptyString,'a');
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("10.Test");
+            showFailMessageStrchrX(10, "", 'a', NULL, result);
+          }
+
+          result = strchrX(Hallo,'H');
+          if(result == Hallo2){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("11.Test");
+            showFailMessageStrchrX(11, Hallo, 'H', Hallo2, result);
+          }
+
+          result = strchrX(Hallo,'o');
+          if(result == o){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("12.Test");
+            showFailMessageStrchrX(12, Hallo, 'o', o, result);
+          }
+
+          result = strchrX(Hallo,'l');
+          if(result == lo){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("13.Test");
+            showFailMessageStrchrX(13, Hallo, 'l', lo, result);
+          }
+
+          result = strchrX(Hallo,'h');
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("14.Test");
+            showFailMessageStrchrX(14, Hallo, 'h', NULL, result);
+          }
+
+          result = strchrX(Hallo,'b');
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("15.Test");
+            showFailMessageStrchrX(15, Hallo, 'b', NULL, result);
+          }
+        }
+
+        void showFailMessageStrstrX(int test_num, char *input1, char *input2, char *exp, char *act){
+          char act_string[1000];
+          if(act == NULL){
+            sprintf(act_string, "NULL");
+          } else {
+            sprintf(act_string, "\"%s\"", act);
+          }
+          char ext_string[1000];
+          if(exp == NULL){
+            sprintf(ext_string, "NULL");
+          } else {
+            sprintf(ext_string, "\"%s\"", exp);
+          }
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (strstrX(\"%s\", \"%s\"))\n\
+                    Erwartete Ausgabe:    (%s)\n\
+                    Tatsächliche Ausgabe: (%s)\n", test_num, input1, input2, ext_string, act_string);
+        }
+
+        void test_strstr(void){
+          char *hallo = "Hallo";
+          char *lo = &hallo[3];
+          char *o = &hallo[4];
+          char *Hallo = &hallo[0];
+          char *allo = &hallo[1];
+
+          char empty[1] = "\0";
+          char *emptyString = empty;
+
+          char *Eisenbahn = "Eisenbahn";
+          char *bahn = &Eisenbahn[5];
+
+          char *Eisenbahnwaggon = "Eisenbahnwaggon";
+          char *bahnwaggon = &Eisenbahnwaggon[5];
+        
+          char *Strassenbahngleisenreinigungsbahn = "Strassenbahngleisenreinigungsbahn";
+          char *bahngleisenreinigungsbahn = &Strassenbahngleisenreinigungsbahn[8];
+
+          char *result = strstrX(emptyString,"");
+          if(result == emptyString){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("16.Test");
+            showFailMessageStrstrX(16, emptyString, "", emptyString, result);
+          }
+
+          result = strstrX(emptyString," ");
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("17.Test");
+            showFailMessageStrstrX(17, emptyString, " ", NULL, result);
+          }
+
+          result = strstrX(Hallo,"all");
+          if(result == allo){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("18.Test");
+            showFailMessageStrstrX(18, Hallo, "all", allo, result);
+          }
+
+          result = strstrX(o,"Hallo");
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("19.Test");
+            showFailMessageStrstrX(19, o,"Hallo", NULL, result);
+          }
+
+          result = strstrX(Hallo,"Hallo");
+          if(result == Hallo){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("20.Test");
+            showFailMessageStrstrX(20, Hallo,"Hallo", Hallo, result);
+          }
+
+          result = strstrX(Eisenbahn,"bahn");
+          if(result == bahn){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("21.Test");
+            showFailMessageStrstrX(21, Eisenbahn,"bahn", bahn, result);
+          }
+
+          result = strstrX(Eisenbahn,"bah");
+          if(result == bahn){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("22.Test");
+            showFailMessageStrstrX(22, Eisenbahn,"bah", bahn, result);
+          }
+
+          result = strstrX(Eisenbahnwaggon,"sense");
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("23.Test");
+            showFailMessageStrstrX(23, Eisenbahnwaggon,"sense", NULL, result);
+          }
+
+          result = strstrX(Strassenbahngleisenreinigungsbahn,"bahn");
+          if(result == bahngleisenreinigungsbahn){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("24.Test");
+            showFailMessageStrstrX(24, Strassenbahngleisenreinigungsbahn,"bahn", bahngleisenreinigungsbahn, result);
+          }
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "test 1 Methoden für Strings I", test_strend)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test 2 Methoden für Strings I", test_strchr)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test 3 Methoden für Strings I", test_strstr)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 5100
+    prerequisites: []
+    unlockableAssets: []

@@ -1,0 +1,42 @@
+[
+  {
+    "query": "Ich kriege immer einen linker command failed error wegen undefined symbols _main wenn ich meine aufgabe checke. was mach ich falsch?",
+    "gold_id": "c_tool_03"
+  },
+  {
+    "query": "Darf man in der Prüfung eigentlich VSCodium benutzen oder haben wir da nur vim?",
+    "gold_id": "c_exam_01"
+  },
+  {
+    "query": "Mein Code stürzt ab. Liegt das daran, dass ein Umlaut wie das ö mehr als einen char Platz wegnimmt?",
+    "gold_id": "c_str_01"
+  },
+  {
+    "query": "Bei den String Basics übergibt SmartBeans 24, aber dann steht da plötzlich ein 'Q' am Ende im Terminal. Wo kommt der Müll her?",
+    "gold_id": "c_str_03"
+  },
+  {
+    "query": "Mein Programm läuft auf meinem Mac perfekt, aber in Smartbeans kriege ich einen Runtime Error. Gebe ich das falsche zurück?",
+    "gold_id": "c_tool_01"
+  },
+  {
+    "query": "Bei der Sudoku Aufgabe kriege ich beim Printen -10400 raus statt der 5, die da eigentlich stehen sollte. Liegt das an dem Cast auf das 2D Array?",
+    "gold_id": "c_ptr_01"
+  },
+  {
+    "query": "Warum muss ich mein p Array am Anfang mit Nullen füllen? Macht C das nicht automatisch, wenn ich eine Variable anlege?",
+    "gold_id": "c_mem_01"
+  },
+  {
+    "query": "In der Aufgabe steht 'ohne Benutzereingaben'. Heißt das, ich darf kein scanf benutzen, sondern muss die Parameter über argc und argv übergeben?",
+    "gold_id": "c_syntax_01"
+  },
+  {
+    "query": "Warum crasht mein Programm, wenn ich einen String aus einer Funktion rette? Muss ich das array irgendwie statisch machen, damit der pointer nicht ungültig wird?",
+    "gold_id": "c_syntax_04"
+  },
+  {
+    "query": "Kann man während der Klausur eigentlich im Skript nach Wörtern suchen oder geht Strg-F im E-Prüfungsraum nicht?",
+    "gold_id": "c_exam_03"
+  }
+]

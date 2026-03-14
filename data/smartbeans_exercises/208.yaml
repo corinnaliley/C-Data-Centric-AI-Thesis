@@ -1,0 +1,168 @@
+shortname: "Binäre Suche" #J8
+title: "binär nach Element aus Array suchen"
+taskid: 208
+defaultEditorInput: |
+lang: "c"
+task: |
+  Programmieren Sie eine Funktion 
+  ```
+  int suche(int *array, int len, int value);
+  ```
+  die ein absteigend sortiertes Array `array`, die Länge des Arrays `len` und einen gesuchten Wert `value` übergeben bekommt. 
+
+  *Anforderungen*
+  - Die Funktion gibt `1` zurück, wenn `value` in `array` vorhanden ist und `0`, wenn `value` nicht in `array` vorhanden ist. 
+  - Die Suche erfolgt **iterativ** und nach dem Prinzip *devide and conquer*. 
+  - Dafür wird zuerst das mittlere Element von `array` betrachtet. 
+  - Ist der Wert gleich dem Wert von `value`, so ist die Suche beendet. 
+  - Ansonsten wird das Array in zwei Hälften aufgeilt: 
+  - War `value` kleiner als der Mittelwert? 
+  - Dann suche im rechten Teil der Liste weiter, ansonsten führe die Suche im linken Teil fort.
+
+  ### Beispielaufruf
+  ```
+  int a[] = {100,80,60,50,44,20,10};
+  suche(a, 7, 20);
+  ```
+
+  ### Beispielergebnis
+  ```
+  1
+  ```
+solution: |
+  #include <stdio.h>
+
+  int suche(int *array, int len, int value) {
+    int low = 0, high = len-1;
+    while (low <= high) {
+      int mitte =  low + ((high - low) / 2);
+      if (array[mitte] == value) {
+        return 1;
+      }
+      if (value > array[mitte]) {
+        high = mitte - 1;
+      } else {
+        low = mitte + 1;
+      }
+    }
+    return 0;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+
+        
+
+        void showFailMessage(int* arr, int length, int input1, int exp,int act, int test_num){
+          //printf("act: %d",  act);
+          char  arr_formated[5000];
+          sprintf(arr_formated, "{");
+          for(int j = 0; j < length; j++){
+            sprintf(arr_formated, "%s%d", arr_formated, arr[j]);
+            if(j < length -1){
+              sprintf(arr_formated, "%s, ", arr_formated);
+            }
+          }
+          sprintf(arr_formated, "%s}", arr_formated);
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (suche(%s, %d, %d));\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, arr_formated, length, input1, exp, act);
+        }
+
+        void test(void){
+          int array[] = {100,80,60,50,44,20,10};
+          int b[] = {1};
+          int len = sizeof(array) / sizeof(int);
+          int result = suche(array, len, 0);
+          if(result == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(array, len, 0, 0, result, 1);
+          }
+
+          //printf("suche: %d\n", suche(array, len, 0));
+          
+          if(suche(array, len, 50) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(array, len, 50, 1, suche(array, len, 50), 2);
+          }
+          
+          if(suche(array, len, 100) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(array, len, 100, 1, suche(array, len, 100), 3);
+          }
+          
+          if(suche(array, len, 10) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(array, len, 10, 1, suche(array, len, 10), 4);
+          }
+          if(suche(b, 1, 1) == 1){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(b, 1, 1, 1, suche(b, 1, 1), 5);
+          }
+          if(suche(b, 1, 0) == 0){
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(b, 1, 0, 0, suche(b, 1, 0), 6);
+          }
+        }
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Binäre Suche", test))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 20 }
+      - { "name": "ALGORITHM", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 4400
+    prerequisites: []
+    unlockableAssets: []

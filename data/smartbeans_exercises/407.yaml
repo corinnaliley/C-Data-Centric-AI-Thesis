@@ -1,0 +1,253 @@
+shortname: "Zahl in Wort" #D7
+title: "Zahl als Wort ausschreiben"
+taskid: 407
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie ein Programm, dass eine Zahl zwischen 0 und 99 von der Kommandozeile liest und eine String-Repräsentation dieser Zahl in Worten ausgibt.
+
+  *Anforderungen*
+
+  - Der ausgegebene String soll nur aus Kleinbuchstaben bestehen.
+  - Wenn eine negative Zahl, oder eine Zahl größer als 99 eingelesen wird, schreibt das Programm `Nicht lesbar.` auf die Kommandozeile.
+   
+  ### Beispieleingabe
+  ```
+  42
+  ```
+  ### Beispielausgabe
+  ```
+  zweiundvierzig
+  ```
+solution: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  int main() {
+    // Zahl einlesen
+    int number;
+    scanf("%d", &number);
+
+    // Abfangen: Negative oder zu große Zahl
+    if (number < 0 || number > 99) {
+      printf("Nicht lesbar.");
+      return 0;
+    }
+
+    // Sonderfälle behandeln
+    switch (number) {
+    case 0:
+      printf("null");
+      return 0;
+    case 1:
+      printf("eins");
+      return 0;
+    case 11:
+      printf("elf");
+      return 0;
+    case 12:
+      printf("zwölf");
+      return 0;
+    case 16:
+      printf("sechzehn");
+      return 0;
+    case 17:
+      printf("siebzehn");
+      return 0;
+    }
+
+    char wort[20];
+
+    // Letzte Stelle auswerten
+    int n = number % 10;
+    switch (n) {
+    case 0:
+      break;
+    case 1:
+      printf("ein");
+      break;
+    case 2:
+      printf("zwei");
+      break;
+    case 3:
+      printf("drei");
+      break;
+    case 4:
+      printf("vier");
+      break;
+    case 5:
+      printf("fünf");
+      break;
+    case 6:
+      printf("sechs");
+      break;
+    case 7:
+      printf("sieben");
+      break;
+    case 8:
+      printf("acht");
+      break;
+    case 9:
+      printf("neun");
+      break;
+    }
+
+    // Wenn nötig und anhängen
+    if (number / 10 > 1 && n != 0) {
+      printf("und");
+    }
+
+    // Erste Stelle auswerten
+    n = number / 10;
+    if (n == 0) {
+      return 0;
+    }
+    switch (n) {
+    case 1:
+      printf("zehn");
+      break;
+    case 2:
+      printf("zwanzig");
+      break;
+    case 3:
+      printf("dreißig");
+      break;
+    case 4:
+      printf("vierzig");
+      break;
+    case 5:
+      printf("fünfzig");
+      break;
+    case 6:
+      printf("sechzig");
+      break;
+    case 7:
+      printf("siebzig");
+      break;
+    case 8:
+      printf("achtzig");
+      break;
+    case 9:
+      printf("neunzig");
+      break;
+    }
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          0
+        stdout: |
+          null
+      - args: []
+        stdin: |
+          1
+        stdout: |
+          eins
+      - args: []
+        stdin: |
+          7
+        stdout: |
+          sieben
+      - args: []
+        stdin: |
+          11
+        stdout: |
+          elf
+      - args: []
+        stdin: |
+          12
+        stdout: |
+          zwölf
+      - args: []
+        stdin: |
+          16
+        stdout: |
+          sechzehn
+      - args: []
+        stdin: |
+          17
+        stdout: |
+          siebzehn
+      - args: []
+        stdin: |
+          18
+        stdout: |
+          achtzehn
+      - args: []
+        stdin: |
+          30
+        stdout: |
+          dreißig
+      - args: []
+        stdin: |
+          60
+        stdout: |
+          sechzig
+      - args: []
+        stdin: |
+          41
+        stdout: |
+          einundvierzig
+      - args: []
+        stdin: |
+          29
+        stdout: |
+          neunundzwanzig
+      - args: []
+        stdin: |
+          33
+        stdout: |
+          dreiunddreißig
+      - args: []
+        stdin: |
+          92
+        stdout: |
+          zweiundneunzig
+      - args: []
+        stdin: |
+          69
+        stdout: |
+          neunundsechzig
+      - args: []
+        stdin: |
+          55
+        stdout: |
+          fünfundfünfzig
+      - args: []
+        stdin: |
+          39
+        stdout: |
+          neununddreißig
+      - args: []
+        stdin: |
+          85
+        stdout: |
+          fünfundachtzig
+      - args: []
+        stdin: |
+          77
+        stdout: |
+          siebenundsiebzig
+      - args: []
+        stdin: |
+          -88
+        stdout: |
+          Nicht lesbar.
+      - args: []
+        stdin: |
+          58896654
+        stdout: |
+          Nicht lesbar.
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "CONTROL", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 5700
+    prerequisites: []
+    unlockableAssets: []

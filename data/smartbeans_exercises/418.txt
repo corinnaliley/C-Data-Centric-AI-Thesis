@@ -1,0 +1,64 @@
+SHORTNAME:
+Array Basics I
+
+TITLE:
+Einführung in Arrays
+
+TASKID:
+418
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+In dieser Aufgabe sollen Sie üben, ein Array anzulegen, auf einzelne Elemente zuzugreifen und eine String-Repräsentation des Arrays auf der Konsole auszugeben.
+ 
+Schreiben Sie dafür ein Programm, das wie folgt funktioniert:
+ 
+1. Legen Sie ein int-Array der Größe 10 an.
+2. Das Array soll nun immer abwechseln mit `1` und `0` gefüllt werden. An der ersten Stelle steht immer eine `1`. 
+3. Geben Sie das Array mit `printf()` auf der Konsole aus.
+ 
+### Beispielausgabe
+ 
+```
+1 0 1 0 1 0 1 0 1 0
+```
+ 
+Wenn Sie die Aufgabe gelöst haben, können sie dasselbe Prinzip in der Aufgabe *Array Basics II* auf mehrdimensionale Arrays anwenden.
+ 
+
+
+SOLUTION:
+#include <stdio.h>
+ 
+int main(){
+ 
+  int arr[10];
+  arr[0] = 1;
+  for(int i = 1; i<10; i++){
+    if(i%2 != 0){
+      arr[i] = 0;
+    }
+    else{
+      arr[i] = 1;
+    }
+  }
+  for(int i = 0; i<10; i++){
+      printf("%d ", arr[i]);
+  }
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '', 'stdout': '1 0 1 0 1 0 1 0 1 0\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 20}, {'name': 'mittel'}], 'orderBy': 3310, 'prerequisites': [], 'unlockableAssets': []}}
+

@@ -1,0 +1,640 @@
+shortname: "Bruch I" #Z8
+title: "Realisieren eines Bruches mit Struct"
+taskid: 78
+defaultEditorInput: |
+lang: "c"
+task: |
+  Definieren Sie den Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt in Ihrer Abgabedatei:
+
+  ```
+  typedef struct {
+    int zaehler;
+    int nenner;
+  } bruch_t;
+  ```
+
+  ---
+
+  Realisieren Sie für diesen Typ folgende Standardoperationen als Funktionen:
+
+  - Einlesen eines Bruches von der Standardeingabe: `void bruchEingabe(bruch_t* bruch)`
+  - Ausgabe eines Bruches auf die Standardausgabe: `void bruchAusgabe(bruch_t* bruch)`
+  - Addition zweier Brüche. Dabei wird der zweite Bruch auf den ersten Bruch aufaddiert: `void bruchAddition(bruch_t* bruch, bruch_t add)`
+  - Subtraktion zweier Brüche. Dabei wird der zweite Bruch vom ersten Bruch wegsubtrahiert: `void bruchSubtraktion(bruch_t* bruch, bruch_t sub)`
+  - Multiplikation zweier Brüche. Dabei wird der zweite Bruch auf den ersten Bruch aufmultipliziert: `void bruchMultiplikation(bruch_t* bruch, bruch_t mult)`
+  - Division zweier Brüche. Dabei wird der zweite Bruch vom ersten Bruch wegdividiert: `void bruchDivision(bruch_t* bruch, bruch_t div)`
+  - Berechnung des Quotienten: `float bruchQuotient(bruch_t bruch)`
+  - Erweitern um einen (als Parameter zu übergebenden) Faktor: `void bruchErweitern(bruch_t* bruch, int faktor)`
+  - Kürzen: `void bruchKuerzen(bruch_t* bruch)`
+
+  *Anforderungen*
+
+  - Kürzen Sie bei der Addition/Subtraktion/Multiplikation/Division so weit wie möglich. 
+  - Geben Sie ganze Zahlen immer als Eintel an, also `1/1`, `2/1`, usw.
+  - Ist der Nenner des Ergebnisses der Subtraktion negativ, wird das Ergebnis - ohne dessen Wert zu verändern - so umgewandelt, dass der Nenner nicht negativ ist.
+
+solution: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  typedef struct{
+      int zaehler;
+      int nenner;
+  } bruch_t;
+
+  void bruchKuerzen(bruch_t* bruch) {
+      for (int i = 2; i <= bruch->nenner; i++) {
+          if (bruch->zaehler % i == 0 && bruch->nenner % i == 0) {
+              bruch->zaehler /= i;
+              bruch->nenner /= i;
+          }
+      }
+  }
+
+  void bruchEingabe(bruch_t* bruch) {
+      scanf("%d %d\n", &(bruch->zaehler), &(bruch->nenner));
+  }
+
+  void bruchAusgabe(bruch_t* bruch) {
+      printf("%d / %d\n\n", bruch->zaehler, bruch->nenner);
+  }
+
+  void bruchAddition(bruch_t* bruch, bruch_t add) {
+      if (bruch->nenner == add.nenner) {
+          bruch->zaehler += add.zaehler;
+
+      } else {
+          int a_n = bruch->nenner * add.nenner;
+          int a_z = bruch->zaehler * add.nenner;
+          int b_z = add.zaehler * bruch->nenner;
+          bruch->nenner = a_n;
+          bruch->zaehler = a_z + b_z;
+      }
+      bruchKuerzen(bruch);
+  }
+
+  void bruchSubtraktion(bruch_t* bruch, bruch_t sub) {
+      sub.zaehler *= -1;
+      bruchAddition(bruch, sub);
+  }
+
+  void bruchMultiplikation(bruch_t* bruch, bruch_t mult) {
+      bruch->zaehler *= mult.zaehler;
+      bruch->nenner *= mult.nenner;
+      bruchKuerzen(bruch);
+  }
+
+  void bruchDivision(bruch_t* bruch, bruch_t div) {
+      int tmp = div.zaehler;
+      div.zaehler = div.nenner;
+      div.nenner = tmp;
+      bruchMultiplikation(bruch, div);
+      bruchKuerzen(bruch);
+  }
+
+  float bruchQuotient(bruch_t bruch) {
+      return (float)bruch.zaehler / (float)bruch.nenner;
+  }
+
+  void bruchErweitern(bruch_t* bruch, int faktor) {
+      bruch->zaehler *= faktor;
+      bruch->nenner *= faktor;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include <stdlib.h>
+        #include "solution.c"
+
+        void showFailMessagebruchAddition(int test_num, int input1, int input2, int input3, int input4, int exp1, int exp2, bruch_t *act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruchAddition(%d/%d, %d/%d))\n\
+                    Erwartete Ausgabe:    (%d/%d)\n\
+                    Tatsächliche Ausgabe: (%d/%d)\n", test_num, input1, input2, input3, input4, exp1, exp2, act->zaehler, act->nenner);
+        }
+
+        void test_bruchAddition(void){
+          bruch_t *summand1;
+          summand1 = (bruch_t *)malloc(sizeof (bruch_t));
+          bruch_t summand2;
+          (*summand1).zaehler = 1;
+          (*summand1).nenner = 1;
+          summand2.zaehler = 1;
+          summand2.nenner = 1;
+          bruchAddition(summand1,summand2);
+          if ((*summand1).zaehler == 2 && (*summand1).nenner == 1) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessagebruchAddition(1, 1, 1, 1, 1, 2, 1, summand1);
+          }
+
+          (*summand1).zaehler = 1;
+          (*summand1).nenner = 2;
+          bruchAddition(summand1,summand2);
+          if ((*summand1).zaehler == 3 && (*summand1).nenner == 2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessagebruchAddition(2, 1, 2, 1, 1, 3, 2, summand1);
+          }
+
+          (*summand1).zaehler = 1;
+          (*summand1).nenner = 2;
+          summand2.zaehler = 1;
+          summand2.nenner = 2;
+          bruchAddition(summand1,summand2);
+          if ((*summand1).zaehler == 1 && (*summand1).nenner == 1) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessagebruchAddition(3, 1, 2, 1, 2, 1, 1, summand1);
+          }
+
+          (*summand1).zaehler = 2;
+          (*summand1).nenner = 5;
+          summand2.zaehler = 7;
+          summand2.nenner = 10;
+          bruchAddition(summand1,summand2);
+          if ((*summand1).zaehler == 11 && (*summand1).nenner == 10) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessagebruchAddition(4, 2, 5, 7, 10, 11, 10, summand1);
+          }
+        }
+
+        void showFailMessagebruchSubtraktion(int test_num, int input1, int input2, int input3, int input4, int exp1, int exp2, bruch_t *act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruchSubtraktion(%d/%d, %d/%d))\n\
+                    Erwartete Ausgabe:    (%d/%d)\n\
+                    Tatsächliche Ausgabe: (%d/%d)\n", test_num, input1, input2, input3, input4, exp1, exp2, act->zaehler, act->nenner);
+        }
+
+        void test_bruchSubtraktion(void){
+          bruch_t *minuend;
+          minuend = (bruch_t *)malloc(sizeof (bruch_t));
+          bruch_t subtrahend;
+          (*minuend).zaehler = 1;
+          (*minuend).nenner = 1;
+          subtrahend.zaehler = 1;
+          subtrahend.nenner = 1;
+          bruchSubtraktion(minuend,subtrahend);
+          if ((*minuend).zaehler == 0 && (*minuend).nenner == 1) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessagebruchSubtraktion(5, 1, 1, 1, 1, 0, 1, minuend);
+          }
+
+          (*minuend).zaehler = 1;
+          (*minuend).nenner = 1;
+          subtrahend.zaehler = 1;
+          subtrahend.nenner = 2;
+          bruchSubtraktion(minuend,subtrahend);
+          if ((*minuend).zaehler == 1 && (*minuend).nenner == 2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessagebruchSubtraktion(6, 1, 1, 1, 2, 1, 2, minuend);
+          }
+
+          (*minuend).zaehler = 1;
+          (*minuend).nenner = 2;
+          subtrahend.zaehler = 1;
+          subtrahend.nenner = 1;
+          bruchSubtraktion(minuend,subtrahend);
+          if (((*minuend).zaehler == -1 && (*minuend).nenner == 2) || ((*minuend).zaehler == 1 && (*minuend).nenner == -2)) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessagebruchSubtraktion(7, 1, 2, 1, 1, -1, 2, minuend);
+          }
+
+          (*minuend).zaehler = 7;
+          (*minuend).nenner = 10;
+          subtrahend.zaehler = 2;
+          subtrahend.nenner = 5;
+          bruchSubtraktion(minuend,subtrahend);
+          if ((*minuend).zaehler == 3 && (*minuend).nenner == 10) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessagebruchSubtraktion(8, 7, 10, 2, 5, 3, 10, minuend);
+          }
+        }
+
+        void showFailMessagebruchMultiplikation(int test_num, int input1, int input2, int input3, int input4, int exp1, int exp2, bruch_t *act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruchMultiplikation(%d/%d, %d/%d))\n\
+                    Erwartete Ausgabe:    (%d/%d)\n\
+                    Tatsächliche Ausgabe: (%d/%d)\n", test_num, input1, input2, input3, input4, exp1, exp2, act->zaehler, act->nenner);
+        }
+
+        void test_bruchMultiplikation(void){
+          bruch_t *faktor1;
+          faktor1 = (bruch_t *)malloc(sizeof (bruch_t));
+          bruch_t faktor2;
+          (*faktor1).zaehler = 1;
+          (*faktor1).nenner = 1;
+          faktor2.zaehler = 1;
+          faktor2.nenner = 1;
+          bruchMultiplikation(faktor1,faktor2);
+          if ((*faktor1).zaehler == 1 && (*faktor1).nenner == 1) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("9.Test");
+            showFailMessagebruchMultiplikation(9, 1, 1, 1, 1, 1, 1, faktor1);
+          }
+
+          (*faktor1).zaehler = 1;
+          (*faktor1).nenner = 1;
+          faktor2.zaehler = 1;
+          faktor2.nenner = 2;
+          bruchMultiplikation(faktor1,faktor2);
+          if ((*faktor1).zaehler == 1 && (*faktor1).nenner == 2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("10.Test");
+            showFailMessagebruchMultiplikation(10, 1, 1, 1, 2, 1, 2, faktor1);
+          }
+
+          (*faktor1).zaehler = 1;
+          (*faktor1).nenner = 2;
+          faktor2.zaehler = 1;
+          faktor2.nenner = 1;
+          bruchMultiplikation(faktor1,faktor2);
+          if ((*faktor1).zaehler == 1 && (*faktor1).nenner == 2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("11.Test");
+            showFailMessagebruchMultiplikation(11, 1, 2, 1, 1, 1, 2, faktor1);
+          }
+
+          (*faktor1).zaehler = 7;
+          (*faktor1).nenner = 10;
+          faktor2.zaehler = 2;
+          faktor2.nenner = 5;
+          bruchMultiplikation(faktor1,faktor2);
+          if ((*faktor1).zaehler == 7 && (*faktor1).nenner == 25) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("12.Test");
+            showFailMessagebruchMultiplikation(12, 7, 10, 2, 5, 7, 25, faktor1);
+          }
+        }
+
+        void showFailMessagebruchDivision(int test_num, int input1, int input2, int input3, int input4, int exp1, int exp2, bruch_t *act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruchDivision(%d/%d, %d/%d))\n\
+                    Erwartete Ausgabe:    (%d/%d)\n\
+                    Tatsächliche Ausgabe: (%d/%d)\n", test_num, input1, input2, input3, input4, exp1, exp2, act->zaehler, act->nenner);
+        }
+
+        void test_bruchDivision(void){
+          bruch_t *faktor1;
+          faktor1 = (bruch_t *)malloc(sizeof (bruch_t));
+          bruch_t faktor2;
+          (*faktor1).zaehler = 1;
+          (*faktor1).nenner = 1;
+          faktor2.zaehler = 1;
+          faktor2.nenner = 1;
+          bruchDivision(faktor1,faktor2);
+          if ((*faktor1).zaehler == 1 && (*faktor1).nenner == 1) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("13.Test");
+            showFailMessagebruchDivision(13, 1, 1, 1, 1, 1, 1, faktor1);
+          }
+
+          (*faktor1).zaehler = 1;
+          (*faktor1).nenner = 1;
+          faktor2.zaehler = 1;
+          faktor2.nenner = 2;
+          bruchDivision(faktor1,faktor2);
+          if ((*faktor1).zaehler == 2 && (*faktor1).nenner == 1) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("14.Test");
+            showFailMessagebruchDivision(14, 1, 1, 1, 2, 2, 1, faktor1);
+          }
+
+          (*faktor1).zaehler = 1;
+          (*faktor1).nenner = 2;
+          faktor2.zaehler = 1;
+          faktor2.nenner = 1;
+          bruchDivision(faktor1,faktor2);
+          if ((*faktor1).zaehler == 1 && (*faktor1).nenner == 2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("15.Test");
+            showFailMessagebruchDivision(15, 1, 2, 1, 1, 1, 2, faktor1);
+          }
+
+          (*faktor1).zaehler = 7;
+          (*faktor1).nenner = 10;
+          faktor2.zaehler = 2;
+          faktor2.nenner = 5;
+          bruchDivision(faktor1,faktor2);
+          if ((*faktor1).zaehler == 7 && (*faktor1).nenner == 4) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("16.Test");
+            showFailMessagebruchDivision(16, 7, 10, 2, 5, 7, 4, faktor1);
+          }
+        }
+
+        void showFailMessagebruchErweitern(int test_num, int input1, int input2, int input3, int exp1, int exp2, bruch_t *act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruchErweitern(%d/%d, %d))\n\
+                    Erwartete Ausgabe:    (%d/%d)\n\
+                    Tatsächliche Ausgabe: (%d/%d)\n", test_num, input1, input2, input3, exp1, exp2, act->zaehler, act->nenner);
+        }
+
+        void test_bruchErweitern(void){
+          bruch_t *bruch;
+          bruch = (bruch_t *)malloc(sizeof (bruch_t));
+          (*bruch).zaehler = 1;
+          (*bruch).nenner = 1;
+          int faktor=0;
+          bruchErweitern(bruch,faktor);
+          if ((*bruch).zaehler == 0 && (*bruch).nenner == 0) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("17.Test");
+            showFailMessagebruchErweitern(17, 1, 1, 0, 0, 0, bruch);
+          }
+
+          (*bruch).zaehler = 1;
+          (*bruch).nenner = 1;
+          faktor=5;
+          bruchErweitern(bruch,faktor);
+          if ((*bruch).zaehler == 5 && (*bruch).nenner == 5) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("18.Test");
+            showFailMessagebruchErweitern(18, 1, 1, 5, 5, 5, bruch);
+          } 
+
+          (*bruch).zaehler = 2;
+          (*bruch).nenner = 3;
+          faktor=2;
+          bruchErweitern(bruch,faktor);
+          if ((*bruch).zaehler == 4 && (*bruch).nenner == 6) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("19.Test");
+            showFailMessagebruchErweitern(19, 2, 3, 2, 4, 6, bruch);
+          } 
+
+          (*bruch).zaehler = 2;
+          (*bruch).nenner = 3;
+          faktor=3;
+          bruchErweitern(bruch,faktor);
+          if ((*bruch).zaehler == 6 && (*bruch).nenner == 9) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("20.Test");
+            showFailMessagebruchErweitern(20, 2, 3, 3, 6, 9, bruch);
+          } 
+
+          (*bruch).zaehler = 1;
+          (*bruch).nenner = 10;
+          faktor=5;
+          bruchErweitern(bruch,faktor);
+          if ((*bruch).zaehler == 5 && (*bruch).nenner == 50) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("21.Test");
+            showFailMessagebruchErweitern(21, 1, 10, 5, 5, 50, bruch);
+          } 
+          } 
+
+        void showFailMessagebruchQuotient(int test_num, int input1, int input2, float exp, float act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruchQuotient(%d/%d))\n\
+                    Erwartete Ausgabe:    (%f)\n\
+                    Tatsächliche Ausgabe: (%f)\n", test_num, input1, input2, exp, act);
+        }
+
+        void test_bruchQuotient(void) {
+          bruch_t bruch;
+          bruch.zaehler = 0;
+          bruch.nenner = 1;
+          float quotient = bruchQuotient(bruch);
+          float quotient2 = (float) bruch.zaehler / bruch.nenner;
+          if (quotient == quotient2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("22.Test");
+            showFailMessagebruchQuotient(22, 0, 1, quotient2, quotient);
+          }
+
+          bruch.zaehler = 1;
+          bruch.nenner = 1;
+          quotient = bruchQuotient(bruch);
+          quotient2 = (float) bruch.zaehler / bruch.nenner;
+          if (quotient == quotient2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("23.Test");
+            showFailMessagebruchQuotient(23, 1, 1, quotient2, quotient);
+          }
+
+          bruch.zaehler = 2;
+          bruch.nenner = 1;
+          quotient = bruchQuotient(bruch);
+          quotient2 = (float) bruch.zaehler / bruch.nenner;
+          if (quotient == quotient2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("24.Test");
+            showFailMessagebruchQuotient(24, 2, 1, quotient2, quotient);
+          }
+
+          bruch.zaehler = 1;
+          bruch.nenner = 2;
+          quotient = bruchQuotient(bruch);
+          quotient2 = (float) bruch.zaehler / bruch.nenner;
+          if (quotient == quotient2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("25.Test");
+            showFailMessagebruchQuotient(25, 1, 2, quotient2, quotient);
+          }
+
+          bruch.zaehler = 3;
+          bruch.nenner = -5;
+          quotient = bruchQuotient(bruch);
+          quotient2 = (float) bruch.zaehler / bruch.nenner;
+          if (quotient == quotient2) {
+            CU_PASS("Erfolg");
+          } else {
+            CU_FAIL("26.Test");
+            showFailMessagebruchQuotient(26, 3, -5, quotient2, quotient);
+          }
+        }
+
+        void showFailMessagebruchKuerzen(int test_num, int input1, int input2, int exp1, int exp2, bruch_t *act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruchKuerzen(%d/%d))\n\
+                    Erwartete Ausgabe:    (%d/%d)\n\
+                    Tatsächliche Ausgabe: (%d/%d)\n", test_num, input1, input2, exp1, exp2, act->zaehler, act->nenner);
+        }
+
+        void test_bruchKuerzen(void){
+          bruch_t *bruch;
+          bruch = (bruch_t *)malloc(sizeof (bruch_t));
+          (*bruch).zaehler = 1;
+          (*bruch).nenner = 1;
+          bruchKuerzen(bruch);
+          if ((*bruch).zaehler==1 && (*bruch).nenner==1) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("27.Test");
+            showFailMessagebruchKuerzen(27, 1, 1, 1, 1, bruch);
+          }
+
+          (*bruch).zaehler = 2;
+          (*bruch).nenner = 1;
+          bruchKuerzen(bruch);
+          if ((*bruch).zaehler==2 && (*bruch).nenner==1) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("28.Test");
+            showFailMessagebruchKuerzen(28, 2, 1, 2, 1, bruch);
+          }
+
+          (*bruch).zaehler = 1;
+          (*bruch).nenner = 2;
+          bruchKuerzen(bruch);
+          if ((*bruch).zaehler==1 && (*bruch).nenner==2) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("29.Test");
+            showFailMessagebruchKuerzen(29, 1, 2, 1, 2, bruch);
+          }
+
+          (*bruch).zaehler = 54;
+          (*bruch).nenner = 12;
+          bruchKuerzen(bruch);
+          if ((*bruch).zaehler==9 && (*bruch).nenner==2) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("30.Test");
+            showFailMessagebruchKuerzen(30, 54, 12, 9, 2, bruch);
+          }
+
+          (*bruch).zaehler = 12;
+          (*bruch).nenner = 54;
+          bruchKuerzen(bruch);
+          if ((*bruch).zaehler==2 && (*bruch).nenner==9) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("30.Test");
+            showFailMessagebruchKuerzen(31, 12, 54, 2, 9, bruch);
+          }
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "test of bruchAddition", test_bruchAddition)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of bruchSubtraktion", test_bruchSubtraktion)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of bruchMultiplikation", test_bruchMultiplikation)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of bruchDivision", test_bruchDivision)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of bruchErweitern", test_bruchErweitern)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of bruchQuotient", test_bruchQuotient)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of bruchKuerzen", test_bruchKuerzen)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRUCT", "points": 80 }
+      - { "name": "MATH", "points": 80 }
+      - { "name": "klausur" }
+    orderBy: 6800
+    prerequisites: []
+    unlockableAssets: ["knight-armor-hat", "knight-armor-shirt"]

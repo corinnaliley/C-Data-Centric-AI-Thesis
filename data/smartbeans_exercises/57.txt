@@ -1,0 +1,102 @@
+SHORTNAME:
+Matrixprodukt
+
+TITLE:
+Matrixprodukt berechnen
+
+TASKID:
+57
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, das zwei Matrizen liest, ihr Produkt berechnet und ausgibt. Dimensionieren Sie die Matrizen (statisch) mit benannten Konstanten. Das Programm kann dadurch (ohne weiteres) keine größeren Matrizen verarbeiten, aber es soll beliebige kleinere Matrizen verarbeiten können. Vom Benutzer sollte daher vorher das tatsächlich zu verarbeitende Format erfragt werden.
+
+### Eingabe
+Eine Zeile mit den ganzzahligen Dimensionen `n` und `m` der ersten Matrix, jeweils höchstens 20.
+`m` Zeilen mit jeweils `n` Ganzzahlen, die jeweils die Einträge in der erstem Matrix beschreiben.
+Eine Zeile mit den Dimensionen `o` und `p` der zweiten Matrix, jeweils höchstens 20.
+`p` Zeilen mit jeweils `n` Ganzzahlen, die jeweils die Einträge in der erstem Matrix beschreiben.
+
+
+### Beispieleingabe
+```
+3 3
+1 0 1
+0 1 0
+1 0 1
+5 3
+1 2 3 4 5
+2 3 4 5 1
+3 4 5 1 2
+```
+### Beispielausgabe
+```
+4 6 8 5 7
+2 3 4 5 1
+4 6 8 5 7
+```
+
+
+SOLUTION:
+#include <math.h>
+#include <stdio.h>
+
+#define MAX_SIZE 20
+
+int main() {
+  int n, m, o, p;
+  int mat1[MAX_SIZE][MAX_SIZE] = {0}, mat2[MAX_SIZE][MAX_SIZE] = {0},
+        mat3[MAX_SIZE][MAX_SIZE] = {0};
+  scanf("%d", &n);
+  scanf("%d", &m);
+  if (n > MAX_SIZE || m > MAX_SIZE) {
+    printf("error");
+    return 1;
+  }
+
+  for (int i = 0; i < m; i++) {
+    for (int k = 0; k < n; k++) {
+      scanf("%d", &mat1[i][k]);
+    }
+  }
+  scanf("%d", &o);
+  scanf("%d", &p);
+  if (o > MAX_SIZE || p > MAX_SIZE) {
+    printf("error");
+    return 1;
+  }
+  for (int i = 0; i < p; i++) {
+    for (int k = 0; k < o; k++) {
+      scanf("%d", &mat2[i][k]);
+    }
+  }
+  printf("\n");
+
+  for (int i = 0; i < n; i++) {
+    for (int k = 0; k < o; k++) {
+      for (int z = 0; z < m; z++) {
+          mat3[i][k] += mat1[i][z]*mat2[z][k];
+      }
+      printf("%d ", mat3[i][k]);
+    }
+    printf("\n");
+  }
+
+  return 0;
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': '3 3\n1 0 0\n0 1 0\n0 0 1\n3 3\n1 0 0\n0 1 0\n0 0 1\n', 'stdout': '1 0 0\n0 1 0\n0 0 1\n'}, {'args': [], 'stdin': '3 3\n1 0 1\n0 1 0\n1 0 1\n5 3\n1 2 3 4 5\n2 3 4 5 1\n3 4 5 1 2\n', 'stdout': '4 6 8 5 7\n2 3 4 5 1\n4 6 8 5 7\n'}, {'args': [], 'stdin': '5 5\n1 0 0 0 0\n0 1 0 0 0\n0 0 1 0 0\n0 0 0 1 0\n0 0 0 0 1\n5 5\n1 2 3 4 5\n2 3 4 5 1\n3 4 5 1 2\n4 3 -1 5 5\n0 0 0 0 0\n', 'stdout': '1 2 3 4 5\n2 3 4 5 1\n3 4 5 1 2\n4 3 -1 5 5\n0 0 0 0 0\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'ARRAY', 'points': 40}, {'name': 'MATH', 'points': 40}, {'name': 'schwierig'}], 'orderBy': 6600, 'prerequisites': [], 'unlockableAssets': ['summer-feelings-male-pants', 'summer-feelings-male-shirt']}}
+

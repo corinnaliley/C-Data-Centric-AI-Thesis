@@ -1,0 +1,99 @@
+shortname: "Olympische Spiele" #E13
+title: "Jahre der Sommer- und Winterspiele bestimmen"
+taskid: 65
+defaultEditorInput: |
+solution: |
+  #include <stdio.h>
+   
+  int main(){
+    int jahr;
+    scanf("%d", &jahr);
+    switch(jahr % 4){
+      case 0: printf("Sommerspiele");
+              break;
+      case 2: printf("Winterspiele");
+              break;
+      default: printf("keine Spiele");
+               break;
+    }
+  }
+lang: "c"
+task: |
+  Olympische Spiele der Neuzeit finden in Jahren statt, deren Jahreszahl gerade ist und zwar Sommerspiele, falls die Jahreszahl durch 4 teilbar ist und Winterspiele sonst. 
+  
+  Schreiben Sie ein Programm, das den Nutzer nach einer Jahreszahl fragt und die Information ausgibt, ob Olympische Spiele in diesem Jahr stattfinden und ob es sich um Winterspiele oder Sommerspiele handelt. Benutzen Sie ein switch-statement.
+ 
+  ### Ausgabe
+  Geben Sie entweder `Winterspiele` oder `Sommerspiele` oder `keine Spiele` aus.
+  
+  ### Beispieleingabe
+  ```
+  2000
+  ```
+  ### Beispielausgabe
+  ```
+  Sommerspiele
+  ```
+tests: 
+  - testtype: "c-input-output"
+    testCases: 
+      - args: []
+        stdin: |
+          2002
+        stdout: |
+          Winterspiele
+      - args: []
+        stdin: |
+          2003
+        stdout: |
+          keine Spiele
+      - args: []
+        stdin: |
+          1992
+        stdout: |
+          Sommerspiele
+      - args: []
+        stdin: |
+          1992
+        stdout: |
+          Sommerspiele
+      - args: []
+        stdin: |
+          2012
+        stdout: |
+          Sommerspiele
+      - args: []
+        stdin: |
+          2000
+        stdout: |
+          Sommerspiele
+      - args: []
+        stdin: |
+          1968
+        stdout: |
+          Sommerspiele
+      - args: []
+        stdin: |
+          1988
+        stdout: |
+          Sommerspiele
+      - args: []
+        stdin: |
+          2015
+        stdout: |
+          keine Spiele
+      - args: []
+        stdin: |
+          2014
+        stdout: |
+          Winterspiele
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags:
+      - {"name": "MATH", "points": 10}
+      - {"name": "CONTROL", "points": 10}
+      - {"name": "einfach"}
+    orderBy: 1400
+    prerequisites: []
+    unlockableAssets: []

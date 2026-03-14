@@ -1,0 +1,70 @@
+SHORTNAME:
+Palindrom
+
+TITLE:
+Palindrom erkennen
+
+TASKID:
+71
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Schreiben Sie ein Programm, das einen String (Zeichenkette), der *keine* Leerzeichen enthalten darf, und eine Zahl, die der Länge des Strings entspricht, einliest und ausgibt, ob dieser String ein Palindrom ist oder nicht. In dieser Aufgabe soll nicht zwischen Groß- und Kleinschreibung unterschieden werden. Der String ist maximal 20 Zeichen lang.
+
+### Ausgabe
+`palindrom`, falls es sich um ein Palindrom handelt.
+`kein palindrom` anderenfalls.
+
+### Beispieleingabe
+```
+annasusanna 11
+```
+### Beispielausgabe
+```
+palindrom
+```
+
+
+SOLUTION:
+#include <ctype.h>
+#include <stdio.h>
+
+int main() {
+  char word[20];
+  int n;
+  int laenge;
+  int count = 0;
+  while ((n = getchar()) != ' ') {
+    word[count] = n;
+    count++;
+  }
+  scanf("%d", &laenge);
+
+  for (int i = 0; i < laenge; i++) {
+    word[i] = tolower(word[i]);
+  }
+
+  for (int i = 0; i < laenge; i++) {
+    if (word[i] != word[laenge - 1 - i]) {
+      printf("kein palindrom");
+      return 0;
+    }
+  }
+  printf("palindrom");
+}
+
+
+TESTS:
+[{'testtype': 'c-input-output', 'testCases': [{'args': [], 'stdin': 'ckurs 5\n', 'stdout': 'kein palindrom\n'}, {'args': [], 'stdin': 'annasusanna 11\n', 'stdout': 'palindrom\n'}, {'args': [], 'stdin': 'anna 4\n', 'stdout': 'palindrom\n'}, {'args': [], 'stdin': 'hans 4\n', 'stdout': 'kein palindrom\n'}, {'args': [], 'stdin': 'abcdefghijjihgfedcba 20\n', 'stdout': 'palindrom\n'}, {'args': [], 'stdin': 'abcdefghijklmnopqrst 20\n', 'stdout': 'kein palindrom\n'}]}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 4900, 'prerequisites': [], 'unlockableAssets': ['ballerina-pants', 'ballerina-shirt']}}
+

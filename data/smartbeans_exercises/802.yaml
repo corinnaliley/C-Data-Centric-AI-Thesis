@@ -1,0 +1,58 @@
+shortname: "Zahlen ausgeben absteigend" #L2
+title: "Zahlen von 1 bis n absteigend ausgeben"
+taskid: 802
+defaultEditorInput: |
+solution: |
+  #include<stdio.h>
+
+  int main() {
+    int n;
+    scanf("%d", &n);
+    for(int i=0; i<n; i++)
+      printf("%d\t", n-i);
+    return 0;
+  }
+lang: "c"
+task: |
+  Schreiben Sie in Programm, dass eine Zahl `n` einließt und alle Zahlen von `1` bis `n` in umgekehrter Reihenfolge ausgibt, jeweils getrennt von Leerzeichen.
+
+  ### Beispieleingabe
+  ```
+  3
+  ```
+  ### Beispielausgabe
+  ```
+  3 2 1
+  ```
+tests: 
+  - testtype: "c-input-output"
+    testCases: 
+      - args: []
+        stdin: |
+          3
+        stdout: |
+          3 2 1
+      - args: []
+        stdin: |
+          5
+        stdout: |
+          5 4 3 2 1
+      - args: []
+        stdin: |
+          0
+        stdout: |
+      - args: []
+        stdin: |
+          13
+        stdout: |
+          13 12 11 10 9 8 7 6 5 4 3 2 1
+testConstraints: {}
+courses: 
+  ckurs: 
+    tags:
+      - {"name": "CONTROL", "points": 10}
+      - {"name": "IO", "points": 10}
+      - {"name": "sehr einfach"}
+    orderBy: 500
+    prerequisites: []
+    unlockableAssets: ["unentschlossen-pants", "unentschlossen-shirt"]

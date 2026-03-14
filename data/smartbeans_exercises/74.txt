@@ -1,0 +1,105 @@
+SHORTNAME:
+Methoden für Strings I
+
+TITLE:
+verschiedene Methoden zur Stringbehandlung
+
+TASKID:
+74
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Realisieren Sie folgende Funktionen:
+```
+int strendX(const char *s, const char *t);
+```
+liefert `1`, wenn der String `t` am Ende des String `s` steht, und `0` sonst.
+```
+char *strchrX(const char *s, int c);
+```
+liefert den Zeiger auf das letzte Vorkommen des Zeichens `c` im String `s` bzw. den `NULL`-Zeiger, wenn `c` in `s` nicht vorkommt.
+```
+char *strstrX(const char *s, const char *t)
+```
+liefert den Zeiger auf das erste Vorkommen des String `t` im String `s` bzw. den `NULL`-Zeiger, wenn `t` in `s` nicht vorkommt.
+
+
+SOLUTION:
+#include<stdio.h>
+#include<string.h>
+
+int strendX(const char *s, const char *t) {  
+  int laenge_s = strlen(s);
+  int laenge_t = strlen(t);
+  if (laenge_t > laenge_s) {
+    return 0;
+    }  
+  char *p = s + laenge_s-1;
+  char *q = t + laenge_t-1;  
+  while (q >= t) {
+    if (*q-- != *p--) { 
+      return 0;
+    }
+  }  
+  return 1; 
+}
+
+char *strchrX(const char *s, int c) {
+  int laenge_s = strlen(s);
+  char *p = s + laenge_s-1;
+  while (p >= s) {
+    if (c == *p) {
+      return p;
+    }
+    p--;
+  }
+  return NULL;  
+}
+
+char *strstrX(const char *s, const char *t) {
+  int laenge_s = strlen(s);
+  int laenge_t = strlen(t); 
+  
+  char *end_s = s + laenge_s;
+  char *copy_s = s;
+  char *copy_t = t;
+  
+  char *p = s;
+  char *q = t;
+  
+  if (laenge_t == 0) {
+    return s;
+  }
+    
+  while (copy_s < end_s) {
+    if (*copy_s == *copy_t) {
+      while(laenge_t--) {
+        if (*copy_s++ != *copy_t++) {
+          return NULL;
+        }
+      } 
+      if (laenge_t == -1) {
+        return p;
+      }
+    }
+    copy_s++;
+    p++;
+  }
+  return NULL;
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include "solution.c"\n\nvoid showFailMessageStrendX(int test_num, char *input1, char *input2, int exp, int act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (strendX(\\"%s\\", \\"%s\\"))\\n\\\n            Erwartete Ausgabe:    (%d)\\n\\\n            Tatsächliche Ausgabe: (%d)\\n", test_num, input1, input2, exp, act);\n}\n\nvoid test_strend(void){\n  int result = strendX("","");\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("1.Test");\n    showFailMessageStrendX(1, "", "", 1, result);\n  }\n\n  result = strendX(" ","");\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("2.Test");\n    showFailMessageStrendX(2, " ", "", 1, result);\n  }\n  \n  result = strendX(""," ");\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("3.Test");\n    showFailMessageStrendX(3, "", " ", 0, result);\n  }\n\n  result = strendX("Hallo","o");\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("4.Test");\n    showFailMessageStrendX(4, "Hallo", "o", 1, result);\n  }\n\n  result = strendX("o","Hallo");\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("5.Test");\n    showFailMessageStrendX(5, "o", "Hallo", 0, result);\n  }\n\n  result = strendX("Hallo","Hallo");\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("6.Test");\n    showFailMessageStrendX(6, "Hallo", "Hallo", 1, result);\n  }\n\n  result = strendX("Eisenbahn","bahn");\n  if(result == 1){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("7.Test");\n    showFailMessageStrendX(7, "Eisenbahn", "bahn", 1, result);\n  }\n\n  result = strendX("Eisenbahn","bah");\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("8.Test");\n    showFailMessageStrendX(8, "Eisenbahn", "bah", 0, result);\n  }\n\n  result = strendX("Eisenbahnwaggon","bahn");\n  if(result == 0){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("9.Test");\n    showFailMessageStrendX(9, "Eisenbahnwaggon", "bahn", 0, result);\n  }\n}\n\nvoid showFailMessageStrchrX(int test_num, char *input1, char input2, char *exp, char *act){\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (strchrX(\\"%s\\", \\\'%c\\\'))\\n\\\n            Erwartete Ausgabe:    (%s)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n", test_num, input1, input2, exp, act);\n}\n\nvoid test_strchr(void){\n  char empty[1] = "\\0";\n  char hallo[5] = "Hallo";\n  char *emptyString = empty;\n  char *Hallo = hallo;\n  char *lo = &hallo[3];\n  char *o = &hallo[4];\n  char *Hallo2 = &hallo[0];\n\n  char *result = strchrX(emptyString,\'a\');\n  if(result == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("10.Test");\n    showFailMessageStrchrX(10, "", \'a\', NULL, result);\n  }\n\n  result = strchrX(Hallo,\'H\');\n  if(result == Hallo2){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("11.Test");\n    showFailMessageStrchrX(11, Hallo, \'H\', Hallo2, result);\n  }\n\n  result = strchrX(Hallo,\'o\');\n  if(result == o){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("12.Test");\n    showFailMessageStrchrX(12, Hallo, \'o\', o, result);\n  }\n\n  result = strchrX(Hallo,\'l\');\n  if(result == lo){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("13.Test");\n    showFailMessageStrchrX(13, Hallo, \'l\', lo, result);\n  }\n\n  result = strchrX(Hallo,\'h\');\n  if(result == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("14.Test");\n    showFailMessageStrchrX(14, Hallo, \'h\', NULL, result);\n  }\n\n  result = strchrX(Hallo,\'b\');\n  if(result == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("15.Test");\n    showFailMessageStrchrX(15, Hallo, \'b\', NULL, result);\n  }\n}\n\nvoid showFailMessageStrstrX(int test_num, char *input1, char *input2, char *exp, char *act){\n  char act_string[1000];\n  if(act == NULL){\n    sprintf(act_string, "NULL");\n  } else {\n    sprintf(act_string, "\\"%s\\"", act);\n  }\n  char ext_string[1000];\n  if(exp == NULL){\n    sprintf(ext_string, "NULL");\n  } else {\n    sprintf(ext_string, "\\"%s\\"", exp);\n  }\n  printf("\\n    %d.Test: Fehler!\\n\\\n            Eingabe:              (strstrX(\\"%s\\", \\"%s\\"))\\n\\\n            Erwartete Ausgabe:    (%s)\\n\\\n            Tatsächliche Ausgabe: (%s)\\n", test_num, input1, input2, ext_string, act_string);\n}\n\nvoid test_strstr(void){\n  char *hallo = "Hallo";\n  char *lo = &hallo[3];\n  char *o = &hallo[4];\n  char *Hallo = &hallo[0];\n  char *allo = &hallo[1];\n\n  char empty[1] = "\\0";\n  char *emptyString = empty;\n\n  char *Eisenbahn = "Eisenbahn";\n  char *bahn = &Eisenbahn[5];\n\n  char *Eisenbahnwaggon = "Eisenbahnwaggon";\n  char *bahnwaggon = &Eisenbahnwaggon[5];\n\n  char *Strassenbahngleisenreinigungsbahn = "Strassenbahngleisenreinigungsbahn";\n  char *bahngleisenreinigungsbahn = &Strassenbahngleisenreinigungsbahn[8];\n\n  char *result = strstrX(emptyString,"");\n  if(result == emptyString){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("16.Test");\n    showFailMessageStrstrX(16, emptyString, "", emptyString, result);\n  }\n\n  result = strstrX(emptyString," ");\n  if(result == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("17.Test");\n    showFailMessageStrstrX(17, emptyString, " ", NULL, result);\n  }\n\n  result = strstrX(Hallo,"all");\n  if(result == allo){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("18.Test");\n    showFailMessageStrstrX(18, Hallo, "all", allo, result);\n  }\n\n  result = strstrX(o,"Hallo");\n  if(result == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("19.Test");\n    showFailMessageStrstrX(19, o,"Hallo", NULL, result);\n  }\n\n  result = strstrX(Hallo,"Hallo");\n  if(result == Hallo){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("20.Test");\n    showFailMessageStrstrX(20, Hallo,"Hallo", Hallo, result);\n  }\n\n  result = strstrX(Eisenbahn,"bahn");\n  if(result == bahn){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("21.Test");\n    showFailMessageStrstrX(21, Eisenbahn,"bahn", bahn, result);\n  }\n\n  result = strstrX(Eisenbahn,"bah");\n  if(result == bahn){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("22.Test");\n    showFailMessageStrstrX(22, Eisenbahn,"bah", bahn, result);\n  }\n\n  result = strstrX(Eisenbahnwaggon,"sense");\n  if(result == NULL){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("23.Test");\n    showFailMessageStrstrX(23, Eisenbahnwaggon,"sense", NULL, result);\n  }\n\n  result = strstrX(Strassenbahngleisenreinigungsbahn,"bahn");\n  if(result == bahngleisenreinigungsbahn){\n    CU_PASS("Erfolg!");\n  } else{\n    CU_FAIL("24.Test");\n    showFailMessageStrstrX(24, Strassenbahngleisenreinigungsbahn,"bahn", bahngleisenreinigungsbahn, result);\n  }\n}\n\nint init_suite1(void)\n{\n  return 0;\n}\n\nint clean_suite1(void)\n{\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "test 1 Methoden für Strings I", test_strend)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  if ((NULL == CU_add_test(pSuite, "test 2 Methoden für Strings I", test_strchr)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  if ((NULL == CU_add_test(pSuite, "test 3 Methoden für Strings I", test_strstr)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRING', 'points': 20}, {'name': 'mittel'}], 'orderBy': 5100, 'prerequisites': [], 'unlockableAssets': []}}
+

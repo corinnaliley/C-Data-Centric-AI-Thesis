@@ -1,0 +1,158 @@
+shortname: "String als Zahl" #N10
+title: "String in Zahl umwandeln"
+taskid: 510
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie ein Funktion 
+  ```
+  int string_to_int(char * s)
+  ```
+  
+  die eine Zahl als String übergeben bekommt. Der String soll zu einer Zahl umgewandelt und wieder zurückgegeben werden.
+  Der String enthält immer eine gültige Zahl und ist nicht leer. Benutzen Sie keine vorgefertigte Funktion, sondern schreiben Sie die Logik selbst.
+
+  ### Beispielaufruf
+  ```
+  string_to_int("34")
+  string_to_int("-1")
+  ```
+  ### Beispielergebnis
+  ```
+  34
+  -1
+  ```
+solution: |
+  int string_to_int(char *s) {
+    int result = 0;
+    int sign = 1;
+    while (*s != '\0') {
+      char c = *s;
+      if (c == '-') {
+        sign = -1;
+      } else {
+        int digit = c - '0';
+        result = result * 10 + digit;
+      }
+      s++;
+    }
+    return sign * result;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include <string.h>
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int exp, int act){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (\"%d\")\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, exp, act);
+        }
+
+        void test(void){
+          if(string_to_int("34") == 34){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, 34, 34, string_to_int("34"));
+          }
+
+          if(string_to_int("-34") == -34){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, -34, -34, string_to_int("-34"));
+          }
+
+          if(string_to_int("0") == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("3.Test");
+            showFailMessage(3, 0, 0, string_to_int("0"));
+          }
+
+          if(string_to_int("1") == 1){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("4.Test");
+            showFailMessage(4, 1, 1, string_to_int("1"));
+          }
+
+          if(string_to_int("-1") == -1){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("5.Test");
+            showFailMessage(5, -1, -1, string_to_int("-1"));
+          }
+
+          if(string_to_int("9090040") == 9090040){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("6.Test");
+            showFailMessage(6, 9090040, 9090040, string_to_int("9090040"));
+          }
+
+          if(string_to_int("-9090040") == -9090040){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("7.Test");
+            showFailMessage(7, -9090040, -9090040, string_to_int("-9090040"));
+          }
+        }
+
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "String als Zahl", test)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "POINTER", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 5600
+    prerequisites: []
+    unlockableAssets: ["robot-hat", "robot-shirt"]

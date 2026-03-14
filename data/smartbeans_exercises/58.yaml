@@ -1,0 +1,103 @@
+shortname: "Wochentagberechnung" #S23
+title: "Wochentag aus Datum berechnen"
+taskid: 58
+defaultEditorInput: |
+lang: "c"
+task: |
+  Schreiben Sie ein Programm, das ein Datum einließt und seinen Wochentag berechnet. Beachten Sie weiterhin folgendes:
+  - Das Datum wird im Format tt.mm.jjjj eingegeben.
+  - Der Wochentag wird als Wort ausgegeben ("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag")
+  - Der bei uns geltende "Gregorianische Kalender", der am 15.10.1582 durch Papst Gregor XIII. eingeführt wurde kennt Schaltjahre, die in jedem Jahr stattfinden dessen Jahreszahl durch 4, aber nicht durch 100 teilbar ist. Ausnahme: Jahre, die durch 400 teilbar sind, sind immer Schaltjahre.
+  - Die Schaltjahrsregel des Gregorianischen Kalenders ist nicht ganz exakt: In circa 3000 Jahren wird eine zusätzliche Korrektur erforderlich. Das Programm sollte deshalb neben Daten vor dem 15.10.1582 auch Daten ab dem Jahr 5000 zurückweisen.
+  - Der 1.1.1600 war ein Samstag
+  
+  Verwenden Sie ggf. Modul-weit definierte Variablen (z.B. eine Tabelle der Monatslängen). Achten Sie besonders auf die Strukturierung des Programms!
+
+  ### Beispieleingabe
+  ```
+  30.12.1995
+  ```
+  ### Beispielausgabe
+  ```
+  Samstag
+  ```
+solution: |
+  #include<stdio.h>
+  int main(){
+    int startjahr = 1600;
+    int datum;	
+    int monat;
+    int jahr;
+    int tageszahl[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+      
+    scanf("%d.%d.%d",&datum, &monat, &jahr);
+
+    int schalttage = (jahr-1-1600)/4 - (jahr-1-1600)/100 + (jahr-1-1600)/400;
+    int tage = (jahr-1600) * 365 + schalttage;
+    tage = tage+datum;
+    for(int i = 0; i<monat-1;i++){
+      tage = tage + tageszahl[i];
+    }
+    int woch = (tage-1)%7;
+    if(jahr == 1600){
+      printf("Samstag");
+      return 0;
+    }
+    switch(woch){
+      case 0 :
+        printf("Sonntag");
+        break;
+      case 1 :
+        printf("Montag");
+        break;
+      case 2 :
+        printf("Dienstag");
+        break;
+      case 3 :
+        printf("Mittwoch");
+        break;
+      case 4 :
+        printf("Donnerstag");
+        break;
+      case 5 :
+        printf("Freitag");
+        break;
+      case 6 :
+        printf("Samstag");
+        break;
+    }
+    printf("\n");
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          30.12.1995
+        stdout: |
+          Samstag
+      - args: []
+        stdin: |
+          18.12.2019
+        stdout: |
+          Mittwoch
+      - args: []
+        stdin: |
+          01.01.1600
+        stdout: |
+          Samstag
+      - args: []
+        stdin: |
+          01.03.1818
+        stdout: |
+          Sonntag
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "CONTROL", "points": 40 }
+      - { "name": "ALGORITHM", "points": 40 }
+      - { "name": "schwierig" }
+    orderBy: 6000
+    prerequisites: []
+    unlockableAssets: ["officer-bean-hat", "officer-bean-pants", "officer-bean-shirt"]

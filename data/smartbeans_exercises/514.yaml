@@ -1,0 +1,272 @@
+shortname: "Bucketsort" #N14
+title: "Sortieren eines Feldes mit Bucketsort"
+taskid: 514
+defaultEditorInput: |
+lang: "c"
+task: |
+  Programmieren Sie eine Funktion mit folgendem Prototyp
+
+  ```
+  int *bucket_sort( int values[], int length, int max );
+  ```
+
+  die das Feld der Länge `length`, auf dessen Anfang `values` zeigt, sortiert. Dafür darf der Wert von
+  `max` nicht negativ sein und das Feld darf nur Werte zwischen `0` und `max` enthalten.
+
+  Sortieren Sie wie folgt:
+  
+  1. Speicher für ein `int`-Feld der Länge `max+1` auf dem Heap anfordern (hier kann ein Fehler auftreten) und initialisieren jeder Feldkomponente mit `0`.
+  2. Durchlaufen von `values`.
+      - Wird der Wert `x` gelesen, dann wird der Wert an der Position `x` im `int`-Feld auf dem Heap um `1` erhöht.
+      *Motivation*: In dem `int`-Feld auf dem Heap wird für jeden Wert von `0` bis `max` abgespeichert, wie oft dieser Wert in `values` vorkommt.
+  3. Durchlaufen des `int`-Feldes auf dem Heap, dabei wird `values` neu geschrieben, beginnend bei Position `0`.
+      - Wird an der Position `x` im `int`-Feld auf dem Heap der `n` Wert gelesen, muss in `values` `n`-mal hintereinander `x` geschrieben werden.
+      *Hinweis*: Die Einfügeposition in das Feld `values` muss verwaltet werden.
+
+  *Anforderungen*
+
+  - Die Funktion liefert bei einem Fehler den Nullzeiger, sonst einen Zeiger auf das sortierte Feld zurück.
+  - Sie brauchen nicht zu prüfen, ob `values` auf den Anfang eines `int`-Feld zeigt und dieses Feld die Länge `length` hat.
+  - Prüfen Sie, ob `max` und das Feld, auf dessen Anfang `values` zeigt, zulässige Werte enthält.
+  - Vor Beendigung der Funktion wird angeforderter und nicht mehr benötigter Speicher auf dem Heap wieder freigeben.
+
+  ### Beispielaufruf
+  ```
+  int a[] = {5,3,6,1,5,4,8,9,6,6,6};
+  int *result = bucket_sort(a, 11, 9);
+  ```
+  ### Beispielergebnis
+  ```
+  result = {1,3,4,5,5,6,6,6,6,8,9}
+  ```
+solution: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  int *bucket_sort(int values[], int length, int max);
+
+  int *bucket_sort(int values[], int length, int max) {
+    if (max < 0) {
+      return NULL;
+    }
+    for (int i = 0; i < length; i++) {
+      if (values[i] < 0 || values[i] > max) {
+        return NULL;
+      }
+    }
+    int *bucket_array;
+    bucket_array = (int *)calloc(max + 1, sizeof(int));
+    if (bucket_array == NULL) {
+      return NULL;
+    }
+    for (int i = 0; i < length; i++) {
+      bucket_array[values[i]] += 1;
+    }
+    int *start = values;
+    for (int i = 0; i < max + 1; i++) {
+      for (int j = 0; j < bucket_array[i]; j++) {
+        *start = i;
+        start++;
+      }
+    }
+    free(bucket_array);
+    return values;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int *arr_input, int length, int max, int *exp, int *act){
+          char input_formated[5000];
+          sprintf(input_formated, "{");
+          for(int j = 0; j < length; j++){
+            sprintf(input_formated, "%s%d", input_formated, arr_input[j]);
+            if(j < length-1){
+              sprintf(input_formated, "%s, ", input_formated);
+            }
+          }
+          sprintf(input_formated, "%s}", input_formated);
+
+          char exp_formated[5000];
+          if(exp == NULL){
+            sprintf(exp_formated, "NULL");
+          } else {
+          sprintf(exp_formated, "{");
+            for(int j = 0; j < length; j++){
+              sprintf(exp_formated, "%s%d", exp_formated, exp[j]);
+              if(j < length-1){
+                sprintf(exp_formated, "%s, ", exp_formated);
+              }
+            }
+            sprintf(exp_formated, "%s}", exp_formated);
+          }
+
+          char act_formated[5000];
+          if(act == NULL){
+            sprintf(act_formated, "NULL");
+          } else {
+            sprintf(act_formated, "{");
+            for(int j = 0; j < length; j++){
+              sprintf(act_formated, "%s%d", act_formated, act[j]);
+              if(j < length-1){
+                sprintf(act_formated, "%s, ", act_formated);
+              }
+            }
+            sprintf(act_formated, "%s}", act_formated);
+          }
+
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bucket_sort(%s, %d, %d))\n\
+                    Erwartete Ausgabe:    (%s)\n\
+                    Tatsächliche Ausgabe: (%s)\n", test_num, input_formated, length, max, exp_formated, act_formated);
+        }
+
+        void test1(void){
+          // Error case max negativ
+          int a[] = {5,3,6,1,5,4,8,9,6,6,6};
+          int a_print[] = {5,3,6,1,5,4,8,9,6,6,6};
+          int length = 11;
+          int max = -3;
+          int *result = bucket_sort(a, length, max);
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, a_print, length, max, NULL, result);
+          }  
+
+          // Error case values in array are too big
+          max = 8;
+          result = bucket_sort(a, length, max);
+          if(result == NULL){
+            CU_PASS("Erfolg!");
+          } else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, a_print, length, max, NULL, result);
+          }    
+          
+          // Positiv Test case random multiple same values
+          max = 20;
+          result = bucket_sort(a, length, max);
+          int correct_result[] = {1,3,4,5,5,6,6,6,6,8,9};
+          int flag = 0;
+          if(result == NULL){
+            CU_FAIL("3.Test");
+            showFailMessage(3, a_print, length, max, correct_result, result);
+          } else {     
+            for(int i = 0; i < length; i++){
+              if(correct_result[i] != result[i]){
+                CU_FAIL("4.Test");
+                showFailMessage(4, a_print, length, max, correct_result, result);
+                flag = 1;
+                break;
+              }
+            }
+            if(flag == 0){
+              CU_PASS("Erfolg!");
+            }
+          }
+
+          // Positiv Test case random only unique values
+          int b[] = {3,7,5,1,2,4,10,9999};
+          int b_print[] = {3,7,5,1,2,4,10,9999};
+          int correct_result2[] = {1,2,3,4,5,7,10,9999};
+          max = 99999;
+          length = 8;
+          result = bucket_sort(b, length, max);
+          if(result == NULL){
+            CU_FAIL("5.Test");
+            showFailMessage(5, b_print, length, max, correct_result2, result);
+          } else {
+            flag = 0;
+            for(int i = 0; i < length; i++){
+              if(correct_result2[i] != result[i]){
+                CU_FAIL("6.Test");
+                showFailMessage(6, b_print, length, max, correct_result2, result);
+                flag = 1;
+                break;
+              }
+            }
+            if(flag == 0){
+              CU_PASS("Erfolg!");
+            }
+          }
+
+          // Positiv Test case length 1
+          int c[] = {9999};
+          int c_print[] = {9999};
+          int correct_result3[] = {9999};
+          max = 99999;
+          length = 1;
+          result = bucket_sort(c, length, max);
+          if(result == NULL){
+            CU_FAIL("7.Test");
+            showFailMessage(7, c_print, length, max, correct_result3, result);
+          } else {            
+            flag = 0;
+            for(int i = 0; i < length; i++){
+              if(correct_result3[i] != result[i]){
+                CU_FAIL("8.Test");
+                showFailMessage(8, c_print, length, max, correct_result3, result);
+                flag = 1;
+                break;
+              }
+            }
+            if(flag == 0){
+              CU_PASS("Erfolg!");
+
+            }    
+          }    
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Bucketsort", test1))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 20 }
+      - { "name": "SORT", "points": 20 }
+      - { "name": "MEMORY", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 4300
+    prerequisites: []
+    unlockableAssets: []

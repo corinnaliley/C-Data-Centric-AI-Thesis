@@ -1,0 +1,340 @@
+shortname: "Permutationsmatrix" #E22
+title: "Permutationsmatrix erkennen"
+taskid: 76
+defaultEditorInput: |
+lang: "c"
+task: |
+  Eine Permutationsmatrix ist eine quadratische, ganzzahlige Matrix, die in jeder Zeile und jeder Spalte genau einen Eintrag 1 und sonst nur 0-Einträge hat. Programmieren Sie eine Funktion
+  ```
+  int permatcheck(const int** p, int laenge)
+  ```
+  die von einer `laenge` x `laenge` Matrix testet, ob es sich um eine Permutationsmatrix handelt. Geben Sie `1` zurück, falls ja, und `0` sonst.
+
+  Die Matrix soll in Doppelzeigerform übergeben werden. Als Verwendungsbeispiel für diese Form von Matrizen können Sie ihre Funktion mit folgender `main`-Funktion testen:
+  ```c
+  #include<stdio.h>
+  #define N 2
+  
+  int main() {
+    int inhalt[N*N] = {1,0,0,1};
+    int *matrix[N];
+    matrix[0] = &inhalt[0];
+    matrix[1] = &inhalt[N];
+    printf("%d\n",permatcheck((const int**)matrix,N));
+  }
+  ```
+solution: |
+  int permatcheck(const int** p, int laenge) {
+    int zcounter = 0;
+    int scounter = 0;
+    for (int i=0; i<laenge; i++) {
+      zcounter = 0;
+      scounter = 0;
+      for (int j=0; j<laenge; j++) {
+        if (p[i][j] == 1) 
+          zcounter++;
+        if (p[j][i] == 1)
+          scounter++;
+      }
+      if (scounter != 1 || zcounter != 1)
+        return 0;
+    }
+    return 1;
+  }
+
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(const int** matrix_input, int size, int exp, int act, int test_num){
+          char  matrix_formated[5000];
+          int i = 0;
+          matrix_formated[i++] = '{';
+          for(int j = 0; j < size; j++){
+            matrix_formated[i++] = '{';
+            for(int k = 0; k < size; k++){
+              switch(matrix_input[j][k]){
+                case 0:
+                  matrix_formated[i++] = '0';
+                  break;
+                case 1:
+                  matrix_formated[i++] = '1';
+                  break;
+                case 2:
+                  matrix_formated[i++] = '2';
+                  break;
+                default:
+                  matrix_formated[i++] = '?';
+                  break;
+              }
+              if(k < size-1){
+                matrix_formated[i++] = ' ';
+              }
+            }
+            matrix_formated[i++] = '}';
+            if(j < size - 1){
+              matrix_formated[i++] = '\n';
+              for(int w = 0; w < 36; w++){
+                matrix_formated[i++] = ' ';
+              }
+            }
+            
+          }
+          matrix_formated[i++] = '}';
+          matrix_formated[i++] = '\0';
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (%s, %d)\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, matrix_formated, size, exp, act);
+        }
+        
+
+        void test_permatcheck_length_1(void){
+          int laenge=1;
+          int matrix[1][1] = {{1}};
+          const int* m[1];
+          for (int i=0; i<laenge; i++) m[i] = matrix[i];
+
+          if(permatcheck(m,laenge) == 1){
+            CU_PASS(Erfolg!);
+          }
+          else{
+            CU_FAIL("1.Test");
+            showFailMessage(m, laenge, 1, permatcheck(m,laenge), 1 );
+          }
+
+          matrix[0][0] = 0;
+          if(permatcheck(m,laenge) == 0){
+            CU_PASS(Erfolg!);
+          }
+          else{
+            CU_FAIL("2.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 2 );
+          }
+
+        }
+
+        void test_permatcheck_length_2(void){
+          int laenge=2;
+          int matrix[2][2] = {{1,0},{0,1}};
+          const int* m[2];
+          for (int i=0; i<laenge; i++) m[i] = matrix[i];
+          if(permatcheck(m,laenge) == 1){
+            CU_PASS(Erfolg!);
+          }
+          else{
+            CU_FAIL("3.Test");
+            showFailMessage(m, laenge, 1, permatcheck(m,laenge), 3);
+          }
+
+          matrix[0][0] = 0;
+          matrix[0][1] = 1;
+          matrix[1][0] = 1;
+          matrix[1][1] = 0;
+          if (permatcheck(m,laenge) == 1) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(m, laenge, 1, permatcheck(m,laenge), 4);
+          }
+
+          matrix[0][0] = 0;
+          matrix[0][1] = 0;
+          matrix[1][0] = 0;
+          matrix[1][1] = 0;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 5);
+          }
+
+          matrix[0][0] = 1;
+          matrix[0][1] = 1;
+          matrix[1][0] = 1;
+          matrix[1][1] = 1;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 6);
+          }
+
+          matrix[0][0] = 1;
+          matrix[0][1] = 1;
+          matrix[1][0] = 0;
+          matrix[1][1] = 1;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 7);
+          }
+
+          matrix[0][0] = 0;
+          matrix[0][1] = 0;
+          matrix[1][0] = 1;
+          matrix[1][1] = 1;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 8);
+          }
+
+          matrix[0][0] = 0;
+          matrix[0][1] = 0;
+          matrix[1][0] = 0;
+          matrix[1][1] = 1;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("9.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 9);
+          }
+
+          matrix[0][0] = 1;
+          matrix[0][1] = 0;
+          matrix[1][0] = 1;
+          matrix[1][1] = 0;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("10.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 10);
+          }
+
+          matrix[0][0] = 2;
+          matrix[0][1] = 0;
+          matrix[1][0] = 0;
+          matrix[1][1] = 2;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("11.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 11);
+          }
+        }
+
+        void test_permatcheck_length_10(void){
+          int laenge=10;
+          int matrix[10][10] = {{1,0,0,0,0,0,0,0,0,0},
+                                {0,1,0,0,0,0,0,0,0,0},
+              {0,0,1,0,0,0,0,0,0,0},
+              {0,0,0,1,0,0,0,0,0,0},
+              {0,0,0,0,1,0,0,0,0,0},
+              {0,0,0,0,0,1,0,0,0,0},
+              {0,0,0,0,0,0,1,0,0,0},
+              {0,0,0,0,0,0,0,1,0,0},
+              {0,0,0,0,0,0,0,0,1,0},
+              {0,0,0,0,0,0,0,0,0,1}};
+        const  int* m[10];
+          for (int i=0; i<laenge; i++) m[i] = matrix[i];
+          if (permatcheck(m,laenge) == 1) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("12.Test");
+            showFailMessage(m, laenge, 1, permatcheck(m,laenge), 12);
+          }
+
+          matrix[0][0] = 0;
+          matrix[0][3] = 1;
+          matrix[3][0] = 1;
+          matrix[3][3] = 0;
+          if (permatcheck(m,laenge) == 1) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("13.Test");
+            showFailMessage(m, laenge, 1, permatcheck(m,laenge), 13 );
+          }
+
+          matrix[9][8] = 1;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("14.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 14);
+          }
+
+          matrix[9][8] = 0;
+          matrix[4][4] = 0;
+          if (permatcheck(m,laenge) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("15.Test");
+            showFailMessage(m, laenge, 0, permatcheck(m,laenge), 15);
+          }
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "test of Permutationsmatrix, length 1", test_permatcheck_length_1)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of Permutationsmatrix, length 2", test_permatcheck_length_2)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          if ((NULL == CU_add_test(pSuite, "test of Permutationsmatrix, length 10", test_permatcheck_length_10)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 40 }
+      - { "name": "POINTER", "points": 40 }
+      - { "name": "schwierig" }
+    orderBy: 6200
+    prerequisites: []
+    unlockableAssets: ["french-bean-hat", "french-bean-pants", "french-bean-shirt"]

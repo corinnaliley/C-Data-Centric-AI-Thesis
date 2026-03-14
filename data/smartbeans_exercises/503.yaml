@@ -1,0 +1,115 @@
+shortname: "Josephus-Permutation" #N3
+title: "Berechnung der Josephus-Permutation"
+taskid: 503
+defaultEditorInput: |
+lang: "c"
+task: |
+  Das Josephus-Problem kann <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Josephus-Problem">**hier**</a> auf Wikipedia nachgelesen werden.
+
+  Die Josephus-Permutation der Zahlen 1,...,n für eine Schrittweite k ist die Permutation, die nach folgendem Schema berechnet wird:
+
+  - Stellen Sie sich die Zahlen aufsteigend in einem Kreis angeordnet vor. D.h. man beginnt bei 1 zu zählen und wenn man bei n angekommen ist macht man wieder vorne bei 1 weiter. Das ist die ursprüngliche Permutation.
+  - Man beginnt vom Anfang k Schritte zu gehen und entfernt das gefundene Element.
+  - In der entstehenden Josephus-Permutation wird an dem Index, wo in der ursprünglichen Permutation das Element stand, die aktuelle Rundenzahl eingetragen.
+  - Die Rundenzahl ist die Anzahl der bereits entfernten Elemente.
+  - Von dem zu letzt entfernten Element aus geht man wieder k Schritte.
+  - Bereits entfernte Elemente sollen bei den Schritten nicht mitgezählt werden.
+  - Man geht solange durch den Kreis bis jedes Element der ursprünglichen Liste entfernt wurde.
+ 
+
+  *Beispiel*
+
+  Für n = 4 und k = 3 sieht die Entstehung der Josephus Permutation so aus:
+  ```
+  Init       1         2         3         4        Rundenzahl
+  [1 2 3 4] [1 2 x 4] [1 x   4] [1     x] [x      ] ursprüngliche Permutation
+  [       ] [    1  ] [  2 1  ] [  2 1 3] [4 2 1 3] Josephus-Permutation
+  ```
+  Schreiben Sie eine Programm, das zwei Zahlen n > 0 und k > 0 einliest und daraus die Josephus Permutation für die Zahlen 1,...,n mit einer Schrittweite k ausgibt.
+
+  ### Beispieleingabe
+  ```
+  4 2
+  7 4
+  ```
+  ### Beispielausgabe
+  ```
+  4 1 3 2
+  2 7 6 1 4 3 5
+  ```
+solution: |
+  #include <stdio.h>
+
+  int main() {
+    int n, k;
+    scanf("%d", &n);
+    scanf("%d", &k);
+    int org[n];
+    int josephus[n];
+    for (int i = 0; i < n; i++) {
+      org[i] = 1;
+    }
+    for (int i = 0; i < n; i++) {
+      josephus[i] = 0;
+    }
+    int deletecount = 0;
+    int stepcount = 0;
+    int index = -1;
+    while (deletecount < n) {
+      stepcount = 0;
+      while (stepcount < k) {
+        index = (index + 1) % n;
+        if (org[index] == 1)
+          stepcount++;
+      }
+      org[index] = 0;
+      deletecount++;
+      josephus[index] = deletecount;
+    }
+    for (int i = 0; i < n; i++)
+      printf("%d ", josephus[i]);
+    printf("\n");
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          1 1
+        stdout: |
+          1
+      - args: []
+        stdin: |
+          1 5
+        stdout: |
+          1
+      - args: []
+        stdin: |
+          4 2
+        stdout: |
+          4 1 3 2
+      - args: []
+        stdin: |
+          10 2
+        stdout: |
+          8 1 6 2 10 3 7 4 9 5
+      - args: []
+        stdin: |
+          5 10
+        stdout: |
+          4 2 3 5 1
+      - args: []
+        stdin: |
+          17 3
+        stdout: |
+          6 10 1 16 7 2 13 11 3 8 17 4 15 9 5 12 14
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 20 }
+      - { "name": "ALGORITHM", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 3500
+    prerequisites: []
+    unlockableAssets: []

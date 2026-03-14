@@ -1,0 +1,299 @@
+shortname: "Bruch II" #N23
+title: "Vergleichen von zwei Brüchen"
+taskid: 523
+defaultEditorInput: |
+lang: "c"
+task: |
+  Definieren Sie den Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt in Ihrer Abgabedatei:
+
+  ```
+  typedef struct {
+    int zaehler;
+    int nenner;
+  } bruch_t;
+  ```
+
+  ---
+
+  Programmieren Sie eine Funktion mit Prototyp:
+
+  ```
+  int compare_rational( bruch_t x, bruch_t y );
+  ```
+
+  die die übergebenen rationalen Zahlen `x`, `y` vergleicht und `0` zurückliefert, wenn `x` und `y` gleich sind, einen Wert kleiner `0` zurückliefert, wenn `x` kleiner als `y` ist und einen Wert größer `0` zurückliefert, wenn `x` größer als `y` ist.
+
+  Verwenden Sie keine Gleitkommaarithmetik. Sorgen Sie dafür, dass beide Nenner nicht negativ sind und benutzen Sie folgende Beziehungen.
+
+  - a/b = c/d genau dann, wenn ad = bc
+  - a/b < c/d genau dann, wenn ad < bc
+  - a/b > c/d genau dann, wenn ad > bc
+
+  *Hinweis*
+  - Kümmern Sie sich nicht um mögliche Überläufe, diese Problematik kann ignoriert werden.
+
+solution: |
+  typedef struct {
+    int zaehler;
+    int nenner;
+  } bruch_t;
+
+  int compare_rational(bruch_t x, bruch_t y) {
+    if(x.nenner < 0){
+      x.nenner *= -1;
+      x.zaehler *= -1;
+    }
+
+    if(y.nenner < 0){
+      y.nenner *= -1;
+      y.zaehler *= -1;
+    }
+
+    if (x.zaehler * y.nenner == x.nenner * y.zaehler) {
+      return 0;
+    } else if (x.zaehler * y.nenner < x.nenner * y.zaehler) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include <stdlib.h>
+        #include "solution.c"
+
+        void showFailMessage(int test_num, int input1, int input2, int input3, int input4, int exp, int act){
+          char  exp_formated[100];
+          if(exp == 0){
+            sprintf(exp_formated, "0");
+          } else if(exp > 0){
+            sprintf(exp_formated, "> 0");
+          } else {
+            sprintf(exp_formated, "< 0");
+          }
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (bruch1 = %d/%d, bruch2 = %d/%d)\n\
+                    Erwartete Ausgabe:    (%s)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, input1, input2, input3, input4, exp_formated, act);
+        }
+
+
+        void test_compare_rational(void) {
+          bruch_t bruch1;
+          bruch_t bruch2;
+
+          bruch1.zaehler = 0;
+          bruch1.nenner = 1;
+          bruch2.zaehler = 0;
+          bruch2.nenner = 1;
+          int result = compare_rational(bruch1, bruch2);
+          if (result == 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(1, 0, 1, 0, 1, 0, result);
+          }
+
+          bruch1.zaehler = -1;
+          bruch1.nenner = 1;
+          bruch2.zaehler = -1;
+          bruch2.nenner = 1;
+          result = compare_rational(bruch1, bruch2);
+          if (result == 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(2, -1, 1, -1, 1, 0, result);
+          }
+
+          bruch1.zaehler = 1;
+          bruch1.nenner = 1;
+          bruch2.zaehler = 1;
+          bruch2.nenner = 1;
+          result = compare_rational(bruch1, bruch2);
+          if (result == 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(3, 1, 1, 1, 1, 0, result);
+          }
+
+          bruch1.zaehler = -1;
+          bruch1.nenner = 1;
+          bruch2.zaehler = 0;
+          bruch2.nenner = 1;
+          result = compare_rational(bruch1, bruch2);
+          if (result < 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(4, -1, 1, 0, 1, -1, result);
+          }
+
+          bruch1.zaehler = -1;
+          bruch1.nenner = 1;
+          bruch2.zaehler = 1;
+          bruch2.nenner = 2;
+          result = compare_rational(bruch1, bruch2);
+          if (result < 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(5, -1, 1, 1, 2, -1, result);
+          }
+
+          bruch1.zaehler = 1;
+          bruch1.nenner = 2;
+          bruch2.zaehler = -1;
+          bruch2.nenner = 1;          
+          result = compare_rational(bruch1, bruch2);
+          if (result > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("6.Test");
+            showFailMessage(6, 1, 2, -1, 1, 1, result);
+          }
+
+          bruch1.zaehler = -1;
+          bruch1.nenner = 2;
+          bruch2.zaehler = -1;
+          bruch2.nenner = 3;
+          result = compare_rational(bruch1, bruch2);
+          if (result < 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("7.Test");
+            showFailMessage(7, -1, 2, -1, 3, -1, result);
+          }
+
+          bruch1.zaehler = -1;
+          bruch1.nenner = 2;
+          bruch2.zaehler = 1;
+          bruch2.nenner = -3;
+          result = compare_rational(bruch1, bruch2);
+          if (result < 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("8.Test");
+            showFailMessage(8, -1, 2, 1, -3, -1, result);
+          }
+
+          bruch1.zaehler = 1;
+          bruch1.nenner = -2;
+          bruch2.zaehler = -1;
+          bruch2.nenner = 3;
+          result = compare_rational(bruch1, bruch2);
+          if (result < 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("9.Test");
+            showFailMessage(9, 1, -2, -1, 3, -1, result);
+          }
+
+          bruch1.zaehler = -11;
+          bruch1.nenner = 4;
+          bruch2.zaehler = -12;
+          bruch2.nenner = 3;
+          result = compare_rational(bruch1, bruch2);
+          if (result > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("10.Test");
+            showFailMessage(10, -11, 4, -12, 3, 1, result);
+          }
+
+          bruch1.zaehler = 13;
+          bruch1.nenner = 7;
+          bruch2.zaehler = 13;
+          bruch2.nenner = 7;
+          result = compare_rational(bruch1, bruch2);
+          if (result == 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("11.Test");
+            showFailMessage(11, 13, -7, 13, 7, 0, result);
+          }
+
+          bruch1.zaehler = 5;
+          bruch1.nenner = 9;
+          bruch2.zaehler = 7;
+          bruch2.nenner = 8;
+          result = compare_rational(bruch1, bruch2);
+          if (result < 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("12.Test");
+            showFailMessage(12, 5, 9, 7, 8, -1, result);
+          }
+
+          bruch1.zaehler = 6;
+          bruch1.nenner = 20;
+          bruch2.zaehler = 6;
+          bruch2.nenner = 30;
+          result = compare_rational(bruch1, bruch2);
+          if (result > 0) {
+            CU_PASS("Erfolg!");
+          } else {
+            CU_FAIL("13.Test");
+            showFailMessage(13, 6, 20, 6, 30, 1, result);
+          }
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Bruch II", test_compare_rational)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRUCT", "points": 80 }
+      - { "name": "MATH", "points": 80 }
+      - { "name": "klausur" }
+    orderBy: 6810
+    prerequisites: []
+    unlockableAssets: []

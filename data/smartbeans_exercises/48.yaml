@@ -1,0 +1,151 @@
+shortname: "Trolle" #X1
+title: "Zählen wie Trolle"
+taskid: 48
+defaultEditorInput: |
+lang: "c"
+task: |
+  Trolle zählen auf diese Weise: 1, 2, 3 ... *viele*. Die meisten Leute schließen daraus, daß sie keine größeren Zahlen kennen, doch das ist ein Irrtum. *Viele* kann durchaus für eine Zahl stehen, zum Beispiel: 1, 2, 3, *viele*; *viele*-1, *viele*-2, *viele*-3, *viele* *viele*; *viele*-*viele*-1, *viele*-*viele*-2, *viele*-*viele*-3, *viele*-*viele*-*viele*; *viele*-*viele*-*viele*-1, *viele*-*viele*-*viele*-2, *viele*-*viele*-*viele*-3, ....
+  
+  Schreiben Sie ein Programm, dass die unter Menschen üblichen Dezimalzahlen einließt und die entsprechende Trollzahl ausgibt. Bedenken Sie dabei, dass Trolle keine 0 kennen.
+  <!--Trolle zählen auf diese Weise: eins, zwei, drei ... viele. Die meisten Leute schließen daraus, daß sie keine größeren Zahlen kennen, doch das ist ein Irrtum. Viele kann durchaus für eine Zahl stehen, zum Beispiel: eins, zwei, drei, viele; viele-eins, viele-zwei, viele-drei, viele viele; viele-viele-eins, viele-viele-zwei, viele-viele-drei, viele viele viele; viele-viele-viele-eins, viele-viele-viele-zwei, viele-viele-viele-drei, EINE MENGE.(Helle Barden)-->
+  ### Beispieleingabe
+  ```
+  9
+  ```
+  ### Beispielausgabe
+  ```
+  viele-viele-1
+  ```
+
+solution: |
+  #include<stdio.h>
+
+  int main() {
+    int n;
+    scanf("%d", &n);
+    while(n>=5) {
+      printf("viele-");
+      n -= 4;
+    }
+    switch (n) {
+      case 4:
+        printf("viele\n");
+        break;
+      default:
+        printf("%d\n", n);
+        break;
+    }
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          1
+        stdout: |
+          1
+      - args: []
+        stdin: |
+          2
+        stdout: |
+          2
+      - args: []
+        stdin: |
+          3
+        stdout: |
+          3
+      - args: []
+        stdin: |
+          4
+        stdout: |
+          viele
+      - args: []
+        stdin: |
+          5
+        stdout: |
+          viele-1
+      - args: []
+        stdin: |
+          6
+        stdout: |
+          viele-2
+      - args: []
+        stdin: |
+          7
+        stdout: |
+          viele-3
+      - args: []
+        stdin: |
+          8
+        stdout: |
+          viele-viele
+      - args: []
+        stdin: |
+          9
+        stdout: |
+          viele-viele-1
+      - args: []
+        stdin: |
+          10  
+        stdout: |
+          viele-viele-2
+      - args: []
+        stdin: |
+          11
+        stdout: |
+          viele-viele-3
+      - args: []
+        stdin: |
+          12
+        stdout: |
+          viele-viele-viele
+      - args: []
+        stdin: |
+          13
+        stdout: |
+          viele-viele-viele-1
+      - args: []
+        stdin: |
+          14
+        stdout: |
+          viele-viele-viele-2
+      - args: []
+        stdin: |
+          15
+        stdout: |
+          viele-viele-viele-3
+      - args: []
+        stdin: |
+          16
+        stdout: |
+          viele-viele-viele-viele
+      - args: []
+        stdin: |
+          17
+        stdout: |
+          viele-viele-viele-viele-1
+      - args: []
+        stdin: |
+          18
+        stdout: |
+          viele-viele-viele-viele-2
+      - args: []
+        stdin: |
+          19
+        stdout: |
+          viele-viele-viele-viele-3
+      - args: []
+        stdin: |
+          167
+        stdout: |
+          viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-viele-3
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "IO", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 2200
+    prerequisites: []
+    unlockableAssets: ["troll-hat", "troll-pants", "troll-shirt"]

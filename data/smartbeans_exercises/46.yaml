@@ -1,0 +1,51 @@
+shortname: "Zahlensysteme" #S6
+title: "Zahlen in Oktal– und Hexadezimalsystem ausgeben"
+taskid: 46
+defaultEditorInput: |
+lang: "c"
+task: |
+  Es sollen wiederholt (bis zur Eingabe von CTRL-d) nichtnegative Dezimalzahlen eingelesen und die Werte jeweils im Oktal– und Hexadezimalsystem ausgegeben werden.
+
+  ### Beispieleingabe
+  ```
+  3
+  15
+  16
+  100
+  ```
+  ### Beispielausgabe
+  ```
+  OKT: 3, HEX: 3
+  OKT: 17, HEX: f
+  OKT: 20, HEX: 10
+  OKT: 144, HEX: 64
+  ```
+solution: |
+  #include <stdio.h>
+
+  int main() {
+    int n;
+    while(scanf("%d", &n) == 1)
+      printf("OKT: %o, HEX: %x\n", n, n);
+  }
+tests:
+  - testtype: "c-input-output"
+    testCases:
+      - args: []
+        stdin: |
+          3
+          8
+          90
+        stdout: |
+          OKT: 3, HEX: 3
+          OKT: 10, HEX: 8
+          OKT: 132, HEX: 5a
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "IO", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 900
+    prerequisites: []
+    unlockableAssets: ["summer-feelings-female-hat", "summer-feelings-female-shirt"]

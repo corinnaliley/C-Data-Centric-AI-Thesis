@@ -1,0 +1,307 @@
+shortname: "Datei Mathematik" #N12
+title: "Lesen und lösen von kleinen Mathe Aufgaben aus einer Datei"
+taskid: 512
+defaultEditorInput: |
+lang: "c"
+task: |
+  Programmieren Sie eine Funktion `void simple_file_math(char *path)`, die einen String mit dem Pfad `path` zu einer Datei übergeben bekommt. 
+  In der Datei stehen zeilenweise kleine Rechenaufgaben, die gelöst und in die Datei geschrieben werden sollen.
+
+  Es gibt 3 Aufgabentypen:
+  
+  - `quadrat <n>`: Das Quadrat der Zahl `n` soll berechnet werden.
+  - `mal2 <n>`: Die Zahl `n` soll mit 2 multipliziert werden.
+  - `plus` <n> <m>: Die zwei Zahlen `n` und `m` sollen aufaddiert werden.
+
+  In der Datei soll in jeder Zeile ihre Anweisung durch das Ergebnis der Rechnung ersetzt werden. Der gesamte Inhalt der Datei soll am Ende der Funktion geändert worden sein. 
+
+
+  ### Beispielaufruf
+  ```
+  beispiel.txt: 
+    quadrat 6
+    mal2 15
+    plus 5 9
+    quadrat 5
+
+  simple_file_math("beispiel.txt");
+  ```
+  ### Beispielergebnis
+  ```
+  beispiel.txt: 
+    36
+    30
+    14
+    25  
+  ```
+solution: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  void simple_file_math(char *path) {
+    FILE *fp;
+    fp = fopen(path, "r");
+    ssize_t read;
+    char *line = NULL;
+    size_t len = 0;
+    char delim[] = " ";
+    char result[1000];
+    if (fp == NULL) {
+      printf("Error on opening file");
+      return;
+    }
+    int num;
+    int start = 0;
+    while ((read = getline(&line, &len, fp)) != -1) {
+      char *token = strtok(line, delim);
+      int n = atoi(strtok(NULL, delim));
+      char tmp[100];
+      if (strcmp(token, "quadrat") == 0) {
+        sprintf(tmp, "%d", n * n);
+      }
+      if (strcmp(token, "mal2") == 0) {
+        sprintf(tmp, "%d", n * 2);
+      }
+      if (strcmp(token, "plus") == 0) {
+        int m = atoi(strtok(NULL, delim));
+        sprintf(tmp, "%d", n + m);
+      }
+      if (start != 0) {
+        char newline[] = "\n";
+        strcat(result, newline);
+      }
+      start++;
+      strcat(result, tmp);
+    }
+    char newline[] = " \n";
+    strcat(result, newline);
+    fclose(fp);
+    if (line)
+      free(line);
+    fp = fopen(path, "w");
+    if (fp == NULL) {
+      printf("Error on opening file");
+      return;
+    }
+    fprintf(fp, "%s", result);
+    fclose(fp);
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void test1(void){
+          FILE *fp;
+          char string1[] = "quadrat 6\nmal2 5\nmal2 4\nplus 5 9";
+          int results1[] = {36,10,8,14};
+          fp = fopen("einfile.txt", "w");
+          if (fp == NULL) {
+            printf("Error on opening file\n");
+            return;
+          }
+          fprintf(fp, "%s", string1);
+          fclose(fp);        
+          simple_file_math("einfile.txt");
+          fp = fopen("einfile.txt", "r");
+          ssize_t read;
+          char *line = NULL;
+          size_t len = 0;
+          int i = 0;
+          while((read = getline(&line, &len, fp)) != -1){   
+            fflush(stdout);
+            if(i < 4){
+              if(atoi(line)  ==  results1[i]){
+                CU_PASS("Erfolg! Eingabe (quadrat 6\nmal2 5\nmal2 4\nplus 5 9) Erwartete Ausgabe (36\n10\n8\n14)");
+              } else{
+                CU_FAIL("Fehler! Eingabe (quadrat 6\nmal2 5\nmal2 4\nplus 5 9) Erwartete Ausgabe (36\n10\n8\n14)");
+                printf("%d, %d\n", atoi(line), results1[i]);
+                fflush(stdout);
+              }
+            } else {
+              CU_FAIL("Fehler! Eingabe (quadrat 6\nmal2 5\nmal2 4\nplus 5 9) Erwartete Ausgabe (36\n10\n8\n14)");
+            }  
+            i++;      
+          }
+          fclose(fp);
+          
+        }
+        /*
+        void test2(void){
+          FILE *fp2;
+          char string2[] = "quadrat -7\nplus -10 -4\nmal2 -8\nplus -7 6\nplus 5 -8\nplus -9 10";
+          int results2[] = {49, -14,-16, -1, -3, 1};
+          fp2 = fopen("anderesfile.txt", "w");
+          if (fp2 == NULL) {
+            printf("Error on opening file\n");
+            return;
+          }
+          fprintf(fp2, "%s", string2);
+          fclose(fp2);        
+          simple_file_math("anderesfile.txt");
+
+          fp2 = fopen("anderesfile.txt", "r");
+          ssize_t read;
+          char *line = NULL;
+          size_t len = 0;
+          int i = 0;
+          while((read = getline(&line, &len, fp2)) != -1){   
+            fflush(stdout);
+            if(i < 6){
+              if(atoi(line)  ==  results2[i]){
+                CU_PASS("Erfolg! Eingabe (quadrat -7\nplus -10 -4\nmal2 -8\nplus -7 6\nplus 5 -8\nplus -9 10) Erwartete Ausgabe (49\n-14\n-16\n-1\n-3\n1)");
+              } else{
+                printf("%s", line);
+                CU_FAIL("Fehler! Eingabe (quadrat -7\nplus -10 -4\nmal2 -8\nplus -7 6\nplus 5 -8\nplus -9 10) Erwartete Ausgabe (49\n-14\n-16\n-1\n-3\n1)");
+              }
+            } else {
+              CU_FAIL("Fehler zuviele Zeilen! Eingabe (quadrat -7\nplus -10 -4\nmal2 -8\nplus -7 6\nplus 5 -8\nplus -9 10) Erwartete Ausgabe (49\n-14\n-16\n-1\n-3\n1) ");
+            }  
+            i++;      
+          }
+          fclose(fp2);
+        }
+        
+        void test3(void){
+          FILE *fp3;
+          char string3[] = "mal2 -9";
+          int results3[] = {-18};
+          fp3 = fopen("nochmehrfiles.txt", "w");
+          if (fp3 == NULL) {
+            printf("Error on opening file\n");
+            return;
+          }
+          fprintf(fp3, "%s", string3);
+          fclose(fp3);    
+          
+          fp3 = fopen("nochmehrfiles.txt", "r");
+          int x = 3;
+          fclose(fp3);    
+
+          simple_file_math("nochmehrfiles.txt");
+          
+          fp3 = fopen("nochmehrfiles.txt", "r");
+          ssize_t read;
+          char *line = NULL;
+          size_t len = 0;
+          int i = 0;
+          printf("Test3\n");
+          while((read = getline(&line, &len, fp3)) != -1){   
+            printf("\n Runde i: %d  line:%s:",i, line);
+            fflush(stdout);
+            if(i < 4){
+              if(atoi(line)  ==  results3[i]){
+                CU_PASS("Erfolg! Eingabe (mal2 -9) Erwartete Ausgabe (-18)");
+              } else{
+                CU_FAIL("Fehler! Eingabe (mal2 -9) Erwartete Ausgabe (-18)");
+              }
+            } else {
+              CU_FAIL("Fehler! Eingabe (mal2 -9) Erwartete Ausgabe (-18)");
+            }  
+            i++;      
+          }
+          fclose(fp3);
+        }
+
+        void test4(void){
+          FILE *fp;
+          char string1[] = "quadrat 6\nmal2 5\nmal2 4\nplus 5 9";
+          int results1[] = {36,10,8,14};
+          fp = fopen("vierterTest.txt", "w");
+          if (fp == NULL) {
+            printf("Error on opening file\n");
+            return;
+          }
+          fprintf(fp, "%s", string1);
+          fclose(fp);        
+          simple_file_math("vierterTest.txt");
+          fp = fopen("vierterTest.txt", "r");
+          ssize_t read;
+          char *line = NULL;
+          size_t len = 0;
+          int i = 0;
+          printf("Test1\n");
+          while((read = getline(&line, &len, fp)) != -1){   
+            printf("\n Runde i: %d  line:%s:",i, line);
+            fflush(stdout);
+            if(i < 4){
+              if(atoi(line)  ==  results1[i]){
+                CU_PASS("Erfolg! Eingabe (quadrat 6\nmal2 5\nmal2 4\nplus 5 9) Erwartete Ausgabe (36\n10\n8\n14)");
+              } else{
+                CU_FAIL("Fehler! Eingabe (quadrat 6\nmal2 5\nmal2 4\nplus 5 9) Erwartete Ausgabe (36\n10\n8\n14)");
+              }
+            } else {
+              CU_FAIL("Fehler! Eingabe (quadrat 6\nmal2 5\nmal2 4\nplus 5 9) Erwartete Ausgabe (36\n10\n8\n14)");
+            }  
+            i++;      
+          }
+          fclose(fp);
+          
+        }
+        */
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "test 1 Datei Mathematik", test1))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+          /*
+          if ((NULL == CU_add_test(pSuite, "test 2 Datei Mathematik", test2))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+          */
+          //if ((NULL == CU_add_test(pSuite, "test 3 Datei Mathematik", test3))) {
+          //    unsigned int cu_result = CU_get_number_of_failure_records();
+          //    CU_cleanup_registry();
+          //    return cu_result;
+          //}
+
+          //if ((NULL == CU_add_test(pSuite, "test 4 Datei Mathematik", test4))) {
+          //    unsigned int cu_result = CU_get_number_of_failure_records();
+          //    CU_cleanup_registry();
+          //    return cu_result;
+          //}
+
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  test:
+    tags:
+      - { "name": "FILE", "points": 80 }
+      - { "name": "klausur" }
+    orderBy: 7300
+    prerequisites: []
+    unlockableAssets: ["climber-shirt", "climber-pants"]

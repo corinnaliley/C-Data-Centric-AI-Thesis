@@ -1,0 +1,177 @@
+shortname: "Alphabet umwandeln" #N21
+title: "Text aus einem Alphabet in ein anderes umwandeln"
+taskid: 521
+defaultEditorInput: |
+lang: "c"
+task: |
+  Ein Alphabet ist eine Zeichenfolge in der kein Zeichen mehr als einmal vorkommt.
+
+  Ein Text über einem Alphabet ist eine Zeichenfolge, die nur aus Zeichen des Alphabets besteht.
+
+  Für zwei Alphabete mit derselben Anzahl an Zeichen, kann man einen Text über dem einen Alphabet (Quellalphabet) in einen Text über dem anderen Alphabet (Zielalphabet) übersetzen, indem man die Zeichen einzeln übersetzt.
+
+  Die Übsetzung eines Zeichens aus dem Quellalphabet ist das Zeichen aus dem Zielalphabet an derselben Position.
+
+  *Beispiel*
+
+  `1234567890` Quellalphabet
+
+  `0987654321` Zielalphabet
+
+  Der Text `149` über dem Quellalphabet wird zum Text `072` über dem Zielalphabet übersetzt.
+
+  Programmieren Sie eine Funktion mit Prototyp
+
+  ```
+  char *substitute(const char *source, const char *target, const char *text);
+  ```
+  
+  und Parametern:
+
+  - `source`, ein Zeiger auf ein `char`-Feld in dem ein Quellalphabet, als String, gespeichert ist,
+  - `target`, einen Zeiger auf ein `char`-Feld in dem ein Zielalphabet, als String, gespeichert ist,
+  - `text` , einen Zeiger auf ein `char`-Feld in dem ein zu übersetzender String gespeichert ist.
+
+  Die Funktion substitute liefert einen Zeiger auf ein `char`-Feld zurück, in dem sich die Übersetzung des Strings `text` über dem Quellalphabet `source` in das Zielalphabet `target` beﬁndet.
+
+  *Anforderungen*
+
+  - Die Funktion liefert bei einem Fehler den Nullzeiger, sonst einen Zeiger auf den übersetzten Text zurück.
+  - Der Speicher für das Feld, in dem der übersetzte Text zurückgeliefert wird, wird auf dem Heap reserviert, dabei kann ein Fehler auftreten.
+  - Enthält der zu übersetzende Text Zeichen, die nicht im Quellalphabet vorhanden sind, ist das ein Fehler.
+  - Tritt ein Fehler auf nachdem Speicher auf dem Heap angefordet wurde, muss dieser Speicher vor dem Ende der Funktion wieder freigeben werden.
+  - Sie brauchen nicht zu prüfen, ob `source` und `target` auf den Anfang von `char`-Felder zeigen, ob diese Strings enthalten und ob in diese Strings gültige Alphabete gleicher Länge sind.
+  - Sie brauchen nicht zu prüfen, ob `text` auf den Anfang eines `char`-Feldes zeigen, das einen String enthält.
+  - Berücksichtigen Sie das Null-Zeichen bei der Ermittlung des Speicherplatzes für den resultierenden (übersetzten) String aus dem übergebenen (zu übersetzenden) String.
+
+solution: |
+  #include <string.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+    
+  char *substitute(const char *source, const char *target, const char *text){
+      int length = strlen(text);
+      char * result = malloc(sizeof(char) * (length +1));
+      if (result == NULL)
+          return NULL;
+      for(int i = 0; i < length; i++){
+          int flag = 0;
+          for(int j = 0; j < strlen(source); j++){
+              if( source[j] == text[i]){
+                  result[i] = target[j];
+                  flag = 1;
+              }
+          }
+          if (flag == 0){
+              free(result);
+              return NULL;
+          }
+      }
+      //result[length-1] = 'G';
+      result[length] = '\0';
+      return result;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h" 
+        #include "solution.c"
+
+        void showFailMessage(int test_num, char *input1, char *input2, char *input3, char *act, char *exp){
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (substitute(\"%s\",\n\
+                                                      \"%s\",\n\
+                                                      \"%s\"))\n\
+                    Erwartete Ausgabe:    (\"%s\")\n\
+                    Tatsächliche Ausgabe: (\"%s\")\n", test_num, input1, input2, input3, exp, act);
+        }
+
+        void test1(void){
+          if(strcmp(substitute("abcde", "fghij", "dbcaeddaebc"), "ighfjiifjgh") == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("1.Test");
+            showFailMessage(1, "abcde", "fghij", "dbcaeddaebc",substitute("abcde", "fghij", "dbcaeddaebc"), "ighfjiifjgh" );
+          }        
+
+          if(strcmp(substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "HALLOWELT"), "hallowelt") == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("2.Test");
+            showFailMessage(2, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "HALLOWELT" ,substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "HALLOWELT"), "hallowelt" );
+          }
+
+          if(strcmp(substitute("!?%$&/()=", "abcdefghi", "!?%$&/()="), "abcdefghi") == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("3.Test");
+            showFailMessage(3, "!?%$&/()=", "abcdefghi", "!?%$&/()=", substitute("!?%$&/()=", "abcdefghi", "!?%$&/()="), "abcdefghi" );
+          }
+
+          if(substitute("ABCDE", "abcde", "XYZ") == NULL){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("4.Test");
+            showFailMessage(4, "ABCDE", "abcde", "XYZ", substitute("ABCDE", "abcde", "XYZ"), NULL );
+          }
+
+          if(strcmp(substitute("1234567890", "0987654321", "149"), "072") == 0){
+            CU_PASS("Erfolg!");
+          }
+          else{
+            CU_FAIL("5.Test");
+            showFailMessage(5, "1234567890", "0987654321", "149", substitute("1234567890", "0987654321", "149"), "072" );
+          }
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Alphabet umwandeln", test1))) {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "STRING", "points": 20 }
+      - { "name": "MEMORY", "points": 20 }
+      - { "name": "mittel" }
+    orderBy: 5550
+    prerequisites: []
+    unlockableAssets: ["maximiert-pants", "maximiert-shirt"]

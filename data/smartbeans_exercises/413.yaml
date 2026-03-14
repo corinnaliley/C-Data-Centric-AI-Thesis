@@ -1,0 +1,172 @@
+shortname: "Loch im Eimer" #D13
+title: "Austritt von Wasser aus einem Loch im Eimer berechnen"
+taskid: 413
+defaultEditorInput: |
+lang: "c"
+task: |
+  Sie haben einen Eimer, der `l` Liter Flüssigkeit fasst. Leider hat er ein Loch. Es ist zwar nicht groß, aber in jeder Minute entweichen `leak` Prozent Flüssigkeit aus dem Eimer. Wie viele Minuten dauert es, bis der Eimer bis auf die letzten 10 ml entleert wurde?
+
+  Programmieren Sie eine Funktion 
+  ```
+  int eimer(double l, double leak)
+  ```
+
+  die diese Frage beantwortet und die Anzahl der Minuten als `int` zurückgibt.
+   
+  *Hinweise.*
+   
+  - 1 Liter = 1000 Milliliter
+  - Sie können davon ausgehen, dass alle übergebenen Werte positiv sind und `leak` nicht 0 und <= 100 ist.
+   
+  ### Beispielaufruf
+   
+  ```
+  int e = eimer(7, 25);
+  ```
+   
+  ### Beispielergebnis
+   
+  ```
+  e = 23
+  ```
+
+solution: |
+  int eimer(double l, double leak){
+    double ml = l*1000;
+    int min = 0;
+    while(ml > 10){
+        ml = ml*(1-leak/100);
+        min++;
+    }
+    return min;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        #include <CUnit/CUnit.h>
+        #include <string.h>
+
+        void test_eimer(void) {
+          // Beispiel
+          if (eimer(7, 25) == 23) {
+            CU_PASS("Erfolg! Eingabe (7, 25) Erwartete Ausgabe (23)");
+          } else {
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (7, 25)\n\
+                    Erwartete Ausgabe:    (23)\n\
+                    Tatsächliche Ausgabe: (%d)\n", eimer(7, 25));
+            CU_FAIL("1.Test");
+          }
+          // Beispiel Variante
+          if (eimer(7, 40) == 13) {
+            CU_PASS("Erfolg! Eingabe (7, 40) Erwartete Ausgabe (13)");
+          } else {
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (7, 40)\n\
+                    Erwartete Ausgabe:    (13)\n\
+                    Tatsächliche Ausgabe: (%d)\n", eimer(7, 40));
+            CU_FAIL("2.Test");
+          }
+          // Kommazahl 1
+          if (eimer(4.5, 36) == 14) {
+            CU_PASS("Erfolg! Eingabe (4.5, 36) Erwartete Ausgabe (14)");
+          } else {
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (4.5, 36)\n\
+                    Erwartete Ausgabe:    (14)\n\
+                    Tatsächliche Ausgabe: (%d)\n", eimer(4.5, 36));
+            CU_FAIL("3.Test");
+          }
+
+          // Kommazahl 2
+          if (eimer(3.25, 50.5) == 9) {
+            CU_PASS("Erfolg! Eingabe (3.25, 50.5) Erwartete Ausgabe (9)");
+          } else {
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              (3.25, 50.5)\n\
+                    Erwartete Ausgabe:    (9)\n\
+                    Tatsächliche Ausgabe: (%d)\n", eimer(3.25, 50.5));
+            CU_FAIL("4.Test");
+          }
+
+          // Eimer ist leer
+          if (eimer(0, 0) == 0) {
+            CU_PASS("Erfolg! Eingabe (0, 0) Erwartete Ausgabe (0)");
+          } else {
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              (0, 0)\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%d)\n", eimer(0, 0));
+            CU_FAIL("5.Test");
+          }
+
+          // Hundert Prozent
+          if (eimer(10, 100) == 1) {
+            CU_PASS("Erfolg! Eingabe (10, 100) Erwartete Ausgabe (1)");
+          } else {
+            printf("\n    6.Test: Fehler!\n\
+                    Eingabe:              (10, 100)\n\
+                    Erwartete Ausgabe:    (1)\n\
+                    Tatsächliche Ausgabe: (%d)\n", eimer(10, 100));
+            CU_FAIL("6.Test");
+          }
+
+          // Random
+          if (eimer(7.6, 23) == 26) {
+            CU_PASS("Erfolg! Eingabe (7.6, 23) Erwartete Ausgabe (26)");
+          } else {
+            printf("\n    7.Test: Fehler!\n\
+                    Eingabe:              (7.6, 23)\n\
+                    Erwartete Ausgabe:    (26)\n\
+                    Tatsächliche Ausgabe: (%d)\n", eimer(7.6, 23));
+            CU_FAIL("7.Test");
+          }
+        }
+
+        int init_suite1(void) { return 0; }
+        int clean_suite1(void) { return 0; }
+        void cleanup() {}
+
+        int main() {
+          CU_pSuite pSuite = NULL;
+
+          /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Loch im Eimer", test_eimer))) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "DATATYPE", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 3050
+    prerequisites: []
+    unlockableAssets: []

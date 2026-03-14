@@ -1,0 +1,247 @@
+shortname: "Sudoku überprüfen" #E23
+title: "Überprüfen ob Matrix gültiges Sudoku ist"
+taskid: 77
+defaultEditorInput: |
+lang: "c"
+task: |
+  Eine Sudoku-Matrix ist eine 9x9-Matrix, deren Einträge ganze Zahlen zwischen 1 und 9 sind und die weitere Bedingungen erfüllen. Zur Formulierung der Bedingungen betrachten wir die Matrix als Blockmatrix aus 9 Blöcken von 3x3-Matrizen, die durch die Zeilen bzw. Spalten 1 bis 3, 4 bis 6 und 7 bis 9 gebildet werden. Jede dieser 3x3-Matrizen bezeichnen im Weiteren als Block. Nun können wir die Bedingungen formulieren, die aus einer Matrix obiger Form eine Sudoku-Matrix machen: 
+  - Jede Zeile und jede Spalte gibt eine Permutation der Länge 9 an.
+  - Jeder Block enthält jeden der Werte 1 bis 9 genau einmal.
+
+  ---
+  Programmieren Sie eine Funktion 
+  ```
+  int sudokucheck(const int** s)
+  ``` 
+  die von einer 9x9 Matrix in Doppelzeigerform (siehe Aufgabe Permutationsmatrix) prüft, ob es sich dabei um eine Sudoku-Matrix handelt. Geben Sie `1` zurück, falls ja, und `0` sonst.
+solution: |
+  #include <stdio.h>
+
+  int sudokucheck(const int** s) {
+    const int laenge = 9;
+    
+    for(int i = 0; i < laenge; i++) {
+      int helper[] = {2,2,2,2,2,2,2,2,2};
+      for(int j = 0; j < laenge; j++) {
+        if(*(*s + (i*laenge) + j) < 1 || *(*s + (i*laenge) + j) > 9) {
+          return 0;
+        }
+        if(helper[(*(*s + (i*laenge) + j) - 1)]) {
+          helper[(*(*s + (i*laenge) + j) - 1)]--;
+        }
+        else {
+          return 0;
+        }
+        if(helper[(*(*s + (j*laenge) + i) - 1)]) {
+          helper[(*(*s + (j*laenge) + i) - 1)]--;
+        }
+        else {
+          return 0;
+        }
+        if(!(i % 3) && !(j % 3)) {
+          int block[] = {1,1,1,1,1,1,1,1,1};
+          for(int k = 0; k < 3; k++) {
+            for(int l = 0; l < 3; l++) {
+              if(block[(*(*s + (i*laenge) + j + (k*laenge) + l) - 1)]) {
+                block[(*(*s + (i*laenge) + j + (k*laenge) + l) - 1)]--;
+              }
+              else {
+                return 0;
+              }
+            }
+          }			
+        }
+      }
+    }
+    return 1;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+
+        void showFailMessage(const int** matrix_input, int exp, int act, int test_num){
+          char  matrix_formated[5000];
+          int size = 9;
+          int i = 0;
+          matrix_formated[i++] = '{';
+          for(int j = 0; j < size; j++){
+            matrix_formated[i++] = '{';
+            for(int k = 0; k < size; k++){
+              matrix_formated[i++] = '0' + matrix_input[j][k];
+              if(k < size-1){
+                matrix_formated[i++] = ' ';
+              }
+            }
+            matrix_formated[i++] = '}';
+            if(j < size - 1){
+              matrix_formated[i++] = '\n';
+              for(int w = 0; w < 36; w++){
+                matrix_formated[i++] = ' ';
+              }
+            }
+            
+          }
+          matrix_formated[i++] = '}';
+          matrix_formated[i++] = '\0';
+          printf("\n    %d.Test: Fehler!\n\
+                    Eingabe:              (%s)\n\
+                    Erwartete Ausgabe:    (%d)\n\
+                    Tatsächliche Ausgabe: (%d)\n", test_num, matrix_formated, exp, act);
+        }
+
+        void test_sudokucheck(void){
+
+        // Correct sudoku
+
+          int laenge=9;
+          int matrix[9][9] = {  {5,3,4,6,7,8,9,1,2},
+                                {6,7,2,1,9,5,3,4,8},
+                    {1,9,8,3,4,2,5,6,7},
+              {8,5,9,7,6,1,4,2,3},
+              {4,2,6,8,5,3,7,9,1},
+              {7,1,3,9,2,4,8,5,6},
+              {9,6,1,5,3,7,2,8,4},
+              {2,8,7,4,1,9,6,3,5},
+              {3,4,5,2,8,6,1,7,9}};
+          const int* m[9];
+          for (int i=0; i<laenge; i++) m[i] = matrix[i];
+          if (sudokucheck(m) == 1) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("1.Test");
+            showFailMessage(m, 1, sudokucheck(m), 1 );
+          }
+
+        // Wrong value
+          int matrix2[9][9] = { {5,3,4,6,7,8,9,1,2},
+                                {6,7,2,1,9,5,3,4,8},
+                    {1,9,8,3,4,2,5,6,7},
+              {8,5,9,7,0,1,4,2,3},
+              {4,2,6,8,5,3,7,9,1},
+              {7,1,3,9,2,4,8,5,6},
+              {9,6,1,5,3,7,2,8,4},
+              {2,8,7,4,1,9,6,3,5},
+              {3,4,5,2,8,6,1,7,9}};
+
+          for (int i=0; i<laenge; i++) m[i] = matrix2[i];
+          if (sudokucheck(m) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("2.Test");
+            showFailMessage(m, 0, sudokucheck(m), 2);
+          }
+
+        //Doubled value in rows
+          int matrix3[9][9] = { {5,3,4,6,7,8,9,1,2},
+                                {6,7,2,1,9,5,3,4,8},
+                    {1,9,8,3,4,2,5,6,7},
+              {8,5,9,7,6,1,4,2,3},
+              {4,6,6,8,5,3,7,9,1},
+              {7,1,3,9,2,4,8,5,6},
+              {9,2,1,5,3,7,2,8,4},
+              {2,8,7,4,1,9,6,3,5},
+              {3,4,5,2,8,6,1,7,9}};
+
+          for (int i=0; i<laenge; i++) m[i] = matrix3[i];
+          if (sudokucheck(m) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("3.Test");
+            showFailMessage(m, 0, sudokucheck(m), 3);
+          }
+
+        //Doubled value in columns
+          int matrix4[9][9] = { {5,3,4,6,7,8,9,1,2},
+                                {6,7,2,1,9,5,3,4,8},
+                    {1,9,8,3,4,2,5,6,7},
+              {8,5,9,7,6,1,4,2,3},
+              {4,2,7,8,5,3,6,9,1},
+              {7,1,3,9,2,4,8,5,6},
+              {9,6,1,5,3,7,2,8,4},
+              {2,8,7,4,1,9,6,3,5},
+              {3,4,5,2,8,6,1,7,9}};
+          for (int i=0; i<laenge; i++) m[i] = matrix4[i];
+          if (sudokucheck(m) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("4.Test");
+            showFailMessage(m, 0, sudokucheck(m), 4);
+          }
+
+        //Doubled value in blocks
+          int matrix5[9][9] = { {5,3,4,6,7,8,9,1,2},
+                                {6,4,2,1,9,5,3,7,8},
+                    {1,9,8,3,4,2,5,6,7},
+              {8,5,9,7,6,1,4,2,3},
+              {4,2,6,8,5,3,7,9,1},
+              {7,1,3,9,2,4,8,5,6},
+              {9,6,1,5,3,7,2,8,4},
+              {2,8,7,4,1,9,6,3,5},
+              {3,7,5,2,8,6,1,4,9}};
+          for (int i=0; i<laenge; i++) m[i] = matrix5[i];
+          if (sudokucheck(m) == 0) {
+            CU_PASS(Erfolg!);
+          } else {
+            CU_FAIL("5.Test");
+            showFailMessage(m, 0, sudokucheck(m), 5);
+          }
+        }
+
+        int init_suite1(void)
+        {
+          return 0;
+        }
+
+        int clean_suite1(void)
+        {
+          return 0;
+        }
+
+
+        void cleanup(){}
+
+        int main(){
+        CU_pSuite pSuite = NULL;
+
+        /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite) {
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Sudoku überprüfen", test_sudokucheck)))
+          {
+              unsigned int cu_result = CU_get_number_of_failure_records();
+              CU_cleanup_registry();
+              return cu_result;
+          }
+
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "ARRAY", "points": 40 }
+      - { "name": "POINTER", "points": 40 }
+      - { "name": "schwierig" }
+    orderBy: 6400
+    prerequisites: []
+    unlockableAssets: []

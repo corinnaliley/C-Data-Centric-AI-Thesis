@@ -1,0 +1,93 @@
+shortname: "Quellcode verstehen" #L6
+title: "Verstehen eines gegebenen Quellcodes"
+taskid: 806
+defaultEditorInput: |
+lang: "c"
+task: |
+  Verstehen sie den untenstehenden Quellcode und erklären Sie ihn in einem Tutorium.
+  
+  Einige Kernfragen für besseres Verständnis:
+  
+  - Wie sieht die durch `tree_t` repräsentierte Datenstruktur visualisiert aus? Welche Ordnung haben die Elemente in der Datenstruktur, die in diesem Fall eingespeichert werden?
+  - Wie läuft das Programm grob ab? Was passiert in der main-Funktion? Welche Teile davon erschließen sich auf anhieb und was müssen Sie sich nochmal genauer angucken?
+  - Was machen jeweils die Funktionen `t`, `destroy_tree` und `print_reverse`?
+  - Wofür werden die jeweiligen `include`-Direktiven benötigt?
+  
+  Wenn Sie die Aufgabe gelöst haben, **erhalten Sie im Tutorium das Lösungswort**, dass sie als die Zeichenkette `solution` deklarieren und statt eines Quelltextes abgeben können (z.B. `char *solution = "solution";`).
+
+  ```
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  typedef struct tree_s {
+    int value;
+    struct tree_s *left;
+    struct tree_s *right;
+  } tree_t;
+
+  tree_t *t(int value, tree_t *left, tree_t *right) {
+    tree_t *t = malloc(sizeof(tree_t));
+    t->value = value;
+    t->left = left;
+    t->right = right;
+    return t;
+  }
+
+  void destroy_tree(tree_t *t) {
+    if(t->left != NULL)
+      destroy_tree(t->left);
+    if(t->right != NULL)
+      destroy_tree(t->right);
+    free(t);
+  }
+
+  void print_reverse(tree_t *t) {
+    if(t->right != NULL)
+      print_reverse(t->right);
+    printf("%d ", t->value);
+    if(t->left != NULL)
+      print_reverse(t->left);
+  }
+
+  int main() {
+    tree_t *binary_tree = t(4, 
+      t(2, 
+        t(1, NULL, NULL), 
+        t(3, NULL, NULL)
+      ), 
+      t(6, 
+        t(5, NULL, NULL), 
+        t(7, NULL, NULL)
+      )
+    );
+    print_reverse(binary_tree);
+    destroy_tree(binary_tree);
+  }
+  ```
+solution: |
+  char *solution = "Lumberjack";
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include<stdio.h>
+        #include<string.h>
+        #include "solution.c"
+        
+        int main() {
+            if(strcmp(solution, "Lumberjack") == 0) {
+                puts("Das Lösungswort war korrekt!");
+                return 0;
+            }
+            puts("Das Lösungswort war leider falsch :-(");
+            return 1;
+        }
+testConstraints: {}
+courses:
+  test:
+    tags:
+      - { "name": "TODO", "points": TODO }
+      - { "name": "TODO" }
+    orderBy: TODO
+    prerequisites: []
+    unlockableAssets: []

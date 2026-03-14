@@ -1,0 +1,74 @@
+SHORTNAME:
+Bruch III
+
+TITLE:
+Finden des größten Bruches aus einer Liste
+
+TASKID:
+524
+
+DEFAULTEDITORINPUT:
+
+
+LANG:
+c
+
+TASK:
+Der Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt **gegeben** (nicht in der Abegabedatei definieren):
+
+```
+typedef struct {
+  int zaehler;
+  int nenner;
+} bruch_t;
+```
+
+Es steht eine Funktion mit Prototyp:
+
+```
+bruch_t sub_rational(bruch_t *x, bruch_t *y);
+```
+
+zum Subtrahieren zweier rationaler Zahlen zur Verfügung, die sicherstellt, dass der Denominator des Rückgabewerts nicht negativ ist.
+
+---
+
+Programmieren Sie eine Funktion mit Prototyp:
+
+```
+bruch_t *max_rational(bruch_t list[], int length);
+```
+
+die angewendet auf das Feld `list` der Länge `length` die größte rationale Zahl ermittelt und einen Zeiger auf die entsprechende Feldkomponente als Funktionswert zurückliefert. Falls mehrere gleich große rationale Zahlen im Feld erfasst sind, so wird ein Zeiger auf irgendeine davon zurückgegeben.
+
+*Anforderungen*
+
+- Führen Sie den Vergleich zweier rationaler Zahlen mit der Funktion `sub_rational` durch. Es gilt aus a-b < 0 folgt a < b.
+- Die Funktion liefert bei ungültigen Argumenten, `list` ist der Nullzeiger oder `length` ist kleiner Null, den Nullzeiger zurück.
+- Sind die übergebenen Argumente gültig, können Sie davon ausgehen, dass `list` auf den Anfang eines `bruch_t`-Feldes der Länge `length` zeigt.
+
+
+SOLUTION:
+bruch_t *max_rational(bruch_t list[], int length) {
+  if (list == NULL || length < 0) {
+    return NULL;
+  }
+  int max_index = 0;
+  for (int i = 1; i < length; i++) {
+    if (sub_rational(&list[max_index], &list[i]).zaehler < 0) {
+      max_index = i;        
+    }
+  }
+  return &list[max_index];
+}
+
+
+TESTS:
+[{'testtype': 'c-code', 'testCases': ['#include <CUnit/CUnit.h>\n#include "CUnit/Basic.h"\n#include <stdlib.h>\n\ntypedef struct {\n  int zaehler;\n  int nenner;\n} bruch_t;\n\nbruch_t sub_rational(bruch_t *x, bruch_t *y) {\n  bruch_t result;\n  int nenner_neu = x->nenner * y->nenner;\n  int x_zaehler_neu = y->nenner * x->zaehler;\n  int y_zaehler_neu = x->nenner * y->zaehler;\n  result.zaehler = x_zaehler_neu - y_zaehler_neu;\n  result.nenner = nenner_neu;\n  if (result.nenner < 0) {\n    result.nenner *= -1;\n    result.zaehler *= -1;\n  }\n  return result;\n} \n\n#include "solution.c"\n\nvoid showFailMessage(int test_num, bruch_t list_input1[], int length_input2, bruch_t *act, bruch_t *exp){\n  char  list_string[1000];\n  sprintf(list_string, "list:   ");\n  if(list_input1 == NULL){\n    sprintf(list_string, "%sNULL", list_string);\n  } else if(length_input2 < 0) {\n    sprintf(list_string, "%s(%d/%d)", list_string, list_input1[0].zaehler, list_input1[0].nenner);\n  } else {\n    for (int i = 0; i < length_input2; i++) {\n      sprintf(list_string, "%s(%d/%d)", list_string, list_input1[i].zaehler, list_input1[i].nenner);\n      if(i < length_input2 -1){\n        sprintf(list_string, "%s, ", list_string);\n      }\n    }\n  }\n  char  exp_string[100];\n  if(exp == NULL){\n    sprintf(exp_string, "NULL");\n  } else {\n    sprintf(exp_string, "%d/%d", exp->zaehler, exp->nenner);\n  }\n\n  char  act_string[100];\n  if(act == NULL){\n    sprintf(act_string, "NULL");\n  } else {\n    sprintf(act_string, "%d/%d", act->zaehler, act->nenner);\n  }\n  \n  printf("\\n    %d.Test: Fehler!\\n\\\n             Eingabe:              (%s\\n\\\n                                    length: %d)\\n\\\n             Erwartete Ausgabe:    (%s)\\n\\\n             Tatsächliche Ausgabe: (%s)\\n", test_num, list_string, length_input2, exp_string, act_string);\n}\n\nvoid test_max_rational(void) {\n  bruch_t *ergebnis;\n  ergebnis = max_rational(NULL, 1);\n\n  if(ergebnis == NULL){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("1.Test");\n    showFailMessage(1, NULL , 1, ergebnis, NULL);\n  }\n\n  bruch_t bruch1 = {0, 1};\n  bruch_t bruch2 = {-15, 6};\n  bruch_t bruch3 = {9, -10};\n  bruch_t bruch4 = {-46, 2};\n  bruch_t bruch5 = {-6, 5};\n\n  bruch_t list1[] = {bruch1};\n  bruch_t list2[] = {bruch2, bruch3, bruch4, bruch5, bruch3, bruch1};\n  \n  ergebnis = max_rational(list1, -39);\n  if(ergebnis == NULL){\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("2.Test");\n    showFailMessage(2, list1 , -39, ergebnis, NULL);\n  }          \n  \n  ergebnis = max_rational(list1, 1);\n  if (ergebnis != NULL && ergebnis->zaehler == 0 && ergebnis->nenner == 1) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("3.Test");\n    showFailMessage(3, list1 , 1, ergebnis, &bruch1);\n  }\n\n  ergebnis = max_rational(list2, 1);\n  if (ergebnis != NULL && ergebnis->zaehler == -15 && ergebnis->nenner == 6) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("4.Test");\n    showFailMessage(4, list2 , 1, ergebnis, &bruch2);\n  }\n\n  ergebnis = max_rational(list2, 5);\n  if (ergebnis != NULL && ergebnis->zaehler == 9 && ergebnis->nenner == -10) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("5.Test");\n    showFailMessage(5, list2 , 5, ergebnis, &bruch3);\n  }\n  \n  ergebnis = max_rational(list2, 6);\n  if (ergebnis != NULL && ergebnis->zaehler == 0 && ergebnis->nenner == 1) {\n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("6.Test");\n    showFailMessage(6, list2 , 6, ergebnis, &bruch1);\n  }\n\n  bruch_t bruch6 = {9,15};\n  bruch_t bruch7 = {48,15};\n  bruch_t bruch8 = {1,6};\n  bruch_t bruch9 = {72,33};\n  bruch_t list3 [] = {bruch6 , bruch1, bruch7, bruch8, bruch5, bruch2, bruch9, bruch4};\n  ergebnis = max_rational(list3, 8);\n  if (ergebnis != NULL && ergebnis->zaehler == 48 && ergebnis->nenner == 15) {    \n    CU_PASS("Erfolg!");\n  } else {\n    CU_FAIL("7.Test");\n    showFailMessage(7, list3, 8, ergebnis, &bruch7);\n  }\n\n\n}\n\nint init_suite1(void)\n{\n  return 0;\n}\n\nint clean_suite1(void)\n{\n  return 0;\n}\n\n\nvoid cleanup(){}\n\nint main(){\nCU_pSuite pSuite = NULL;\n\n/* initialize the CUnit test registry */\n  if (CUE_SUCCESS != CU_initialize_registry())\n    return 1;\n\n  /* add a suite to the registry */\n  pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);\n  if (NULL == pSuite) {\n    unsigned int cu_result = CU_get_number_of_failure_records();\n    CU_cleanup_registry();\n    return cu_result;\n  }\n\n  /* add the tests to the suite */\n  /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */\n  if ((NULL == CU_add_test(pSuite, "Bruch III", test_max_rational)))\n  {\n      unsigned int cu_result = CU_get_number_of_failure_records();\n      CU_cleanup_registry();\n      return cu_result;\n  }\n\n  /* Run all tests using the CUnit Basic interface */\n  CU_basic_set_mode(CU_BRM_VERBOSE);\n  CU_basic_run_tests();\n  unsigned int cu_result = CU_get_number_of_failure_records();\n  CU_cleanup_registry();\n  return cu_result;\n}\n']}]
+
+TESTCONSTRAINTS:
+{}
+
+COURSES:
+{'ckurs': {'tags': [{'name': 'STRUCT', 'points': 80}, {'name': 'klausur'}], 'orderBy': 6820, 'prerequisites': [], 'unlockableAssets': []}}
+

@@ -1,0 +1,214 @@
+shortname: "Zahlenreihen VI" #D12
+title: "Berechnung von Zahlenreihen"
+taskid: 412
+defaultEditorInput: |
+lang: "c"
+task: |
+  Die Folge `P` ist definiert durch p<sub>0</sub>=3, p<sub>1</sub>=0, p<sub>2</sub>=2, sowie für k>2 durch p<sub>k</sub>=p<sub>k-2</sub>+p<sub>k-3</sub>.
+  Daraus ergibt sich folgender Anfang der Folge `P`:
+
+  p<sub>0</sub>=3, p<sub>1</sub>=0, p<sub>2</sub>=2, p<sub>3</sub>=3, p<sub>4</sub>=2, p<sub>5</sub>=5, p<sub>5</sub>=5, p<sub>7</sub>=7, p<sub>8</sub>=10,...
+   
+  Programmieren Sie eine Funktion mit folgendem Prototyp: 
+  ```
+  long iteP(unsigned int k);
+  ```
+   
+  die das `k`-te Glied der Folge `P` **iterativ** berechnet, d.h. die Funktion darf sich nicht selbst aufrufen.
+   
+  *Hinweis.* Kümmern Sie sich nicht um mögliche Überläufe, diese Problematik kann ignoriert werden.
+
+solution: |
+  long iteP(unsigned int k){
+    long pkminus1 = 2;
+    long pkminus2 = 0;
+    long pkminus3 = 3;
+    long result;
+    if(k == 0) return 3;
+    if(k == 1) return 0;
+    if(k == 2) return 2;
+    for(int i = 3; i<=k; i++){
+      result = pkminus2+pkminus3;
+      pkminus3 = pkminus2;
+      pkminus2 = pkminus1;
+      pkminus1 = result;
+    }
+
+    return result;
+  }
+tests:
+  - testtype: "c-code"
+    testCases:
+      - |
+        #include <CUnit/CUnit.h>
+        #include "CUnit/Basic.h"
+        #include "solution.c"
+        #include <string.h>
+        
+        void test_iteP(void){ 
+          long P[] = {3, 0, 2, 3, 2, 5, 5, 7, 10, 12, 17, 22, 29, 39, 51, 68, 90, 119, 158, 209};
+
+          if(iteP(0) == 3){
+            CU_PASS("Erfolg! Eingabe (0) Erwartetes Ergebnis (3)");
+          }
+          else{
+            printf("\n    1.Test: Fehler!\n\
+                    Eingabe:              (0)\n\
+                    Erwartete Ausgabe:    (3)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(0) );
+            CU_FAIL("1.Test");
+          }
+
+          if(iteP(1) == 0){
+            CU_PASS("Erfolg! Eingabe (1) Erwartetes Ergebnis (0)");
+          }
+          else{
+            printf("\n    2.Test: Fehler!\n\
+                    Eingabe:              (1)\n\
+                    Erwartete Ausgabe:    (0)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(1) );
+            CU_FAIL("2.Test");
+          }
+
+          if(iteP(2) == 2){
+            CU_PASS("Erfolg! Eingabe (2) Erwartetes Ergebnis (2)");
+          }
+          else{
+            printf("\n    3.Test: Fehler!\n\
+                    Eingabe:              (2)\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(2) );
+            CU_FAIL("3.Test");
+          }
+
+          if(iteP(3) == 3){
+            CU_PASS("Erfolg! Eingabe (3) Erwartetes Ergebnis (3)");
+          }
+          else{
+            printf("\n    4.Test: Fehler!\n\
+                    Eingabe:              (3)\n\
+                    Erwartete Ausgabe:    (3)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(3) );
+            CU_FAIL("4.Test");
+          }
+
+          if(iteP(4) == 2){
+            CU_PASS("Erfolg! Eingabe (4) Erwartetes Ergebnis (2)");
+          }
+          else{
+            printf("\n    5.Test: Fehler!\n\
+                    Eingabe:              (4)\n\
+                    Erwartete Ausgabe:    (2)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(4) );
+            CU_FAIL("5.Test");
+          }
+
+          if(iteP(5) == 5){
+            CU_PASS("Erfolg! Eingabe (5) Erwartetes Ergebnis (5)");
+          }
+          else{
+            printf("\n    6.Test: Fehler!\n\
+                    Eingabe:              (5)\n\
+                    Erwartete Ausgabe:    (5)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(5) );
+            CU_FAIL("6.Test");
+          }
+
+          if(iteP(6) == 5){
+            CU_PASS("Erfolg! Eingabe (6) Erwartetes Ergebnis (5)");
+          }
+          else{
+            printf("\n    7.Test: Fehler!\n\
+                    Eingabe:              (6)\n\
+                    Erwartete Ausgabe:    (5)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(6) );
+            CU_FAIL("7.Test");
+          }
+
+          if(iteP(7) == 7){
+            CU_PASS("Erfolg! Eingabe (7) Erwartetes Ergebnis (7)");
+          }
+          else{
+            printf("\n    8.Test: Fehler!\n\
+                    Eingabe:              (7)\n\
+                    Erwartete Ausgabe:    (7)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(7) );
+            CU_FAIL("8.Test");
+          }
+
+          if(iteP(10) == 17){
+            CU_PASS("Erfolg! Eingabe (10) Erwartetes Ergebnis (17)");
+          }
+          else{
+            printf("\n    9.Test: Fehler!\n\
+                    Eingabe:              (10)\n\
+                    Erwartete Ausgabe:    (17)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(10) );
+            CU_FAIL("9.Test");
+          }
+
+          if(iteP(15) == 68){
+            CU_PASS("Erfolg! Eingabe (15) Erwartetes Ergebnis (68)");
+          }
+          else{
+            printf("\n    10.Test: Fehler!\n\
+                    Eingabe:              (10)\n\
+                    Erwartete Ausgabe:    (68)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(15) );
+            CU_FAIL("10.Test");
+          }
+
+          if(iteP(19) == 209){
+            CU_PASS("Erfolg! Eingabe (19) Erwartetes Ergebnis (209)");
+          }
+          else{
+            printf("\n    11.Test: Fehler!\n\
+                    Eingabe:              (19)\n\
+                    Erwartete Ausgabe:    (209)\n\
+                    Tatsächliche Ausgabe: (%ld)\n", iteP(19) );
+            CU_FAIL("11.Test");
+          }
+        }
+          
+        int init_suite1(void){ return 0; }
+        int clean_suite1(void){ return 0; }
+        void cleanup(){}
+          
+        int main(){
+          CU_pSuite pSuite = NULL;
+        
+          /* initialize the CUnit test registry */
+          if (CUE_SUCCESS != CU_initialize_registry())
+            return 1;
+          
+          /* add a suite to the registry */
+          pSuite = CU_add_suite("Suite_1", init_suite1, clean_suite1);
+          if (NULL == pSuite){
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+          
+          /* add the tests to the suite */
+          /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
+          if ((NULL == CU_add_test(pSuite, "Zahlenreihen VI", test_iteP))){
+            unsigned int cu_result = CU_get_number_of_failure_records();
+            CU_cleanup_registry();
+            return cu_result;
+          }
+          /* Run all tests using the CUnit Basic interface */
+          CU_basic_set_mode(CU_BRM_VERBOSE);
+          CU_basic_run_tests();
+          unsigned int cu_result = CU_get_number_of_failure_records();
+          CU_cleanup_registry();
+          return cu_result;
+        }
+testConstraints: {}
+courses:
+  ckurs:
+    tags:
+      - { "name": "MATH", "points": 10 }
+      - { "name": "einfach" }
+    orderBy: 2750
+    prerequisites: []
+    unlockableAssets: []
