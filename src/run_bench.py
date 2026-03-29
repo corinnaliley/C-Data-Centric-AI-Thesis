@@ -261,6 +261,18 @@ def dump_missing_evidence_with_context(
     print(f"✅ Debug-Datei geschrieben: {output_path}")
     print(f"   {len(missing)} MISSING-Einträge dokumentiert.")
 
+
+def find_evidence_chunk_indices(evidence: str, corpus_texts: list[str]) -> list[int]:
+    """
+    Gibt alle Indizes zurück, in deren Chunk-Text die Evidence als Substring vorkommt.
+    Gibt [] zurück wenn kein Chunk die Evidence enthält (MISSING-Fall aus Coverage-Check).
+    """
+    import re
+    def normalize(s): return re.sub(r'\s+', ' ', s).strip().lower()
+
+    evidence_norm = normalize(evidence)
+    return [i for i, t in enumerate(corpus_texts) if evidence_norm in normalize(t)]
+
 def run_evaluation():
     print("🚀 STARTE UPGRADED EVALUATION (V2)...\n")
 
@@ -310,6 +322,8 @@ def run_evaluation():
         queries = json.load(f)
 
     hits = 0
+    chunk_hits_essential = 0
+    chunk_hits_any = 0
     evaluated_count = 0
     results_log = []
 
@@ -350,6 +364,47 @@ def run_evaluation():
         else:
             status = "❌ Falsch "
 
+        evidence_chunk_details = []  # ← hier resetten, pro Query
+        local_chunk_hit_essential = False
+        local_chunk_hit_any = False
+
+        for ref in gold_references:
+            evidence = ref.get("evidence", "").strip()
+            importance = ref.get("importance", "essential")
+
+            if not evidence:
+                continue
+
+            # Welche Chunk-Indizes enthalten diese Evidence?
+            matching_indices = find_evidence_chunk_indices(evidence, corpus_texts)
+
+            # Ist der top-ranked Chunk (top_idx) darunter?
+            top_is_evidence_chunk = top_idx in matching_indices
+
+            # Alternativ: ist irgendein Evidence-Chunk unter Top-K?
+            TOP_K = 5
+            top_k_indices = torch.topk(cos_scores, min(TOP_K, len(cos_scores))).indices.tolist()
+            topk_has_evidence = any(idx in matching_indices for idx in top_k_indices)
+
+            if top_is_evidence_chunk and importance == "essential":
+                local_chunk_hit_essential = True
+            if top_is_evidence_chunk:
+                local_chunk_hit_any = True
+
+            evidence_chunk_details.append({
+                "evidence_snippet": evidence[:80],
+                "importance": importance,
+                "evidence_chunk_indices": matching_indices,
+                "top1_is_evidence_chunk": top_is_evidence_chunk,
+                "topk_has_evidence": topk_has_evidence,
+            })
+
+        if local_chunk_hit_essential:
+            chunk_hits_essential += 1
+        if local_chunk_hit_any:
+            chunk_hits_any += 1
+
+
         print(f"{status} | Frage: {query_text[:40]}... | Gefunden: {predicted_id} (Score: {best_score:.2f})")
 
         results_log.append({
@@ -357,13 +412,24 @@ def run_evaluation():
             "type": query_type,
             "expected_ids": expected_ids,
             "predicted_id": predicted_id,
-            "is_hit": is_hit,
-            "score": round(best_score, 4)
+            "is_hit": is_hit,  # Doc-Level
+            "chunk_hit_essential": local_chunk_hit_essential,
+            "chunk_hit_any": local_chunk_hit_any,
+            "score": round(best_score, 4),
+            "evidence_chunk_details": evidence_chunk_details,  # NEU: Detail pro Evidence
         })
 
     # 3. ENDERGEBNIS
     accuracy = (hits / evaluated_count) * 100 if evaluated_count > 0 else 0
     print(f"\n📊 ENDERGEBNIS: {hits}/{evaluated_count} richtig ({accuracy:.2f}% Hit@1)")
+
+    chunk_acc_essential = (chunk_hits_essential / evaluated_count) * 100 if evaluated_count > 0 else 0
+    chunk_acc_any = (chunk_hits_any / evaluated_count) * 100 if evaluated_count > 0 else 0
+
+    print(f"\n📊 ENDERGEBNIS (Chunk-Level):")
+    print(f"   Doc-Level  Hit@1 : {hits}/{evaluated_count} ({accuracy:.2f}%)")
+    print(f"   Chunk-Level Hit@1 (essential) : {chunk_hits_essential}/{evaluated_count} ({chunk_acc_essential:.2f}%)")
+    print(f"   Chunk-Level Hit@1 (any)       : {chunk_hits_any}/{evaluated_count} ({chunk_acc_any:.2f}%)")
 
     final_report = {
         "metrics": {

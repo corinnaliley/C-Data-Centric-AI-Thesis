@@ -33,39 +33,72 @@ class Block:
 # --- PDF & TEXT LOGIK ---
 
 def _blocks_from_markdown(md: str, doc_id: str) -> List[Block]:
-    """Wandelt Markdown in strukturierte Blocks um."""
+    """
+    Codeblöcke werden nicht vom vorangehenden
+    Paragraphen getrennt, sondern zusammengefasst.
+    Chunks werden erst bei Headings oder nach MIN_CHARS Zeichen gesplittet.
+    """
     import re
+    MIN_CHARS = 300  # Mindestgröße eines Chunks — verhindert Micro-Splits
+
     lines = md.splitlines()
     blocks = []
     section_stack = []
-    para_buf = []
+    buf = []           # aktueller Text-Buffer
+    in_code = False
 
-    def flush_para():
-        if para_buf:
-            text = " ".join(s.strip() for s in para_buf).strip()
-            if text:
-                blocks.append(Block(
-                    doc_id=doc_id, block_type=BlockType.PARAGRAPH,
-                    text=text, meta={}, section_path=" > ".join(section_stack) if section_stack else None
-                ))
-            para_buf.clear()
+    def flush(force=False):
+        text = "\n".join(buf).strip()
+        if text and (force or len(text) >= MIN_CHARS):
+            blocks.append(Block(
+                doc_id=doc_id,
+                block_type=BlockType.PARAGRAPH,
+                text=text,
+                meta={},
+                section_path=" > ".join(section_stack) if section_stack else None
+            ))
+            buf.clear()
+        elif text and not force:
+            pass  # Buffer behalten, nächster Paragraph wird angehängt
 
     for line in lines:
-        if not line.strip():
-            flush_para();
+        # Codeblock-Grenzen tracken — NICHT flushen beim Eintritt/Austritt
+        if line.strip().startswith("```"):
+            in_code = not in_code
+            buf.append(line)
             continue
+
+        if in_code:
+            buf.append(line)
+            continue
+
+        # Heading → harter Split
         m = re.match(r"^(#{1,6})\s+(.*)$", line.strip())
         if m:
-            flush_para()
+            flush(force=True)
             level = len(m.group(1))
             title = m.group(2).strip()
             section_stack = section_stack[:level - 1] + [title]
-            blocks.append(Block(doc_id=doc_id, block_type=BlockType.HEADING, text=title, meta={"level": level}))
+            blocks.append(Block(
+                doc_id=doc_id,
+                block_type=BlockType.HEADING,
+                text=title,
+                meta={"level": level}
+            ))
             continue
-        para_buf.append(line)
-    flush_para()
-    return blocks
 
+        # Leerzeile → nur flushen wenn Buffer groß genug
+        if not line.strip():
+            if len("\n".join(buf)) >= MIN_CHARS:
+                flush(force=True)
+            else:
+                buf.append("")  # Leerzeile im Buffer behalten für Kontext
+            continue
+
+        buf.append(line)
+
+    flush(force=True)
+    return blocks
 
 def convert_pdf_via_saia(path: str, cache_dir: pathlib.Path = None) -> List[Block]:
     """Nutzt SAIA Docling mit lokalem Dateisystem-Caching."""
