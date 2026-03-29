@@ -1,0 +1,757 @@
+MISSING EVIDENCE DEBUG — 76 Einträge
+================================================================================
+
+[1/76] ESSENTIAL | programmierung_mit_ansi_c-29-40.pdf
+Query   : Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?
+Evidence: Tippt der Benutzer unter UNIX C-d, so wird das vom Betriebssystem als Dateiende 
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Die Antwort auf die erste Frage ist einfach: Tippt der Benutzer unter UNIX C-d , so wird das vom Betriebssystem als Dateiende interpretiert.
+
+[2/76] OPTIONAL | programmierung_mit_ansi_c-29-40.pdf
+Query   : Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?
+Evidence: scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewan
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Die Antwort auf die zweite Frage ist auch nicht viel komplizierter, nur muss zur Erklarung etwas weiter ausgeholt werden. Wir erinnern uns daran, dass C nur Funktionen kennt. Bisher ist der Funktionswert der verwendeten Funktionen scanf und printf jedoch noch nicht in Erscheinung getreten. Er liefert jedoch die Antwort auf die Frage: scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewandelten Werte; tritt jedoch bereits vor dem Lesen und der Umwandlung des ersten Werte
+
+[3/76] OPTIONAL | programmierung_mit_ansi_c-29-40.pdf
+Query   : Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?
+Evidence: while (scanf("%d", while ( scanf ( " % d " , & wert ) != EOF ) { /* Zahl lesen *
+----------------------------------------
+  Nächster Chunk (4 Wort-Overlap):
+  Sehen wir uns jetzt die Eingabe durch scanf an. Der wesentlichste Unterschied zu printf : Die Funktion printf benotigt nur die Werte ihrer Argumente; ob sie Konstanten oder Variablen sind und wo sie ggf. im Speicher stehen, ist gleichgultig. Da der Name einer Variablen in C in den meisten Fallen als Bezeichnung fur ihren Wert interpretiert wird, reicht es aus, die Namen der Variablen in den Aufruf von printf einzusetzen. Bei scanf ist das anders. Diese Funktion muss wissen, wohin sie den gelesen
+
+[4/76] ESSENTIAL | programmierung_mit_ansi_c-107-112.pdf
+Query   : Wie kann ich mein Programm abbrechen?
+Evidence: Zwei Funktionen (abort und exit) erlauben die Beendigung eines Programms an be-l
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  - · Es gibt Funktionen zur dynamischen Bereitstellung von Speicher - und naturlich auch zur Freigabe solchen Speichers. Wegen ihrer besonderen Bedeutung ist ihnen ein extra Kapitel gewidmet. - · Zwei Funktionen ( abort und exit ) erlauben die Beendigung eines Programms an beliebiger Stelle, also ohne geschachtelte Funktionsaufrufe erst bis ins Hauptprogramm zuruckverfolgen zu mussen:
+
+[5/76] ESSENTIAL | programmierung_mit_ansi_c-1-16.pdf
+Query   : Wie kann ich mein Programm abbrechen?
+Evidence: Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  - · Jede Anweisung muss durch ein Semikolon abgeschlossen werden, anders als etwa in Pascal, wo das Semikolon Anweisungen trennt. - · Die return -Anweisung beendet die Funktion und liefert 0 als Funktionswert an die rufende Funktion zuruck. Fur main ist die rufende Funktion das Betriebssystem.
+
+[6/76] ESSENTIAL | programmierung_mit_ansi_c-157-166.pdf
+Query   : Wofür braucht man sizeof?
+Evidence: Hier ist der Operator sizeof unentbehrlich! Wieviel Speicher eine Struktur benöt
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Hier ist der Operator sizeof unentbehrlich! Wieviel Speicher eine Struktur benotigt, kann namlich von Rechner zu Rechner sehr unterschiedlich sein, selbst wenn die einzelnen Komponenten auf den Rechnern jeweils gleichviel Speicher benotigen. Dahinter steht eine Vorschrift des Standards: Die Komponenten einer Struktur mussen im Speicher des Rechners zwar dieselbe Reihenfolge besitzen wie in der Deklaration - sie mussen aber nicht luckenlos aufeinanderfolgen! Entsprechend addiert der Operator size
+
+[7/76] ESSENTIAL | programmierung_mit_ansi_c-127-148.pdf
+Query   : Bei binärer Suche, wie bestimmt man den mittleren Index?
+Evidence: Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folge
+----------------------------------------
+  Nächster Chunk (10 Wort-Overlap):
+  Die Addition zweier Zeiger ist dagegen unzulassig. Was sollte fur ein Feld v auch v + v bedeuten? Diesem Umstand ist besonders Rechnung zu tragen, wenn Terme vereinfacht werden sollen. Seien z.B. start und ende Zeiger auf den Anfang und das Ende eines Feldes. Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folgendermaßen geschehen:
+
+[8/76] OPTIONAL | 208.yaml
+Query   : Bei binärer Suche, wie bestimmt man den mittleren Index?
+Evidence: SOLUTION: #include <stdio.h>
+int suche(int *array, int len, int value) { int low
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Aufgabe: Programmieren Sie eine Funktion 
+```
+int suche(int *array, int len, int value);
+```
+die ein absteigend sortiertes Array `array`, die Länge des Arrays `len` und einen gesuchten Wert `value` übergeben bekommt. 
+
+*Anforderungen*
+- Die Funktion gibt `1` zurück, wenn `value` in `array` vorhanden ist und `0`, wenn `value` nicht in `array` vorhanden ist. 
+- Die Suche erfolgt **iterativ** und nach dem Prinzip *devide and conquer*. 
+- Dafür wird zuerst das mittlere Element von `array` betrachtet
+
+[9/76] OPTIONAL | 522.yaml
+Query   : Bei binärer Suche, wie bestimmt man den mittleren Index?
+Evidence: SOLUTION: int rec_contains(int **pos, int *start, int *end, int x) { if (start =
+----------------------------------------
+  Nächster Chunk (5 Wort-Overlap):
+  Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgendem Algorithmus suchen.
+
+  1. Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.
+  2. Besteht das Feld nur aus einer Komponente ist die Suche beendet. Ob die Suche erfolgreich war oder nicht, ergibt sich aus dem Wert der einzigen vorhandenen Feldkomponente.
+  3. Ermittle die mittle Feldkomponente. Zerlege das Feld in zwei Teile, den vorderen Teil vom Anfang bis zu mittleren Feldkomponeten (exklusive) u
+
+[10/76] ESSENTIAL | 208.yaml
+Query   : Wie funktioniert binäre Suche?
+Evidence: Anforderungen
+
+    Die Funktion gibt 1 zurück, wenn value in array vorhanden ist
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  Aufgabe: Programmieren Sie eine Funktion 
+```
+int suche(int *array, int len, int value);
+```
+die ein absteigend sortiertes Array `array`, die Länge des Arrays `len` und einen gesuchten Wert `value` übergeben bekommt. 
+
+*Anforderungen*
+- Die Funktion gibt `1` zurück, wenn `value` in `array` vorhanden ist und `0`, wenn `value` nicht in `array` vorhanden ist. 
+- Die Suche erfolgt **iterativ** und nach dem Prinzip *devide and conquer*. 
+- Dafür wird zuerst das mittlere Element von `array` betrachtet
+
+[11/76] ESSENTIAL | 522.yaml
+Query   : Wie funktioniert binäre Suche?
+Evidence: Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.
+Besteht das 
+----------------------------------------
+  Nächster Chunk (10 Wort-Overlap):
+  Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgendem Algorithmus suchen.
+
+  1. Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.
+  2. Besteht das Feld nur aus einer Komponente ist die Suche beendet. Ob die Suche erfolgreich war oder nicht, ergibt sich aus dem Wert der einzigen vorhandenen Feldkomponente.
+  3. Ermittle die mittle Feldkomponente. Zerlege das Feld in zwei Teile, den vorderen Teil vom Anfang bis zu mittleren Feldkomponeten (exklusive) u
+
+[12/76] ESSENTIAL | programmierung_mit_ansi_c-185-192.pdf
+Query   : Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?
+Evidence: Meist hat man die Wahl zwischen verschiedene Editoren, d.h. Programmen, mit dene
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Meist hat man die Wahl zwischen verschiedene Editoren , d.h. Programmen, mit denen man Texte, zum Beispiel auch C-Quellprogramme eingeben kann. Wichtig ist, dass der Editor den eingegebenen Quelltext ohne Formatierungsanweisungen oder Anweisungen zur Dokumentorganisation speichert. Ein normales Textverarbeitungsprogramm, mit dem man z.B. seine Briefe verfasst ist daher in der Regel nicht geeignet. Mit der Zeit entwickelt sicher jeder eine Vorliebe fur einen bestimmten Editor.
+
+[13/76] ESSENTIAL | programmierung_mit_ansi_c-185-192.pdf
+Query   : Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?
+Evidence: Dazu benötigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist me
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org ) zusammen mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc ) installiert. Beide kann man kostenlos im Internet herunterladen.
+
+[14/76] OPTIONAL | programmierung_mit_ansi_c-107-112.pdf
+Query   : Ich verstehe nicht wie man die Funktion „pow()“ benutzt.
+Evidence: Von den übrigen Funktionen sind drei besonders erwähnenswert, die jeweils zwei d
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  d.h. sie haben einen double -Parameter und liefern einen double -Funktionswert. Diese Funktionen sind in Tabelle 9.1 aufgelistet. Dazu ist noch wichtig zu erwahnen, dass die Winkelfunktionen alle im Bogenmaß (d.h. voller Kreisumfang entspricht 2 π ) rechnen. Von den ubrigen Funktionen sind drei besonders erwahnenswert, die jeweils zwei double -Parameter besitzen und einen double -Funktionswert liefern:
+
+[15/76] ESSENTIAL | 59.yaml
+Query   : Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?
+Evidence: SOLUTION: #include<stdio.h> int main() { for(int i=0; i<5; i++) { for(int j=0; j
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  Aufgabe: Lassen Sie sich eine `5x5` Multiplikationstafel ausgeben:
+```
+  1  2  3  4  5
+  2  4  6  8 10
+  3  6  9 12 15
+  4  8 12 16 20
+  5 10 15 20 25
+```
+Achten Sie bei der formatierten Ausgabe darauf, dass die Zahlen wie im Beispiel eingerückt werden.
+
+### Beispieleingabe
+```
+```
+### Beispielausgabe
+```
+  1  2  3  4  5
+  2  4  6  8 10
+  3  6  9 12 15
+  4  8 12 16 20
+  5 10 15 20 25
+```
+
+
+Lösung: #include<stdio.h>
+int main() {
+  for(int i=0; i<5; i++) {
+    for(int j=0; j<5; j++) {
+      printf
+
+[16/76] OPTIONAL | programmierung_mit_ansi_c-29-40.pdf
+Query   : Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?
+Evidence: Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen 
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ( % ) eingeleitet. Ihm muss ein Kennbuchstabe (oder auch eine Kennbuchstaben-Kombination) fur den Typ des Wertes folgen; dazu konnen weitere Angaben kommen, die uns zum jetzigen Zeitpunkt aber noch nicht zu interessieren brauchen. Jede dieser Angaben wird als Formatbeschreiber bezeichnet.
+
+[17/76] ESSENTIAL | programmierung_mit_ansi_c-1-16.pdf
+Query   : Ist das realistisch, die Klausur in 2 Wochen zu bestehen?
+Evidence: Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinh
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinhalbstundigen Vorlesung, wobei der Schwierigkeitsgrad von Kapitel zu Kapitel steigt. Lasst man einige Abschnitte aus, so kann man in einem Drei-Wochen-Kurs einen Großteil des hier gebotenen Stoffs vermitteln. Die Auslassungen konnen sich interessierte Teilnehmer im Selbststudium erarbeiten.
+
+[18/76] ESSENTIAL | 79.yaml
+Query   : Was für Aufgaben kommen in der Klausur dran?
+Evidence: klausur
+----------------------------------------
+  Nächster Chunk (0 Wort-Overlap):
+  
+
+[19/76] ESSENTIAL | 209.yaml
+Query   : Was für Aufgaben kommen in der Klausur dran?
+Evidence: klausur
+----------------------------------------
+  Nächster Chunk (0 Wort-Overlap):
+  
+
+[20/76] ESSENTIAL | 404.yaml
+Query   : Was für Aufgaben kommen in der Klausur dran?
+Evidence: klausur
+----------------------------------------
+  Nächster Chunk (0 Wort-Overlap):
+  
+
+[21/76] ESSENTIAL | 512.yaml
+Query   : Was für Aufgaben kommen in der Klausur dran?
+Evidence: klausur
+----------------------------------------
+  Nächster Chunk (0 Wort-Overlap):
+  
+
+[22/76] ESSENTIAL | 518.yaml
+Query   : Was für Aufgaben kommen in der Klausur dran?
+Evidence: klausur
+----------------------------------------
+  Nächster Chunk (0 Wort-Overlap):
+  
+
+[23/76] ESSENTIAL | 523.yaml
+Query   : Was für Aufgaben kommen in der Klausur dran?
+Evidence: klausur
+----------------------------------------
+  Nächster Chunk (0 Wort-Overlap):
+  
+
+[24/76] ESSENTIAL | 524.yaml
+Query   : Was für Aufgaben kommen in der Klausur dran?
+Evidence: klausur
+----------------------------------------
+  Nächster Chunk (0 Wort-Overlap):
+  
+
+[25/76] ESSENTIAL | 517.yaml
+Query   : Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?
+Evidence: Testen Sie wie folgt.
+
+    Speicher für ein int-Feld anzahl der Länge length auf
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp
+
+```
+int is_perm(const int perm[], int length);
+```
+
+die testet, ob das Feld der Länge `length` , auf dessen Anfang `perm` zeigt, eine Permutation der Zahlen `1, 2, ..., length` beschreibt.
+
+*Anforderungen:*
+
+- Die Funktion liefert bei einem Fehler einen negativen Wert zurück.
+- Handelt es sich um eine Permutation der Zahlen `1, 2, ..., length` wird ein positiver Wert zurückgeliefert, andernfalls wird `0` zurückgeliefert.
+- Berücks
+
+[26/76] ESSENTIAL | 517.yaml
+Query   : Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?
+Evidence: SOLUTION: #include <stdio.h> #include <stdlib.h>
+int is_perm(int perm[], int lae
+----------------------------------------
+  Nächster Chunk (4 Wort-Overlap):
+  Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp
+
+```
+int is_perm(const int perm[], int length);
+```
+
+die testet, ob das Feld der Länge `length` , auf dessen Anfang `perm` zeigt, eine Permutation der Zahlen `1, 2, ..., length` beschreibt.
+
+*Anforderungen:*
+
+- Die Funktion liefert bei einem Fehler einen negativen Wert zurück.
+- Handelt es sich um eine Permutation der Zahlen `1, 2, ..., length` wird ein positiver Wert zurückgeliefert, andernfalls wird `0` zurückgeliefert.
+- Berücks
+
+[27/76] ESSENTIAL | 73.yaml
+Query   : Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?
+Evidence: SOLUTION: int permtest(unsigned int* p, int laenge) { int map[laenge + 1]; for (
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Aufgabe: Ein Permutation der Länge `n` ist eine Abbildung der Menge {1, 2, ..., n} auf sich selbst. Programmieren und testen Sie eine Funktion
+```
+int permtest( const unsigned int* p, int laenge)
+```
+die von einem übergebenen Feld der Länge `laenge` testet, ob der Inhalt eine Permutation repräsentiert und in diesem Fall den Wert `1` zurückliefert und sonst `0`. 
+
+
+Lösung: int permtest(unsigned int* p, int laenge) {
+  int map[laenge + 1];
+  for (int i = 0; i <= laenge; i++)
+    map[i] = 0;
+  for 
+
+[28/76] OPTIONAL | programmierung_mit_ansi_c-77-90.pdf
+Query   : Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?
+Evidence: Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:
+
+    In einer Dekl
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:
+
+[29/76] OPTIONAL | programmierung_mit_ansi_c-77-90.pdf
+Query   : Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?
+Evidence: „Die Funktionsdefinition hat die Form typ name (typ1 parameter1, ..., typN param
+----------------------------------------
+  Nächster Chunk (4 Wort-Overlap):
+  In der Definition einer Funktion werden die Operationen festgelegt, die beim Aufruf der Funktion durchzufuhren sind. Die Funktionsdefinition hat die Form
+
+[30/76] ESSENTIAL | programmierung_mit_ansi_c-1-16.pdf
+Query   : Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?
+Evidence: main ist, wie bereits gesagt, das Hauptprogramm, d.h. die Ausführung des gesamte
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  main ist, wie bereits gesagt, das Hauptprogramm, d.h. die Ausfuhrung des gesamten Programms beginnt am Anfang von main . Die Funktionen funkt1 , . . . , funktN konnen vom Hauptprogramm oder auch von den Funktionen aufgerufen werden. Insbesondere ist auch Rekursion erlaubt, d.h. eine Funktion darf sich selbst aufrufen.
+
+[31/76] ESSENTIAL | programmierung_mit_ansi_c-127-148.pdf
+Query   : Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?
+Evidence: Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, di
+----------------------------------------
+  Nächster Chunk (10 Wort-Overlap):
+  Mit den Daten des letzten Beispiels haben wir eine weitere Moglichkeit kennengelernt, namlich Zeiger auf Zeiger: Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, die ihrerseits Zeiger auf Strings sind. Auch solche Variablen kann man explizit definieren: Durch
+
+[32/76] OPTIONAL | programmierung_mit_ansi_c-127-148.pdf
+Query   : Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?
+Evidence: Statt dessen wird die Bitfolge unverändert übertragen. Durch die Funktion printf
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Letztlich haben wir hier den Typ von i (temporar) geandert: Mit *fp greifen wir auf den Speicherplatz der int -Variablen i zu. Bei der Wertzuweisung ware also eigentlich eine Umwandlung des Typs des Ausdrucks 6.5f von float in int erforderlich - diese Umwandlung unterbleibt aber, weil *fp als Zeiger auf float definiert ist. Statt dessen wird die Bitfolge unverandert ubertragen. Durch die Funktion printf wird diese Bitfolge nur wieder als int -Wert interpretiert - dass das nicht funktionieren kan
+
+[33/76] OPTIONAL | 77.yaml
+Query   : Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?
+Evidence: SOLUTION: #include <stdio.h>
+int sudokucheck(const int** s) { const int laenge =
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Aufgabe: Eine Sudoku-Matrix ist eine 9x9-Matrix, deren Einträge ganze Zahlen zwischen 1 und 9 sind und die weitere Bedingungen erfüllen. Zur Formulierung der Bedingungen betrachten wir die Matrix als Blockmatrix aus 9 Blöcken von 3x3-Matrizen, die durch die Zeilen bzw. Spalten 1 bis 3, 4 bis 6 und 7 bis 9 gebildet werden. Jede dieser 3x3-Matrizen bezeichnen im Weiteren als Block. Nun können wir die Bedingungen formulieren, die aus einer Matrix obiger Form eine Sudoku-Matrix machen: 
+- Jede Zeile
+
+[34/76] ESSENTIAL | programmierung_mit_ansi_c-149-156.pdf
+Query   : Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?
+Evidence: Speicher, den man sich mit malloc beschafft, besitzt übrigens keine wohldefinier
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Speicher, den man sich mit malloc beschafft, besitzt ubrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit fur deren Zuweisung sorgen.
+
+[35/76] ESSENTIAL | 517.yaml
+Query   : Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?
+Evidence: SOLUTION: #include <stdio.h> #include <stdlib.h>
+int is_perm(int perm[], int lae
+----------------------------------------
+  Nächster Chunk (4 Wort-Overlap):
+  Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp
+
+```
+int is_perm(const int perm[], int length);
+```
+
+die testet, ob das Feld der Länge `length` , auf dessen Anfang `perm` zeigt, eine Permutation der Zahlen `1, 2, ..., length` beschreibt.
+
+*Anforderungen:*
+
+- Die Funktion liefert bei einem Fehler einen negativen Wert zurück.
+- Handelt es sich um eine Permutation der Zahlen `1, 2, ..., length` wird ein positiver Wert zurückgeliefert, andernfalls wird `0` zurückgeliefert.
+- Berücks
+
+[36/76] ESSENTIAL | programmierung_mit_ansi_c-17-28.pdf
+Query   : Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?
+Evidence: Die deutschen Umlaute und das ß gehören nicht zum Zeichensatz von ANSI–C! Weites
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Man beachte: Die deutschen Umlaute und das ß gehoren nicht zum Zeichensatz von ANSI-C! Weitestgehend entsprechen diese Anforderungen des Standard der Realitat des ASCII-Code ( American Standard Code for Information Interchange ), der insgesamt 128 Zeichen umfasst:
+
+[37/76] ESSENTIAL | programmierung_mit_ansi_c-119-126.pdf
+Query   : Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?
+Evidence: Die Länge des Strings ist die Anzahl der Bytes vor dem Nullbyte im Feld. Die Län
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Erinnerung: Die Lange eines Strings , der durch ein char -Feld realisiert ist, ist etwas anderes als die Lange dieses Feldes . Die Lange des Strings ist die Anzahl der Bytes vor dem Nullbyte im Feld. Die Lange des char -Feldes in dem die Zeichen des Strings gespeichert sind ist die Anzahl der Bytes, die das komplette Feld belegt.
+
+[38/76] ESSENTIAL | 417.yaml
+Query   : Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?
+Evidence: SOLUTION: #include <string.h>
+char* static_str(char* string){ static char str_re
+----------------------------------------
+  Nächster Chunk (5 Wort-Overlap):
+  Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. 
+Sie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.
+ 
+Schreiben Sie hierfür zwei Methoden:
+ 
+```
+char* static_str(char* string)
+```   
+nimmt einen Zeiger auf ein Char-Feld `string` entgegen.
+Legen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.
+Geben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.
+ 
+Zu Lernzwe
+
+[39/76] ESSENTIAL | programmierung_mit_ansi_c-55-62.pdf
+Query   : Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?
+Evidence: Ein Feld von Zeichen wird dadurch zu einem String, dass man hinter dem letzten
+”
+----------------------------------------
+  Nächster Chunk (11 Wort-Overlap):
+  Den Datentyp char haben wir bereits kennengelernt. Ebenso wurde bereits angesprochen, wie Stringkonstanten aussehen. Wie sieht es mit Stringvariablen aus? Diese werden durch Felder von char -Werten realisiert. Ein Feld von Zeichen wird dadurch zu einem String, dass man hinter dem letzten ' echten' Zeichen ein Null-Zeichen speichert. Bei Stringkonstanten sorgt der Compiler sogar dafur, dass dieses Null-Zeichen automatisch angehangt wird. Das Null-Zeichen hat die Ordnungszahl 0 und kann im Quellte
+
+[40/76] ESSENTIAL | 417.yaml
+Query   : Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?
+Evidence: SOLUTION: #include <string.h>
+char* static_str(char* string){ static char str_re
+----------------------------------------
+  Nächster Chunk (5 Wort-Overlap):
+  Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. 
+Sie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.
+ 
+Schreiben Sie hierfür zwei Methoden:
+ 
+```
+char* static_str(char* string)
+```   
+nimmt einen Zeiger auf ein Char-Feld `string` entgegen.
+Legen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.
+Geben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.
+ 
+Zu Lernzwe
+
+[41/76] ESSENTIAL | programmierung_mit_ansi_c-55-62.pdf
+Query   : Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?
+Evidence: Vereinbart man Stringvariablen, so muss man bei der Längenangabe das Null–Zeiche
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  Vereinbart man Stringvariablen, so muss man bei der Langenangabe das Null-Zeichen stets mitzahlen. Von den Vereinbarungen
+
+[42/76] ESSENTIAL | 417.yaml
+Query   : Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?
+Evidence: SOLUTION: #include <string.h>
+char* static_str(char* string){ static char str_re
+----------------------------------------
+  Nächster Chunk (5 Wort-Overlap):
+  Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. 
+Sie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.
+ 
+Schreiben Sie hierfür zwei Methoden:
+ 
+```
+char* static_str(char* string)
+```   
+nimmt einen Zeiger auf ein Char-Feld `string` entgegen.
+Legen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.
+Geben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.
+ 
+Zu Lernzwe
+
+[43/76] ESSENTIAL | programmierung_mit_ansi_c-119-126.pdf
+Query   : Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?
+Evidence: Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulässigen I
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulassigen Indizes auf ein Feld zugreift: Der Abstand wird ausgerechnet und zum Zugriff verwendet. So bewirkt v[-1] gerade den Zugriff auf den Speicherbereich direkt vor dem Beginn des Vektors. Versuchte Zugriffe auf Feldkomponenten jenseits der Feldgrenzen nennt man Indexuberschreitung .
+
+[44/76] ESSENTIAL | 519.yaml
+Query   : Welchen Return-Wert erwartet SmartBeans bei Erfolg?
+Evidence: SOLUTION: #include <stdio.h>
+int main(){ printf("Hello World!"); return 0; }
+----------------------------------------
+  Nächster Chunk (5 Wort-Overlap):
+  Aufgabe: Schreiben sie ein Programm das `Hello World!` ausgibt. 
+
+### Beispieleingabe
+```
+```
+### Beispielausgabe
+```
+Hello World!
+```
+
+
+Lösung: #include <stdio.h>
+ 
+int main(){
+  printf("Hello World!");
+  return 0;
+}
+
+
+[45/76] ESSENTIAL | programmierung_mit_ansi_c-91-106.pdf
+Query   : Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?
+Evidence: Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der 
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der Speicherplatzzuordnung einen wohldefinierten Anfangswert erhalten, muss man ihnen erst einen Wert zuweisen, bevor man auf ihren Wert zugreifen kann. Diese Zuweisung kann in der Form einer Anfangswertzuweisung erfolgen oder auch durch eine explizite Wertzuweisung; beides lost der Compiler letztlich ohnehin in gleicher Weise auf. Ob wir
+
+[46/76] ESSENTIAL | programmierung_mit_ansi_c-149-156.pdf
+Query   : Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?
+Evidence: Speicher, den man sich mit malloc beschafft, besitzt übrigens keine wohldefinier
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Speicher, den man sich mit malloc beschafft, besitzt ubrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit fur deren Zuweisung sorgen.
+
+[47/76] OPTIONAL | programmierung_mit_ansi_c-17-28.pdf
+Query   : Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?
+Evidence: Variablen besitzen dagegen einen Speicherplatz und Typ und in der Regel auch ein
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  Variablen besitzen dagegen einen Speicherplatz und Typ und in der Regel auch einen Wert, namlich den, der an diesem Speicherplatz steht. Es ist jederzeit moglich, diesen Wert zu andern. Solange der Wert einer Variablen nicht gesetzt wurde, braucht sie keinen wohldefinierten Wert zu besitzen.
+
+[48/76] ESSENTIAL | programmierung_mit_ansi_c-1-16.pdf
+Query   : Was bedeutet der Fehler 'ld: Undefined symbols: _main'?
+Evidence: Ein C–Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen. 
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Ein C-Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen . Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisiert das Hauptprogramm . Alle anderen Funktionen sind Unterprogramme und mussen andere Namen tragen. Das kleinste Programm besteht nur aus der Funktion main . Fehlt sie, gibt der Linker eine Fehlermeldung aus.
+
+[49/76] ESSENTIAL | programmierung_mit_ansi_c-1-16.pdf
+Query   : Was bedeutet der Fehler 'ld: Undefined symbols: _main'?
+Evidence: Das Objekt–Programm wird gebunden; dieses geschieht erneut durch ein spezielles 
+----------------------------------------
+  Nächster Chunk (5 Wort-Overlap):
+  - 5. Das Objekt-Programm wird gebunden ; dieses geschieht erneut durch ein spezielles Programm, den Linker . Der Linker fugt das eigene Programm mit den benotigten Routinen aus den Programm-Bibliotheken zu einem ausfuhrbaren Programm ( ' Binary') zusammen. - Auch dabei konnen Fehler auftreten, namlich dass der Linker benotigte Routinen nicht findet. - 6. Das fertige Programm kann ausgefuhrt werden.
+
+[50/76] ESSENTIAL | programmierung_mit_ansi_c-1-16.pdf
+Query   : Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?
+Evidence: Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisie
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Ein C-Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen . Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisiert das Hauptprogramm . Alle anderen Funktionen sind Unterprogramme und mussen andere Namen tragen. Das kleinste Programm besteht nur aus der Funktion main . Fehlt sie, gibt der Linker eine Fehlermeldung aus.
+
+[51/76] ESSENTIAL | 525.yaml
+Query   : Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?
+Evidence: Programmieren Sie eine main-Funktion (ohne Benutzereingaben), die auf der Komman
+----------------------------------------
+  Nächster Chunk (4 Wort-Overlap):
+  Aufgabe: **Die Aufgabe stammt aus einer Altklausur. Die Umsetzung in SmartBeans ist leider technisch nicht möglich. Es werden keine Tests ausgeführt. Damit Sie aber schon mal eine Vorstellung dafür bekommen, ist hier der Originaltext angegeben. Sie können die Aufgabe trotzdem für sich lokal lösen und testen. Anmerkungen, welche Veränderungen Sie machen müssen, damit die Aufgabe lokal bearbeitet werden kann, sind kursiv hinzugefügt worden. In der Klausur werden Sie ein Linuxsystem mit einem Compi
+
+[52/76] ESSENTIAL | programmierung_mit_ansi_c-127-148.pdf
+Query   : Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?
+Evidence: Jedes C–Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm b
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Jedes C-Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. Diese Hauptfunktion wird beim Start des Programms vom Betriebssystem aufgerufen. Und sie erhalt beim Aufruf zwei Argumente! Wir haben diese Argumente bislang durch die Definition
+
+[53/76] ESSENTIAL | programmierung_mit_ansi_c-127-148.pdf
+Query   : Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?
+Evidence: (int argc , char *argv [])
+----------------------------------------
+  Nächster Chunk (2 Wort-Overlap):
+  ist tabelle ein Zeiger auf eine Variable mit dem Typ char * , also Zeiger auf eine Variable mit einem Zeigertyp.
+
+[54/76] ESSENTIAL | programmierung_mit_ansi_c-119-126.pdf
+Query   : Was ist eine statische Dimensionierung bei Matrizen?
+Evidence: Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine 
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  - · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst die Große der zu bearbeitenden Matrizen und beschafft sich dann vom Betriebssystem den entsprechenden Speicher. Methoden dazu werden im Kapitel 13 vorgestellt. Der Einsatz unserer Funktion matprod ware dann moglich. - · Man arbeitet mit ' Maximalgroßen' fur die Matrizen, d.h. man uberlegt sich eine obere Schranke fur die Große der vorkommenden Matrizen und definiert alle Matrizen mit dieser Große. Das wird in mathema
+
+[55/76] ESSENTIAL | programmierung_mit_ansi_c-119-126.pdf
+Query   : Was ist eine statische Dimensionierung bei Matrizen?
+Evidence: Felder können durch `typ name[anzahl];` vereinbart werden. Der Wert anzahl muss 
+----------------------------------------
+  Nächster Chunk (3 Wort-Overlap):
+  Felder konnen initialisiert werden. Fur Strings haben wir diese Moglichkeit auch bereits genutzt. Allgemein sieht die Anfangswertzuweisung fur Felder aber anders aus: Die Werte der Komponenten werden einzeln aufgefuhrt, voneinander jeweils durch ein Komma getrennt und insgesamt in geschweifte Klammern eingeschlossen:
+
+[56/76] ESSENTIAL | programmierung_mit_ansi_c-29-40.pdf
+Query   : Was ist eine statische Dimensionierung bei Matrizen?
+Evidence: Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  besagt so: v ist ein Vektor (eindimensionales Feld) mit 5 Komponenten. Die Dimensionierung muss mit Konstanten erfolgen - allerdings sind die benannten Konstanten eben auch Konstanten.
+
+[57/76] ESSENTIAL | 417.yaml
+Query   : Wozu dient das Keyword 'static' bei einem lokalen Array?
+Evidence: Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf
+----------------------------------------
+  Nächster Chunk (11 Wort-Overlap):
+  Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. 
+Sie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.
+ 
+Schreiben Sie hierfür zwei Methoden:
+ 
+```
+char* static_str(char* string)
+```   
+nimmt einen Zeiger auf ein Char-Feld `string` entgegen.
+Legen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.
+Geben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.
+ 
+Zu Lernzwe
+
+[58/76] OPTIONAL | programmierung_mit_ansi_c-91-106.pdf
+Query   : Wozu dient das Keyword 'static' bei einem lokalen Array?
+Evidence: Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Eine statische Variable steht prinzipiell wahrend der gesamten Dauer der Ausfuhrung eines Programms zur Verfugung, auch wenn man zeitweilig nicht auf sie zugreifen kann, weil sie in einigen Modulen nicht deklariert oder in einigen Funktionen verschattet ist. Statisch sind alle externen Variablen - gleichviel, ob sie das Attribut static tragen oder nicht.
+
+[59/76] ESSENTIAL | programmierung_mit_ansi_c-91-106.pdf
+Query   : Wozu dient das Keyword 'static' bei einem lokalen Array?
+Evidence: Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Interessanter ist eine andere Moglichkeit: Variablen, die in einem Block definiert werden, durfen das Attribut static erhalten! Solche Variablen sind eine Mischung aus externen static -Variablen und internen Variablen:
+
+[60/76] OPTIONAL | programmierung_mit_ansi_c-91-106.pdf
+Query   : Wozu dient das Keyword 'static' bei einem lokalen Array?
+Evidence: Bei f2 wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeord
+----------------------------------------
+  Nächster Chunk (11 Wort-Overlap):
+  - · Bei f1 wird der Variablen z bei jedem Aufruf erneut ein Speicherplatz und diesem Speicherplatz der Anfangswert 1 zugeordnet, den f1 auch als Funktionswert liefert. Die Erhohung des Wertes von z als Nebeneffekt bleibt letzlich ohne Wirkung, weil die Zuordnung der Variablen zu dem Speicherplatz mit dem Rucksprung wieder gelost wird. - · Bei f2 wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeordnet und mit dem Anfangswert 1 belegt. Bei jedem Aufruf liefert f2 als Funktions
+
+[61/76] ESSENTIAL | 417.yaml
+Query   : In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?
+Evidence: Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf
+----------------------------------------
+  Nächster Chunk (11 Wort-Overlap):
+  Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. 
+Sie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.
+ 
+Schreiben Sie hierfür zwei Methoden:
+ 
+```
+char* static_str(char* string)
+```   
+nimmt einen Zeiger auf ein Char-Feld `string` entgegen.
+Legen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.
+Geben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.
+ 
+Zu Lernzwe
+
+[62/76] ESSENTIAL | programmierung_mit_ansi_c-91-106.pdf
+Query   : In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?
+Evidence: Das Pendent zu den statischen Variablen sind die automatischen Variablen. Sie si
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Das Pendent zu den statischen Variablen sind die automatischen Variablen. Sie sind interne Variablen, d.h. Variablen, die innerhalb eines Blocks (zum Beispiel im Rumpf einer
+
+[63/76] ESSENTIAL | programmierung_mit_ansi_c-91-106.pdf
+Query   : In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?
+Evidence: Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Interessanter ist eine andere Moglichkeit: Variablen, die in einem Block definiert werden, durfen das Attribut static erhalten! Solche Variablen sind eine Mischung aus externen static -Variablen und internen Variablen:
+
+[64/76] ESSENTIAL | programmierung_mit_ansi_c-91-106.pdf
+Query   : Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?
+Evidence: Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Eine statische Variable steht prinzipiell wahrend der gesamten Dauer der Ausfuhrung eines Programms zur Verfugung, auch wenn man zeitweilig nicht auf sie zugreifen kann, weil sie in einigen Modulen nicht deklariert oder in einigen Funktionen verschattet ist. Statisch sind alle externen Variablen - gleichviel, ob sie das Attribut static tragen oder nicht.
+
+[65/76] ESSENTIAL | programmierung_mit_ansi_c-17-28.pdf
+Query   : Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?
+Evidence: Mit Hilfe der Präprozessor–Direktive
+#define name ersatztext
+kann man solchen Ko
+----------------------------------------
+  Nächster Chunk (3 Wort-Overlap):
+  Mit Hilfe der Praprozessor-Direktive
+
+[66/76] ESSENTIAL | programmierung_mit_ansi_c-119-126.pdf
+Query   : Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?
+Evidence: Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine 
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  - · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst die Große der zu bearbeitenden Matrizen und beschafft sich dann vom Betriebssystem den entsprechenden Speicher. Methoden dazu werden im Kapitel 13 vorgestellt. Der Einsatz unserer Funktion matprod ware dann moglich. - · Man arbeitet mit ' Maximalgroßen' fur die Matrizen, d.h. man uberlegt sich eine obere Schranke fur die Große der vorkommenden Matrizen und definiert alle Matrizen mit dieser Große. Das wird in mathema
+
+[67/76] ESSENTIAL | programmierung_mit_ansi_c-29-40.pdf
+Query   : Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?
+Evidence: Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  besagt so: v ist ein Vektor (eindimensionales Feld) mit 5 Komponenten. Die Dimensionierung muss mit Konstanten erfolgen - allerdings sind die benannten Konstanten eben auch Konstanten.
+
+[68/76] ESSENTIAL | programmierung_mit_ansi_c-77-90.pdf
+Query   : Was bedeutet iterativ vs rekursiv im kontext von programmieren?
+Evidence: direkter Rekursion, wenn eine Funktion sich selbst aufruft, und von
+    indirekt
+----------------------------------------
+  Nächster Chunk (7 Wort-Overlap):
+  - · direkter Rekursion , wenn eine Funktion sich selbst aufruft, und von - · indirekter Rekursion , wenn sich zwei oder mehr Funktionen wechselseitig aufrufen.
+
+[69/76] ESSENTIAL | programmierung_mit_ansi_c-77-90.pdf
+Query   : Was bedeutet iterativ vs rekursiv im kontext von programmieren?
+Evidence: Man sollte sich deshalb zunächst einmal überlegen, ob sich eine rekursiv formuli
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  Ob man rekursiv formulierte Berechnungen auch rekursiv realisieren sollte, steht auf einem anderen Blatt. Rekursion ist in der Regel ziemlich aufwendig: Die Parameter mussen kopiert werden ( ' call by value'), lokale Variablen mussen bereitgestellt, der Unterprogrammsprung muss ausgefuhrt werden. Man sollte sich deshalb zunachst einmal uberlegen, ob sich eine rekursiv formulierte Aufgabe nicht auch ohne weiteres iterativ , d.h. mit einer Schleife, losen lasst.
+
+[70/76] OPTIONAL | 515.yaml
+Query   : Was bedeutet iterativ vs rekursiv im kontext von programmieren?
+Evidence: SOLUTION: long iteA(unsigned int n) { if (n == 0) { return 0; } if (n == 1) { re
+----------------------------------------
+  Nächster Chunk (10 Wort-Overlap):
+  Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und a<sub>n</sub>=-2a<sub>n-1</sub>+3a<sub>n-2</sub> für n>1.
+
+Daraus ergibt sich folgender Anfang der Folge `A`.
+
+a<sub>0</sub>=0, a<sub>1</sub>=1, a<sub>2</sub>=-2, a<sub>3</sub>=7, a<sub>4</sub>=-20, a<sub>5</sub>=61, a<sub>6</sub>=-182, ...
+
+Programmieren Sie eine Funktion mit folgendem Prototyp
+
+```
+long iteA(unsigned int n);
+```
+
+die das `n`-te Glied der Folge `A` **rekursiv** berechnet, d.h. die Funktion muss sich
+
+[71/76] OPTIONAL | 516.yaml
+Query   : Was bedeutet iterativ vs rekursiv im kontext von programmieren?
+Evidence: SOLUTION: long iteA(unsigned int n) { long y = 0; long x = 1; if (n == 0) { retu
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und a<sub>n</sub>=-2a<sub>n-1</sub>+3a<sub>n-2</sub> für n>1.
+
+Daraus ergibt sich folgender Anfang der Folge `A`.
+
+a<sub>0</sub>=0, a<sub>1</sub>=1, a<sub>2</sub>=-2, a<sub>3</sub>=7, a<sub>4</sub>=-20, a<sub>5</sub>=61, a<sub>6</sub>=-182, ...
+
+Programmieren Sie eine Funktion mit folgendem Prototyp
+
+```
+long iteA(unsigned int n);
+```
+
+die das `n`-te Glied der Folge `A` **iterativ** berechnet, d.h. die Funktion darf sich
+
+[72/76] ESSENTIAL | programmierung_mit_ansi_c-17-28.pdf
+Query   : Warum kann ich einen char mit einem int vergleichen?
+Evidence: Der Typ char Zeichen (character) werden von C als Teilmenge der ganzen Zahlen be
+----------------------------------------
+  Nächster Chunk (9 Wort-Overlap):
+  Zeichen ( character ) werden von C als Teilmenge der ganzen Zahlen behandelt; den Typ bezeichnet das Schlusselwort char . Das funktioniert so: Die verfugbaren Zeichen werden durchnummeriert, beginnend bei 0. Im Rechner werden die Zeichen dargestellt, indem diese Ordnungszahlen gespeichert werden. Letztlich geht jede Programmiersprache so vor, nur ist in der Regel die Koppelung von Zahlen und Zeichen nicht so eng.
+
+[73/76] OPTIONAL | programmierung_mit_ansi_c-17-28.pdf
+Query   : Warum kann ich einen char mit einem int vergleichen?
+Evidence: Obwohl ein Vorzeichen bei Zeichen nicht plausibel erscheint, unterscheidet man z
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Obwohl ein Vorzeichen bei Zeichen nicht plausibel erscheint, unterscheidet man zwischen signed und unsigned , damit der Typ char kompatibel zu den int -Typen bleibt, deren Teilmenge er ja ist. Die Wertebereiche der beiden char -Typen wurden bereits in Tabelle 2.1 mit aufgelistet.
+
+[74/76] ESSENTIAL | programmierung_mit_ansi_c-41-54.pdf
+Query   : Warum kann ich einen char mit einem int vergleichen?
+Evidence: Mit Werten der Typen char und short, mit oder ohne Vorzeichen, wird nicht gerech
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Der erste Grundsatz: Mit Werten der Typen char und short , mit oder ohne Vorzeichen, wird nicht gerechnet, d.h. Werte mit diese Typen werden vor dem Rechnen auf jeden Fall automatisch in int bzw. unsigned int umgewandelt. Ein Ausdruck wie 'Z' - 'A' hat also den Typ int .
+
+[75/76] ESSENTIAL | programmierung_mit_ansi_c-29-40.pdf
+Query   : Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?
+Evidence: Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen 
+----------------------------------------
+  Nächster Chunk (8 Wort-Overlap):
+  Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ( % ) eingeleitet. Ihm muss ein Kennbuchstabe (oder auch eine Kennbuchstaben-Kombination) fur den Typ des Wertes folgen; dazu konnen weitere Angaben kommen, die uns zum jetzigen Zeitpunkt aber noch nicht zu interessieren brauchen. Jede dieser Angaben wird als Formatbeschreiber bezeichnet.
+
+[76/76] OPTIONAL | programmierung_mit_ansi_c-173-184.pdf
+Query   : Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?
+Evidence: ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Aus-
+gabewe
+----------------------------------------
+  Nächster Chunk (6 Wort-Overlap):
+  - 3. Ausgabe von Zeichen und Strings - s der Ausgabeparameter wird als Zeiger auf einen String betrachtet, der Wert des String geschrieben - c der int -Wert wird in unsigned char umgewandelt geschrieben - 4. Kennungen fur verschiedene Zwecke - p der Wert wird als Zeiger betrachtet und in implementations-spezifischer Darstellung geschrieben - n es wird keine Ausgabe erzeugt, sondern die Anzahl der bislang ubertragenen Zeichen in den nachsten Parameter der Ausgabeliste geschrieben; dieser Paramete
+

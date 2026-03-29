@@ -1,0 +1,469 @@
+{
+  "metrics": {
+    "total_queries": 43,
+    "evaluated_queries": 40,
+    "hits": 10,
+    "accuracy": 25.0
+  },
+  "details": [
+    {
+      "query": "Wie bekomme ich WSL in vscode eingebunden?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "tutor_knowledge_base.txt",
+      "is_hit": true,
+      "score": 0.5868
+    },
+    {
+      "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-29-40.pdf",
+        "programmierung_mit_ansi_c-29-40.pdf",
+        "programmierung_mit_ansi_c-29-40.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "is_hit": false,
+      "score": 0.5765
+    },
+    {
+      "query": "Wie kann ich mein Programm abbrechen?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-107-112.pdf",
+        "programmierung_mit_ansi_c-1-16.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-157-166.pdf",
+      "is_hit": false,
+      "score": 0.6745
+    },
+    {
+      "query": "Wofür braucht man sizeof?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-157-166.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-41-54.pdf",
+      "is_hit": false,
+      "score": 0.6275
+    },
+    {
+      "query": "Bei binärer Suche, wie bestimmt man den mittleren Index?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-127-148.pdf",
+        "208.yaml",
+        "522.yaml"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "is_hit": false,
+      "score": 0.559
+    },
+    {
+      "query": "Wie funktioniert binäre Suche?",
+      "type": "redundant",
+      "expected_ids": [
+        "208.yaml",
+        "522.yaml"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-107-112.pdf",
+      "is_hit": false,
+      "score": 0.6259
+    },
+    {
+      "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-185-192.pdf",
+        "programmierung_mit_ansi_c-185-192.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-55-62.pdf",
+      "is_hit": false,
+      "score": 0.5697
+    },
+    {
+      "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-107-112.pdf",
+        "programmierung_mit_ansi_c-107-112.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-107-112.pdf",
+      "is_hit": true,
+      "score": 0.5938
+    },
+    {
+      "query": "Wie kann ich ein Linux Terminal in VS-Code öffnen?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-149-156.pdf",
+      "is_hit": false,
+      "score": 0.506
+    },
+    {
+      "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+      "type": "complementary",
+      "expected_ids": [
+        "59.yaml",
+        "programmierung_mit_ansi_c-29-40.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "is_hit": true,
+      "score": 0.6849
+    },
+    {
+      "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
+      "type": "complementary",
+      "expected_ids": [
+        "525.yaml",
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-55-62.pdf",
+      "is_hit": false,
+      "score": 0.7313
+    },
+    {
+      "query": "Kann man in der Klausur auch kompilieren und testen?",
+      "type": "complementary",
+      "expected_ids": [
+        "525.yaml",
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "is_hit": false,
+      "score": 0.543
+    },
+    {
+      "query": "Ist das realistisch, die Klausur in 2 Wochen zu bestehen?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-1-16.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-63-76.pdf",
+      "is_hit": false,
+      "score": 0.5231
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "type": "redundant",
+      "expected_ids": [
+        "79.yaml",
+        "209.yaml",
+        "404.yaml",
+        "512.yaml",
+        "518.yaml",
+        "523.yaml",
+        "524.yaml"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-173-184.pdf",
+      "is_hit": false,
+      "score": 0.4441
+    },
+    {
+      "query": "Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?",
+      "type": "redundant",
+      "expected_ids": [
+        "517.yaml",
+        "517.yaml",
+        "73.yaml"
+      ],
+      "predicted_id": "63.yaml",
+      "is_hit": false,
+      "score": 0.6233
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-77-90.pdf",
+        "programmierung_mit_ansi_c-77-90.pdf",
+        "programmierung_mit_ansi_c-1-16.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "is_hit": true,
+      "score": 0.6383
+    },
+    {
+      "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-127-148.pdf",
+        "programmierung_mit_ansi_c-127-148.pdf",
+        "77.yaml"
+      ],
+      "predicted_id": "77.yaml",
+      "is_hit": true,
+      "score": 0.595
+    },
+    {
+      "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-149-156.pdf",
+        "programmierung_mit_ansi_c-91-106.pdf",
+        "517.yaml"
+      ],
+      "predicted_id": "63.yaml",
+      "is_hit": false,
+      "score": 0.5641
+    },
+    {
+      "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-17-28.pdf",
+        "programmierung_mit_ansi_c-119-126.pdf",
+        "417.yaml"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "is_hit": true,
+      "score": 0.6334
+    },
+    {
+      "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-55-62.pdf",
+        "programmierung_mit_ansi_c-193-206.pdf",
+        "417.yaml"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "is_hit": false,
+      "score": 0.5392
+    },
+    {
+      "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-55-62.pdf",
+        "417.yaml",
+        "programmierung_mit_ansi_c-119-126.pdf",
+        "programmierung_mit_ansi_c-119-126.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-113-118.pdf",
+      "is_hit": false,
+      "score": 0.5219
+    },
+    {
+      "query": "Welche Editoren stehen in der Klausur zur Verfügung?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
+      "is_hit": false,
+      "score": 0.66
+    },
+    {
+      "query": "Gibt es in der Klausur Schmierpapier?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "is_hit": false,
+      "score": 0.5476
+    },
+    {
+      "query": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-173-184.pdf",
+      "is_hit": false,
+      "score": 0.5113
+    },
+    {
+      "query": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
+      "is_hit": false,
+      "score": 0.4742
+    },
+    {
+      "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-1-16",
+        "519.yaml"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "is_hit": false,
+      "score": 0.5488
+    },
+    {
+      "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-91-106.pdf",
+        "programmierung_mit_ansi_c-149-156.pdf",
+        "tutor_knowledge_base.txt",
+        "programmierung_mit_ansi_c-17-28.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "is_hit": true,
+      "score": 0.4888
+    },
+    {
+      "query": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-1-16.pdf",
+        "programmierung_mit_ansi_c-1-16.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "is_hit": false,
+      "score": 0.5169
+    },
+    {
+      "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
+      "type": "redundant",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-1-16.pdf",
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "is_hit": false,
+      "score": 0.4806
+    },
+    {
+      "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
+      "type": "redundant",
+      "expected_ids": [
+        "525.yaml",
+        "programmierung_mit_ansi_c-127-148.pdf",
+        "programmierung_mit_ansi_c-127-148.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
+      "is_hit": false,
+      "score": 0.5525
+    },
+    {
+      "query": "Was ist eine statische Dimensionierung bei Matrizen?",
+      "type": "redundant",
+      "expected_ids": [
+        "57.yaml",
+        "programmierung_mit_ansi_c-119-126.pdf",
+        "programmierung_mit_ansi_c-119-126.pdf",
+        "programmierung_mit_ansi_c-29-40.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-149-156.pdf",
+      "is_hit": false,
+      "score": 0.6208
+    },
+    {
+      "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+      "type": "complementary",
+      "expected_ids": [
+        "417.yaml",
+        "programmierung_mit_ansi_c-91-106.pdf",
+        "programmierung_mit_ansi_c-91-106.pdf",
+        "programmierung_mit_ansi_c-91-106.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "is_hit": true,
+      "score": 0.582
+    },
+    {
+      "query": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-167-172.pdf",
+      "is_hit": false,
+      "score": 0.7487
+    },
+    {
+      "query": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "is_hit": false,
+      "score": 0.4421
+    },
+    {
+      "query": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
+      "type": "redundant",
+      "expected_ids": [
+        "tutor_knowledge_base.txt"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-63-76.pdf",
+      "is_hit": false,
+      "score": 0.5057
+    },
+    {
+      "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
+      "type": "redundant",
+      "expected_ids": [
+        "417.yaml",
+        "programmierung_mit_ansi_c-91-106.pdf",
+        "programmierung_mit_ansi_c-91-106.pdf"
+      ],
+      "predicted_id": "417.txt",
+      "is_hit": false,
+      "score": 0.6257
+    },
+    {
+      "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+      "type": "redundant",
+      "expected_ids": [
+        "57.yaml",
+        "programmierung_mit_ansi_c-91-106.pdf",
+        "programmierung_mit_ansi_c-17-28.pdf",
+        "programmierung_mit_ansi_c-119-126.pdf",
+        "programmierung_mit_ansi_c-29-40.pdf"
+      ],
+      "predicted_id": "57.txt",
+      "is_hit": false,
+      "score": 0.5409
+    },
+    {
+      "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-77-90.pdf",
+        "programmierung_mit_ansi_c-77-90.pdf",
+        "515.yaml",
+        "516.yaml"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "is_hit": false,
+      "score": 0.5828
+    },
+    {
+      "query": "Warum kann ich einen char mit einem int vergleichen?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-17-28.pdf",
+        "programmierung_mit_ansi_c-17-28.pdf",
+        "programmierung_mit_ansi_c-41-54.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "is_hit": true,
+      "score": 0.4985
+    },
+    {
+      "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
+      "type": "complementary",
+      "expected_ids": [
+        "programmierung_mit_ansi_c-29-40.pdf",
+        "programmierung_mit_ansi_c-173-184.pdf",
+        "programmierung_mit_ansi_c-173-184.pdf"
+      ],
+      "predicted_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "is_hit": true,
+      "score": 0.6019
+    }
+  ]
+}

@@ -32,10 +32,10 @@ Nachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von
    "question": "Gibt es in der Klausur Schmierpapier?",
     "answer": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus."
 
-       "question": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
+    "question": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
     "answer": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt."
 
-        "question": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
+    "question": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
     "answer": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted."
 
    "question": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
@@ -43,3 +43,19 @@ Nachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von
 
    "question": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
     "answer": "Nein. Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler."
+
+    "question": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
+    "answer": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende Klausur nicht relevant."
+
+   "question": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
+    "answer": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den Account zurücksetzen zu lassen."
+
+   "question": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
+    "answer": "Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt."
+
+Öffnen eines Terminals in Visual Studio Code (VS Code)
+Tastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.
+
+Über das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).
+
+Befehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal.

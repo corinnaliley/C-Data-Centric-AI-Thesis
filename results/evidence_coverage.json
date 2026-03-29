@@ -1,0 +1,702 @@
+{
+  "total": 99,
+  "found": 22,
+  "not_found": 76,
+  "wrong_doc": 1,
+  "details": [
+    {
+      "query": "Wie bekomme ich WSL in vscode eingebunden?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie "
+    },
+    {
+      "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
+      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Tippt der Benutzer unter UNIX C-d, so wird das vom Betriebssystem als Dateiende "
+    },
+    {
+      "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
+      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewan"
+    },
+    {
+      "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
+      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "while (scanf(\"%d\", while ( scanf ( \" % d \" , & wert ) != EOF ) { /* Zahl lesen *"
+    },
+    {
+      "query": "Wie kann ich mein Programm abbrechen?",
+      "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Zwei Funktionen (abort und exit) erlauben die Beendigung eines Programms an be-l"
+    },
+    {
+      "query": "Wie kann ich mein Programm abbrechen?",
+      "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die"
+    },
+    {
+      "query": "Wofür braucht man sizeof?",
+      "gold_id": "programmierung_mit_ansi_c-157-166.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Hier ist der Operator sizeof unentbehrlich! Wieviel Speicher eine Struktur benöt"
+    },
+    {
+      "query": "Bei binärer Suche, wie bestimmt man den mittleren Index?",
+      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folge"
+    },
+    {
+      "query": "Bei binärer Suche, wie bestimmt man den mittleren Index?",
+      "gold_id": "208.yaml",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <stdio.h>\nint suche(int *array, int len, int value) { int low"
+    },
+    {
+      "query": "Bei binärer Suche, wie bestimmt man den mittleren Index?",
+      "gold_id": "522.yaml",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: int rec_contains(int **pos, int *start, int *end, int x) { if (start ="
+    },
+    {
+      "query": "Wie funktioniert binäre Suche?",
+      "gold_id": "208.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Anforderungen\n\n    Die Funktion gibt 1 zurück, wenn value in array vorhanden ist"
+    },
+    {
+      "query": "Wie funktioniert binäre Suche?",
+      "gold_id": "522.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.\nBesteht das "
+    },
+    {
+      "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
+      "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Meist hat man die Wahl zwischen verschiedene Editoren, d.h. Programmen, mit dene"
+    },
+    {
+      "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
+      "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Dazu benötigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist me"
+    },
+    {
+      "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
+      "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "liefert bei einem Aufruf pow (x, y) die Potenz"
+    },
+    {
+      "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
+      "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Von den übrigen Funktionen sind drei besonders erwähnenswert, die jeweils zwei d"
+    },
+    {
+      "query": "Wie kann ich ein Linux Terminal in VS-Code öffnen?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Öffnen eines Terminals in Visual Studio Code (VS Code)"
+    },
+    {
+      "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+      "gold_id": "59.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include<stdio.h> int main() { for(int i=0; i<5; i++) { for(int j=0; j"
+    },
+    {
+      "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen "
+    },
+    {
+      "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
+      "gold_id": "525.yaml",
+      "importance": "optional",
+      "status": "OK",
+      "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an "
+    },
+    {
+      "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine "
+    },
+    {
+      "query": "Kann man in der Klausur auch kompilieren und testen?",
+      "gold_id": "525.yaml",
+      "importance": "optional",
+      "status": "OK",
+      "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an "
+    },
+    {
+      "query": "Kann man in der Klausur auch kompilieren und testen?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine "
+    },
+    {
+      "query": "Ist das realistisch, die Klausur in 2 Wochen zu bestehen?",
+      "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinh"
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "gold_id": "79.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "klausur"
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "gold_id": "209.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "klausur"
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "gold_id": "404.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "klausur"
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "gold_id": "512.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "klausur"
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "gold_id": "518.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "klausur"
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "gold_id": "523.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "klausur"
+    },
+    {
+      "query": "Was für Aufgaben kommen in der Klausur dran?",
+      "gold_id": "524.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "klausur"
+    },
+    {
+      "query": "Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?",
+      "gold_id": "517.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Testen Sie wie folgt.\n\n    Speicher für ein int-Feld anzahl der Länge length auf"
+    },
+    {
+      "query": "Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?",
+      "gold_id": "517.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <stdio.h> #include <stdlib.h>\nint is_perm(int perm[], int lae"
+    },
+    {
+      "query": "Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?",
+      "gold_id": "73.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: int permtest(unsigned int* p, int laenge) { int map[laenge + 1]; for ("
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n    In einer Dekl"
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "„Die Funktionsdefinition hat die Form typ name (typ1 parameter1, ..., typN param"
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "main ist, wie bereits gesagt, das Hauptprogramm, d.h. die Ausführung des gesamte"
+    },
+    {
+      "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
+      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, di"
+    },
+    {
+      "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
+      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Statt dessen wird die Bitfolge unverändert übertragen. Durch die Funktion printf"
+    },
+    {
+      "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
+      "gold_id": "77.yaml",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <stdio.h>\nint sudokucheck(const int** s) { const int laenge ="
+    },
+    {
+      "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
+      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Speicher, den man sich mit malloc beschafft, besitzt übrigens keine wohldefinier"
+    },
+    {
+      "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der "
+    },
+    {
+      "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
+      "gold_id": "517.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <stdio.h> #include <stdlib.h>\nint is_perm(int perm[], int lae"
+    },
+    {
+      "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
+      "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Die deutschen Umlaute und das ß gehören nicht zum Zeichensatz von ANSI–C! Weites"
+    },
+    {
+      "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
+      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Die Länge des Strings ist die Anzahl der Bytes vor dem Nullbyte im Feld. Die Län"
+    },
+    {
+      "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
+      "gold_id": "417.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <string.h>\nchar* static_str(char* string){ static char str_re"
+    },
+    {
+      "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
+      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Ein Feld von Zeichen wird dadurch zu einem String, dass man hinter dem letzten\n”"
+    },
+    {
+      "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
+      "gold_id": "programmierung_mit_ansi_c-193-206.pdf",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Wenn der zu kopierende String aus n oder mehr Zeichen besteht, wird der kopierte"
+    },
+    {
+      "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
+      "gold_id": "417.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <string.h>\nchar* static_str(char* string){ static char str_re"
+    },
+    {
+      "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
+      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Vereinbart man Stringvariablen, so muss man bei der Längenangabe das Null–Zeiche"
+    },
+    {
+      "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
+      "gold_id": "417.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <string.h>\nchar* static_str(char* string){ static char str_re"
+    },
+    {
+      "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
+      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulässigen I"
+    },
+    {
+      "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
+      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "An der Stelle, auf die zum Beispiel durch v[-1] zugegriffen wird, steht ja in de"
+    },
+    {
+      "query": "Welche Editoren stehen in der Klausur zur Verfügung?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine "
+    },
+    {
+      "query": "Gibt es in der Klausur Schmierpapier?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den "
+    },
+    {
+      "query": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombina"
+    },
+    {
+      "query": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted."
+    },
+    {
+      "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
+      "gold_id": "programmierung_mit_ansi_c-1-16",
+      "importance": "essential",
+      "status": "NO_DOC",
+      "evidence_snippet": "Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die",
+      "evidence_full": "Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die rufende Funktion zurück. Für main ist die rufende Funktion das Betriebssystem. Verschiedene Funktionswerte von main können verabredet werden, um dem Betriebs-system den korrekten (0)"
+    },
+    {
+      "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
+      "gold_id": "519.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: #include <stdio.h>\nint main(){ printf(\"Hello World!\"); return 0; }"
+    },
+    {
+      "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der "
+    },
+    {
+      "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Speicher, den man sich mit malloc beschafft, besitzt übrigens keine wohldefinier"
+    },
+    {
+      "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "optional",
+      "status": "OK",
+      "evidence_snippet": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbag"
+    },
+    {
+      "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
+      "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Variablen besitzen dagegen einen Speicherplatz und Typ und in der Regel auch ein"
+    },
+    {
+      "query": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
+      "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Ein C–Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen. "
+    },
+    {
+      "query": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
+      "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Das Objekt–Programm wird gebunden; dieses geschieht erneut durch ein spezielles "
+    },
+    {
+      "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
+      "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisie"
+    },
+    {
+      "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu e"
+    },
+    {
+      "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
+      "gold_id": "525.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Programmieren Sie eine main-Funktion (ohne Benutzereingaben), die auf der Komman"
+    },
+    {
+      "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
+      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Jedes C–Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm b"
+    },
+    {
+      "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
+      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "(int argc , char *argv [])"
+    },
+    {
+      "query": "Was ist eine statische Dimensionierung bei Matrizen?",
+      "gold_id": "57.yaml",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Schreiben Sie ein Programm, das zwei Matrizen liest, ihr Produkt berechnet und a"
+    },
+    {
+      "query": "Was ist eine statische Dimensionierung bei Matrizen?",
+      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine "
+    },
+    {
+      "query": "Was ist eine statische Dimensionierung bei Matrizen?",
+      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Felder können durch `typ name[anzahl];` vereinbart werden. Der Wert anzahl muss "
+    },
+    {
+      "query": "Was ist eine statische Dimensionierung bei Matrizen?",
+      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten"
+    },
+    {
+      "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+      "gold_id": "417.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf"
+    },
+    {
+      "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ"
+    },
+    {
+      "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal"
+    },
+    {
+      "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Bei f2 wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeord"
+    },
+    {
+      "query": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende"
+    },
+    {
+      "query": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den"
+    },
+    {
+      "query": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
+      "gold_id": "tutor_knowledge_base.txt",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gek"
+    },
+    {
+      "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
+      "gold_id": "417.yaml",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf"
+    },
+    {
+      "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Das Pendent zu den statischen Variablen sind die automatischen Variablen. Sie si"
+    },
+    {
+      "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal"
+    },
+    {
+      "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+      "gold_id": "57.yaml",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "#define MAX_SIZE 20"
+    },
+    {
+      "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ"
+    },
+    {
+      "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+      "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Mit Hilfe der Präprozessor–Direktive\n#define name ersatztext\nkann man solchen Ko"
+    },
+    {
+      "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine "
+    },
+    {
+      "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
+      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten"
+    },
+    {
+      "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
+      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "direkter Rekursion, wenn eine Funktion sich selbst aufruft, und von\n    indirekt"
+    },
+    {
+      "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
+      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Man sollte sich deshalb zunächst einmal überlegen, ob sich eine rekursiv formuli"
+    },
+    {
+      "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
+      "gold_id": "515.yaml",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: long iteA(unsigned int n) { if (n == 0) { return 0; } if (n == 1) { re"
+    },
+    {
+      "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
+      "gold_id": "516.yaml",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "SOLUTION: long iteA(unsigned int n) { long y = 0; long x = 1; if (n == 0) { retu"
+    },
+    {
+      "query": "Warum kann ich einen char mit einem int vergleichen?",
+      "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Der Typ char Zeichen (character) werden von C als Teilmenge der ganzen Zahlen be"
+    },
+    {
+      "query": "Warum kann ich einen char mit einem int vergleichen?",
+      "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "Obwohl ein Vorzeichen bei Zeichen nicht plausibel erscheint, unterscheidet man z"
+    },
+    {
+      "query": "Warum kann ich einen char mit einem int vergleichen?",
+      "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Mit Werten der Typen char und short, mit oder ohne Vorzeichen, wird nicht gerech"
+    },
+    {
+      "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
+      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+      "importance": "essential",
+      "status": "MISSING",
+      "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen "
+    },
+    {
+      "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
+      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+      "importance": "optional",
+      "status": "OK",
+      "evidence_snippet": "Der Ausgabewert muss den Typ int bzw. unsigned int besitzen. Die zu erzeugende e"
+    },
+    {
+      "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
+      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+      "importance": "optional",
+      "status": "MISSING",
+      "evidence_snippet": "ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Aus-\ngabewe"
+    }
+  ]
+}

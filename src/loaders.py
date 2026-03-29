@@ -69,14 +69,14 @@ def _blocks_from_markdown(md: str, doc_id: str) -> List[Block]:
 
 def convert_pdf_via_saia(path: str, cache_dir: pathlib.Path = None) -> List[Block]:
     """Nutzt SAIA Docling mit lokalem Dateisystem-Caching."""
-    doc_stem = pathlib.Path(path).stem
-    cache_file = cache_dir / f"{doc_stem}.md" if cache_dir else None
+    doc_id = pathlib.Path(path).name
+    cache_file = cache_dir / f"{doc_id}.md" if cache_dir else None
 
     # 1. Prüfen, ob Markdown bereits im Cache liegt
     if cache_file and cache_file.exists():
         with open(cache_file, "r", encoding="utf-8") as f:
             md = f.read()
-        return _blocks_from_markdown(md, doc_stem)
+        return _blocks_from_markdown(md, doc_id)
 
     # 2. Wenn nicht, API aufrufen (mit erhöhtem Timeout)
     url = f"{SAIA_BASE_URL.rstrip('/')}/{SAIA_DOCLING_ENDPOINT.lstrip('/')}"
@@ -97,10 +97,10 @@ def convert_pdf_via_saia(path: str, cache_dir: pathlib.Path = None) -> List[Bloc
             with open(cache_file, "w", encoding="utf-8") as f:
                 f.write(md)
 
-        return _blocks_from_markdown(md, doc_stem)
+        return _blocks_from_markdown(md, doc_id)
 
     except Exception as e:
-        print(f"❌ Fehler bei {doc_stem}: {e}")
+        print(f"❌ Fehler bei {doc_id}: {e}")
         return []
 
 
@@ -115,37 +115,28 @@ def convert_yaml_baseline(path: str) -> List[Block]:
     combined_text = f"Aufgabe: {data.get('task', '')}\n\nLösung: {data.get('solution', '')}"
 
     return [Block(
-        doc_id=pathlib.Path(path).stem,
+        doc_id=pathlib.Path(path).name,
         block_type=BlockType.PARAGRAPH,
         text=combined_text,
-        meta={
-            "source": path,
-            "type": "yaml",
-            "taskid": data.get("taskid"),
-            "title": data.get("title")
-        }
+        meta={"source": path, "type": "yaml"}
     )]
 
 
 # --- HAUPTFUNKTION FÜR DEN INGEST ---
-
 def load_any_file(path: str, cache_dir: pathlib.Path = None) -> List[Block]:
-    """Entscheidet basierend auf Endung, welcher Loader genutzt wird."""
-    ext = pathlib.Path(path).suffix.lower()
+    path_obj = pathlib.Path(path)
+    doc_id = path_obj.name  # Dies ist jetzt dein "Gold-Standard" (z.B. "208.yaml")
 
+    ext = path_obj.suffix.lower()
     if ext == ".pdf":
-        # Hier wird der cache_dir nun korrekt weitergereicht
         return convert_pdf_via_saia(path, cache_dir=cache_dir)
 
     elif ext in [".yaml", ".yml"]:
-        # Für YAMLs hast du aktuell noch keinen Cache implementiert,
-        # aber wir halten die Signatur flexibel.
         return convert_yaml_baseline(path)
 
     else:
-        # Einfacher Text-Fallback
         with open(path, 'r', encoding='utf-8', errors='ignore') as f:
-            return [Block(doc_id=pathlib.Path(path).stem,
+            return [Block(doc_id=doc_id,
                           block_type=BlockType.PARAGRAPH,
                           text=f.read(),
                           meta={"source": path})]
