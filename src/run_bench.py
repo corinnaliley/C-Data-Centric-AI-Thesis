@@ -5,14 +5,13 @@ Ablauf:
     1. Ingest        — Dokumente laden und chunken
     2. Validierung   — ID-Check und Evidence-Coverage
     3. Embeddings    — Corpus vektorisieren (mit Cache)
-    4. Evaluation    — Query-Loop: Doc-Level + Chunk-Level Hit
+    4. Evaluation    — Query-Loop: Doc-Level + Chunk-Level + WRS
     5. Report        — Metriken berechnen und speichern
 """
 
 import json
 import os
-from pathlib import Path
-from sentence_transformers import SentenceTransformer
+from retrieval import _build_embed_model
 
 from constants import EMBEDDING_MODEL_NAME, PROCESSED_PATH, RESULTS_PATH, BENCHMARK_PATH
 from ingest_pipeline import run_ingest_v1
@@ -36,7 +35,9 @@ MISSING_DEBUG_PATH    = RESULTS_PATH   / "missing_debug.txt"
 model_slug            = EMBEDDING_MODEL_NAME.replace("/", "_")
 EMBEDDINGS_CACHE_PATH = PROCESSED_PATH / f"embeddings_{model_slug}.pt"
 
-TOP_K = 5  # für Chunk-Level Top-K Evaluation
+# --- Parameter ---------------------------------------------------------------
+TOP_K            = 20    # für Top-K Retrieval
+SCORE_THRESHOLD  = 0.5   # matching_score unterhalb = nicht als Fehler gewertet
 
 
 # -----------------------------------------------------------------------------
@@ -62,7 +63,9 @@ def run_evaluation():
     # 3. VALIDIERUNG
     validate_ids_or_exit(gold_data, corpus_ids)
 
-    coverage_report = validate_evidence_coverage(gold_data, chunks)
+    coverage_report = validate_evidence_coverage(
+        gold_data, chunks, score_threshold=SCORE_THRESHOLD
+    )
     with open(COVERAGE_REPORT_PATH, "w", encoding="utf-8") as f:
         json.dump(coverage_report, f, ensure_ascii=False, indent=2)
 
@@ -70,7 +73,7 @@ def run_evaluation():
 
     # 4. EMBEDDINGS
     print(f"\n🧠 LADE EMBEDDING-MODELL ({EMBEDDING_MODEL_NAME})...")
-    model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    model = _build_embed_model()
     corpus_embeddings = load_or_build_embeddings(model, corpus_texts, EMBEDDINGS_CACHE_PATH)
 
     # 5. QUERY-LOOP
@@ -99,12 +102,13 @@ def run_evaluation():
 
         is_hit = result["predicted_id"] in expected_ids
 
-        # Chunk-Level Evaluation
+        # Chunk-Level Evaluation mit WRS
         chunk_eval = evaluate_chunk_level(
             gold_references,
-            top_idx=result["top_idx"],
-            top_k_indices=result["top_k_indices"],
-            corpus_texts=corpus_texts,
+            top_idx        = result["top_idx"],
+            top_k_indices  = result["top_k_indices"],
+            corpus_texts   = corpus_texts,
+            score_threshold = SCORE_THRESHOLD,
         )
 
         entry = log_query_result(
@@ -114,9 +118,13 @@ def run_evaluation():
             predicted_id     = result["predicted_id"],
             is_hit           = is_hit,
             best_score       = result["best_score"],
-            chunk_hit_essential = chunk_eval["chunk_hit_essential"],
-            chunk_hit_any       = chunk_eval["chunk_hit_any"],
-            evidence_details    = chunk_eval["evidence_details"],
+            ranked_doc_ids   = [corpus_ids[i] for i in result["top_k_indices"]],
+            top_k_indices    = result["top_k_indices"],
+            wrs              = chunk_eval["wrs"],
+            chunk_hit_high   = chunk_eval["chunk_hit_high"],
+            chunk_hit_any    = chunk_eval["chunk_hit_any"],
+            topk_hit_high    = chunk_eval["topk_hit_high"],
+            evidence_details = chunk_eval["evidence_details"],
         )
         results_log.append(entry)
 

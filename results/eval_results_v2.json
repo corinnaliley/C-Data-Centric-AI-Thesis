@@ -2,23 +2,14 @@
   "metrics": {
     "total_queries": 43,
     "evaluated_queries": 40,
-    "hits_doc_1": 14,
-    "hits_doc_5": 23,
-    "hits_doc_10": 23,
-    "hits_doc_20": 23,
-    "accuracy_doc_1": 35.0,
-    "accuracy_doc_5": 57.5,
-    "accuracy_doc_10": 57.5,
-    "accuracy_doc_20": 57.5,
-    "mrr": 0.4412,
-    "any_high_score_hit1": 4,
-    "accuracy_any_high_hit1": 10.0,
-    "strict_topk_hit": 3,
-    "accuracy_strict_topk_hit": 7.5,
-    "chain_mrr_complementary": 0.0,
+    "hits_doc": 14,
+    "accuracy_doc": 35.0,
+    "chunk_hits_high": 4,
+    "accuracy_chunk_high": 10.0,
     "chunk_hits_any": 5,
     "accuracy_chunk_any": 12.5,
-    "mean_ndcg": 0.1214,
+    "topk_hits_high": 7,
+    "accuracy_topk_high": 17.5,
     "mean_wrs": 0.0588
   },
   "details": [
@@ -29,25 +20,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "tutor_knowledge_base.txt",
-      "ranked_doc_ids": [
-        "tutor_knowledge_base.txt",
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf"
-      ],
-      "top_k_indices": [
-        1,
-        509,
-        593,
-        348,
-        255
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": true,
-      "chain_mrr": 1.0,
-      "ndcg": 1.0,
       "wrs": 1.0,
       "chunk_hit_high": true,
       "chunk_hit_any": true,
@@ -74,25 +47,7 @@
         "programmierung_mit_ansi_c-29-40.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-63-76.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf",
-        "programmierung_mit_ansi_c-29-40.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf"
-      ],
-      "top_k_indices": [
-        622,
-        968,
-        793,
-        768,
-        155
-      ],
       "is_hit": false,
-      "rr": 0.25,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -138,25 +93,7 @@
         "programmierung_mit_ansi_c-1-16.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-63-76.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-63-76.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf"
-      ],
-      "top_k_indices": [
-        915,
-        34,
-        348,
-        645,
-        9
-      ],
       "is_hit": false,
-      "rr": 0.5,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -208,25 +145,7 @@
         "programmierung_mit_ansi_c-157-166.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf",
-        "programmierung_mit_ansi_c-193-206.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf"
-      ],
-      "top_k_indices": [
-        19,
-        872,
-        700,
-        833,
-        873
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -254,25 +173,7 @@
         "522.yaml"
       ],
       "predicted_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-29-40.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-55-62.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf"
-      ],
-      "top_k_indices": [
-        789,
-        150,
-        990,
-        905,
-        304
-      ],
       "is_hit": false,
-      "rr": 0.2,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -316,25 +217,7 @@
         "522.yaml"
       ],
       "predicted_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-107-112.pdf",
-        "programmierung_mit_ansi_c-107-112.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf"
-      ],
-      "top_k_indices": [
-        985,
-        990,
-        74,
-        95,
-        833
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -369,25 +252,7 @@
         "programmierung_mit_ansi_c-185-192.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-91-106.pdf"
-      ],
-      "top_k_indices": [
-        646,
-        63,
-        31,
-        59,
-        1104
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.649,
       "wrs": 0.5385,
       "chunk_hit_high": false,
       "chunk_hit_any": true,
@@ -422,25 +287,7 @@
         "programmierung_mit_ansi_c-107-112.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-63-76.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-63-76.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf"
-      ],
-      "top_k_indices": [
-        968,
-        304,
-        180,
-        348,
-        209
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -474,25 +321,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "tutor_knowledge_base.txt",
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-113-118.pdf"
-      ],
-      "top_k_indices": [
-        646,
-        1,
-        1104,
-        2,
-        114
-      ],
       "is_hit": false,
-      "rr": 0.5,
-      "strict_topk_hit": true,
-      "chain_mrr": 0.5,
-      "ndcg": 0.6309,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -518,25 +347,7 @@
         "programmierung_mit_ansi_c-29-40.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-29-40.pdf",
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-29-40.pdf",
-        "programmierung_mit_ansi_c-29-40.pdf"
-      ],
-      "top_k_indices": [
-        738,
-        551,
-        546,
-        731,
-        733
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -562,25 +373,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-63-76.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-63-76.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf"
-      ],
-      "top_k_indices": [
-        915,
-        31,
-        9,
-        32,
-        348
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -616,25 +409,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-113-118.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-113-118.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-113-118.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf"
-      ],
-      "top_k_indices": [
-        130,
-        622,
-        990,
-        131,
-        793
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -669,25 +444,7 @@
         "programmierung_mit_ansi_c-1-16.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-107-112.pdf"
-      ],
-      "top_k_indices": [
-        461,
-        216,
-        304,
-        990,
-        74
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -718,25 +475,7 @@
         "524.yaml"
       ],
       "predicted_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "525.yaml",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "415.yaml"
-      ],
-      "top_k_indices": [
-        563,
-        15,
-        1202,
-        216,
-        1164
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -816,25 +555,7 @@
         "73.yaml"
       ],
       "predicted_id": "63.yaml",
-      "ranked_doc_ids": [
-        "63.yaml",
-        "73.yaml",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "517.yaml"
-      ],
-      "top_k_indices": [
-        1211,
-        1217,
-        1061,
-        1034,
-        1193
-      ],
       "is_hit": false,
-      "rr": 0.5,
-      "strict_topk_hit": true,
-      "chain_mrr": 0.2,
-      "ndcg": 0.6089,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -870,25 +591,7 @@
         "programmierung_mit_ansi_c-1-16.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "808.yaml",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf"
-      ],
-      "top_k_indices": [
-        1012,
-        1231,
-        296,
-        304,
-        58
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -934,25 +637,7 @@
         "77.yaml"
       ],
       "predicted_id": "77.yaml",
-      "ranked_doc_ids": [
-        "77.yaml",
-        "69.yaml",
-        "FAQ.json",
-        "418.yaml",
-        "programmierung_mit_ansi_c-119-126.pdf"
-      ],
-      "top_k_indices": [
-        1221,
-        1213,
-        0,
-        1167,
-        175
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.4559,
       "wrs": 0.3333,
       "chunk_hit_high": true,
       "chunk_hit_any": true,
@@ -997,25 +682,7 @@
         "517.yaml"
       ],
       "predicted_id": "63.yaml",
-      "ranked_doc_ids": [
-        "63.yaml",
-        "73.yaml",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "76.yaml",
-        "503.yaml"
-      ],
-      "top_k_indices": [
-        1211,
-        1217,
-        51,
-        1220,
-        1178
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1051,25 +718,7 @@
         "417.yaml"
       ],
       "predicted_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf"
-      ],
-      "top_k_indices": [
-        464,
-        481,
-        466,
-        261,
-        324
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1114,25 +763,7 @@
         "417.yaml"
       ],
       "predicted_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-55-62.pdf",
-        "programmierung_mit_ansi_c-55-62.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf",
-        "programmierung_mit_ansi_c-167-172.pdf",
-        "programmierung_mit_ansi_c-193-206.pdf"
-      ],
-      "top_k_indices": [
-        888,
-        886,
-        165,
-        424,
-        665
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1170,25 +801,7 @@
         "programmierung_mit_ansi_c-119-126.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-193-206.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-193-206.pdf",
-        "programmierung_mit_ansi_c-55-62.pdf",
-        "programmierung_mit_ansi_c-55-62.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf"
-      ],
-      "top_k_indices": [
-        688,
-        905,
-        912,
-        315,
-        52
-      ],
       "is_hit": false,
-      "rr": 0.5,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1249,25 +862,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf"
-      ],
-      "top_k_indices": [
-        643,
-        642,
-        537,
-        641,
-        816
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1293,25 +888,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-63-76.pdf",
-        "programmierung_mit_ansi_c-55-62.pdf"
-      ],
-      "top_k_indices": [
-        304,
-        622,
-        990,
-        946,
-        905
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1337,25 +914,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-107-112.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-107-112.pdf",
-        "programmierung_mit_ansi_c-107-112.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf"
-      ],
-      "top_k_indices": [
-        94,
-        74,
-        155,
-        324,
-        209
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1381,25 +940,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf"
-      ],
-      "top_k_indices": [
-        643,
-        642,
-        1108,
-        485,
-        8
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1426,25 +967,7 @@
         "519.yaml"
       ],
       "predicted_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-63-76.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-113-118.pdf"
-      ],
-      "top_k_indices": [
-        11,
-        968,
-        990,
-        32,
-        107
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1481,25 +1004,7 @@
         "programmierung_mit_ansi_c-17-28.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "programmierung_mit_ansi_c-17-28.pdf"
-      ],
-      "top_k_indices": [
-        516,
-        1133,
-        1028,
-        1127,
-        512
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1553,25 +1058,7 @@
         "programmierung_mit_ansi_c-1-16.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "519.yaml"
-      ],
-      "top_k_indices": [
-        58,
-        220,
-        296,
-        263,
-        1195
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1606,25 +1093,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf"
-      ],
-      "top_k_indices": [
-        304,
-        990,
-        567,
-        192,
-        239
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1661,25 +1130,7 @@
         "programmierung_mit_ansi_c-127-148.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-41-54.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-41-54.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf",
-        "programmierung_mit_ansi_c-185-192.pdf"
-      ],
-      "top_k_indices": [
-        839,
-        838,
-        620,
-        629,
-        601
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1725,25 +1176,7 @@
         "programmierung_mit_ansi_c-29-40.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-29-40.pdf"
-      ],
-      "top_k_indices": [
-        335,
-        366,
-        358,
-        362,
-        786
-      ],
       "is_hit": false,
-      "rr": 0.2,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1798,25 +1231,7 @@
         "programmierung_mit_ansi_c-91-106.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "207.yaml",
-        "208.yaml"
-      ],
-      "top_k_indices": [
-        1128,
-        1133,
-        1135,
-        1146,
-        1147
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.6746,
       "wrs": 0.2647,
       "chunk_hit_high": true,
       "chunk_hit_any": true,
@@ -1868,25 +1283,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-167-172.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-167-172.pdf",
-        "programmierung_mit_ansi_c-167-172.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-55-62.pdf"
-      ],
-      "top_k_indices": [
-        416,
-        440,
-        340,
-        304,
-        891
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1912,25 +1309,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf",
-        "programmierung_mit_ansi_c-29-40.pdf"
-      ],
-      "top_k_indices": [
-        537,
-        990,
-        572,
-        152,
-        769
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -1956,25 +1335,7 @@
         "tutor_knowledge_base.txt"
       ],
       "predicted_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-55-62.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf",
-        "programmierung_mit_ansi_c-29-40.pdf",
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-107-112.pdf"
-      ],
-      "top_k_indices": [
-        891,
-        794,
-        773,
-        461,
-        74
-      ],
       "is_hit": false,
-      "rr": 0.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -2003,25 +1364,7 @@
         "programmierung_mit_ansi_c-91-106.pdf"
       ],
       "predicted_id": "417.yaml",
-      "ranked_doc_ids": [
-        "417.yaml",
-        "513.yaml",
-        "programmierung_mit_ansi_c-193-206.pdf",
-        "418.yaml",
-        "programmierung_mit_ansi_c-55-62.pdf"
-      ],
-      "top_k_indices": [
-        1166,
-        1189,
-        669,
-        1167,
-        882
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.3298,
       "wrs": 0.2162,
       "chunk_hit_high": true,
       "chunk_hit_any": true,
@@ -2077,25 +1420,7 @@
         "programmierung_mit_ansi_c-29-40.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-91-106.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf",
-        "programmierung_mit_ansi_c-149-156.pdf"
-      ],
-      "top_k_indices": [
-        1128,
-        358,
-        153,
-        362,
-        367
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -2150,25 +1475,7 @@
         "516.yaml"
       ],
       "predicted_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-1-16.pdf",
-        "programmierung_mit_ansi_c-77-90.pdf",
-        "programmierung_mit_ansi_c-63-76.pdf",
-        "programmierung_mit_ansi_c-119-126.pdf",
-        "programmierung_mit_ansi_c-91-106.pdf"
-      ],
-      "top_k_indices": [
-        31,
-        1035,
-        915,
-        156,
-        1067
-      ],
       "is_hit": false,
-      "rr": 0.5,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.2762,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -2222,25 +1529,7 @@
         "programmierung_mit_ansi_c-41-54.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-127-148.pdf",
-        "programmierung_mit_ansi_c-17-28.pdf",
-        "programmierung_mit_ansi_c-55-62.pdf",
-        "415.yaml",
-        "510.yaml"
-      ],
-      "top_k_indices": [
-        307,
-        481,
-        894,
-        1164,
-        1186
-      ],
       "is_hit": false,
-      "rr": 0.5,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.2303,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,
@@ -2285,25 +1574,7 @@
         "programmierung_mit_ansi_c-173-184.pdf"
       ],
       "predicted_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "ranked_doc_ids": [
-        "programmierung_mit_ansi_c-29-40.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf",
-        "programmierung_mit_ansi_c-173-184.pdf",
-        "programmierung_mit_ansi_c-113-118.pdf",
-        "programmierung_mit_ansi_c-41-54.pdf"
-      ],
-      "top_k_indices": [
-        752,
-        876,
-        582,
-        143,
-        852
-      ],
       "is_hit": true,
-      "rr": 1.0,
-      "strict_topk_hit": false,
-      "chain_mrr": 0.0,
-      "ndcg": 0.0,
       "wrs": 0.0,
       "chunk_hit_high": false,
       "chunk_hit_any": false,

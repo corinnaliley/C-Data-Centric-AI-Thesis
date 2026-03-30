@@ -1,3 +1,54 @@
-MISSING EVIDENCE DEBUG — 0 Einträge
+MISSING EVIDENCE DEBUG — 3 Einträge
 ================================================================================
+
+[1/3] score=0.7 | programmierung_mit_ansi_c-77-90.pdf
+Query   : Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?
+Evidence: Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:
+
+- · In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.
+- · In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw.
+
+Es ist offensichtlich, dass die Definition einer Funktion ihrer Deklaration entsprechen muss.
+----------------------------------------
+  Nächster Chunk (29 Wort-Overlap):
+  Kapitel 7 > 7.2 Vereinbarung von Funktionen
+
+7.2 Vereinbarung von Funktionen
+
+Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:
+
+- · In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.
+- · In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw.
+
+[2/3] score=0.7 | programmierung_mit_ansi_c-127-148.pdf
+Query   : Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?
+Evidence: Mit den Daten des letzten Beispiels haben wir eine weitere Moglichkeit kennengelernt, namlich Zeiger auf Zeiger: Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, die ihrerseits Zeiger auf Strings sind. Auch solche Variablen kann man explizit definieren: Durch
+
+```
+char **tabelle;
+```
+----------------------------------------
+  Nächster Chunk (37 Wort-Overlap):
+  Kapitel 12 > 12.12 Zeiger auf Zeiger
+
+12.12 Zeiger auf Zeiger
+
+Mit den Daten des letzten Beispiels haben wir eine weitere Moglichkeit kennengelernt, namlich Zeiger auf Zeiger: Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, die ihrerseits Zeiger auf Strings sind. Auch solche Variablen kann man explizit definieren: Durch
+
+[3/3] score=0.9 | programmierung_mit_ansi_c-127-148.pdf
+Query   : Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?
+Evidence: Jedes C-Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. Diese Hauptfunktion wird beim Start des Programms vom Betriebssystem aufgerufen. Und sie erhalt beim Aufruf zwei Argumente! Wir haben diese Argumente bislang durch die Definition
+
+```
+int main (void)
+```
+
+ignoriert. Tatsachlich ist der Prototyp fur main jedoch
+----------------------------------------
+  Nächster Chunk (35 Wort-Overlap):
+  Kapitel 12 > 12.14 Parameter des Hauptprogramms
+
+12.14 Parameter des Hauptprogramms
+
+Jedes C-Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. Diese Hauptfunktion wird beim Start des Programms vom Betriebssystem aufgerufen. Und sie erhalt beim Aufruf zwei Argumente! Wir haben diese Argumente bislang durch die Definition
 

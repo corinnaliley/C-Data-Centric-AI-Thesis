@@ -37,6 +37,11 @@ def _blocks_from_markdown(md: str, doc_id: str) -> List[Block]:
     Codeblöcke werden nicht vom vorangehenden
     Paragraphen getrennt, sondern zusammengefasst.
     Chunks werden erst bei Headings oder nach MIN_CHARS Zeichen gesplittet.
+
+    Headings erzeugen keine eigenen Blöcke mehr — der Titel wird stattdessen
+    als erste Zeile in den nachfolgenden Buffer geschrieben (Heading-Merge).
+    Jeder Chunk wird mit dem Section-Pfad als Präfix eingebettet, damit das
+    Embedding-Modell den thematischen Kontext kennt (Section-Kontext).
     """
     import re
     MIN_CHARS = 300  # Mindestgröße eines Chunks — verhindert Micro-Splits
@@ -50,12 +55,14 @@ def _blocks_from_markdown(md: str, doc_id: str) -> List[Block]:
     def flush(force=False):
         text = "\n".join(buf).strip()
         if text and (force or len(text) >= MIN_CHARS):
+            section_path = " > ".join(section_stack) if section_stack else None
+            embedded_text = f"{section_path}\n\n{text}" if section_path else text
             blocks.append(Block(
                 doc_id=doc_id,
                 block_type=BlockType.PARAGRAPH,
-                text=text,
+                text=embedded_text,
                 meta={},
-                section_path=" > ".join(section_stack) if section_stack else None
+                section_path=section_path,
             ))
             buf.clear()
         elif text and not force:
@@ -72,19 +79,14 @@ def _blocks_from_markdown(md: str, doc_id: str) -> List[Block]:
             buf.append(line)
             continue
 
-        # Heading → harter Split
+        # Heading → harter Split, dann Titel als erste Buffer-Zeile
         m = re.match(r"^(#{1,6})\s+(.*)$", line.strip())
         if m:
             flush(force=True)
             level = len(m.group(1))
             title = m.group(2).strip()
             section_stack = section_stack[:level - 1] + [title]
-            blocks.append(Block(
-                doc_id=doc_id,
-                block_type=BlockType.HEADING,
-                text=title,
-                meta={"level": level}
-            ))
+            buf.append(title)  # Titel startet den nächsten Chunk
             continue
 
         # Leerzeile → nur flushen wenn Buffer groß genug

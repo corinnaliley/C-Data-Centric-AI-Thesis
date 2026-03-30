@@ -1,13 +1,14 @@
 {
-  "total": 104,
-  "found": 104,
-  "not_found": 0,
+  "total": 98,
+  "found": 95,
+  "not_found": 3,
   "wrong_doc": 0,
+  "skipped_low_score": 6,
   "details": [
     {
       "query": "Wie bekomme ich WSL in vscode eingebunden?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden\nUm WSL (Window",
       "evidence_full": "WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden\nUm WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.\nHier sind die erforderlichen Schritte für die Einrichtung:\n1. Voraussetzungen schaffen\n\n    WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.\n    VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).\n    WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen“ (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.\n\n2. WSL-Erweiterung installieren\n\n    Starten Sie VS Code unter Windows.\n    Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).\n    Suchen Sie nach der Erweiterung „WSL“ (früher „Remote - WSL“) oder installieren Sie das „Remote Development“-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.\n    Klicken Sie auf Installieren.\n\n3. Verbindung herstellen\nEs gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:\n\n    Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.\n    Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL“ (oder „WSL: Connect to WSL using Distro“ für eine spezifische Distribution) ein.\n    Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.\n\nWoran erkennen Sie die erfolgreiche Einbindung?\nNachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu“), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt."
@@ -15,7 +16,7 @@
     {
       "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Tippt der Benutzer unter UNIX C-d , so wird das vom Betriebssystem als Dateiende",
       "evidence_full": "Tippt der Benutzer unter UNIX C-d , so wird das vom Betriebssystem als Dateiende interpretiert."
@@ -23,7 +24,7 @@
     {
       "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewan",
       "evidence_full": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewandelten Werte; tritt jedoch bereits vor dem Lesen und der Umwandlung des ersten Wertes ein Fehler ein (und das Dateiende zahlt in diesem Sinne als Fehler), so ist der Funktionswert EOF ( End Of File )."
@@ -31,7 +32,7 @@
     {
       "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "while (scanf(\"%d\", &wert) != EOF) { /* Zahl lesen */ anzahl = anzahl + 1",
       "evidence_full": "while (scanf(\"%d\", &wert) != EOF) { /* Zahl lesen */ anzahl = anzahl + 1"
@@ -39,7 +40,7 @@
     {
       "query": "Wie kann ich mein Programm abbrechen?",
       "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Zwei Funktionen ( abort und exit ) erlauben die Beendigung eines Programms an be",
       "evidence_full": "Zwei Funktionen ( abort und exit ) erlauben die Beendigung eines Programms an beliebiger Stelle, also ohne geschachtelte Funktionsaufrufe erst bis ins Hauptprogramm zuruckverfolgen zu mussen"
@@ -47,7 +48,7 @@
     {
       "query": "Wie kann ich mein Programm abbrechen?",
       "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
-      "importance": "essential",
+      "matching_score": 0.5,
       "status": "OK",
       "evidence_snippet": "``` void abort(void); ```",
       "evidence_full": "``` void abort(void); ```"
@@ -55,7 +56,7 @@
     {
       "query": "Wie kann ich mein Programm abbrechen?",
       "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
-      "importance": "essential",
+      "matching_score": 0.5,
       "status": "OK",
       "evidence_snippet": "void exit(int status);",
       "evidence_full": "void exit(int status);"
@@ -63,7 +64,7 @@
     {
       "query": "Wie kann ich mein Programm abbrechen?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Die return -Anweisung beendet die Funktion und liefert 0 als Funktionswert an di",
       "evidence_full": "Die return -Anweisung beendet die Funktion und liefert 0 als Funktionswert an die rufende Funktion zuruck. Fur main ist die rufende Funktion das Betriebssystem"
@@ -71,7 +72,7 @@
     {
       "query": "Wofür braucht man sizeof?",
       "gold_id": "programmierung_mit_ansi_c-157-166.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Hier ist der Operator sizeof unentbehrlich! Wieviel Speicher eine Struktur benot",
       "evidence_full": "Hier ist der Operator sizeof unentbehrlich! Wieviel Speicher eine Struktur benotigt, kann namlich von Rechner zu Rechner sehr unterschiedlich sein, selbst wenn die einzelnen Komponenten auf den Rechnern jeweils gleichviel Speicher benotigen. Dahinter steht eine Vorschrift des Standards: Die Komponenten einer Struktur mussen im Speicher des Rechners zwar dieselbe Reihenfolge besitzen wie in der Deklaration - sie mussen aber nicht luckenlos aufeinanderfolgen! Entsprechend addiert der Operator sizeof nicht einfach den Speicherbedarf der Komponenten, sondern berucksichtigt auch eventuelle Lucken. Als Grundregel sollte man sich einfach merken: Bei jedem Aufruf von malloc steckt im Argument der Operator sizeof !"
@@ -79,15 +80,15 @@
     {
       "query": "Wie bestimmt man bei binärer Suche den mittleren Index?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.3,
+      "status": "LOW_SCORE",
       "evidence_snippet": "Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folge",
       "evidence_full": "Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folgendermaßen geschehen:"
     },
     {
       "query": "Wie bestimmt man bei binärer Suche den mittleren Index?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "```\nint v[20], *start = v, *ende = v + 20, *mitte; mitte = start + (ende - start",
       "evidence_full": "```\nint v[20], *start = v, *ende = v + 20, *mitte; mitte = start + (ende - start)/2;\n```\n\nWendet man nun einfache mathematische Termumformungen an, konnte man auf folgende kurzere Schreibweise kommen\n\n```\nmitte = (start + ende)/2; /* nicht zulaessig */\n```\n\ndie fur beliebige Ganzzahlwerte sicher richtig ware, und mit einer Operation weniger auskommt. Fur Zeiger ist dieser Ausdruck jedoch nicht zulassig."
@@ -95,7 +96,7 @@
     {
       "query": "Wie bestimmt man bei binärer Suche den mittleren Index?",
       "gold_id": "208.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Programmieren Sie eine Funktion \n```\nint suche(int *array, int len, int",
       "evidence_full": "Aufgabe: Programmieren Sie eine Funktion \n```\nint suche(int *array, int len, int value);\n```\ndie ein absteigend sortiertes Array `array`, die Länge des Arrays `len` und einen gesuchten Wert `value` übergeben bekommt. \n\n*Anforderungen*\n- Die Funktion gibt `1` zurück, wenn `value` in `array` vorhanden ist und `0`, wenn `value` nicht in `array` vorhanden ist. \n- Die Suche erfolgt **iterativ** und nach dem Prinzip *devide and conquer*. \n- Dafür wird zuerst das mittlere Element von `array` betrachtet. \n- Ist der Wert gleich dem Wert von `value`, so ist die Suche beendet. \n- Ansonsten wird das Array in zwei Hälften aufgeilt: \n- War `value` kleiner als der Mittelwert? \n- Dann suche im rechten Teil der Liste weiter, ansonsten führe die Suche im linken Teil fort.\n\n### Beispielaufruf\n```\nint a[] = {100,80,60,50,44,20,10};\nsuche(a, 7, 20);\n```\n\n### Beispielergebnis\n```\n1\n```\n\n\nLösung: #include <stdio.h>\n\nint suche(int *array, int len, int value) {\n  int low = 0, high = len-1;\n  while (low <= high) {\n    int mitte =  low + ((high - low) / 2);\n    if (array[mitte] == value) {\n      return 1;\n    }\n    if (value > array[mitte]) {\n      high = mitte - 1;\n    } else {\n      low = mitte + 1;\n    }\n  }\n  return 0;\n}"
@@ -103,7 +104,7 @@
     {
       "query": "Wie bestimmt man bei binärer Suche den mittleren Index?",
       "gold_id": "522.yaml",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgende",
       "evidence_full": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgendem Algorithmus suchen.\n\n  1. Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.\n  2. Besteht das Feld nur aus einer Komponente ist die Suche beendet. Ob die Suche erfolgreich war oder nicht, ergibt sich aus dem Wert der einzigen vorhandenen Feldkomponente.\n  3. Ermittle die mittle Feldkomponente. Zerlege das Feld in zwei Teile, den vorderen Teil vom Anfang bis zu mittleren Feldkomponeten (exklusive) und den hinteren Teil ab der mittleren Komponte (inlusive) bis zum Ende. Ist der gesuchte Wert kleiner als der Wert der mittleren Feldkomponente, setze die Suche bei Schritt 1. auf dem vorderen Teilfeld fort, sonst bei Schritt 1. auf dem hinteren Teilfeld.\n\nProgrammieren Sie eine **rekursive** Funktion, d.h. die Funktion muss sich selbst aufrufen, mit Prototyp\n\n```\nint rec_contains(int **pos, int *start, int *end, int x);\n```\n\ndie das oben beschriebene Verfahren anwendet, um ein Feld von `int`-Werten zu durchsuchen.\n\n*Anforderungen*\n\n  - Der Zeiger `start` verweist auf die erste Feldkomponente der Zeiger `end` **hinter** die letzte Feldkomponente des Felds in dem der Wert `x` gesucht werden soll.\n  - Über den Zeiger `pos` wird (ein Zeiger auf) die Position des gefundenen Werts im Feld zurückgeliefert. Konnte der Wert nicht gefunden werden wird in `pos` der Null-Zeiger zurückgeliefert.\n  - Der Rückgabewert der Funktion kann als Wahrheitswert behandelt werden und gibt an, ob der Wert `x` im Feld enthalten ist.\n\n\nLösung: int rec_contains(int **pos, int *start, int *end, int x) {\n  if (start == end) {\n    *pos = NULL;\n    return 0;\n  }\n\n  if (start + 1 == end) {\n    if (*start == x) {\n      *pos = start;\n      return 1;\n    } else {\n      *pos = NULL;\n      return 0;\n    }\n  }\n\n  int *middle = start + (end - start) / 2;\n  if (x < *middle) {\n    return rec_contains(pos, start, middle, x);\n  } else {\n    return rec_contains(pos, middle, end, x);\n  }\n}"
@@ -111,7 +112,7 @@
     {
       "query": "Wie funktioniert binäre Suche?",
       "gold_id": "208.yaml",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Programmieren Sie eine Funktion \n```\nint suche(int *array, int len, int",
       "evidence_full": "Aufgabe: Programmieren Sie eine Funktion \n```\nint suche(int *array, int len, int value);\n```\ndie ein absteigend sortiertes Array `array`, die Länge des Arrays `len` und einen gesuchten Wert `value` übergeben bekommt. \n\n*Anforderungen*\n- Die Funktion gibt `1` zurück, wenn `value` in `array` vorhanden ist und `0`, wenn `value` nicht in `array` vorhanden ist. \n- Die Suche erfolgt **iterativ** und nach dem Prinzip *devide and conquer*. \n- Dafür wird zuerst das mittlere Element von `array` betrachtet. \n- Ist der Wert gleich dem Wert von `value`, so ist die Suche beendet. \n- Ansonsten wird das Array in zwei Hälften aufgeilt: \n- War `value` kleiner als der Mittelwert? \n- Dann suche im rechten Teil der Liste weiter, ansonsten führe die Suche im linken Teil fort.\n\n### Beispielaufruf\n```\nint a[] = {100,80,60,50,44,20,10};\nsuche(a, 7, 20);\n```\n\n### Beispielergebnis\n```\n1\n```\n\n\nLösung: #include <stdio.h>\n\nint suche(int *array, int len, int value) {\n  int low = 0, high = len-1;\n  while (low <= high) {\n    int mitte =  low + ((high - low) / 2);\n    if (array[mitte] == value) {\n      return 1;\n    }\n    if (value > array[mitte]) {\n      high = mitte - 1;\n    } else {\n      low = mitte + 1;\n    }\n  }\n  return 0;\n}"
@@ -119,7 +120,7 @@
     {
       "query": "Wie funktioniert binäre Suche?",
       "gold_id": "522.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgende",
       "evidence_full": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgendem Algorithmus suchen.\n\n  1. Ist das Feld leer, ist die Suche beendet und war nicht erfolgreich.\n  2. Besteht das Feld nur aus einer Komponente ist die Suche beendet. Ob die Suche erfolgreich war oder nicht, ergibt sich aus dem Wert der einzigen vorhandenen Feldkomponente.\n  3. Ermittle die mittle Feldkomponente. Zerlege das Feld in zwei Teile, den vorderen Teil vom Anfang bis zu mittleren Feldkomponeten (exklusive) und den hinteren Teil ab der mittleren Komponte (inlusive) bis zum Ende. Ist der gesuchte Wert kleiner als der Wert der mittleren Feldkomponente, setze die Suche bei Schritt 1. auf dem vorderen Teilfeld fort, sonst bei Schritt 1. auf dem hinteren Teilfeld.\n\nProgrammieren Sie eine **rekursive** Funktion, d.h. die Funktion muss sich selbst aufrufen, mit Prototyp\n\n```\nint rec_contains(int **pos, int *start, int *end, int x);\n```\n\ndie das oben beschriebene Verfahren anwendet, um ein Feld von `int`-Werten zu durchsuchen.\n\n*Anforderungen*\n\n  - Der Zeiger `start` verweist auf die erste Feldkomponente der Zeiger `end` **hinter** die letzte Feldkomponente des Felds in dem der Wert `x` gesucht werden soll.\n  - Über den Zeiger `pos` wird (ein Zeiger auf) die Position des gefundenen Werts im Feld zurückgeliefert. Konnte der Wert nicht gefunden werden wird in `pos` der Null-Zeiger zurückgeliefert.\n  - Der Rückgabewert der Funktion kann als Wahrheitswert behandelt werden und gibt an, ob der Wert `x` im Feld enthalten ist.\n\n\nLösung: int rec_contains(int **pos, int *start, int *end, int x) {\n  if (start == end) {\n    *pos = NULL;\n    return 0;\n  }\n\n  if (start + 1 == end) {\n    if (*start == x) {\n      *pos = start;\n      return 1;\n    } else {\n      *pos = NULL;\n      return 0;\n    }\n  }\n\n  int *middle = start + (end - start) / 2;\n  if (x < *middle) {\n    return rec_contains(pos, start, middle, x);\n  } else {\n    return rec_contains(pos, middle, end, x);\n  }\n}"
@@ -127,7 +128,7 @@
     {
       "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
       "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "importance": "essential",
+      "matching_score": 0.6,
       "status": "OK",
       "evidence_snippet": "Meist hat man die Wahl zwischen verschiedene Editoren , d.h. Programmen, mit den",
       "evidence_full": "Meist hat man die Wahl zwischen verschiedene Editoren , d.h. Programmen, mit denen man Texte, zum Beispiel auch C-Quellprogramme eingeben kann. Wichtig ist, dass der Editor den eingegebenen Quelltext ohne Formatierungsanweisungen oder Anweisungen zur Dokumentorganisation speichert. Ein normales Textverarbeitungsprogramm, mit dem man z.B. seine Briefe verfasst ist daher in der Regel nicht geeignet. Mit der Zeit entwickelt sicher jeder eine Vorliebe fur einen bestimmten Editor."
@@ -135,7 +136,7 @@
     {
       "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
       "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist me",
       "evidence_full": "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org ) zusammen mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc ) installiert. Beide kann man kostenlos im Internet herunterladen."
@@ -143,7 +144,7 @@
     {
       "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
       "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "liefert bei einem Aufruf pow (x, y) die Potenz",
       "evidence_full": "liefert bei einem Aufruf pow (x, y) die Potenz"
@@ -151,7 +152,7 @@
     {
       "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
       "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Viele der Funktionen haben die Deklaration\n\ndouble name (double);\n\nd.h. sie habe",
       "evidence_full": "Viele der Funktionen haben die Deklaration\n\ndouble name (double);\n\nd.h. sie haben einen double -Parameter und liefern einen double -Funktionswert. Diese Funktionen sind in Tabelle 9.1 aufgelistet. Dazu ist noch wichtig zu erwahnen, dass die Winkelfunktionen alle im Bogenmaß (d.h. voller Kreisumfang entspricht 2 π ) rechnen. Von den ubrigen Funktionen sind drei besonders erwahnenswert, die jeweils zwei double -Parameter besitzen und einen double -Funktionswert liefern:"
@@ -159,7 +160,7 @@
     {
       "query": "Wie kann ich ein Linux Terminal in VS-Code öffnen?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Öffnen eines Terminals in Visual Studio Code (VS Code)\nTastenkombination (Shortc",
       "evidence_full": "Öffnen eines Terminals in Visual Studio Code (VS Code)\nTastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.\n\nÜber das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).\n\nBefehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal."
@@ -167,7 +168,7 @@
     {
       "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
       "gold_id": "59.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Lassen Sie sich eine `5x5` Multiplikationstafel ausgeben:\n```\n  1  2  3",
       "evidence_full": "Aufgabe: Lassen Sie sich eine `5x5` Multiplikationstafel ausgeben:\n```\n  1  2  3  4  5\n  2  4  6  8 10\n  3  6  9 12 15\n  4  8 12 16 20\n  5 10 15 20 25\n```\nAchten Sie bei der formatierten Ausgabe darauf, dass die Zahlen wie im Beispiel eingerückt werden.\n\n### Beispieleingabe\n```\n```\n### Beispielausgabe\n```\n  1  2  3  4  5\n  2  4  6  8 10\n  3  6  9 12 15\n  4  8 12 16 20\n  5 10 15 20 25\n```\n\n\nLösung: #include<stdio.h>\nint main() {\n  for(int i=0; i<5; i++) {\n    for(int j=0; j<5; j++) {\n      printf(\"%3d\", (i+1)*(j+1));\n    }\n    printf(\"\\n\");\n  }\n}"
@@ -175,15 +176,15 @@
     {
       "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.3,
+      "status": "LOW_SCORE",
       "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ",
       "evidence_full": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ( % ) eingeleitet. Ihm muss ein Kennbuchstabe (oder auch eine Kennbuchstaben-Kombination) fur den Typ des Wertes folgen; dazu konnen weitere Angaben kommen, die uns zum jetzigen Zeitpunkt aber noch nicht zu interessieren brauchen. Jede dieser Angaben wird als Formatbeschreiber bezeichnet."
     },
     {
       "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
       "gold_id": "525.yaml",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an ",
       "evidence_full": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können."
@@ -191,7 +192,7 @@
     {
       "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
       "evidence_full": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar."
@@ -199,7 +200,7 @@
     {
       "query": "Kann man in der Klausur auch kompilieren und testen?",
       "gold_id": "525.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an ",
       "evidence_full": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können."
@@ -207,7 +208,7 @@
     {
       "query": "Kann man in der Klausur auch kompilieren und testen?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 0.6,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
       "evidence_full": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar."
@@ -215,7 +216,7 @@
     {
       "query": "Ist das realistisch, die Klausur in 2 Wochen zu bestehen?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinh",
       "evidence_full": "Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinhalbstundigen Vorlesung, wobei der Schwierigkeitsgrad von Kapitel zu Kapitel steigt. Lasst man einige Abschnitte aus, so kann man in einem Drei-Wochen-Kurs einen Großteil des hier gebotenen Stoffs vermitteln. Die Auslassungen konnen sich interessierte Teilnehmer im Selbststudium erarbeiten."
@@ -223,7 +224,7 @@
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
       "gold_id": "79.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Schreiben Sie eine Funktion, die den in Aufgabe  <a target=\"_blank\" rel",
       "evidence_full": "Aufgabe: Schreiben Sie eine Funktion, die den in Aufgabe  <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://c109-223.cloud.gwdg.de/tasks/50\">**Selectionsort**</a> beschriebenen Algorithmus \"Sortieren durch direkte Auswahl\" auf einem (Teil-)Feld von ganzen Zahlen umsetzt, mit folgendem Prototyp:\n```\nint sortieren (int *von, int *bis);\n```\nDabei ist `von` ein Zeiger auf die erste Komponente und `bis` ein Zeiger **hinter** die letzte Komponente des zu sortierenden (Teil-)Feldes. Die Funktion soll das Feld von vorne aufsteigend sortieren. Die Funktion liefert die Anzahl der umgespeicherten Werte zurück. Speichern Sie die Werte nur um, wenn es nötig ist. Benutzen Sie in der Funktion ausschließlich Zeigerarithmetik und nicht den `[]`-Operator. Verwenden Sie Rekursion.\n\n\nLösung: int sortieren (int* von, int* bis){\n  int tmp=0;\n  int *min=von;\n  \n  if(von >= bis) return 0;\n  \n  for(int *i=von+1; i < bis; i++)\n      if(*i < *min) min = i;\n  \n  if(min == von) return sortieren(von+1, bis);\n  else{\n      tmp = *min;\n      *min = *von;\n      *von = tmp;\n      return 1 + sortieren(von+1, bis);\n  }\n}"
@@ -231,7 +232,7 @@
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
       "gold_id": "209.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Programmieren Sie eine Funktion `void magic(char *path, int number);`, ",
       "evidence_full": "Aufgabe: Programmieren Sie eine Funktion `void magic(char *path, int number);`, die\neinen String mit dem Pfad zu einer Datei `path` und einen ganzzahligen Wert\n`number` zwischen `0` und `9` übergeben bekommt. In die Datei am Pfad `path`\nsoll ein String folgender Form geschrieben werden: Der String besteht aus\nendlich vielen Satzteilen, die je mit einem Komma getrennt werden. Das erste\nWort eines Satzteiles ist das englische Zahlwort von `number` gefolgt von \"is\"\nund dem englischen Zahlwort von *der Anzahl der Zeichen des Zahlwortes von*\n`number`. Diese Teile werden solange gebildet und aneinander gereiht, bis `4`\n(four) erreicht wurde, dann lautet der String \"four is magic\".\n\n\n### Beispielaufruf\n```\nmagic(\"beispiel_1.txt\", 0);\nmagic(\"beispiel_2.txt\", 1);\n```\n### Beispielergebnis\n```\nbeispiel_1.txt: \n  zero is four, four is magic.\nbeispiel_2.txt: \n  one is three, three is five, five is four, four is magic.\n```\n\n### Hinweis\nBenutzen Sie `<string.h>`, um geeignete Funktionen zur\nStringbearbeitungen zu benutzen.\n\n\nLösung: #include <stdio.h>\n#include <string.h>\n\nchar *names[10] = {\"zero\", \"one\", \"two\", \"three\", \"four\", \"five\", \"six\", \"seven\", \"eight\", \"nine\"};\n\nvoid magic(char *path, int number) {\n  FILE *fp;\n  fp = fopen (path,\"w\");\n  if(fp == NULL) {\n    printf(\"Error on opening file\");\n    return;\n  }\n  char stringtoput[1000];\n  char *is = \"is\";\n  int count = number;\n\n  while (count != 4) {\n    strcat(stringtoput, names[count]);\n    strcat(stringtoput, \" \");\n    strcat(stringtoput, is);\n    strcat(stringtoput, \" \");\n    count = strlen(names[count]) ;\n    strcat(stringtoput, names[count]);\n    strcat(stringtoput, \", \");\n  }\n  strcat(stringtoput, \"four is magic.\");\n  // printf(\"%s\\n\",stringtoput);\n\n  for (int i = 0; i < strlen(stringtoput); i++) {\n    fputc(stringtoput[i], fp);\n  }\n  fclose(fp);\n}"
@@ -239,7 +240,7 @@
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
       "gold_id": "404.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Schreiben Sie eine rekursive Funktion \n\n```\nint recSort(int* start, int",
       "evidence_full": "Aufgabe: Schreiben Sie eine rekursive Funktion \n\n```\nint recSort(int* start, int* end, int reverse)\n```\n\ndie ein Feld absteigend sortiert und zurückgibt, wie viele Vertauschungen dafür notwendig waren.\n \n- `start` zeigt auf den ersten Eintrag des Feldes\n- `end` zeigt auf den letzten Eintrag des Feldes\n- `reverse` bestimmt die Laufrichtung des Algorithmus (`0` = vorwärts, `1` =rückwärts)\n\nImplementieren Sie dafür folgenden Sortieralgorithmus:\n\n- Der Algorithmus terminiert, wenn keine Einträge vertauscht wurden, oder das Feld nur einen einzigen Eintrag enthält.\n- Durchlaufe das Feld in Laufrichtung `reverse`.\n  - Vergleiche den Inhalt zweier aufeinander folgender Einträge.\n    - Vertausche die Einträge, wenn der linke Eintrag kleiner ist als der rechte.\n- Führe den Algorithmus erneut durch, aber:\n  - Kehre die Laufrichtung um.\n  - Verkleinere das Feld:\n    - auf Position `0` bis `n-1`, wenn `reverse = 0`. (Lasse das letzte Element weg)\n    - auf Position `1` bis `n`, wenn `reverse = 1`. (Lasse das erste Element weg)\n\n*Hinweise*\n\n- Versuchen Sie, maximal eine for-Schleife zu verwenden.\n- Es ist ratsam, den Startpunkt des Feldes innerhalb der Funktion durch eine lokale Variable zu repräsentieren.\n\n### Beispielaufruf\n```\nint a[4] = {5, 3, 7, 1};\nrecSort(a, a+3, 0);\n```\n\n### Beispielergebnis\n```\n2\n```\n\n\nLösung: int recSort(int* start, int* end, int reverse) {\n  //Feld ist sortiert, wenn nur noch ein Element im Feld ist\n  if (start >= end || end-start == 1)\n      return 0;\n  //Feld ist sortiert, wenn es leer ist\n  if (start == NULL || end == NULL)\n      return 0;\n  int swaps = 0;\n  //p = lokale Variable für startpunkt\n  int *p;\n  if (reverse)\n      p = end;\n  else\n      p = start+1;\n  int h;\n  while(p <= end && p > start) {\n      if (*(p-1)<*p) {\n          h = *(p-1);\n          *(p-1) = *p;\n          *p = h;\n          swaps++;\n      }\n      if (reverse)\n          p--;\n      else\n          p++;\n  }\n  if (swaps == 0)\n      return swaps;\n  if (reverse)\n      swaps+=recSort(start+1, end, 0);\n  else\n      swaps+=recSort(start, end-1, 1);\n  return swaps;\n}"
@@ -247,7 +248,7 @@
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
       "gold_id": "512.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Programmieren Sie eine Funktion `void simple_file_math(char *path)`, di",
       "evidence_full": "Aufgabe: Programmieren Sie eine Funktion `void simple_file_math(char *path)`, die einen String mit dem Pfad `path` zu einer Datei übergeben bekommt. \nIn der Datei stehen zeilenweise kleine Rechenaufgaben, die gelöst und in die Datei geschrieben werden sollen.\n\nEs gibt 3 Aufgabentypen:\n\n- `quadrat <n>`: Das Quadrat der Zahl `n` soll berechnet werden.\n- `mal2 <n>`: Die Zahl `n` soll mit 2 multipliziert werden.\n- `plus` <n> <m>: Die zwei Zahlen `n` und `m` sollen aufaddiert werden.\n\nIn der Datei soll in jeder Zeile ihre Anweisung durch das Ergebnis der Rechnung ersetzt werden. Der gesamte Inhalt der Datei soll am Ende der Funktion geändert worden sein. \n\n\n### Beispielaufruf\n```\nbeispiel.txt: \n  quadrat 6\n  mal2 15\n  plus 5 9\n  quadrat 5\n\nsimple_file_math(\"beispiel.txt\");\n```\n### Beispielergebnis\n```\nbeispiel.txt: \n  36\n  30\n  14\n  25  \n```\n\n\nLösung: #include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\nvoid simple_file_math(char *path) {\n  FILE *fp;\n  fp = fopen(path, \"r\");\n  ssize_t read;\n  char *line = NULL;\n  size_t len = 0;\n  char delim[] = \" \";\n  char result[1000];\n  if (fp == NULL) {\n    printf(\"Error on opening file\");\n    return;\n  }\n  int num;\n  int start = 0;\n  while ((read = getline(&line, &len, fp)) != -1) {\n    char *token = strtok(line, delim);\n    int n = atoi(strtok(NULL, delim));\n    char tmp[100];\n    if (strcmp(token, \"quadrat\") == 0) {\n      sprintf(tmp, \"%d\", n * n);\n    }\n    if (strcmp(token, \"mal2\") == 0) {\n      sprintf(tmp, \"%d\", n * 2);\n    }\n    if (strcmp(token, \"plus\") == 0) {\n      int m = atoi(strtok(NULL, delim));\n      sprintf(tmp, \"%d\", n + m);\n    }\n    if (start != 0) {\n      char newline[] = \"\\n\";\n      strcat(result, newline);\n    }\n    start++;\n    strcat(result, tmp);\n  }\n  char newline[] = \" \\n\";\n  strcat(result, newline);\n  fclose(fp);\n  if (line)\n    free(line);\n  fp = fopen(path, \"w\");\n  if (fp == NULL) {\n    printf(\"Error on opening file\");\n    return;\n  }\n  fprintf(fp, \"%s\", result);\n  fclose(fp);\n}"
@@ -255,7 +256,7 @@
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
       "gold_id": "518.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Der Datentyp `interval_t` zur Beschreibung von abgeschlossenen Interval",
       "evidence_full": "Aufgabe: Der Datentyp `interval_t` zur Beschreibung von abgeschlossenen Intervallen ganzer Zahlen durch die untere \nund obere Intervallgrenze, ist wie folgt gegeben.\n\n```\ntypedef struct {\n  long low;   // lower bound\n  long up;    // upper bound\n} interval_t;\n```\n\nEin Intervall ist genau dann leer, wenn seine untere Intervallgrenze größer ist als seine obere. \nDer Durchschnitt zweier Intervalle ist wieder ein (möglicherweise leeres) Intervall.\n\nProgrammieren Sie eine Funktion, die bestimmt ob der Durchschnitt der übergebenen\nIntervalle leer ist, mit folgendem Prototyp.\n\n```\nint is_empty_intersection(const interval_t *a, const interval_t *b);\n```\n\n*Anforderungen:*\n\n- Das Durchschnittsintervall der Intervalle, auf die a und b verweisen, wird bestimmt.\n- Ein übergebener Null-Zeiger wird wie ein leeres Intervall behandelt.\n- Die untere Intervallgrenze des Durchschnittsintervalls ist gegeben durch das Maximum der beiden unteren Intervallgrenzen, die obere Intervallgrenze durch das Minimum der beiden oberen Intervallgrenzen.\n- Die Funktion liefert 0 zurück wenn das Durchschnittsintervall nicht leer ist, sonst wird ein positiver Wert zurückgeliefert.\n- Definieren Sie die Struktur `interval_t` in der Abgabedatei.\n\n\nLösung: #include <stdlib.h>\n\ntypedef struct {\n  long low;   // lower bound\n  long up;    // upper bound\n} interval_t;\n\nint is_empty_intersection(const interval_t *a, const interval_t *b) {\n  if (a == NULL || a->low > a->up || b == NULL || b->low > b->up)\n    return 1;\n\n  interval_t inter;\n\n  /* max lower bound */\n  if (a->low > b->low)\n    inter.low = a->low;\n  else\n    inter.low = b->low;\n\n  /* min upper bound */\n  if (a->up < b->up)\n    inter.up = a->up;\n  else\n\n    inter.up = b->up;\n\n  /* ( upper < lower ) <= > empty */\n\n  return (inter.up < inter.low);\n}"
@@ -263,7 +264,7 @@
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
       "gold_id": "523.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Definieren Sie den Datentyp `bruch_t` für die Beschreibung von rational",
       "evidence_full": "Aufgabe: Definieren Sie den Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt in Ihrer Abgabedatei:\n\n```\ntypedef struct {\n  int zaehler;\n  int nenner;\n} bruch_t;\n```\n\n---\n\nProgrammieren Sie eine Funktion mit Prototyp:\n\n```\nint compare_rational( bruch_t x, bruch_t y );\n```\n\ndie die übergebenen rationalen Zahlen `x`, `y` vergleicht und `0` zurückliefert, wenn `x` und `y` gleich sind, einen Wert kleiner `0` zurückliefert, wenn `x` kleiner als `y` ist und einen Wert größer `0` zurückliefert, wenn `x` größer als `y` ist.\n\nVerwenden Sie keine Gleitkommaarithmetik. Sorgen Sie dafür, dass beide Nenner nicht negativ sind und benutzen Sie folgende Beziehungen.\n\n- a/b = c/d genau dann, wenn ad = bc\n- a/b < c/d genau dann, wenn ad < bc\n- a/b > c/d genau dann, wenn ad > bc\n\n*Hinweis*\n- Kümmern Sie sich nicht um mögliche Überläufe, diese Problematik kann ignoriert werden.\n\n\nLösung: typedef struct {\n  int zaehler;\n  int nenner;\n} bruch_t;\n\nint compare_rational(bruch_t x, bruch_t y) {\n  if(x.nenner < 0){\n    x.nenner *= -1;\n    x.zaehler *= -1;\n  }\n\n  if(y.nenner < 0){\n    y.nenner *= -1;\n    y.zaehler *= -1;\n  }\n\n  if (x.zaehler * y.nenner == x.nenner * y.zaehler) {\n    return 0;\n  } else if (x.zaehler * y.nenner < x.nenner * y.zaehler) {\n    return -1;\n  } else {\n    return 1;\n  }\n}"
@@ -271,7 +272,7 @@
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
       "gold_id": "524.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Der Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als B",
       "evidence_full": "Aufgabe: Der Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt **gegeben** (nicht in der Abegabedatei definieren):\n\n```\ntypedef struct {\n  int zaehler;\n  int nenner;\n} bruch_t;\n```\n\nEs steht eine Funktion mit Prototyp:\n\n```\nbruch_t sub_rational(bruch_t *x, bruch_t *y);\n```\n\nzum Subtrahieren zweier rationaler Zahlen zur Verfügung, die sicherstellt, dass der Denominator des Rückgabewerts nicht negativ ist.\n\n---\n\nProgrammieren Sie eine Funktion mit Prototyp:\n\n```\nbruch_t *max_rational(bruch_t list[], int length);\n```\n\ndie angewendet auf das Feld `list` der Länge `length` die größte rationale Zahl ermittelt und einen Zeiger auf die entsprechende Feldkomponente als Funktionswert zurückliefert. Falls mehrere gleich große rationale Zahlen im Feld erfasst sind, so wird ein Zeiger auf irgendeine davon zurückgegeben.\n\n*Anforderungen*\n\n- Führen Sie den Vergleich zweier rationaler Zahlen mit der Funktion `sub_rational` durch. Es gilt aus a-b < 0 folgt a < b.\n- Die Funktion liefert bei ungültigen Argumenten, `list` ist der Nullzeiger oder `length` ist kleiner Null, den Nullzeiger zurück.\n- Sind die übergebenen Argumente gültig, können Sie davon ausgehen, dass `list` auf den Anfang eines `bruch_t`-Feldes der Länge `length` zeigt.\n\n\nLösung: bruch_t *max_rational(bruch_t list[], int length) {\n  if (list == NULL || length < 0) {\n    return NULL;\n  }\n  int max_index = 0;\n  for (int i = 1; i < length; i++) {\n    if (sub_rational(&list[max_index], &list[i]).zaehler < 0) {\n      max_index = i;        \n    }\n  }\n  return &list[max_index];\n}"
@@ -279,7 +280,7 @@
     {
       "query": "Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?",
       "gold_id": "517.yaml",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp\n\n```\nint is_per",
       "evidence_full": "Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp\n\n```\nint is_perm(const int perm[], int length);\n```\n\ndie testet, ob das Feld der Länge `length` , auf dessen Anfang `perm` zeigt, eine Permutation der Zahlen `1, 2, ..., length` beschreibt.\n\n*Anforderungen:*\n\n- Die Funktion liefert bei einem Fehler einen negativen Wert zurück.\n- Handelt es sich um eine Permutation der Zahlen `1, 2, ..., length` wird ein positiver Wert zurückgeliefert, andernfalls wird `0` zurückgeliefert.\n- Berücksichtigen Sie den Fall, dass perm Werte nicht aus `1, 2, ..., length` enthält.\n- Testen Sie wie folgt.\n  1. Speicher für ein `int`-Feld `anzahl` der Länge `length` auf dem Heap anfordern (hier kann ein Fehler auftreten).\n  2. Für jeden Wert *k* aus `1, 2, ..., length` wird im Feld `anzahl` abgespeichert, wie oft *k* im Feld `perm` vorkommt.\n  3. Enthalten alle Komponenten des Feldes `anzahl` den Wert 1 handelt es sich um eine passende Permutation.\n  4. Vor Beendigung der Funktion wird der angeforderten Speicher wieder freigegeben.\n\n### Beispielaufruf\n```\nint p1[] = {1, 3, 4, 5, 0};\nis_perm(p1, 5)\n```\n### Beispielergebnis\n```\n0\n```\n\n\nLösung: #include <stdio.h>\n#include <stdlib.h>\n\nint is_perm(int perm[], int laenge) {\n\n  int *anzahl;\n  int wert = 1;\n  int i;\n\n  if (perm == NULL)\n    return -1;\n\n  /* Test auf wohldefiniert Eingabe , siehe unten */\n  for (i = 0; i < laenge; i++) {\n    if (perm[i] < 1 || perm[i] > laenge)\n      return 0;\n    /* Fehler waere auch OK */\n  }\n\n  if ((anzahl = malloc(laenge * sizeof(int))) == NULL)\n    return -3;\n\n  for (i = 0; i < laenge; i++)\n    anzahl[i] = 0;\n\n  for (i = 0; i < laenge; i++)\n    ++anzahl[perm[i] - 1];\n\n  for (i = 0; i < laenge; i++)\n    wert = wert & (anzahl[i] == 1);\n\n  free(anzahl);\n  return wert;\n}"
@@ -287,7 +288,7 @@
     {
       "query": "Wie überprüft man, ob eine Reihe der Länge n eine Permutation von 1 bis n ist?",
       "gold_id": "73.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Ein Permutation der Länge `n` ist eine Abbildung der Menge {1, 2, ..., ",
       "evidence_full": "Aufgabe: Ein Permutation der Länge `n` ist eine Abbildung der Menge {1, 2, ..., n} auf sich selbst. Programmieren und testen Sie eine Funktion\n```\nint permtest( const unsigned int* p, int laenge)\n```\ndie von einem übergebenen Feld der Länge `laenge` testet, ob der Inhalt eine Permutation repräsentiert und in diesem Fall den Wert `1` zurückliefert und sonst `0`. \n\n\nLösung: int permtest(unsigned int* p, int laenge) {\n  int map[laenge + 1];\n  for (int i = 0; i <= laenge; i++)\n    map[i] = 0;\n  for (int i = 0; i < laenge; i++) {\n    if (p[i] <= 0 || p[i] > laenge)\n      return 0;\n    if (map[p[i]])\n      return 0;\n    map[p[i]] = 1;\n  }\n  return 1;\n}"
@@ -295,15 +296,15 @@
     {
       "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.7,
+      "status": "MISSING",
       "evidence_snippet": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Dekl",
       "evidence_full": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.\n- · In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw.\n\nEs ist offensichtlich, dass die Definition einer Funktion ihrer Deklaration entsprechen muss."
     },
     {
       "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Auf",
       "evidence_full": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Aufruf der Funktion durchzufuhren sind. Die Funktionsdefinition hat die Form\n\n```\ntyp name ( typ1 parameter1 , ..., typN parameterN ) { lokale deklarationen anweisungsfolge }\n```\n\nMan beachte: In der Definition einer Funktion wird der Funktionsheader nicht wie in der Deklaration durch ein Semikolon abgeschlossen!"
@@ -311,7 +312,7 @@
     {
       "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "lokale deklarationen\n\nanweisungsfolge\n\n}\n\n...\n\n... funktN(...) {\n\nlokale deklara",
       "evidence_full": "lokale deklarationen\n\nanweisungsfolge\n\n}\n\n...\n\n... funktN(...) {\n\nlokale deklarationen\n\nanweisungsfolge\n\n}\n\n```\nint main(...) { lokale deklarationen anweisungsfolge\n```\n\n}\n\nmain ist, wie bereits gesagt, das Hauptprogramm, d.h. die Ausfuhrung des gesamten Programms beginnt am Anfang von main . Die Funktionen funkt1 , . . . , funktN konnen vom Hauptprogramm oder auch von den Funktionen aufgerufen werden. Insbesondere ist auch Rekursion erlaubt, d.h. eine Funktion darf sich selbst aufrufen."
@@ -319,23 +320,23 @@
     {
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.7,
+      "status": "MISSING",
       "evidence_snippet": "Mit den Daten des letzten Beispiels haben wir eine weitere Moglichkeit kennengel",
       "evidence_full": "Mit den Daten des letzten Beispiels haben wir eine weitere Moglichkeit kennengelernt, namlich Zeiger auf Zeiger: Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, die ihrerseits Zeiger auf Strings sind. Auch solche Variablen kann man explizit definieren: Durch\n\n```\nchar **tabelle;\n```"
     },
     {
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.4,
+      "status": "LOW_SCORE",
       "evidence_snippet": "ist tabelle ein Zeiger auf eine Variable mit dem Typ char * , also Zeiger auf ei",
       "evidence_full": "ist tabelle ein Zeiger auf eine Variable mit dem Typ char * , also Zeiger auf eine Variable mit einem Zeigertyp.\n\nDass Zeiger auf Zeiger keine theoretische Spielerei sind, kann durch eine kleine Erweiterung des Beispiels ' Zahlen in Klarschrift' gezeigt werden: Die Klarschrift soll wahlweise in Deutsch oder Englisch (oder einer beliebigen anderen Sprache) erfolgen. Die Entscheidung daruber soll erst bei der Ausfuhrung des Programms getroffen werden."
     },
     {
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Letztlich haben wir hier den Typ von i (temporar) geandert: Mit *fp greifen wir ",
       "evidence_full": "Letztlich haben wir hier den Typ von i (temporar) geandert: Mit *fp greifen wir auf den Speicherplatz der int -Variablen i zu. Bei der Wertzuweisung ware also eigentlich eine Umwandlung des Typs des Ausdrucks 6.5f von float in int erforderlich - diese Umwandlung unterbleibt aber, weil *fp als Zeiger auf float definiert ist. Statt dessen wird die Bitfolge unverandert ubertragen. Durch die Funktion printf wird diese Bitfolge nur wieder als int -Wert interpretiert - dass das nicht funktionieren kann, sollte klar sein; was man erhalt, lasst sich dagegen allgemein nicht vorhersagen. Vielleicht probieren Sie es selbst einmal aus."
@@ -343,7 +344,7 @@
     {
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
       "gold_id": "77.yaml",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Eine Sudoku-Matrix ist eine 9x9-Matrix, deren Einträge ganze Zahlen zwi",
       "evidence_full": "Aufgabe: Eine Sudoku-Matrix ist eine 9x9-Matrix, deren Einträge ganze Zahlen zwischen 1 und 9 sind und die weitere Bedingungen erfüllen. Zur Formulierung der Bedingungen betrachten wir die Matrix als Blockmatrix aus 9 Blöcken von 3x3-Matrizen, die durch die Zeilen bzw. Spalten 1 bis 3, 4 bis 6 und 7 bis 9 gebildet werden. Jede dieser 3x3-Matrizen bezeichnen im Weiteren als Block. Nun können wir die Bedingungen formulieren, die aus einer Matrix obiger Form eine Sudoku-Matrix machen: \n- Jede Zeile und jede Spalte gibt eine Permutation der Länge 9 an.\n- Jeder Block enthält jeden der Werte 1 bis 9 genau einmal.\n\n---\nProgrammieren Sie eine Funktion \n```\nint sudokucheck(const int** s)\n``` \ndie von einer 9x9 Matrix in Doppelzeigerform (siehe Aufgabe Permutationsmatrix) prüft, ob es sich dabei um eine Sudoku-Matrix handelt. Geben Sie `1` zurück, falls ja, und `0` sonst.\n\n\nLösung: #include <stdio.h>\n\nint sudokucheck(const int** s) {\n  const int laenge = 9;\n  \n  for(int i = 0; i < laenge; i++) {\n    int helper[] = {2,2,2,2,2,2,2,2,2};\n    for(int j = 0; j < laenge; j++) {\n      if(*(*s + (i*laenge) + j) < 1 || *(*s + (i*laenge) + j) > 9) {\n        return 0;\n      }\n      if(helper[(*(*s + (i*laenge) + j) - 1)]) {\n        helper[(*(*s + (i*laenge) + j) - 1)]--;\n      }\n      else {\n        return 0;\n      }\n      if(helper[(*(*s + (j*laenge) + i) - 1)]) {\n        helper[(*(*s + (j*laenge) + i) - 1)]--;\n      }\n      else {\n        return 0;\n      }\n      if(!(i % 3) && !(j % 3)) {\n        int block[] = {1,1,1,1,1,1,1,1,1};\n        for(int k = 0; k < 3; k++) {\n          for(int l = 0; l < 3; l++) {\n            if(block[(*(*s + (i*laenge) + j + (k*laenge) + l) - 1)]) {\n              block[(*(*s + (i*laenge) + j + (k*laenge) + l) - 1)]--;\n            }\n            else {\n              return 0;\n            }\n          }\n        }\t\t\t\n      }\n    }\n  }\n  return 1;\n}"
@@ -351,7 +352,7 @@
     {
       "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
       "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Speicher, den man sich mit malloc beschafft, besitzt ubrigens keine wohldefinier",
       "evidence_full": "Speicher, den man sich mit malloc beschafft, besitzt ubrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit fur deren Zuweisung sorgen."
@@ -359,7 +360,7 @@
     {
       "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 0.6,
       "status": "OK",
       "evidence_snippet": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der ",
       "evidence_full": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der Speicherplatzzuordnung einen wohldefinierten Anfangswert erhalten, muss man ihnen erst einen Wert zuweisen, bevor man auf ihren Wert zugreifen kann."
@@ -367,15 +368,15 @@
     {
       "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
       "gold_id": "517.yaml",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.4,
+      "status": "LOW_SCORE",
       "evidence_snippet": "Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp\n\n```\nint is_per",
       "evidence_full": "Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp\n\n```\nint is_perm(const int perm[], int length);\n```\n\ndie testet, ob das Feld der Länge `length` , auf dessen Anfang `perm` zeigt, eine Permutation der Zahlen `1, 2, ..., length` beschreibt.\n\n*Anforderungen:*\n\n- Die Funktion liefert bei einem Fehler einen negativen Wert zurück.\n- Handelt es sich um eine Permutation der Zahlen `1, 2, ..., length` wird ein positiver Wert zurückgeliefert, andernfalls wird `0` zurückgeliefert.\n- Berücksichtigen Sie den Fall, dass perm Werte nicht aus `1, 2, ..., length` enthält.\n- Testen Sie wie folgt.\n  1. Speicher für ein `int`-Feld `anzahl` der Länge `length` auf dem Heap anfordern (hier kann ein Fehler auftreten).\n  2. Für jeden Wert *k* aus `1, 2, ..., length` wird im Feld `anzahl` abgespeichert, wie oft *k* im Feld `perm` vorkommt.\n  3. Enthalten alle Komponenten des Feldes `anzahl` den Wert 1 handelt es sich um eine passende Permutation.\n  4. Vor Beendigung der Funktion wird der angeforderten Speicher wieder freigegeben.\n\n### Beispielaufruf\n```\nint p1[] = {1, 3, 4, 5, 0};\nis_perm(p1, 5)\n```\n### Beispielergebnis\n```\n0\n```\n\n\nLösung: #include <stdio.h>\n#include <stdlib.h>\n\nint is_perm(int perm[], int laenge) {\n\n  int *anzahl;\n  int wert = 1;\n  int i;\n\n  if (perm == NULL)\n    return -1;\n\n  /* Test auf wohldefiniert Eingabe , siehe unten */\n  for (i = 0; i < laenge; i++) {\n    if (perm[i] < 1 || perm[i] > laenge)\n      return 0;\n    /* Fehler waere auch OK */\n  }\n\n  if ((anzahl = malloc(laenge * sizeof(int))) == NULL)\n    return -3;\n\n  for (i = 0; i < laenge; i++)\n    anzahl[i] = 0;\n\n  for (i = 0; i < laenge; i++)\n    ++anzahl[perm[i] - 1];\n\n  for (i = 0; i < laenge; i++)\n    wert = wert & (anzahl[i] == 1);\n\n  free(anzahl);\n  return wert;\n}"
     },
     {
       "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Man beachte: Die deutschen Umlaute und das ß gehoren nicht zum Zeichensatz von A",
       "evidence_full": "Man beachte: Die deutschen Umlaute und das ß gehoren nicht zum Zeichensatz von ANSI-C! Weitestgehend entsprechen diese Anforderungen des Standard der Realitat des ASCII-Code ( American Standard Code for Information Interchange ), der insgesamt 128 Zeichen umfasst:\n\n- · Die Zeichen mit den Ordnungszahlen 0 bis 31 sowie das Zeichen mit der Ordnungszahl 127 sind Steuerzeichen.\n- · Die Zeichen mit den Ordnungszahlen 32 bis 126 sind druckbar."
@@ -383,7 +384,7 @@
     {
       "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "importance": "essential",
+      "matching_score": 0.6,
       "status": "OK",
       "evidence_snippet": "Erinnerung: Die Lange eines Strings , der durch ein char -Feld realisiert ist, i",
       "evidence_full": "Erinnerung: Die Lange eines Strings , der durch ein char -Feld realisiert ist, ist etwas anderes als die Lange dieses Feldes . Die Lange des Strings ist die Anzahl der Bytes vor dem Nullbyte im Feld. Die Lange des char -Feldes in dem die Zeichen des Strings gespeichert sind ist die Anzahl der Bytes, die das komplette Feld belegt."
@@ -391,7 +392,7 @@
     {
       "query": "Belegt das Sonderzeichen 'ö' mehr einen Byte Speicher?",
       "gold_id": "417.yaml",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
       "evidence_full": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.\n \nSchreiben Sie hierfür zwei Methoden:\n \n```\nchar* static_str(char* string)\n```   \nnimmt einen Zeiger auf ein Char-Feld `string` entgegen.\nLegen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.\nGeben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.\n \nZu Lernzwecken können Sie auch ausprobieren was passiert, wenn das Array innerhalb der Funktion nicht statisch ist.\n \n---\n\n```\nchar* malloc_str(char string[], int len)\n```\nnimmt ein char-array `string` entgegen, sowie dessen Länge `len`.\nAllokieren Sie mit `malloc()` ausreichend Speicherplatz und kopieren Sie den Inhalt von `string` dorthin.\nGeben Sie dann einen Zeiger auf den neu erstellten String zurück.\n \n### Beispielaufruf\n \n```\nchar* str1 = static_str(\"Möglichkeit 1\");\n \nchar str2[] = \"Möglichkeit 2 (schöner)\";\nchar* str2ptr = malloc_str(str2, 24);\n```\n \n### Beispielergebnis\n \n```\nprintf(\"%s\", str1);\n>>> Möglichkeit 1\n \nprintf(\"%s\", str2ptr);\n>>> Möglichkeit 2 (schöner)\n```\n\n\nLösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_return[150];\n  strcpy(str_return, string);\n  return str_return;\n}\n \nchar* malloc_str(char string[], int len){\n  char* ptr = malloc(len*sizeof(char));\n  strcpy(ptr, string);\n  return ptr;\n}"
@@ -399,7 +400,7 @@
     {
       "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
       "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Den Datentyp char haben wir bereits kennengelernt. Ebenso wurde bereits angespro",
       "evidence_full": "Den Datentyp char haben wir bereits kennengelernt. Ebenso wurde bereits angesprochen, wie Stringkonstanten aussehen. Wie sieht es mit Stringvariablen aus? Diese werden durch Felder von char -Werten realisiert. Ein Feld von Zeichen wird dadurch zu einem String, dass man hinter dem letzten ' echten' Zeichen ein Null-Zeichen speichert. Bei Stringkonstanten sorgt der Compiler sogar dafur, dass dieses Null-Zeichen automatisch angehangt wird. Das Null-Zeichen hat die Ordnungszahl 0 und kann im Quelltext als \\0 geschrieben werden."
@@ -407,7 +408,7 @@
     {
       "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
       "gold_id": "programmierung_mit_ansi_c-193-206.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Wenn der zu kopierende String aus n oder mehr Zeichen besteht, wird der kopierte",
       "evidence_full": "Wenn der zu kopierende String aus n oder mehr Zeichen besteht, wird der kopierte String nicht durch ein Stringende-Zeichen abgeschlossen."
@@ -415,15 +416,15 @@
     {
       "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
       "gold_id": "417.yaml",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.4,
+      "status": "LOW_SCORE",
       "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
       "evidence_full": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.\n \nSchreiben Sie hierfür zwei Methoden:\n \n```\nchar* static_str(char* string)\n```   \nnimmt einen Zeiger auf ein Char-Feld `string` entgegen.\nLegen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.\nGeben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.\n \nZu Lernzwecken können Sie auch ausprobieren was passiert, wenn das Array innerhalb der Funktion nicht statisch ist.\n \n---\n\n```\nchar* malloc_str(char string[], int len)\n```\nnimmt ein char-array `string` entgegen, sowie dessen Länge `len`.\nAllokieren Sie mit `malloc()` ausreichend Speicherplatz und kopieren Sie den Inhalt von `string` dorthin.\nGeben Sie dann einen Zeiger auf den neu erstellten String zurück.\n \n### Beispielaufruf\n \n```\nchar* str1 = static_str(\"Möglichkeit 1\");\n \nchar str2[] = \"Möglichkeit 2 (schöner)\";\nchar* str2ptr = malloc_str(str2, 24);\n```\n \n### Beispielergebnis\n \n```\nprintf(\"%s\", str1);\n>>> Möglichkeit 1\n \nprintf(\"%s\", str2ptr);\n>>> Möglichkeit 2 (schöner)\n```\n\n\nLösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_return[150];\n  strcpy(str_return, string);\n  return str_return;\n}\n \nchar* malloc_str(char string[], int len){\n  char* ptr = malloc(len*sizeof(char));\n  strcpy(ptr, string);\n  return ptr;\n}"
     },
     {
       "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
       "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Damit wissen wir jetzt auch, warum 'w' und \"w\" nicht dasselbe bedeuten:\n\n- · 'w'",
       "evidence_full": "Damit wissen wir jetzt auch, warum 'w' und \"w\" nicht dasselbe bedeuten:\n\n- · 'w' hat als Wert die Ordnungszahl des Zeichen w .\n- · \"w\" hat als Wert die Zeichenfolge aus dem Zeichen w und einem nachfolgenden NullZeichen.\n\nVereinbart man Stringvariablen, so muss man bei der Langenangabe das Null-Zeichen stets mitzahlen. Von den Vereinbarungen"
@@ -431,7 +432,7 @@
     {
       "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
       "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "```\nchar text1[4] = \"Text\", /* nicht korrekt */ text2[5] = \"Text\", text3[6] = \"T",
       "evidence_full": "```\nchar text1[4] = \"Text\", /* nicht korrekt */ text2[5] = \"Text\", text3[6] = \"Text\";\n```\n\nist die erste also nicht korrekt, weil sie das abschließende Null-Zeichen nicht berucksichtigt. Bei der zweiten Vereinbarung sind die Lange von Variable und Konstante gerade identisch. Die dritte Vereinbarung ist auch zulassig; bei ihr bleibt die letzte der sechs verfugbaren Zeichenpositionen frei."
@@ -439,7 +440,7 @@
     {
       "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
       "gold_id": "417.yaml",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
       "evidence_full": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.\n \nSchreiben Sie hierfür zwei Methoden:\n \n```\nchar* static_str(char* string)\n```   \nnimmt einen Zeiger auf ein Char-Feld `string` entgegen.\nLegen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.\nGeben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.\n \nZu Lernzwecken können Sie auch ausprobieren was passiert, wenn das Array innerhalb der Funktion nicht statisch ist.\n \n---\n\n```\nchar* malloc_str(char string[], int len)\n```\nnimmt ein char-array `string` entgegen, sowie dessen Länge `len`.\nAllokieren Sie mit `malloc()` ausreichend Speicherplatz und kopieren Sie den Inhalt von `string` dorthin.\nGeben Sie dann einen Zeiger auf den neu erstellten String zurück.\n \n### Beispielaufruf\n \n```\nchar* str1 = static_str(\"Möglichkeit 1\");\n \nchar str2[] = \"Möglichkeit 2 (schöner)\";\nchar* str2ptr = malloc_str(str2, 24);\n```\n \n### Beispielergebnis\n \n```\nprintf(\"%s\", str1);\n>>> Möglichkeit 1\n \nprintf(\"%s\", str2ptr);\n>>> Möglichkeit 2 (schöner)\n```\n\n\nLösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_return[150];\n  strcpy(str_return, string);\n  return str_return;\n}\n \nchar* malloc_str(char string[], int len){\n  char* ptr = malloc(len*sizeof(char));\n  strcpy(ptr, string);\n  return ptr;\n}"
@@ -447,7 +448,7 @@
     {
       "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulassigen I",
       "evidence_full": "Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulassigen Indizes auf ein Feld zugreift: Der Abstand wird ausgerechnet und zum Zugriff verwendet. So bewirkt v[-1] gerade den Zugriff auf den Speicherbereich direkt vor dem Beginn des Vektors. Versuchte Zugriffe auf Feldkomponenten jenseits der Feldgrenzen nennt man Indexuberschreitung ."
@@ -455,7 +456,7 @@
     {
       "query": "Warum erscheint in SmartBeans ein 'Q' statt einer Klammer ')', wenn die Länge 24 übergeben wurde?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "importance": "essential",
+      "matching_score": 0.6,
       "status": "OK",
       "evidence_snippet": "An der Stelle, auf die zum Beispiel durch v[-1] zugegriffen wird, steht ja in de",
       "evidence_full": "An der Stelle, auf die zum Beispiel durch v[-1] zugegriffen wird, steht ja in der Regel eine andere Variable des Programms,"
@@ -463,7 +464,7 @@
     {
       "query": "Welche Editoren stehen in der Klausur zur Verfügung?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
       "evidence_full": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar."
@@ -471,7 +472,7 @@
     {
       "query": "Gibt es in der Klausur Schmierpapier?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den ",
       "evidence_full": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus."
@@ -479,7 +480,7 @@
     {
       "query": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombina",
       "evidence_full": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt."
@@ -487,7 +488,7 @@
     {
       "query": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted.",
       "evidence_full": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted."
@@ -495,7 +496,7 @@
     {
       "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Der Compiler wurde in diesem Fall eine Fehlermeldung ausgeben.\n\n- · Jede Anweisu",
       "evidence_full": "Der Compiler wurde in diesem Fall eine Fehlermeldung ausgeben.\n\n- · Jede Anweisung muss durch ein Semikolon abgeschlossen werden, anders als etwa in Pascal, wo das Semikolon Anweisungen trennt.\n- · Die return -Anweisung beendet die Funktion und liefert 0 als Funktionswert an die rufende Funktion zuruck. Fur main ist die rufende Funktion das Betriebssystem."
@@ -503,7 +504,7 @@
     {
       "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
       "gold_id": "519.yaml",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Schreiben sie ein Programm das `Hello World!` ausgibt. \n\n### Beispielei",
       "evidence_full": "Aufgabe: Schreiben sie ein Programm das `Hello World!` ausgibt. \n\n### Beispieleingabe\n```\n```\n### Beispielausgabe\n```\nHello World!\n```\n\n\nLösung: #include <stdio.h>\n \nint main(){\n  printf(\"Hello World!\");\n  return 0;\n}"
@@ -511,7 +512,7 @@
     {
       "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der ",
       "evidence_full": "Da der Standard außerdem nicht vorschreibt, dass automatische Variablen bei der Speicherplatzzuordnung einen wohldefinierten Anfangswert erhalten, muss man ihnen erst einen Wert zuweisen, bevor man auf ihren Wert zugreifen kann. Diese Zuweisung kann in der Form einer Anfangswertzuweisung erfolgen oder auch durch eine explizite Wertzuweisung; beides lost der Compiler letztlich ohnehin in gleicher Weise auf. Ob wir"
@@ -519,7 +520,7 @@
     {
       "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
       "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Am Ende dieses Kapitels wird noch einmal auf Matrizen auf dem Heap eingegangen. ",
       "evidence_full": "Am Ende dieses Kapitels wird noch einmal auf Matrizen auf dem Heap eingegangen. Wir werden sehen, dass sich, wenn auch mit einigem Aufwand, letztlich doch auch Matrizen erzeugen lassen.\n\nSpeicher, den man sich mit malloc beschafft, besitzt ubrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit fur deren Zuweisung sorgen."
@@ -527,7 +528,7 @@
     {
       "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbag",
       "evidence_full": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable."
@@ -535,7 +536,7 @@
     {
       "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "importance": "essential",
+      "matching_score": 0.5,
       "status": "OK",
       "evidence_snippet": "Konstanten verandern ihren Wert zur Laufzeit eines Programms nicht. Sie besitzen",
       "evidence_full": "Konstanten verandern ihren Wert zur Laufzeit eines Programms nicht. Sie besitzen außerdem nur ihren Wert und Typ, nicht jedoch einen Speicherplatz ; zumindest nicht in der Theorie, in der Praxis sieht das gelegentlich anders aus.\n\nVariablen besitzen dagegen einen Speicherplatz und Typ und in der Regel auch einen Wert, namlich den, der an diesem Speicherplatz steht. Es ist jederzeit moglich, diesen Wert zu andern. Solange der Wert einer Variablen nicht gesetzt wurde, braucht sie keinen wohldefinierten Wert zu besitzen."
@@ -543,7 +544,7 @@
     {
       "query": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ein C-Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen .",
       "evidence_full": "Ein C-Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen . Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisiert das Hauptprogramm . Alle anderen Funktionen sind Unterprogramme und mussen andere Namen tragen. Das kleinste Programm besteht nur aus der Funktion main . Fehlt sie, gibt der Linker eine Fehlermeldung aus."
@@ -551,7 +552,7 @@
     {
       "query": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Wenn der Compiler keine Fehler entdeckt, erzeugt er ein Objekt-Programm .\n\n- 5. ",
       "evidence_full": "Wenn der Compiler keine Fehler entdeckt, erzeugt er ein Objekt-Programm .\n\n- 5. Das Objekt-Programm wird gebunden ; dieses geschieht erneut durch ein spezielles Programm, den Linker . Der Linker fugt das eigene Programm mit den benotigten Routinen aus den Programm-Bibliotheken zu einem ausfuhrbaren Programm ( ' Binary') zusammen.\n- Auch dabei konnen Fehler auftreten, namlich dass der Linker benotigte Routinen nicht findet.\n- 6. Das fertige Programm kann ausgefuhrt werden."
@@ -559,7 +560,7 @@
     {
       "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
-      "importance": "essential",
+      "matching_score": 0.5,
       "status": "OK",
       "evidence_snippet": "Ein C-Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen .",
       "evidence_full": "Ein C-Programm besteht, formal betrachtet, aus einer Ansammlung von Funktionen . Genau eine dieser Funktionen ist ausgezeichnet durch den Namen main und realisiert das Hauptprogramm . Alle anderen Funktionen sind Unterprogramme und mussen andere Namen tragen. Das kleinste Programm besteht nur aus der Funktion main . Fehlt sie, gibt der Linker eine Fehlermeldung aus."
@@ -567,7 +568,7 @@
     {
       "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu e",
       "evidence_full": "Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler."
@@ -575,7 +576,7 @@
     {
       "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
       "gold_id": "525.yaml",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Aufgabe: **Die Aufgabe stammt aus einer Altklausur. Die Umsetzung in SmartBeans ",
       "evidence_full": "Aufgabe: **Die Aufgabe stammt aus einer Altklausur. Die Umsetzung in SmartBeans ist leider technisch nicht möglich. Es werden keine Tests ausgeführt. Damit Sie aber schon mal eine Vorstellung dafür bekommen, ist hier der Originaltext angegeben. Sie können die Aufgabe trotzdem für sich lokal lösen und testen. Anmerkungen, welche Veränderungen Sie machen müssen, damit die Aufgabe lokal bearbeitet werden kann, sind kursiv hinzugefügt worden. In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können. Die Aufgabe heißt a04-2 und baut auf der Aufgabe a04-1 auf die der Aufgabe Binäre Suche Variante im SmartBeans entspricht.**\n\n---\n\n\nEs steht eine Funktion mit Prototyp\n\n```\nint rec_contains(int **pos, int *start, int *end, int x);\n```\n\nzur Verfügung. Die Funktion sucht den Wert `x` in dem Feld, auf dessen erste Komponente der Zeiger `start` und hinter dessen letzte Komponente der Zeiger `end` verweist. Wird der Wert nicht gefunden, liefert die Funktion Null zurück und pos enthält den `Null`-Zeiger. Wird der Wert gefunden, ist der Rückgabewert ungleich Null und pos liefert (einen Zeiger auf) die Position des gefundenen Werts im Feld zurück. \nDie Deklaration der Funktion ﬁnden Sie in der Headerdatei `a04-testing.h` aus der Dateiliste.\n*Bitte legen Sie die Datei selbst an und speichern Sie dort den oben angegebenen Prototypen als einzige Zeile ab.*\n\n\nIn der der Standardheaderdatei `stdlib.h` ist die Funktion `atoi` mit folgendem Prototyp deklariert.\n\n```\nint atoi(const char *str);\n```\n\nDer Funktion `atoi` wird ein Zeiger auf einen `char`-Vektor übergeben, der eine Zeichenkette enthält. Falls möglich wird die Zeichenkette in einen `int`-Wert umgewandelt und dieser wird zurückgeliefert. Ist die Umwandlung nicht möglich, wird `0` zurückgeliefert.\n\n\nIn der der Standardheaderdatei `stdlib.h` ist die Funktion `rand` mit folgendem Prototyp deklariert.\n\n```\nint rand(void);\n```\n\nDie Funktion liefert eine nicht negative ganzzahlige Pseudo-Zufallszahl kleiner gleich `RAND_MAX`.\n\n\n---\n\nProgrammieren Sie eine `main`-Funktion (ohne Benutzereingaben), die auf der Kommandozeile genau zwei Argumente übergeben bekommt.\n- Das erste Argument bestimmt die Länge eines sortierten `int`-Feldes.\n- Das zweite Argument gibt an welcher Wert in den `int`-Feld gesucht werden soll.\n- Integrieren Sie folgende Zeile, z.B. als erste Zeile, in Ihre Lösung.\n- ```#include \"a04-testing.h\"```\n- Enthält die Kommandozeile nicht genau zwei Argumente, wird eine Fehlermeldung ausgegeben und die `main`-Funktion beendet.\n- Beide, auf der Kommandozeile übergebene, Argumente werden mit `atoi` in `int`-Werte umgewandelt. Das erste Argumente wird in `n` , das zweite in `k` gespeichert.\n- Ist `n` nicht positiv wird die Funktion `rec_contains` mit einem Null-Zeigern für `start` und `end`, aufgerufen. Der Rückgabewert wird ausgegeben und die `main`-Funktion beendet.\n- Ist `n` positiv wird **Speicher auf dem Heap** für ein `int`-Feld mit `n` Komponenten reserviert.\n- Hinweis. Beim Reservieren von Speicher auf dem Heap kann ein Fehler auftreten.\n- Der Wert der ersten Komponenten des Feldes wird mit `rand() % n` bestimmt. Der Wert der nachfolgenden Komponenten wird berechnet, indem jeweils mit `rand() % n` der **Abstand** zu vorherigen Komponente bestimmt wird.\n- Mögliche Überläufe werde erkannt, in diesem Fall wird eine Fehlermeldung ausgegeben und die `main`-Funktion beendet.\n  Hinweis. So entsteht ein aufsteigend sortiertes Feld.\n- Das Feld wird ausgegeben.\n- Ist `k` ein gültiger Index des Feldes, wird im Feld der Wert der `k`-te Komponente des Feldes mit der Funktion `rec_contains` gesucht. Das Ergebnis der Suche (Rückgabewert und Zeiger) wird ausgegeben.\n- Ist k **kein** gültiger Index des Feldes, wird im Feld der Wert `k` mit der Funktion `rec_contains` gesucht. Das Ergebnis der Suche (Rückgabewert und Zeiger) wird ausgegeben.\n- Speicher, der auf dem Heap reserviert wurde, wird auch wieder freigegeben.\n\n\n**Lösen - Testen - Abgeben**\n- Speichern Sie die oben in der Dateiliste hinterlegte Datei a04-testing.h im Ordner `~/klausur`. (*Bitte ignorieren und Ihre oben erstellte eigene Datei verwenden. Der Ordner, in dem Sie arbeiten wollen, ist natürlich ihnen überlassen*)\n- Erstellen Sie im Ordner `~/klausur` eine neue Datei, z.B. `a04-2.c` , mit der Lösung dieser Aufgabe.\n- Kompilieren Sie Ihren Lösung.\n- ``` gcc -c -Wall -std=c11 a04-2.c```\nHinweis: Die Minimalanforderung für diese Aufgabe ist, dass das Compilieren erfolgreich durchgeführt werden kann.\n- Testen Sie Ihre Lösung mit der Lösung von Aufgabe [a04-1] . (*Verwenden Sie bitte Ihre Abgabe aus der Aufgabe Binäre Suche Variante*)\n- Zum Abgeben der Lösung laden Sie **nur** die von Ihre erstellte Datei, z.B. a04-2.c , mit dem Büroklammer-Symbol in den nachfolgen Editor. (*Sie können ihre Lösung wie gewohnt abgeben. Leider gibt es keine Tests und die Aufgabe wird automatisch als korrekt gewertet.*)\n\n\nLösung: TODO"
@@ -583,15 +584,15 @@
     {
       "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.9,
+      "status": "MISSING",
       "evidence_snippet": "Jedes C-Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm b",
       "evidence_full": "Jedes C-Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. Diese Hauptfunktion wird beim Start des Programms vom Betriebssystem aufgerufen. Und sie erhalt beim Aufruf zwei Argumente! Wir haben diese Argumente bislang durch die Definition\n\n```\nint main (void)\n```\n\nignoriert. Tatsachlich ist der Prototyp fur main jedoch"
     },
     {
       "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "```\nint main (int argc, char *argv[]);\n```\n\nWas man ubergeben erhalt, ist der be",
       "evidence_full": "```\nint main (int argc, char *argv[]);\n```\n\nWas man ubergeben erhalt, ist der bereits zerlegte Inhalt der Aufrufzeile des Programms:\n\n- · argc ist die Anzahl der Eintrage in der Aufrufzeile, wobei als Trennzeichen zwischen den Eintragen Leerzeichen und horizontaler Tabulator interpretiert werden.\n- · argv ist ein Vektor von Zeigern auf die einzelnen Eintrage in der Form von C-Strings."
@@ -599,7 +600,7 @@
     {
       "query": "Was ist eine statische Dimensionierung bei Matrizen?",
       "gold_id": "57.yaml",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Schreiben Sie ein Programm, das zwei Matrizen liest, ihr Produkt berechnet und a",
       "evidence_full": "Schreiben Sie ein Programm, das zwei Matrizen liest, ihr Produkt berechnet und ausgibt. Dimensionieren Sie die Matrizen (statisch) mit benannten Konstanten. Das Programm kann dadurch (ohne weiteres) keine größeren Matrizen verarbeiten, aber es soll beliebige kleinere Matrizen verarbeiten können. Vom Benutzer sollte daher vorher das tatsächlich zu verarbeitende Format erfragt werden."
@@ -607,7 +608,7 @@
     {
       "query": "Was ist eine statische Dimensionierung bei Matrizen?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst ",
       "evidence_full": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst die Große der zu bearbeitenden Matrizen und beschafft sich dann vom Betriebssystem den entsprechenden Speicher. Methoden dazu werden im Kapitel 13 vorgestellt. Der Einsatz unserer Funktion matprod ware dann moglich.\n- · Man arbeitet mit ' Maximalgroßen' fur die Matrizen, d.h. man uberlegt sich eine obere Schranke fur die Große der vorkommenden Matrizen und definiert alle Matrizen mit dieser Große. Das wird in mathematischen Programmen oft gemacht, hat aber auch seine Nachteile:\n- -Sollte der Benutzer des Programms großere Matrizen verarbeiten wollen, muss die Verarbeitung abgelehnt werden.\n- -Funktionen wie matprod benotigen zusatzliche Parameter: Fur die Schleifen wird die ' logische' (genutzte) Große der Matrizen benotigt; fur die Berechnung der Speicherabbildungsfunktion wird dagegen die ' physikalische' (vereinbarte) Große der Matrizen benotigt."
@@ -615,7 +616,7 @@
     {
       "query": "Was ist eine statische Dimensionierung bei Matrizen?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Wir haben uns verschiedentlich bereits mit Feldern beschaftigt. Was wir dabei ge",
       "evidence_full": "Wir haben uns verschiedentlich bereits mit Feldern beschaftigt. Was wir dabei gelernt haben, ist im Folgenden noch einmal kurz zusammengefasst:\n\n- · Felder konnen durch\n\n```\ntyp name [ anzahl ];\n```\n\nvereinbart werden. Der Wert anzahl muss ein konstanter Ausdruck mit ganzzahligem, positivem Wert sein."
@@ -623,7 +624,7 @@
     {
       "query": "Was ist eine statische Dimensionierung bei Matrizen?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```",
       "evidence_full": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```\n\nbesagt so: v ist ein Vektor (eindimensionales Feld) mit 5 Komponenten. Die Dimensionierung muss mit Konstanten erfolgen - allerdings sind die benannten Konstanten eben auch Konstanten.\n\nAnsprechen kann man einzelne Komponenten eines Vektors, indem man seinem Namen den Index der entsprechenden Komponente nachstellt, erneut eingeschlossen in eckige Klammern. Dabei muss man beachten: Die Numerierung der Komponenten beginnt immer"
@@ -631,7 +632,7 @@
     {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "417.yaml",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
       "evidence_full": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.\n \nSchreiben Sie hierfür zwei Methoden:\n \n```\nchar* static_str(char* string)\n```   \nnimmt einen Zeiger auf ein Char-Feld `string` entgegen.\nLegen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.\nGeben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.\n \nZu Lernzwecken können Sie auch ausprobieren was passiert, wenn das Array innerhalb der Funktion nicht statisch ist.\n \n---\n\n```\nchar* malloc_str(char string[], int len)\n```\nnimmt ein char-array `string` entgegen, sowie dessen Länge `len`.\nAllokieren Sie mit `malloc()` ausreichend Speicherplatz und kopieren Sie den Inhalt von `string` dorthin.\nGeben Sie dann einen Zeiger auf den neu erstellten String zurück.\n \n### Beispielaufruf\n \n```\nchar* str1 = static_str(\"Möglichkeit 1\");\n \nchar str2[] = \"Möglichkeit 2 (schöner)\";\nchar* str2ptr = malloc_str(str2, 24);\n```\n \n### Beispielergebnis\n \n```\nprintf(\"%s\", str1);\n>>> Möglichkeit 1\n \nprintf(\"%s\", str2ptr);\n>>> Möglichkeit 2 (schöner)\n```\n\n\nLösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_return[150];\n  strcpy(str_return, string);\n  return str_return;\n}\n \nchar* malloc_str(char string[], int len){\n  char* ptr = malloc(len*sizeof(char));\n  strcpy(ptr, string);\n  return ptr;\n}"
@@ -639,7 +640,7 @@
     {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt e",
       "evidence_full": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt es bei statisch / static .\n\nEine statische Variable steht prinzipiell wahrend der gesamten Dauer der Ausfuhrung eines Programms zur Verfugung, auch wenn man zeitweilig nicht auf sie zugreifen kann, weil sie in einigen Modulen nicht deklariert oder in einigen Funktionen verschattet ist. Statisch sind alle externen Variablen - gleichviel, ob sie das Attribut static tragen oder nicht."
@@ -647,7 +648,7 @@
     {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben -",
       "evidence_full": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben - aber wer wird das schon tun, da sie dieses Attribut ohnehin automatisch erhalten!\n\nInteressanter ist eine andere Moglichkeit: Variablen, die in einem Block definiert werden, durfen das Attribut static erhalten! Solche Variablen sind eine Mischung aus externen static -Variablen und internen Variablen:"
@@ -655,7 +656,7 @@
     {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Die Interpretation ist klar:\n\n- · Bei f1 wird der Variablen z bei jedem Aufruf e",
       "evidence_full": "Die Interpretation ist klar:\n\n- · Bei f1 wird der Variablen z bei jedem Aufruf erneut ein Speicherplatz und diesem Speicherplatz der Anfangswert 1 zugeordnet, den f1 auch als Funktionswert liefert. Die Erhohung des Wertes von z als Nebeneffekt bleibt letzlich ohne Wirkung, weil die Zuordnung der Variablen zu dem Speicherplatz mit dem Rucksprung wieder gelost wird.\n- · Bei f2 wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeordnet und mit dem Anfangswert 1 belegt. Bei jedem Aufruf liefert f2 als Funktionswert den Wert, den z gerade besitzt - und erhoht als Nebeneffekt den Wert von z . Da die Zuordnung zwischen der Variablen z und ihrem Speicherplatz mit dem Rucksprung nicht gelost wird, hat z beim nachsten Aufruf den veranderten Wert des vorhergehenden Aufrufs."
@@ -663,7 +664,7 @@
     {
       "query": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende",
       "evidence_full": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende Klausur nicht relevant."
@@ -671,7 +672,7 @@
     {
       "query": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den",
       "evidence_full": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den Account zurücksetzen zu lassen."
@@ -679,7 +680,7 @@
     {
       "query": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gek",
       "evidence_full": "Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt."
@@ -687,7 +688,7 @@
     {
       "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
       "gold_id": "417.yaml",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
       "evidence_full": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.\n \nSchreiben Sie hierfür zwei Methoden:\n \n```\nchar* static_str(char* string)\n```   \nnimmt einen Zeiger auf ein Char-Feld `string` entgegen.\nLegen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.\nGeben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.\n \nZu Lernzwecken können Sie auch ausprobieren was passiert, wenn das Array innerhalb der Funktion nicht statisch ist.\n \n---\n\n```\nchar* malloc_str(char string[], int len)\n```\nnimmt ein char-array `string` entgegen, sowie dessen Länge `len`.\nAllokieren Sie mit `malloc()` ausreichend Speicherplatz und kopieren Sie den Inhalt von `string` dorthin.\nGeben Sie dann einen Zeiger auf den neu erstellten String zurück.\n \n### Beispielaufruf\n \n```\nchar* str1 = static_str(\"Möglichkeit 1\");\n \nchar str2[] = \"Möglichkeit 2 (schöner)\";\nchar* str2ptr = malloc_str(str2, 24);\n```\n \n### Beispielergebnis\n \n```\nprintf(\"%s\", str1);\n>>> Möglichkeit 1\n \nprintf(\"%s\", str2ptr);\n>>> Möglichkeit 2 (schöner)\n```\n\n\nLösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_return[150];\n  strcpy(str_return, string);\n  return str_return;\n}\n \nchar* malloc_str(char string[], int len){\n  char* ptr = malloc(len*sizeof(char));\n  strcpy(ptr, string);\n  return ptr;\n}"
@@ -695,7 +696,7 @@
     {
       "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Das Pendent zu den statischen Variablen sind die automatischen Variablen. Sie si",
       "evidence_full": "Das Pendent zu den statischen Variablen sind die automatischen Variablen. Sie sind interne Variablen, d.h. Variablen, die innerhalb eines Blocks (zum Beispiel im Rumpf einer\n\nFunktion) definiert werden. Diese Variablen besitzen nur einen Speicherplatz, wahrend der Block ausgefuhrt wird, in dem sie definiert sind. Oder anders formuliert: Einer automatischen Variablen wird in dem Moment ein Speicherplatz zugeordnet, in dem der Block betreten wird, der ihre Definition enthalt; beim Verlassen des Blocks wird die Zuordnung wieder gelost. Wird der Block erneut betreten, erfolgt eine neue Zuordnung - allerdings unter Umstanden zu einem anderen Speicherplatz."
@@ -703,7 +704,7 @@
     {
       "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben -",
       "evidence_full": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben - aber wer wird das schon tun, da sie dieses Attribut ohnehin automatisch erhalten!\n\nInteressanter ist eine andere Moglichkeit: Variablen, die in einem Block definiert werden, durfen das Attribut static erhalten! Solche Variablen sind eine Mischung aus externen static -Variablen und internen Variablen:"
@@ -711,7 +712,7 @@
     {
       "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "- · Wie auf interne Variablen kann man auf sie nur in dem Block zugreifen, der i",
       "evidence_full": "- · Wie auf interne Variablen kann man auf sie nur in dem Block zugreifen, der ihre Definition enthalt. Das impliziert insbesondere, dass sie wie static -Variablen lokal sind, also nicht aus anderen Modulen heraus gelesen oder verandert werden konnen.\n- · Wie bei externen Variablen erfolgt die Zuordnung des Speicherplatzes einmalig durch den Compiler, was entsprechend auch wieder nur konstante Ausdrucke als Anfangswerte erlaubt."
@@ -719,7 +720,7 @@
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "57.yaml",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "#define MAX_SIZE 20",
       "evidence_full": "#define MAX_SIZE 20"
@@ -727,15 +728,15 @@
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "essential",
-      "status": "OK",
+      "matching_score": 0.4,
+      "status": "LOW_SCORE",
       "evidence_snippet": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt e",
       "evidence_full": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt es bei statisch / static .\n\nEine statische Variable steht prinzipiell wahrend der gesamten Dauer der Ausfuhrung eines Programms zur Verfugung, auch wenn man zeitweilig nicht auf sie zugreifen kann, weil sie in einigen Modulen nicht deklariert oder in einigen Funktionen verschattet ist. Statisch sind alle externen Variablen - gleichviel, ob sie das Attribut static tragen oder nicht."
     },
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "Mit Hilfe der Praprozessor-Direktive\n\n#define name ersatztext\n\nkann man solchen ",
       "evidence_full": "Mit Hilfe der Praprozessor-Direktive\n\n#define name ersatztext\n\nkann man solchen Konstanten sinnvolle Namen geben, etwa\n\n#define MWST 14.0\n\nIn allen nachfolgenden Zeilen wird an allen Stellen, an denen name nicht innerhalb eines String oder als Teil eines anderen Namens steht, name durch ersatztext ersetzt. Wie bei den Aufzahlungskonstanten ist es ublich, fur die Namen ausschließlich Großbuchstaben zu verwenden, auch wenn der Standard das nicht vorschreibt."
@@ -743,7 +744,7 @@
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst ",
       "evidence_full": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst die Große der zu bearbeitenden Matrizen und beschafft sich dann vom Betriebssystem den entsprechenden Speicher. Methoden dazu werden im Kapitel 13 vorgestellt. Der Einsatz unserer Funktion matprod ware dann moglich.\n- · Man arbeitet mit ' Maximalgroßen' fur die Matrizen, d.h. man uberlegt sich eine obere Schranke fur die Große der vorkommenden Matrizen und definiert alle Matrizen mit dieser Große. Das wird in mathematischen Programmen oft gemacht, hat aber auch seine Nachteile:\n- -Sollte der Benutzer des Programms großere Matrizen verarbeiten wollen, muss die Verarbeitung abgelehnt werden.\n- -Funktionen wie matprod benotigen zusatzliche Parameter: Fur die Schleifen wird die ' logische' (genutzte) Große der Matrizen benotigt; fur die Berechnung der Speicherabbildungsfunktion wird dagegen die ' physikalische' (vereinbarte) Große der Matrizen benotigt."
@@ -751,7 +752,7 @@
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```",
       "evidence_full": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```\n\nbesagt so: v ist ein Vektor (eindimensionales Feld) mit 5 Komponenten. Die Dimensionierung muss mit Konstanten erfolgen - allerdings sind die benannten Konstanten eben auch Konstanten.\n\nAnsprechen kann man einzelne Komponenten eines Vektors, indem man seinem Namen den Index der entsprechenden Komponente nachstellt, erneut eingeschlossen in eckige Klammern. Dabei muss man beachten: Die Numerierung der Komponenten beginnt immer"
@@ -759,7 +760,7 @@
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "importance": "essential",
+      "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "C erlaubt Rekursion . Man spricht von\n\n- · direkter Rekursion , wenn eine Funkti",
       "evidence_full": "C erlaubt Rekursion . Man spricht von\n\n- · direkter Rekursion , wenn eine Funktion sich selbst aufruft, und von\n- · indirekter Rekursion , wenn sich zwei oder mehr Funktionen wechselseitig aufrufen.\n\nRekursion wird in der Mathematik haufig in Definitionen verwendet. Das ' klassische' Beispiel ist die Berechnung der Fakultat n ! einer nichtnegativen ganzen Zahl n :"
@@ -767,7 +768,7 @@
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Ob man rekursiv formulierte Berechnungen auch rekursiv realisieren sollte, steht",
       "evidence_full": "Ob man rekursiv formulierte Berechnungen auch rekursiv realisieren sollte, steht auf einem anderen Blatt. Rekursion ist in der Regel ziemlich aufwendig: Die Parameter mussen kopiert werden ( ' call by value'), lokale Variablen mussen bereitgestellt, der Unterprogrammsprung muss ausgefuhrt werden. Man sollte sich deshalb zunachst einmal uberlegen, ob sich eine rekursiv formulierte Aufgabe nicht auch ohne weiteres iterativ , d.h. mit einer Schleife, losen lasst."
@@ -775,7 +776,7 @@
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "515.yaml",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und ",
       "evidence_full": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und a<sub>n</sub>=-2a<sub>n-1</sub>+3a<sub>n-2</sub> für n>1.\n\nDaraus ergibt sich folgender Anfang der Folge `A`.\n\na<sub>0</sub>=0, a<sub>1</sub>=1, a<sub>2</sub>=-2, a<sub>3</sub>=7, a<sub>4</sub>=-20, a<sub>5</sub>=61, a<sub>6</sub>=-182, ...\n\nProgrammieren Sie eine Funktion mit folgendem Prototyp\n\n```\nlong iteA(unsigned int n);\n```\n\ndie das `n`-te Glied der Folge `A` **rekursiv** berechnet, d.h. die Funktion muss sich selbst aufrufen.\n\n*Hinweise:*\n\n- Ignorieren Sie mögliche Überläufe..\n\n### Beispielaufruf\n```\niteA(5)\n```\n### Beispielergebnis\n```\n61\n```\n\n\nLösung: long iteA(unsigned int n) {\n  if (n == 0) {\n    return 0;\n  }\n  if (n == 1) {\n    return 1;\n  }\n  return (-2) * iteA(n - 1) + 3 * iteA(n - 2);\n}"
@@ -783,7 +784,7 @@
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "516.yaml",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und ",
       "evidence_full": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und a<sub>n</sub>=-2a<sub>n-1</sub>+3a<sub>n-2</sub> für n>1.\n\nDaraus ergibt sich folgender Anfang der Folge `A`.\n\na<sub>0</sub>=0, a<sub>1</sub>=1, a<sub>2</sub>=-2, a<sub>3</sub>=7, a<sub>4</sub>=-20, a<sub>5</sub>=61, a<sub>6</sub>=-182, ...\n\nProgrammieren Sie eine Funktion mit folgendem Prototyp\n\n```\nlong iteA(unsigned int n);\n```\n\ndie das `n`-te Glied der Folge `A` **iterativ** berechnet, d.h. die Funktion darf sich nicht selbst\naufrufen.\n\n*Hinweise*\n- Für `n`>1 ist a<sub>n</sub> das Ergebnis `z` folgender Berechnung mit Startwerten `x=1` und `y=0` nach (`n`-1)-maliger Iteration.\n  - Summiere `-2x` und `3y`, speichere das Ergebnis in `z`. Für neue Iteration speichere Wert von `x` in `y` und Wert von `z` in `x`.\n- Kümmern Sie sich nicht um mögliche Überläufe, diese Problematik kann ignoriert werden.\n\n### Beispielaufruf\n```\niteA(5)\n```\n### Beispielergebnis\n```\n61\n```\n\n\nLösung: long iteA(unsigned int n) {\n  long y = 0;\n  long x = 1;\n  if (n == 0) {\n    return y;\n  }\n  if (n == 1) {\n    return x;\n  }\n  long z = 0;\n  for (unsigned int i = 1; i < n; i++) {\n    z = -2 * x + 3 * y;\n    y = x;\n    x = z;\n  }\n  return z;\n}"
@@ -791,7 +792,7 @@
     {
       "query": "Warum kann ich einen char mit einem int vergleichen?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "importance": "essential",
+      "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Zeichen ( character ) werden von C als Teilmenge der ganzen Zahlen behandelt; de",
       "evidence_full": "Zeichen ( character ) werden von C als Teilmenge der ganzen Zahlen behandelt; den Typ bezeichnet das Schlusselwort char . Das funktioniert so: Die verfugbaren Zeichen werden durchnummeriert, beginnend bei 0. Im Rechner werden die Zeichen dargestellt, indem diese Ordnungszahlen gespeichert werden. Letztlich geht jede Programmiersprache so vor, nur ist in der Regel die Koppelung von Zahlen und Zeichen nicht so eng."
@@ -799,7 +800,7 @@
     {
       "query": "Warum kann ich einen char mit einem int vergleichen?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Zur internen Speicherung von Zeichen wird das Byte verwendet, das seinerseits ub",
       "evidence_full": "Zur internen Speicherung von Zeichen wird das Byte verwendet, das seinerseits uber mindestens 8 Bits verfugen muss.\n\nObwohl ein Vorzeichen bei Zeichen nicht plausibel erscheint, unterscheidet man zwischen signed und unsigned , damit der Typ char kompatibel zu den int -Typen bleibt, deren Teilmenge er ja ist. Die Wertebereiche der beiden char -Typen wurden bereits in Tabelle 2.1 mit aufgelistet."
@@ -807,7 +808,7 @@
     {
       "query": "Warum kann ich einen char mit einem int vergleichen?",
       "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Mit Werten der Typen char und short , mit oder ohne Vorzeichen, wird nicht gerec",
       "evidence_full": "Mit Werten der Typen char und short , mit oder ohne Vorzeichen, wird nicht gerechnet, d.h. Werte mit diese Typen werden vor dem Rechnen auf jeden Fall automatisch in int bzw. unsigned int umgewandelt. Ein Ausdruck wie 'Z' - 'A' hat also den Typ int ."
@@ -815,7 +816,7 @@
     {
       "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "essential",
+      "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ",
       "evidence_full": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ( % ) eingeleitet. Ihm muss ein Kennbuchstabe (oder auch eine Kennbuchstaben-Kombination) fur den Typ des Wertes folgen; dazu konnen weitere Angaben kommen, die uns zum jetzigen Zeitpunkt aber noch nicht zu interessieren brauchen. Jede dieser Angaben wird als Formatbeschreiber bezeichnet."
@@ -823,7 +824,7 @@
     {
       "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
       "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "importance": "essential",
+      "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Der Ausgabewert muss den Typ int bzw. unsigned int besitzen. Die zu erzeugende e",
       "evidence_full": "Der Ausgabewert muss den Typ int bzw. unsigned int besitzen. Die zu erzeugende externe Darstellung wird durch die folgenden Kennbuchstaben beschrieben"
@@ -831,7 +832,7 @@
     {
       "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
       "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "importance": "essential",
+      "matching_score": 0.6,
       "status": "OK",
       "evidence_snippet": "- % ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Ausgabe",
       "evidence_full": "- % ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Ausgabewert zugeordnet)"

@@ -9,16 +9,9 @@ It is the single source of truth for global configuration.
 from dotenv import load_dotenv
 import os
 from pathlib import Path
-from sentence_transformers import SentenceTransformer
-
 
 
 # --- Environment Setup (Load .env file) --------------------------------------
-
-from pathlib import Path
-from sentence_transformers import SentenceTransformer
-
-model = SentenceTransformer('all-MiniLM-L6-v2')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_ROOT = BASE_DIR / "data"
@@ -53,6 +46,7 @@ LLM_MODEL_NAME = "meta-llama-3.1-8b-instruct"
 #LLM_MODEL_NAME = "llama-3.3-70b-instruct"
 #LLM_MODEL_NAME = "GPT-5"
 EVAL_MODEL_NAME = "meta-llama-3.1-70b-instruct"
-#EMBEDDING_MODEL_NAME = "qwen3-embedding-4b"
 #EMBEDDING_MODEL_NAME = "e5-mistral-7b-instruct"
-EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+EMBEDDING_MODEL_NAME = "qwen3-embedding-4b-query"
+EMBEDDING_DIMENSION = 2560
+EMBEDDING_API_BASE_URL = "https://chat-ai.academiccloud.de/v1/"
