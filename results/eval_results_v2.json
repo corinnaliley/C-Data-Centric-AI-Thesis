@@ -54,7 +54,7 @@
         },
         {
           "evidence_snippet": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewan",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             775
           ],
@@ -63,7 +63,7 @@
         },
         {
           "evidence_snippet": "while (scanf(\"%d\", &wert) != EOF) { /* Zahl lesen */ anzahl = anzahl + 1",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             777
           ],
@@ -192,7 +192,7 @@
         },
         {
           "evidence_snippet": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgende",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             1199
           ],
@@ -225,7 +225,7 @@
         },
         {
           "evidence_snippet": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgende",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             1199
           ],
@@ -289,7 +289,7 @@
         },
         {
           "evidence_snippet": "Viele der Funktionen haben die Deklaration\n\ndouble name (double);\n\nd.h. sie habe",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             76
           ],
@@ -345,7 +345,7 @@
         },
         {
           "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             742
           ],
@@ -369,7 +369,7 @@
       "evidence_chunk_details": [
         {
           "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an ",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             1202
           ],
@@ -403,7 +403,7 @@
       "evidence_chunk_details": [
         {
           "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an ",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             1202
           ],
@@ -577,7 +577,7 @@
       "evidence_chunk_details": [
         {
           "evidence_snippet": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Dekl",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             991
           ],
@@ -586,7 +586,7 @@
         },
         {
           "evidence_snippet": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Auf",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             994
           ],
@@ -615,7 +615,7 @@
       ],
       "predicted_id": "77.yaml",
       "is_hit": true,
-      "chunk_hit_essential": false,
+      "chunk_hit_essential": true,
       "chunk_hit_any": true,
       "score": 0.595,
       "evidence_chunk_details": [
@@ -639,7 +639,7 @@
         },
         {
           "evidence_snippet": "Letztlich haben wir hier den Typ von i (temporar) geandert: Mit *fp greifen wir ",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             259
           ],
@@ -648,7 +648,7 @@
         },
         {
           "evidence_snippet": "Aufgabe: Eine Sudoku-Matrix ist eine 9x9-Matrix, deren Einträge ganze Zahlen zwi",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             1221
           ],
@@ -959,9 +959,11 @@
       "score": 0.4894,
       "evidence_chunk_details": [
         {
-          "evidence_snippet": "Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die",
+          "evidence_snippet": "Der Compiler wurde in diesem Fall eine Fehlermeldung ausgeben.\n\n- · Jede Anweisu",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            57
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
@@ -1011,7 +1013,7 @@
         },
         {
           "evidence_snippet": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbag",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             0,
             1
@@ -1021,7 +1023,7 @@
         },
         {
           "evidence_snippet": "Konstanten verandern ihren Wert zur Laufzeit eines Programms nicht. Sie besitzen",
-          "importance": "optional",
+          "importance": "essential",
           "evidence_chunk_indices": [
             511
           ],
@@ -1112,9 +1114,11 @@
       "score": 0.543,
       "evidence_chunk_details": [
         {
-          "evidence_snippet": "Programmieren Sie eine main-Funktion (ohne Benutzereingaben), die auf der Komman",
+          "evidence_snippet": "Aufgabe: **Die Aufgabe stammt aus einer Altklausur. Die Umsetzung in SmartBeans ",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            1202
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
@@ -1163,23 +1167,29 @@
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine ",
+          "evidence_snippet": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst ",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            179
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Felder können durch `typ name[anzahl];` vereinbart werden. Der Wert anzahl muss ",
+          "evidence_snippet": "Wir haben uns verschiedentlich bereits mit Feldern beschaftigt. Was wir dabei ge",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            149
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten",
+          "evidence_snippet": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            788
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         }
@@ -1196,35 +1206,43 @@
       ],
       "predicted_id": "programmierung_mit_ansi_c-91-106.pdf",
       "is_hit": true,
-      "chunk_hit_essential": false,
-      "chunk_hit_any": false,
+      "chunk_hit_essential": true,
+      "chunk_hit_any": true,
       "score": 0.5615,
       "evidence_chunk_details": [
         {
-          "evidence_snippet": "Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf",
+          "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            1166
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ",
-          "importance": "optional",
-          "evidence_chunk_indices": [],
-          "top1_is_evidence_chunk": false,
-          "topk_has_evidence": false
-        },
-        {
-          "evidence_snippet": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal",
+          "evidence_snippet": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt e",
           "importance": "essential",
-          "evidence_chunk_indices": [],
-          "top1_is_evidence_chunk": false,
-          "topk_has_evidence": false
+          "evidence_chunk_indices": [
+            1128
+          ],
+          "top1_is_evidence_chunk": true,
+          "topk_has_evidence": true
         },
         {
-          "evidence_snippet": "Bei f2 wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeord",
-          "importance": "optional",
-          "evidence_chunk_indices": [],
+          "evidence_snippet": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben -",
+          "importance": "essential",
+          "evidence_chunk_indices": [
+            1133
+          ],
+          "top1_is_evidence_chunk": false,
+          "topk_has_evidence": true
+        },
+        {
+          "evidence_snippet": "Die Interpretation ist klar:\n\n- · Bei f1 wird der Variablen z bei jedem Aufruf e",
+          "importance": "essential",
+          "evidence_chunk_indices": [
+            1136
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         }
@@ -1308,32 +1326,48 @@
       "expected_ids": [
         "417.yaml",
         "programmierung_mit_ansi_c-91-106.pdf",
+        "programmierung_mit_ansi_c-91-106.pdf",
         "programmierung_mit_ansi_c-91-106.pdf"
       ],
       "predicted_id": "417.yaml",
       "is_hit": true,
-      "chunk_hit_essential": false,
-      "chunk_hit_any": false,
+      "chunk_hit_essential": true,
+      "chunk_hit_any": true,
       "score": 0.6231,
       "evidence_chunk_details": [
         {
-          "evidence_snippet": "Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf",
+          "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
           "importance": "essential",
-          "evidence_chunk_indices": [],
-          "top1_is_evidence_chunk": false,
-          "topk_has_evidence": false
+          "evidence_chunk_indices": [
+            1166
+          ],
+          "top1_is_evidence_chunk": true,
+          "topk_has_evidence": true
         },
         {
           "evidence_snippet": "Das Pendent zu den statischen Variablen sind die automatischen Variablen. Sie si",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            1130
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal",
+          "evidence_snippet": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben -",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            1133
+          ],
+          "top1_is_evidence_chunk": false,
+          "topk_has_evidence": false
+        },
+        {
+          "evidence_snippet": "- · Wie auf interne Variablen kann man auf sie nur in dem Block zugreifen, der i",
+          "importance": "essential",
+          "evidence_chunk_indices": [
+            1134
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         }
@@ -1351,8 +1385,8 @@
       ],
       "predicted_id": "programmierung_mit_ansi_c-91-106.pdf",
       "is_hit": true,
-      "chunk_hit_essential": false,
-      "chunk_hit_any": false,
+      "chunk_hit_essential": true,
+      "chunk_hit_any": true,
       "score": 0.546,
       "evidence_chunk_details": [
         {
@@ -1365,30 +1399,38 @@
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ",
+          "evidence_snippet": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt e",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            1128
+          ],
+          "top1_is_evidence_chunk": true,
+          "topk_has_evidence": true
+        },
+        {
+          "evidence_snippet": "Mit Hilfe der Praprozessor-Direktive\n\n#define name ersatztext\n\nkann man solchen ",
+          "importance": "essential",
+          "evidence_chunk_indices": [
+            506
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Mit Hilfe der Präprozessor–Direktive\n#define name ersatztext\nkann man solchen Ko",
+          "evidence_snippet": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst ",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            179
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine ",
+          "evidence_snippet": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```",
           "importance": "essential",
-          "evidence_chunk_indices": [],
-          "top1_is_evidence_chunk": false,
-          "topk_has_evidence": false
-        },
-        {
-          "evidence_snippet": "Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten",
-          "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            788
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         }
@@ -1410,30 +1452,38 @@
       "score": 0.5828,
       "evidence_chunk_details": [
         {
-          "evidence_snippet": "direkter Rekursion, wenn eine Funktion sich selbst aufruft, und von\n    indirekt",
+          "evidence_snippet": "C erlaubt Rekursion . Man spricht von\n\n- · direkter Rekursion , wenn eine Funkti",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            1033
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Man sollte sich deshalb zunächst einmal überlegen, ob sich eine rekursiv formuli",
+          "evidence_snippet": "Ob man rekursiv formulierte Berechnungen auch rekursiv realisieren sollte, steht",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            1035
+          ],
+          "top1_is_evidence_chunk": false,
+          "topk_has_evidence": true
+        },
+        {
+          "evidence_snippet": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und ",
+          "importance": "essential",
+          "evidence_chunk_indices": [
+            1191
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "SOLUTION: long iteA(unsigned int n) { if (n == 0) { return 0; } if (n == 1) { re",
-          "importance": "optional",
-          "evidence_chunk_indices": [],
-          "top1_is_evidence_chunk": false,
-          "topk_has_evidence": false
-        },
-        {
-          "evidence_snippet": "SOLUTION: long iteA(unsigned int n) { long y = 0; long x = 1; if (n == 0) { retu",
-          "importance": "optional",
-          "evidence_chunk_indices": [],
+          "evidence_snippet": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und ",
+          "importance": "essential",
+          "evidence_chunk_indices": [
+            1192
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         }
@@ -1454,23 +1504,29 @@
       "score": 0.5047,
       "evidence_chunk_details": [
         {
-          "evidence_snippet": "Der Typ char Zeichen (character) werden von C als Teilmenge der ganzen Zahlen be",
+          "evidence_snippet": "Zeichen ( character ) werden von C als Teilmenge der ganzen Zahlen behandelt; de",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            477
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "Obwohl ein Vorzeichen bei Zeichen nicht plausibel erscheint, unterscheidet man z",
+          "evidence_snippet": "Zur internen Speicherung von Zeichen wird das Byte verwendet, das seinerseits ub",
           "importance": "optional",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            481
+          ],
           "top1_is_evidence_chunk": false,
-          "topk_has_evidence": false
+          "topk_has_evidence": true
         },
         {
-          "evidence_snippet": "Mit Werten der Typen char und short, mit oder ohne Vorzeichen, wird nicht gerech",
+          "evidence_snippet": "Mit Werten der Typen char und short , mit oder ohne Vorzeichen, wird nicht gerec",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            858
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         }
@@ -1493,7 +1549,9 @@
         {
           "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ",
           "importance": "essential",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            742
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         },
@@ -1507,9 +1565,11 @@
           "topk_has_evidence": false
         },
         {
-          "evidence_snippet": "ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Aus-\ngabewe",
+          "evidence_snippet": "- % ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Ausgabe",
           "importance": "optional",
-          "evidence_chunk_indices": [],
+          "evidence_chunk_indices": [
+            558
+          ],
           "top1_is_evidence_chunk": false,
           "topk_has_evidence": false
         }

@@ -1,7 +1,7 @@
 {
-  "total": 103,
-  "found": 77,
-  "not_found": 26,
+  "total": 104,
+  "found": 104,
+  "not_found": 0,
   "wrong_doc": 0,
   "details": [
     {
@@ -21,14 +21,14 @@
     {
       "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewan"
     },
     {
       "query": "Wie bekomme ich hin, dass CTRL-d das Einlesen beendet?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "while (scanf(\"%d\", &wert) != EOF) { /* Zahl lesen */ anzahl = anzahl + 1"
     },
@@ -91,7 +91,7 @@
     {
       "query": "Wie bestimmt man bei binärer Suche den mittleren Index?",
       "gold_id": "522.yaml",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgende"
     },
@@ -105,7 +105,7 @@
     {
       "query": "Wie funktioniert binäre Suche?",
       "gold_id": "522.yaml",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Aufgabe: Einen Wert kann man in einem *aufsteigend sortierten* Feld mit folgende"
     },
@@ -113,8 +113,8 @@
       "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
       "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Meist hat man die Wahl zwischen verschiedene Editoren, d.h. Programmen, mit dene"
+      "status": "OK",
+      "evidence_snippet": "Meist hat man die Wahl zwischen verschiedene Editoren , d.h. Programmen, mit den"
     },
     {
       "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
@@ -133,7 +133,7 @@
     {
       "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
       "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Viele der Funktionen haben die Deklaration\n\ndouble name (double);\n\nd.h. sie habe"
     },
@@ -154,14 +154,14 @@
     {
       "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen "
     },
     {
       "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
       "gold_id": "525.yaml",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an "
     },
@@ -175,7 +175,7 @@
     {
       "query": "Kann man in der Klausur auch kompilieren und testen?",
       "gold_id": "525.yaml",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an "
     },
@@ -259,14 +259,14 @@
     {
       "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Dekl"
     },
     {
       "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Auf"
     },
@@ -294,14 +294,14 @@
     {
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Letztlich haben wir hier den Typ von i (temporar) geandert: Mit *fp greifen wir "
     },
     {
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
       "gold_id": "77.yaml",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Aufgabe: Eine Sudoku-Matrix ist eine 9x9-Matrix, deren Einträge ganze Zahlen zwi"
     },
@@ -435,8 +435,8 @@
       "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
       "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Die return–Anweisung beendet die Funktion und liefert 0 als Funktionswert an die"
+      "status": "OK",
+      "evidence_snippet": "Der Compiler wurde in diesem Fall eine Fehlermeldung ausgeben.\n\n- · Jede Anweisu"
     },
     {
       "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
@@ -462,14 +462,14 @@
     {
       "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
       "gold_id": "tutor_knowledge_base.txt",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbag"
     },
     {
       "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "importance": "optional",
+      "importance": "essential",
       "status": "OK",
       "evidence_snippet": "Konstanten verandern ihren Wert zur Laufzeit eines Programms nicht. Sie besitzen"
     },
@@ -505,8 +505,8 @@
       "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
       "gold_id": "525.yaml",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Programmieren Sie eine main-Funktion (ohne Benutzereingaben), die auf der Komman"
+      "status": "OK",
+      "evidence_snippet": "Aufgabe: **Die Aufgabe stammt aus einer Altklausur. Die Umsetzung in SmartBeans "
     },
     {
       "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
@@ -533,50 +533,50 @@
       "query": "Was ist eine statische Dimensionierung bei Matrizen?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine "
+      "status": "OK",
+      "evidence_snippet": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst "
     },
     {
       "query": "Was ist eine statische Dimensionierung bei Matrizen?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Felder können durch `typ name[anzahl];` vereinbart werden. Der Wert anzahl muss "
+      "status": "OK",
+      "evidence_snippet": "Wir haben uns verschiedentlich bereits mit Feldern beschaftigt. Was wir dabei ge"
     },
     {
       "query": "Was ist eine statische Dimensionierung bei Matrizen?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten"
+      "status": "OK",
+      "evidence_snippet": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```"
     },
     {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "417.yaml",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf"
-    },
-    {
-      "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
-      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "optional",
-      "status": "MISSING",
-      "evidence_snippet": "Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ"
+      "status": "OK",
+      "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen "
     },
     {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal"
+      "status": "OK",
+      "evidence_snippet": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt e"
     },
     {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-      "importance": "optional",
-      "status": "MISSING",
-      "evidence_snippet": "Bei f2 wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeord"
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben -"
+    },
+    {
+      "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Die Interpretation ist klar:\n\n- · Bei f1 wird der Variablen z bei jedem Aufruf e"
     },
     {
       "query": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
@@ -603,22 +603,29 @@
       "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
       "gold_id": "417.yaml",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Legen Sie ein statisches Array der Länge 150 an und kopieren Sie string mit Hilf"
+      "status": "OK",
+      "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen "
     },
     {
       "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "importance": "essential",
-      "status": "MISSING",
+      "status": "OK",
       "evidence_snippet": "Das Pendent zu den statischen Variablen sind die automatischen Variablen. Sie si"
     },
     {
       "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhal"
+      "status": "OK",
+      "evidence_snippet": "Bei automatischen Variablen darf man das Speicherklassen-Attribut auto angeben -"
+    },
+    {
+      "query": "In 'String Basics 3' soll ein Array kopiert und zurückgegeben werden. Warum muss ich 'static char array[150]' nutzen und nicht einfach 'char array[150]'?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "- · Wie auf interne Variablen kann man auf sie nur in dem Block zugreifen, der i"
     },
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
@@ -631,84 +638,84 @@
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Eine statische Variable steht prinzipiell während der gesamten Dauer der Ausführ"
+      "status": "OK",
+      "evidence_snippet": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt e"
     },
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Mit Hilfe der Präprozessor–Direktive\n#define name ersatztext\nkann man solchen Ko"
+      "status": "OK",
+      "evidence_snippet": "Mit Hilfe der Praprozessor-Direktive\n\n#define name ersatztext\n\nkann man solchen "
     },
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Man arbeitet mit ” Maximalgrößen“ für die Matrizen, d.h. man überlegt sich eine "
+      "status": "OK",
+      "evidence_snippet": "- · Man arbeitet mit dynamischem Speicher . Das bedeutet, man bestimmt zunachst "
     },
     {
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Die Dimensionierung muss mit Konstanten erfolgen – allerdings sind die benannten"
+      "status": "OK",
+      "evidence_snippet": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```"
     },
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "direkter Rekursion, wenn eine Funktion sich selbst aufruft, und von\n    indirekt"
+      "status": "OK",
+      "evidence_snippet": "C erlaubt Rekursion . Man spricht von\n\n- · direkter Rekursion , wenn eine Funkti"
     },
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Man sollte sich deshalb zunächst einmal überlegen, ob sich eine rekursiv formuli"
+      "status": "OK",
+      "evidence_snippet": "Ob man rekursiv formulierte Berechnungen auch rekursiv realisieren sollte, steht"
     },
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "515.yaml",
-      "importance": "optional",
-      "status": "MISSING",
-      "evidence_snippet": "SOLUTION: long iteA(unsigned int n) { if (n == 0) { return 0; } if (n == 1) { re"
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und "
     },
     {
       "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
       "gold_id": "516.yaml",
-      "importance": "optional",
-      "status": "MISSING",
-      "evidence_snippet": "SOLUTION: long iteA(unsigned int n) { long y = 0; long x = 1; if (n == 0) { retu"
+      "importance": "essential",
+      "status": "OK",
+      "evidence_snippet": "Aufgabe: Die Folge `A` ist definiert durch a<sub>0</sub>=0, a<sub>1</sub>=1 und "
     },
     {
       "query": "Warum kann ich einen char mit einem int vergleichen?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Der Typ char Zeichen (character) werden von C als Teilmenge der ganzen Zahlen be"
+      "status": "OK",
+      "evidence_snippet": "Zeichen ( character ) werden von C als Teilmenge der ganzen Zahlen behandelt; de"
     },
     {
       "query": "Warum kann ich einen char mit einem int vergleichen?",
       "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
       "importance": "optional",
-      "status": "MISSING",
-      "evidence_snippet": "Obwohl ein Vorzeichen bei Zeichen nicht plausibel erscheint, unterscheidet man z"
+      "status": "OK",
+      "evidence_snippet": "Zur internen Speicherung von Zeichen wird das Byte verwendet, das seinerseits ub"
     },
     {
       "query": "Warum kann ich einen char mit einem int vergleichen?",
       "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
       "importance": "essential",
-      "status": "MISSING",
-      "evidence_snippet": "Mit Werten der Typen char und short, mit oder ohne Vorzeichen, wird nicht gerech"
+      "status": "OK",
+      "evidence_snippet": "Mit Werten der Typen char und short , mit oder ohne Vorzeichen, wird nicht gerec"
     },
     {
       "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
       "importance": "essential",
-      "status": "MISSING",
+      "status": "OK",
       "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen "
     },
     {
@@ -722,8 +729,8 @@
       "query": "Was bedeuten die verschiedenen formatierungen in printf (%d, %c, %x, etc)?",
       "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
       "importance": "optional",
-      "status": "MISSING",
-      "evidence_snippet": "ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Aus-\ngabewe"
+      "status": "OK",
+      "evidence_snippet": "- % ein Prozentzeichen wird geschrieben (dem Formatbeschreiber wird kein Ausgabe"
     }
   ]
 }
