@@ -15,7 +15,7 @@ from retrieval import _build_embed_model
 
 from constants import EMBEDDING_MODEL_NAME, PROCESSED_PATH, RESULTS_PATH, BENCHMARK_PATH
 from ingest_pipeline import run_ingest_v1
-from retrieval import save_chunks_to_file, load_or_build_embeddings, retrieve_top_k
+from retrieval import save_chunks_to_file, load_chunks_from_file, load_or_build_embeddings, retrieve_top_k
 from validation import (
     validate_ids_or_exit,
     validate_evidence_coverage,
@@ -45,12 +45,14 @@ SCORE_THRESHOLD  = 0.5   # matching_score unterhalb = nicht als Fehler gewertet
 def run_evaluation():
     print("🚀 STARTE EVALUATION...\n")
 
-    # 1. INGEST
-    chunks = run_ingest_v1()
-    if not chunks:
-        print("❌ Keine Chunks geladen. Abbruch.")
-        return
-    save_chunks_to_file(chunks, OUTPUT_CHUNKS_PATH)
+    # 1. INGEST (mit Chunk-Cache)
+    chunks = load_chunks_from_file(OUTPUT_CHUNKS_PATH)
+    if chunks is None:
+        chunks = run_ingest_v1()
+        if not chunks:
+            print("❌ Keine Chunks geladen. Abbruch.")
+            return
+        save_chunks_to_file(chunks, OUTPUT_CHUNKS_PATH)
 
     # 2. GOLD-DATEN LADEN
     print(f"Lade Gold-Daten von: {BENCHMARK_PATH}")

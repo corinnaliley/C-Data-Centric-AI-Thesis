@@ -3,7 +3,9 @@ retrieval.py: Embeddings und Vektor-Retrieval via OpenAI-kompatibler API.
 """
 
 import json
+import time
 import torch
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from zvec.extension import OpenAIDenseEmbedding
 
@@ -41,15 +43,50 @@ def save_chunks_to_file(chunks: list, filepath: Path) -> None:
     print(f"💾 Chunks gespeichert: {filepath} ({len(serialized)} Einträge)")
 
 
+def load_chunks_from_file(filepath: Path) -> list | None:
+    """Lädt gecachte Chunks aus JSON. Gibt None zurück wenn kein Cache vorhanden."""
+    if not filepath.exists():
+        return None
+    from loaders import Block, BlockType
+    with open(filepath, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    chunks = [
+        Block(
+            doc_id=d["doc_id"],
+            block_type=BlockType.OTHER,
+            text=d["text"],
+            meta=d.get("meta", {}),
+        )
+        for d in data
+    ]
+    print(f"📂 Chunks aus Cache geladen: {filepath.name} ({len(chunks)} Einträge)")
+    return chunks
+
+
+def _embed_with_retry(embed_model: OpenAIDenseEmbedding, text: str, retries: int = 3, wait: float = 2.0, delay: float = 0.5) -> list[float]:
+    for attempt in range(retries):
+        try:
+            result = embed_model.embed(text)
+            time.sleep(delay)
+            return result
+        except RuntimeError as e:
+            if attempt < retries - 1:
+                time.sleep(wait * (attempt + 1))
+            else:
+                raise
+
+
 def load_or_build_embeddings(
     embed_model: OpenAIDenseEmbedding,
     corpus_texts: list[str],
     cache_path: Path,
 ) -> torch.Tensor:
     """
-    Lädt Embeddings aus Cache oder baut sie neu via API.
-    Cache-Key: Anzahl Chunks (wie bisher).
+    Lädt Embeddings aus Cache oder baut sie neu via API (parallel, mit Retry).
+    Unterstützt Resume via partial cache falls ein vorheriger Run abgebrochen wurde.
     """
+    from tqdm import tqdm
+
     if cache_path.exists():
         print(f"📂 Lade Vektor-Cache: {cache_path.name}...")
         embeddings = torch.load(cache_path)
@@ -57,17 +94,34 @@ def load_or_build_embeddings(
             return embeddings
         print("⚠️  Cache veraltet (Chunk-Anzahl geändert). Vektoriere neu...")
 
-    print(f"🔢 Vektoriere {len(corpus_texts)} Chunks via API...")
-    vectors = []
-    for i, text in enumerate(corpus_texts):
-        vec = embed_model.embed(text)          # gibt list[float] zurück
-        vectors.append(vec)
-        if (i + 1) % 50 == 0:
-            print(f"   {i+1}/{len(corpus_texts)}")
+    partial_path = cache_path.with_suffix(".partial.pt")
+    partial: dict[int, list[float]] = {}
+    if partial_path.exists():
+        partial = torch.load(partial_path)
+        print(f"🔄 Setze fort: {len(partial)}/{len(corpus_texts)} Chunks bereits gecacht")
 
-    embeddings = torch.tensor(vectors, dtype=torch.float32)
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    remaining = [(i, text) for i, text in enumerate(corpus_texts) if i not in partial]
+    vectors: dict[int, list[float]] = dict(partial)
+
+    if remaining:
+        print(f"🔢 Vektoriere {len(remaining)} Chunks via API (max_workers=3)...")
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            futures = {
+                executor.submit(_embed_with_retry, embed_model, text): i
+                for i, text in remaining
+            }
+            with tqdm(total=len(corpus_texts), initial=len(partial), unit="chunk") as pbar:
+                for future in as_completed(futures):
+                    i = futures[future]
+                    vectors[i] = future.result()
+                    pbar.update(1)
+                    if len(vectors) % 10 == 0:
+                        torch.save(vectors, partial_path)
+
+    embeddings = torch.tensor([vectors[i] for i in range(len(corpus_texts))], dtype=torch.float32)
     torch.save(embeddings, cache_path)
+    partial_path.unlink(missing_ok=True)
     print(f"💾 Embeddings gecacht: {cache_path.name}")
     return embeddings
 

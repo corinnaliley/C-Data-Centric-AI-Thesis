@@ -316,7 +316,7 @@
     "references": [{
         "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
         "matching_score": 0.7,
-        "evidence": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.\n- · In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw.\n\nEs ist offensichtlich, dass die Definition einer Funktion ihrer Deklaration entsprechen muss.",
+        "evidence": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.\n- · In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw.",
         "page": 69
       },
     {
@@ -339,7 +339,7 @@
     "references": [{
         "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
         "matching_score": 0.7,
-        "evidence": "Mit den Daten des letzten Beispiels haben wir eine weitere Moglichkeit kennengelernt, namlich Zeiger auf Zeiger: Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, die ihrerseits Zeiger auf Strings sind. Auch solche Variablen kann man explizit definieren: Durch\n\n```\nchar **tabelle;\n```",
+        "evidence": "Mit den Daten des letzten Beispiels haben wir eine weitere Moglichkeit kennengelernt, namlich Zeiger auf Zeiger: Der Name des Vektors ist der Zeiger auf den Anfang einer Folge von Variablen, die ihrerseits Zeiger auf Strings sind. Auch solche Variablen kann man explizit definieren",
         "page": 132
       },
       {
@@ -602,7 +602,7 @@
       {
         "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
         "matching_score": 0.9,
-        "evidence": "Jedes C-Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. Diese Hauptfunktion wird beim Start des Programms vom Betriebssystem aufgerufen. Und sie erhalt beim Aufruf zwei Argumente! Wir haben diese Argumente bislang durch die Definition\n\n```\nint main (void)\n```\n\nignoriert. Tatsachlich ist der Prototyp fur main jedoch",
+        "evidence": "Jedes C-Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. Diese Hauptfunktion wird beim Start des Programms vom Betriebssystem aufgerufen. Und sie erhalt beim Aufruf zwei Argumente!",
         "page": 134
       },
     {
