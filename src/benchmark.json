@@ -1503,13 +1503,13 @@
       "page": 25
     },
     {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+      "gold_id": "programmierung_mit_ansi_c-63-76.pdf",
       "matching_score": 0.95,
       "evidence": "Die break–Anweisung haben wir im Zusammenhang mit der switch–Anweisung kennengelernt. Außerdem darf sie in Schleifen aller Art verwendet werden und bewirkt dann die sofortige Beendigung der Schleife. Im Innern geschachtelter Schleifen wird immer nur die innerste Schleife beendet, während die umgebenden normal weiter abgearbeitet werden.",
       "page": 65
     },
     {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+      "gold_id": "programmierung_mit_ansi_c-63-76.pdf",
       "matching_score": 0.60,
       "evidence": "Erlaubt es die break–Anweisung, eine Schleife sofort zu beenden, so erlaubt die continue– Anweisung , die momentane Abarbeitung eines einzelnen Schleifendurchlaufs zu unterbrechen und sofort zur Prüfung des Endkriteriums für die Schleife überzugehen; vom Ergebnis der Prüfung hängt es dann ab, ob die Schleife beendet oder ein weiterer Schleifendurchlauf ausgeführt wird.",
       "page": 66
