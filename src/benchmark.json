@@ -1170,29 +1170,6 @@
   "supplementary_answer": "Die Flag '-Wall' ist eine essenzielle Compiler-Option beim GCC. Sie veranlasst den Compiler dazu, bei 'verdächtigem' Code Warnungen auszugeben, den er ohne diese Flag einfach stillschweigend kompilieren würde. Die Wichtigkeit dieser Flag liegt darin, dass diese Warnungen sehr häufig auf handfeste Programmierfehler hindeuten. Ohne deren Beseitigung läuft das Programm später oft fehlerhaft oder gar nicht. Wie das Skript betont, bedeutet ein fehlerfrei (aber ohne '-Wall') kompiliertes Programm noch lange nicht, dass die Logik auch korrekt ist."
   },
   {
-  "query": "Ich bekomme einen Segmentation Fault – was ist da eigentlich das Problem im Speicher?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "matching_score": 1.0,
-      "evidence": "Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulässigen Indizes auf ein Feld zugreift: Der Abstand wird ausgerechnet und zum Zugriff verwendet. So bewirkt v[-1] gerade den Zugriff auf den Speicherbereich direkt vor dem Beginn des Vektors. Versuchte Zugriffe auf Feldkomponenten jenseits der Feldgrenzen nennt man Indexüberschreitung. [...] Wird ein Programm mit einer Meldung wie ” segmentation fault“, ” bus error“ bzw. ” memory fault“ abgebrochen, sollte man das Programm zunächst auf Indexüberschreitungen hin untersuchen.",
-      "page": 113
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "matching_score": 0.9,
-      "evidence": "Die Funktion scanf wird durch den Formatstring informiert, dass ein int–Wert zu lesen ist, und unterstellt deshalb, dass das nächste Argument die Adresse einer int–Variablen ist. Der Versuch, 0 als Adresse zu verwenden, kann in der Regel nur ins Chaos führen. Wenn man Glück hat, überschreibt man nur Daten, die man ohnehin nicht mehr braucht. Nur – Glück hat man in der Regel nicht. Das Programm wird in der Regel mit einem segmentation fault , memory fault oder bus error vom Betriebssystem ” gekillt“",
-      "page": 24
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.8,
-      "evidence": "Auch ein falscher Indexzugriff oder allgemein das Dereferenzieren eines ungültigen Zeigers kann zu Problemen führen und ist häufig Ursache von Programmabstürzen. [...] Dass die Auswertung von Zeigerausdrücken immer vernünftige Werte ergibt, ist ausschließlich in die Verantwortung des Programmierers gestellt. Verstöße wirken sich in der Regel als Abstürze des Programms aus sobald ein ungültiger Zeigerausdruck dereferenziert wird.",
-      "page": 128
-    }
-  ],
-  "supplementary_answer": "Ein 'Segmentation Fault' (Speicherzugriffsfehler) tritt auf, wenn ein Programm versucht, auf einen Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine Zugriffsrechte hat. Laut den Skripten passiert das typischerweise in drei Szenarien: 1. Indexüberschreitungen (Out-of-Bounds Access) bei Arrays, bei denen über die Feldgrenzen hinaus auf fremden Speicher zugegriffen wird. 2. Vergessene Adressoperatoren ('&') bei Funktionen wie scanf, wodurch der normale Wert der Variable fälschlicherweise als Speicheradresse interpretiert und dereferenziert wird (z. B. Adresse 0). 3. Generelles Dereferenzieren von ungültigen oder uninitialisierten Zeigern. Das Betriebssystem bricht das Programm in diesen Fällen zum Schutz des restlichen Speichers hart ab."
     "query": "Ich bekomme einen Segmentation Fault – was ist da eigentlich das Problem im Speicher?",
     "type": "complementary",
     "references": [
