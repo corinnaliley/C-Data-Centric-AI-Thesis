@@ -933,13 +933,13 @@
     {
       "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
       "matching_score": 0.95,
-      "evidence": "Ein häufig gemachter Fehler ist zum Beispiel die unbeabsichtigte ganzzahlige Divisionen. So liefert der Ausdruck 1 / 2 * 3.5 stets den Wert 0!",
+      "evidence": "Ein haufig gemachter Fehler ist zum Beispiel die unbeabsichtigte ganzzahlige Divisionen. So liefert der Ausdruck 1 / 2 * 3.5 stets den Wert 0!",
       "page": 44
     },
     {
       "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
       "matching_score": 0.9,
-      "evidence": "Bei der Umwandlung eines Gleitkommawertes in einen ganzzahligen Typ gehen eventuelle Nachkommastellen verloren. Eine Rundung erfolgt bei dieser Umwandlung nicht ! So erhält die int–Variable i durch die Wertzuweisung i = 3.9; den Wert 3!",
+      "evidence": "Bei der Umwandlung eines Gleitkommawertes in einen ganzzahligen Typ gehen eventuelle Nachkommastellen verloren. Eine Rundung erfolgt bei dieser Umwandlung nicht ! So erhalt die int -Variable i durch die Wertzuweisung i = 3.9; den Wert 3 !",
       "page": 44
     },
     {
