@@ -2073,7 +2073,7 @@
   },
   {
   "query": "Wie erstellt man 2D-Matrizen?",
-  "type": "concept_and_code_explanation",
+  "type": "complementary",
   "references": [
     {
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
