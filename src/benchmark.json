@@ -144,18 +144,18 @@
       {
         "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
         "matching_score": 0.7,
-        "evidence":  "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org ) zusammen mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc ) installiert. Beide kann man kostenlos im Internet herunterladen.",
+        "evidence": "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org ) zusammen mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc ) installiert. Beide kann man kostenlos im Internet herunterladen.",
         "page": 184
       }
     ],
     "supplementary_answer": "Wenn die Linux-Installation nicht klappt, gibt es zwei bewährte Alternativen für C-Entwicklung unter Windows: 1. WSL (Windows Subsystem for Linux): WSL installieren, eine Ubuntu-Distribution einrichten und VS Code mit der WSL-Erweiterung verbinden. So arbeitet man in einer vollständigen Linux-Umgebung mit GCC direkt von Windows aus. 2. Direkt unter Windows: MinGW oder MSYS2 installieren, die den GCC-Compiler für Windows bereitstellen. Für beide Ansätze benötigt man den GCC (GNU Compiler Collection) sowie die GNU C Library (glibc), beides kostenlos verfügbar. Als Editor eignet sich ein reiner Texteditor ohne Formatierungsanweisungen – VS Code ist eine empfehlenswerte Wahl."
   },
   {
-  "query": "SmartBeans zeigt mir an, dass die Ausgabe nicht identisch ist, aber ich sehe nicht, wo. Kannst du nochmal schauen?",
-  "type": "out_of_scope",
-  "references": [],
-  "supplementary_answer": "Diese Frage kann das System nicht beantworten, da es keinen Zugriff auf deinen aktuellen Code-Stand oder die Live-Ausgabe von SmartBeans hat."
-},
+    "query": "SmartBeans zeigt mir an, dass die Ausgabe nicht identisch ist, aber ich sehe nicht, wo. Kannst du nochmal schauen?",
+    "type": "out_of_scope",
+    "references": [],
+    "supplementary_answer": "Diese Frage kann das System nicht beantworten, da es keinen Zugriff auf deinen aktuellen Code-Stand oder die Live-Ausgabe von SmartBeans hat."
+  },
   {
     "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
     "type": "complementary",
@@ -516,12 +516,13 @@
         "evidence": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
         "page": 0
       },
-    {
-      "gold_id": "525.txt",
-      "matching_score": 0.6,
-      "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
-      "page": 1
-    }],
+      {
+        "gold_id": "525.txt",
+        "matching_score": 0.6,
+        "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
+        "page": 1
+      }
+    ],
     "supplementary_answer": "In der Klausur stehen folgende Editoren zur Verfügung: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist dabei oft über eine Schaltfläche oder das Terminal aufrufbar."
   },
   {
@@ -927,79 +928,79 @@
     "supplementary_answer": "In 'printf' leitet '%' einen Formatbeschreiber ein, gefolgt von einem Kennbuchstaben für den Ausgabetyp. Die wichtigsten: '%d' – dezimale Ganzzahl (int/unsigned int), '%c' – einzelnes Zeichen (char), '%x' – hexadezimale Ganzzahl (Kleinbuchstaben), '%X' – hexadezimal mit Großbuchstaben, '%f' – Gleitkommazahl (double, Standardnotation), '%e' – wissenschaftliche Notation, '%s' – Zeichenkette (String), '%p' – Zeiger-Adresse, '%u' – vorzeichenlose Ganzzahl, '%%' – gibt ein Prozentzeichen aus. Zwischen '%' und dem Kennbuchstaben können weitere Angaben stehen, z.B. '%3d' für eine Mindestfeldbreite von 3 Zeichen oder '%.2f' für 2 Nachkommastellen."
   },
   {
-  "query": "Eine Variable wurde als int statt double deklariert. Warum funktioniert das nicht? (Aufgabe: Loch im Eimer)",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
-      "matching_score": 0.95,
-      "evidence": "Ein haufig gemachter Fehler ist zum Beispiel die unbeabsichtigte ganzzahlige Divisionen. So liefert der Ausdruck 1 / 2 * 3.5 stets den Wert 0!",
-      "page": 44
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
-      "matching_score": 0.9,
-      "evidence": "Bei der Umwandlung eines Gleitkommawertes in einen ganzzahligen Typ gehen eventuelle Nachkommastellen verloren. Eine Rundung erfolgt bei dieser Umwandlung nicht ! So erhalt die int -Variable i durch die Wertzuweisung i = 3.9; den Wert 3 !",
-      "page": 44
-    },
-    {
-      "gold_id": "413.txt",
-      "matching_score": 0.8,
-      "evidence": "int eimer(double l, double leak){ double ml = l *1000;  int min = 0;  while(ml > 10){  ml = ml* (1-leak/100); min++; } return min; }",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Wenn in der Aufgabe 'Loch im Eimer' Variablen fälschlicherweise als 'int' statt 'double' deklariert werden, führt dies aus zwei Gründen zu einem Fehler: Zum einen resultiert eine Division wie 'leak/100' (wenn 'leak' ein 'int' ist) in einer ganzzahligen Division, die bei Werten unter 100 immer 0 ergibt (Dadurch ändert sich der berechnete Eimer-Inhalt nicht und es entsteht eine Endlosschleife). Zum anderen werden bei der Zuweisung von Gleitkomma-Zwischenergebnissen an eine 'int'-Variable (wie etwa 'ml') die Nachkommastellen einfach abgeschnitten, was über mehrere Berechnungszyklen hinweg zu signifikanten Fehlern führt."
+    "query": "Eine Variable wurde als int statt double deklariert. Warum funktioniert das nicht? (Aufgabe: Loch im Eimer)",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
+        "matching_score": 0.95,
+        "evidence": "Ein haufig gemachter Fehler ist zum Beispiel die unbeabsichtigte ganzzahlige Divisionen. So liefert der Ausdruck 1 / 2 * 3.5 stets den Wert 0!",
+        "page": 44
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-41-54.pdf",
+        "matching_score": 0.9,
+        "evidence": "Bei der Umwandlung eines Gleitkommawertes in einen ganzzahligen Typ gehen eventuelle Nachkommastellen verloren. Eine Rundung erfolgt bei dieser Umwandlung nicht ! So erhalt die int -Variable i durch die Wertzuweisung i = 3.9; den Wert 3 !",
+        "page": 44
+      },
+      {
+        "gold_id": "413.txt",
+        "matching_score": 0.8,
+        "evidence": "int eimer(double l, double leak){ double ml = l *1000;  int min = 0;  while(ml > 10){  ml = ml* (1-leak/100); min++; } return min; }",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Wenn in der Aufgabe 'Loch im Eimer' Variablen fälschlicherweise als 'int' statt 'double' deklariert werden, führt dies aus zwei Gründen zu einem Fehler: Zum einen resultiert eine Division wie 'leak/100' (wenn 'leak' ein 'int' ist) in einer ganzzahligen Division, die bei Werten unter 100 immer 0 ergibt (Dadurch ändert sich der berechnete Eimer-Inhalt nicht und es entsteht eine Endlosschleife). Zum anderen werden bei der Zuweisung von Gleitkomma-Zwischenergebnissen an eine 'int'-Variable (wie etwa 'ml') die Nachkommastellen einfach abgeschnitten, was über mehrere Berechnungszyklen hinweg zu signifikanten Fehlern führt."
   },
   {
-  "query": "Bubblesort und Bucketsort jeweils: Wie funktioniert der Algorithmus?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "206.txt",
-      "matching_score": 1.0,
-      "evidence": "In jedem Rekursionsschritt wird das größte Element an das Ende des Feldes sortiert, indem nacheinander das aktuelle Element mit seinem direkten nachfolgenden Nachbarelement verglichen und gegebenenfalls getauscht wird. Dadurch wandert das Maximum des aktuell zu sortierenden Feldes an die hinterste Position, sodass das im nächsten Rekursionschritt zu sortierende Feld um eins verkleinert wird.",
-      "page": 1
-    },
-    {
-      "gold_id": "514.txt",
-      "matching_score": 1.0,
-      "evidence": "1. Speicher für ein int-Feld der Länge max+1 auf dem Heap anfordern (hier kann ein Fehler auftreten) und initialisieren jeder Feldkomponente mit 0. 2. Durchlaufen von values. Wird der Wert x gelesen, dann wird der Wert an der Position x im int-Feld auf dem Heap um 1 erhöht. Motivation: In dem int-Feld auf dem Heap wird für jeden Wert von 0 bis max abgespeichert, wie oft dieser Wert in values vorkommt. 3. Durchlaufen des int-Feldes auf dem Heap, dabei wird values neu geschrieben, beginnend bei Position 0. Wird an der Position x im int-Feld auf dem Heap der n Wert gelesen, muss in values n-mal hintereinander x geschrieben werden.",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Bubblesort funktioniert, indem nacheinander benachbarte Elemente verglichen und bei falscher Reihenfolge getauscht werden, wodurch das jeweils größte Element eines Durchlaufs ans Ende wandert [1]. Dieser Vorgang wird wiederholt (z.B. rekursiv) für das um eins verkleinerte restliche Array, bis alles sortiert ist [1, 2]. Es existieren auch Varianten mit wechselnder Laufrichtung, die nach demselben Tauschprinzip vorgehen [3]. Bucketsort (hier in einer Form von Counting Sort implementiert) arbeitet gänzlich anders: Es wird zunächst ein mit Nullen initialisiertes Hilfsarray auf dem Heap angefordert, dessen Indizes die möglichen Werte repräsentieren [4]. Das Ursprungsarray wird durchlaufen, und für jeden gefundenen Wert wird an der entsprechenden Indexposition im Hilfsarray hochgezählt, um die Häufigkeit abzuspeichern [4, 5]. Zum Schluss wird das Hilfsarray der Reihe nach durchlaufen und das Ursprungsarray entsprechend der dort gezählten Häufigkeiten überschrieben, wodurch das Array sortiert vorliegt [4, 5]."
+    "query": "Bubblesort und Bucketsort jeweils: Wie funktioniert der Algorithmus?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "206.txt",
+        "matching_score": 1.0,
+        "evidence": "In jedem Rekursionsschritt wird das größte Element an das Ende des Feldes sortiert, indem nacheinander das aktuelle Element mit seinem direkten nachfolgenden Nachbarelement verglichen und gegebenenfalls getauscht wird. Dadurch wandert das Maximum des aktuell zu sortierenden Feldes an die hinterste Position, sodass das im nächsten Rekursionschritt zu sortierende Feld um eins verkleinert wird.",
+        "page": 1
+      },
+      {
+        "gold_id": "514.txt",
+        "matching_score": 1.0,
+        "evidence": "1. Speicher für ein int-Feld der Länge max+1 auf dem Heap anfordern (hier kann ein Fehler auftreten) und initialisieren jeder Feldkomponente mit 0. 2. Durchlaufen von values. Wird der Wert x gelesen, dann wird der Wert an der Position x im int-Feld auf dem Heap um 1 erhöht. Motivation: In dem int-Feld auf dem Heap wird für jeden Wert von 0 bis max abgespeichert, wie oft dieser Wert in values vorkommt. 3. Durchlaufen des int-Feldes auf dem Heap, dabei wird values neu geschrieben, beginnend bei Position 0. Wird an der Position x im int-Feld auf dem Heap der n Wert gelesen, muss in values n-mal hintereinander x geschrieben werden.",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Bubblesort funktioniert, indem nacheinander benachbarte Elemente verglichen und bei falscher Reihenfolge getauscht werden, wodurch das jeweils größte Element eines Durchlaufs ans Ende wandert [1]. Dieser Vorgang wird wiederholt (z.B. rekursiv) für das um eins verkleinerte restliche Array, bis alles sortiert ist [1, 2]. Es existieren auch Varianten mit wechselnder Laufrichtung, die nach demselben Tauschprinzip vorgehen [3]. Bucketsort (hier in einer Form von Counting Sort implementiert) arbeitet gänzlich anders: Es wird zunächst ein mit Nullen initialisiertes Hilfsarray auf dem Heap angefordert, dessen Indizes die möglichen Werte repräsentieren [4]. Das Ursprungsarray wird durchlaufen, und für jeden gefundenen Wert wird an der entsprechenden Indexposition im Hilfsarray hochgezählt, um die Häufigkeit abzuspeichern [4, 5]. Zum Schluss wird das Hilfsarray der Reihe nach durchlaufen und das Ursprungsarray entsprechend der dort gezählten Häufigkeiten überschrieben, wodurch das Array sortiert vorliegt [4, 5]."
   },
   {
-  "query": "Warum muss ich da ein Sternchen/Ampersand machen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 1.0,
-      "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator *: Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
-      "page": 119
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.9,
-      "evidence": "Im Funktionsheader muss, sowohl in der Deklaration als auch in der Definition, markiert werden, dass ein Parameter ein Zeiger ist. Das geschieht, indem dem Namen des Parameters ein Stern (*) vorangestellt wird. [...] Im Funktionsrumpf muss dem Namen des Parameters in der Regel ebenfalls an jeder Stelle ein Stern vorangestellt und damit explizit dereferenziert werden.",
-      "page": 120
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "matching_score": 0.9,
-      "evidence": "Diese Funktion [scanf] muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benötigt nicht die Werte ihrer Argumente, sondern deren Adressen. Der Adressoperator &, der bereits erwähnt und verwendet wurde, sorgt gerade hierfür.",
-      "page": 24
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.8,
-      "evidence": "Der Adressoperator & verhindert, dass Variablen dereferenziert werden! Einsetzen kann man diesen Operator prinzipiell überall – nur macht er ohne weiteres an den meisten Stellen keinen Sinn.",
-      "page": 119
-    }
-  ],
-  "supplementary_answer": "Das Ampersand (&) ist der Adressoperator in C. Es wird verwendet, um die konkrete Speicheradresse einer Variablen zu erhalten, anstatt ihren Wert zu übergeben (sehr häufig bei 'scanf', da die Funktion wissen muss, wo im Speicher der eingelesene Wert abgelegt werden soll). Das Sternchen (*) ist der Dereferenzierungsoperator und hat im Code zwei Hauptaufgaben: Bei der Deklaration einer Variablen (oder eines Funktionsparameters) markiert es, dass diese Variable ein Zeiger (Pointer) ist und somit eine Speicheradresse speichert. Setzt man das Sternchen später im Code vor diesen Zeiger, wird er 'dereferenziert' – das bedeutet, man greift auf den eigentlichen Wert zu, der an dieser Speicheradresse liegt, und kann diesen lesen oder verändern."
+    "query": "Warum muss ich da ein Sternchen/Ampersand machen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 1.0,
+        "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator * : Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
+        "page": 119
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.9,
+        "evidence": "Im Funktionsheader muss, sowohl in der Deklaration als auch in der Definition, markiert werden, dass ein Parameter ein Zeiger ist. Das geschieht, indem dem Namen des Parameters ein Stern ( * ) vorangestellt wird. - · Im Funktionsrumpf muss dem Namen des Parameters in der Regel ebenfalls an jeder Stelle ein Stern vorangestellt und damit explizit dereferenziert werden.",
+        "page": 120
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 0.9,
+        "evidence": "Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
+        "page": 24
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.8,
+        "evidence": "Der Adressoperator & verhindert, dass Variablen dereferenziert werden! Einsetzen kann man diesen Operator prinzipiell uberall - nur macht er ohne weiteres an den meisten Stellen keinen Sinn.",
+        "page": 119
+      }
+    ],
+    "supplementary_answer": "Das Ampersand (&) ist der Adressoperator in C. Es wird verwendet, um die konkrete Speicheradresse einer Variablen zu erhalten, anstatt ihren Wert zu übergeben (sehr häufig bei 'scanf', da die Funktion wissen muss, wo im Speicher der eingelesene Wert abgelegt werden soll). Das Sternchen (*) ist der Dereferenzierungsoperator und hat im Code zwei Hauptaufgaben: Bei der Deklaration einer Variablen (oder eines Funktionsparameters) markiert es, dass diese Variable ein Zeiger (Pointer) ist und somit eine Speicheradresse speichert. Setzt man das Sternchen später im Code vor diesen Zeiger, wird er 'dereferenziert' – das bedeutet, man greift auf den eigentlichen Wert zu, der an dieser Speicheradresse liegt, und kann diesen lesen oder verändern."
   },
   {
   "query": "Wann benutze ich & und wann * bzw. was ist der Unterschied?",
@@ -1032,11 +1033,44 @@
     {
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
       "matching_score": 0.7,
-      "evidence": "Wir müssen deshalb inkrement2 (int *i) { *i = *i + 1; } schreiben: i selbst ist jetzt eine Zeigervariable. Das zeigt die Parametervereinbarung int *i an. Die (automatische) Dereferenzierung von i [...] liefert wie bisher den Wert von i – nur ist das jetzt ein Zeiger auf eine int–Variable und nicht mehr ein int–Wert. Wollen wir auf den int–Wert zugreifen, müssen wir also noch einmal explizit dereferenzieren. Und das geschieht gerade durch *i.",
       "page": 120
     }
   ],
   "supplementary_answer": "Das kaufmännische Und (&) ist der Adressoperator. Man benutzt ihn, wenn man nicht den gespeicherten Wert einer Variablen benötigt, sondern den Ort im Speicher (die Adresse), an dem die Variable liegt. Dies ist z. B. bei 'scanf' zwingend notwendig, da diese Funktion den eingelesenen Wert an der exakten Speicheradresse ablegen muss. Das Sternchen (*) hat hingegen zwei Aufgaben: Zum einen dient es bei der Variablendeklaration (z. B. 'int *ptr') dazu, dem Compiler mitzuteilen, dass diese Variable eine Adresse (einen Zeiger) speichert. Zum anderen dient es als Dereferenzierungsoperator vor einem Zeiger im regulären Code (z. B. '*ptr = 5'). Damit greift man auf den eigentlichen Wert zu, der an dieser Adresse liegt, und kann ihn verändern oder auslesen."
+    "query": "Wann benutze ich & und wann * bzw. was ist der Unterschied?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 1.0,
+        "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator * : Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
+        "page": 119
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.9,
+        "evidence": "Im Funktionsheader muss, sowohl in der Deklaration als auch in der Definition, markiert werden, dass ein Parameter ein Zeiger ist. Das geschieht, indem dem Namen des Parameters ein Stern ( * ) vorangestellt wird. - · Im Funktionsrumpf muss dem Namen des Parameters in der Regel ebenfalls an jeder Stelle ein Stern vorangestellt und damit explizit dereferenziert werden.",
+        "page": 120
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 0.9,
+        "evidence": "Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
+        "page": 24
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.8,
+        "evidence": "Der Adressoperator & verhindert, dass Variablen dereferenziert werden! Einsetzen kann man diesen Operator prinzipiell uberall - nur macht er ohne weiteres an den meisten Stellen keinen Sinn.",
+        "page": 119
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.7,
+        "page": 120
+      }
+    ],
+    "supplementary_answer": "Das kaufmännische Und (&) ist der Adressoperator. Man benutzt ihn, wenn man nicht den gespeicherten Wert einer Variablen benötigt, sondern den Ort im Speicher (die Adresse), an dem die Variable liegt. Dies ist z. B. bei 'scanf' zwingend notwendig, da diese Funktion den eingelesenen Wert an der exakten Speicheradresse ablegen muss. Das Sternchen (*) hat hingegen zwei Aufgaben: Zum einen dient es bei der Variablendeklaration (z. B. 'int *ptr') dazu, dem Compiler mitzuteilen, dass diese Variable eine Adresse (einen Zeiger) speichert. Zum anderen dient es als Dereferenzierungsoperator vor einem Zeiger im regulären Code (z. B. '*ptr = 5'). Damit greift man auf den eigentlichen Wert zu, der an dieser Adresse liegt, und kann ihn verändern oder auslesen."
   },
   {
   "query": "Warum soll ich malloc benutzen? (z.B. Aufgabe Permutation mit Speicher)",
@@ -1051,7 +1085,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
       "matching_score": 0.9,
-      "evidence": "weiß man in der Regel beim Schreiben des Programms nicht, wie groß die Vektoren und Matrizen maximal werden können. Dies macht die Verwendung von statischen Variablen problematisch. Dieses Problem wird in C durch die Bereitstellung der benötigten Vektoren und Matrizen auf dem Heap gelöst.",
       "page": 142
     },
     {
@@ -1062,6 +1095,28 @@
     }
   ],
   "supplementary_answer": "Die Funktion 'malloc' (Memory Allocation) wird benutzt, um zur Laufzeit dynamisch Speicherplatz auf dem Heap anzufordern. Das ist immer dann notwendig, wenn die exakte Größe einer benötigten Datenstruktur (wie z. B. eines Arrays) beim Schreiben des Codes (zur Compile-Zeit) noch nicht feststeht. Bei der Aufgabe 'Permutation mit Speicher' wird die Größe des benötigten Hilfs-Arrays erst durch den übergebenen Parameter 'laenge' definiert. Da statische Arrays eine feste, konstante Größe benötigen, muss der Speicherplatz in diesem Fall zwingend mit 'malloc' dynamisch bereitgestellt werden."
+    "query": "Warum soll ich malloc benutzen? (z.B. Aufgabe Permutation mit Speicher)",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Ein Programm hat die Moglichkeit, wahrend es lauft Speicher vom Betriebssystem anzufordern, wobei sich die Große des angeforderten Speichers erst bei Ablauf des Programms z.B. durch eine Benutzereingabe ergibt. Dieser Speicher steht ihm dann so lange zur Verfugung, bis es ihn explizit wieder freigibt oder bis es terminiert.",
+        "page": 141
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.9,
+        "page": 142
+      },
+      {
+        "gold_id": "517.txt",
+        "matching_score": 0.8,
+        "evidence": "1. Speicher für ein int-Feld anzahl der Länge length auf dem Heap anfordern (hier kann ein Fehler auftreten).",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Die Funktion 'malloc' (Memory Allocation) wird benutzt, um zur Laufzeit dynamisch Speicherplatz auf dem Heap anzufordern. Das ist immer dann notwendig, wenn die exakte Größe einer benötigten Datenstruktur (wie z. B. eines Arrays) beim Schreiben des Codes (zur Compile-Zeit) noch nicht feststeht. Bei der Aufgabe 'Permutation mit Speicher' wird die Größe des benötigten Hilfs-Arrays erst durch den übergebenen Parameter 'laenge' definiert. Da statische Arrays eine feste, konstante Größe benötigen, muss der Speicherplatz in diesem Fall zwingend mit 'malloc' dynamisch bereitgestellt werden."
   },
   {
   "query": "Static und malloc vergleichen? (bei einer stringaufgabe)",
@@ -1076,7 +1131,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "matching_score": 0.8,
-      "evidence": "Variablen, die in einem Block definiert werden, dürfen das Attribut static erhalten! [...] Wie bei externen Variablen erfolgt die Zuordnung des Speicherplatzes einmalig durch den Compiler [...] Da die Zuordnung zwischen der Variablen [...] und ihrem Speicherplatz mit dem Rücksprung nicht gelöst wird, hat [die Variable] beim nächsten Aufruf den veränderten Wert des vorhergehenden Aufrufs.",
       "page": 95
     },
     {
@@ -1087,6 +1141,28 @@
     }
   ],
   "supplementary_answer": "In der Aufgabe 'String Basics III' werden beide Ansätze direkt miteinander verglichen, um das Problem der sicheren Zeiger-Rückgabe aus einer Funktion zu lösen. Verwendet man 'static' (z.B. 'static char array[1];'), weist der Compiler zur Übersetzungszeit einmalig einen fixen Speicherbereich zu. Dieser Speicherbereich bleibt auch nach Verlassen der Funktion bestehen, weshalb der Zeiger darauf gültig bleibt. Nachteil: Die Array-Größe ist fest eincodiert und bei jedem neuen Funktionsaufruf wird exakt derselbe Speicherbereich wieder überschrieben. Verwendet man hingegen 'malloc', kann der benötigte Speicher dynamisch zur Laufzeit an die tatsächliche String-Länge angepasst werden. Auch dieser Speicher auf dem Heap überlebt das Ende der Funktion. Hierbei wird jedoch für jeden Aufruf ein eigener, neuer Speicherblock erzeugt, den der Programmierer später eigenverantwortlich mit 'free()' wieder freigeben muss."
+    "query": "Static und malloc vergleichen? (bei einer stringaufgabe)",
+    "type": "concept_comparison",
+    "references": [
+      {
+        "gold_id": "417.txt",
+        "matching_score": 1.0,
+        "evidence": "char* static_str(char* string){ \n    static char str_return[1]; \n    strcpy(str_return, string); \n    return str_return; \n}\nchar* malloc_str(char string[], int len){ \n    char* ptr = malloc(len*sizeof(char)); \n    strcpy(ptr, string); \n    return ptr; \n}",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "matching_score": 0.8,
+        "page": 95
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.7,
+        "evidence": "Ein Programm hat die Moglichkeit, wahrend es lauft Speicher vom Betriebssystem anzufordern, wobei sich die Große des angeforderten Speichers erst bei Ablauf des Programms z.B. durch eine Benutzereingabe ergibt. Dieser Speicher steht ihm dann so lange zur Verfugung, bis es ihn explizit wieder freigibt oder bis es terminiert.",
+        "page": 141
+      }
+    ],
+    "supplementary_answer": "In der Aufgabe 'String Basics III' werden beide Ansätze direkt miteinander verglichen, um das Problem der sicheren Zeiger-Rückgabe aus einer Funktion zu lösen. Verwendet man 'static' (z.B. 'static char array[1];'), weist der Compiler zur Übersetzungszeit einmalig einen fixen Speicherbereich zu. Dieser Speicherbereich bleibt auch nach Verlassen der Funktion bestehen, weshalb der Zeiger darauf gültig bleibt. Nachteil: Die Array-Größe ist fest eincodiert und bei jedem neuen Funktionsaufruf wird exakt derselbe Speicherbereich wieder überschrieben. Verwendet man hingegen 'malloc', kann der benötigte Speicher dynamisch zur Laufzeit an die tatsächliche String-Länge angepasst werden. Auch dieser Speicher auf dem Heap überlebt das Ende der Funktion. Hierbei wird jedoch für jeden Aufruf ein eigener, neuer Speicherblock erzeugt, den der Programmierer später eigenverantwortlich mit 'free()' wieder freigeben muss."
   },
   {
   "query": "In welcher Reihenfolge muss ich die Argumente beim GCC-Aufruf angeben?",
@@ -1113,11 +1189,38 @@
     {
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "matching_score": 0.5,
-      "evidence": "gcc -Wall -ansi stapeltest.c stapel.c wenn wir mit a.out als Namen für das ausführbare Programm zufrieden sind, bzw. gcc -Wall -ansi -o stapeltest stapeltest.c stapel.c wenn das ausführbare Programm den Namen stapeltest erhalten soll.",
       "page": 90
     }
   ],
   "supplementary_answer": "Beim Aufruf des GCC-Compilers steht der Befehl 'gcc' ganz am Anfang, gefolgt von allgemeinen Compiler-Optionen (wie '-Wall', '-ansi', '-O' oder '-std=c11'). Danach wird, falls gewünscht, mit der Option '-o' und dem direkten nachfolgenden Namen die Zieldatei angegeben (z. B. '-o prog'). Erst im Anschluss folgen die Namen der zu kompilierenden Quelltext- oder Objektdateien (z. B. 'prog.c' oder 'a01.o'). Ganz wichtig für die Reihenfolge: Linker-Optionen (wie '-lm' zum Einbinden der Mathe-Bibliothek) müssen zwingend am Ende des Aufrufs stehen, also erst nach den Quelltextdateien angegeben werden."
+    "query": "In welcher Reihenfolge muss ich die Argumente beim GCC-Aufruf angeben?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
+        "matching_score": 1.0,
+        "evidence": "Der normale einfache Compileraufruf sieht also so aus: gcc -Wall -ansi -pedantic -O [ -o prog ] prog.c Eine weitere oft benotigte Option ist -lm . Sie sorgt dafur, dass der Bibliotheksteil mit den mathematischen Funktionen gebunden wird. Da es sich um eine Linker-Option handelt, wird sie nach den Quelltextdateien angegeben.",
+        "page": 184
+      },
+      {
+        "gold_id": "55.txt",
+        "matching_score": 0.9,
+        "evidence": "Schreiben Sie das Programm in eine Datei namens wurzel.c, compilieren sie mit dem Aufruf\ngcc -Wall -o wurzel wurzel.c -lm\nund führen das Programm aus. Die Option -lm am Ende ist für den Linker bestimmt.",
+        "page": 1
+      },
+      {
+        "gold_id": "82.txt",
+        "matching_score": 0.6,
+        "evidence": "Kompilieren Sie Ihre Lösung gcc -c -Wall -std=c11 a01.c. Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm. gcc -o a01 a01.o a01-testing.o.",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "matching_score": 0.5,
+        "page": 90
+      }
+    ],
+    "supplementary_answer": "Beim Aufruf des GCC-Compilers steht der Befehl 'gcc' ganz am Anfang, gefolgt von allgemeinen Compiler-Optionen (wie '-Wall', '-ansi', '-O' oder '-std=c11'). Danach wird, falls gewünscht, mit der Option '-o' und dem direkten nachfolgenden Namen die Zieldatei angegeben (z. B. '-o prog'). Erst im Anschluss folgen die Namen der zu kompilierenden Quelltext- oder Objektdateien (z. B. 'prog.c' oder 'a01.o'). Ganz wichtig für die Reihenfolge: Linker-Optionen (wie '-lm' zum Einbinden der Mathe-Bibliothek) müssen zwingend am Ende des Aufrufs stehen, also erst nach den Quelltextdateien angegeben werden."
   },
   {
   "query": "Was bewirkt der Parameter -o genau?",
@@ -1132,7 +1235,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "matching_score": 0.9,
-      "evidence": "gcc -Wall -ansi stapeltest.c stapel.c wenn wir mit a.out als Namen für das ausführbare Programm zufrieden sind, bzw. gcc -Wall -ansi -o stapeltest stapeltest.c stapel.c wenn das ausführbare Programm den Namen stapeltest erhalten soll.",
       "page": 90
     },
     {
@@ -1149,6 +1251,34 @@
     }
   ],
   "supplementary_answer": "Der Parameter '-o' (steht für 'output') beim Aufruf des GCC-Compilers bewirkt, dass Sie den Dateinamen des zu erzeugenden ausführbaren Programms selbst festlegen können. Wenn Sie diesen Parameter weglassen, generiert der Compiler standardmäßig immer eine Ausgabedatei mit dem Namen 'a.out'. Verwenden Sie hingegen z. B. '-o meinprogramm', heißt die fertig kompilierte Datei anschließend 'meinprogramm'."
+    "query": "Was bewirkt der Parameter -o genau?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
+        "matching_score": 1.0,
+        "evidence": "Soll das ausfuhrbare Programm einen anderen Namen als a.out erhalten, zum Beispiel prog , so muss man die Option -o und den neuen Namen zusatzlich in das gcc -Kommando eintragen: gcc -o prog prog.c",
+        "page": 184
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "matching_score": 0.9,
+        "page": 90
+      },
+      {
+        "gold_id": "55.txt",
+        "matching_score": 0.5,
+        "evidence": "Schreiben Sie das Programm in eine Datei namens wurzel.c, compilieren sie mit dem Aufruf\ngcc -Wall -o wurzel wurzel.c -lm\nund führen das Programm aus.",
+        "page": 1
+      },
+      {
+        "gold_id": "83.txt",
+        "matching_score": 0.4,
+        "evidence": "Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm gcc -o a02 a02.o a02-testing.o",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Der Parameter '-o' (steht für 'output') beim Aufruf des GCC-Compilers bewirkt, dass Sie den Dateinamen des zu erzeugenden ausführbaren Programms selbst festlegen können. Wenn Sie diesen Parameter weglassen, generiert der Compiler standardmäßig immer eine Ausgabedatei mit dem Namen 'a.out'. Verwenden Sie hingegen z. B. '-o meinprogramm', heißt die fertig kompilierte Datei anschließend 'meinprogramm'."
   },
   {
   "query": "Was bedeutet die Flag -Wall und warum ist sie wichtig?",
@@ -1157,7 +1287,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
       "matching_score": 1.0,
-      "evidence": "Eine zusätzliche Option sollte man beim Aufruf des gcc auf jeden Fall angeben, nämlich -Wall, so dass der Aufruf\ngcc -Wall [-o prog ] prog.c\nist. Ist diese Option angegeben, schreibt der Compiler zu ” verdächtigem“ Code, den er sonst kommentarlos akzeptieren würde, Warnungen. In vielen Fällen weisen diese Warnungen auf Programmierfehler hin, ohne deren Beseitigung das Programm nicht laufen wird. Merke: Ein Programm, das ein Compiler widerspruchslos akzeptiert, ist noch lange kein korrektes Programm!",
       "page": 184
     },
     {
@@ -1168,6 +1297,22 @@
     }
   ],
   "supplementary_answer": "Die Flag '-Wall' ist eine essenzielle Compiler-Option beim GCC. Sie veranlasst den Compiler dazu, bei 'verdächtigem' Code Warnungen auszugeben, den er ohne diese Flag einfach stillschweigend kompilieren würde. Die Wichtigkeit dieser Flag liegt darin, dass diese Warnungen sehr häufig auf handfeste Programmierfehler hindeuten. Ohne deren Beseitigung läuft das Programm später oft fehlerhaft oder gar nicht. Wie das Skript betont, bedeutet ein fehlerfrei (aber ohne '-Wall') kompiliertes Programm noch lange nicht, dass die Logik auch korrekt ist."
+    "query": "Was bedeutet die Flag -Wall und warum ist sie wichtig?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
+        "matching_score": 1.0,
+        "page": 184
+      },
+      {
+        "gold_id": "82.txt",
+        "matching_score": 0.3,
+        "evidence": "Kompilieren Sie Ihre Lösung gcc -c -Wall -std=c11 a01.c.",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Die Flag '-Wall' ist eine essenzielle Compiler-Option beim GCC. Sie veranlasst den Compiler dazu, bei 'verdächtigem' Code Warnungen auszugeben, den er ohne diese Flag einfach stillschweigend kompilieren würde. Die Wichtigkeit dieser Flag liegt darin, dass diese Warnungen sehr häufig auf handfeste Programmierfehler hindeuten. Ohne deren Beseitigung läuft das Programm später oft fehlerhaft oder gar nicht. Wie das Skript betont, bedeutet ein fehlerfrei (aber ohne '-Wall') kompiliertes Programm noch lange nicht, dass die Logik auch korrekt ist."
   },
   {
     "query": "Ich bekomme einen Segmentation Fault – was ist da eigentlich das Problem im Speicher?",
@@ -1182,13 +1327,13 @@
       {
         "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
         "matching_score": 0.9,
-        "evidence": "Die Funktion scanf wird durch den Formatstring informiert, dass ein int–Wert zu lesen ist, und unterstellt deshalb, dass das nächste Argument die Adresse einer int–Variablen ist. Der Versuch, 0 als Adresse zu verwenden, kann in der Regel nur ins Chaos führen. Wenn man Glück hat, überschreibt man nur Daten, die man ohnehin nicht mehr braucht. Nur – Glück hat man in der Regel nicht. Das Programm wird in der Regel mit einem segmentation fault , memory fault oder bus error vom Betriebssystem ” gekillt“",
+        "evidence": "Die Funktion scanf wird durch den Formatstring informiert, dass ein int -Wert zu lesen ist, und unterstellt deshalb, dass das nachste Argument die Adresse einer int -Variablen ist. Der Versuch, 0 als Adresse zu verwenden, kann in der Regel nur ins Chaos fuhren. Wenn man Gluck hat, uberschreibt man nur Daten, die man ohnehin nicht mehr braucht. Nur - Gluck hat man in der Regel nicht. Das Programm wird in der Regel mit einem segmentation fault , memory fault oder bus error vom Betriebssystem ' gekillt', hoffentlich ohne Auswirkungen auf andere, gleichzeitig laufende Prozesse.",
         "page": 24
       },
       {
         "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
         "matching_score": 0.8,
-        "evidence": "Auch ein falscher Indexzugriff oder allgemein das Dereferenzieren eines ungültigen Zeigers kann zu Problemen führen und ist häufig Ursache von Programmabstürzen. [...] Dass die Auswertung von Zeigerausdrücken immer vernünftige Werte ergibt, ist ausschließlich in die Verantwortung des Programmierers gestellt. Verstöße wirken sich in der Regel als Abstürze des Programms aus sobald ein ungültiger Zeigerausdruck dereferenziert wird.",
+        "evidence": "Auch ein falscher Indexzugriff oder allgemein das Dereferenzieren eines ungultigen Zeigers kann zu Problemen fuhren und ist haufig Ursache von Programmabsturzen. Das untersuchen wir anhand eines Beispiels: ``` int v[10], w[50], i, *p = v; /* Berechnung von i */ v[i] = 44; *(p + i) = 44; ``` Welchen Wert i hat, liegt erst fest, wenn die Wertzuweisungen ausgefuhrt werden. Allerdings:",
         "page": 128
       }
     ],
@@ -1213,7 +1358,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
       "matching_score": 0.9,
-      "evidence": "Wie bereits erwähnt erfolgt bei Funktionsaufrufen ein ” call by value“. Das bedeutet, nur der Wert des Aufrufarguments – z.B. einer Variable i – wird übergeben. Demzufolge kann ein Funktionsaufruf nicht auf die Variable i zurückwirken, ihren Wert also nicht verändern. [...] Wie lässt sich dasselbe für einfache Variablen erreichen? [...] Anstelle des Namens der Variablen, etwa v, tragen wir den Ausdruck &v ein. Das bewirkt [...] dass die Dereferenzierung von v unterbleibt und entsprechend der Zeiger auf den Speicherplatz von v anstelle des Wertes von v an die Funktion übergeben wird.",
       "page": 120
     },
     {
@@ -1224,124 +1368,152 @@
     }
   ],
   "supplementary_answer": "Obwohl man mit normalen Variablen Werte speichern kann, sind Pointer (Zeiger) in C aus drei essenziellen Gründen unverzichtbar: 1. Veränderbarkeit über Funktionsgrenzen hinweg ('Call by Reference'): Da C bei Funktionsaufrufen standardmäßig nur Kopien von Werten übergibt ('Call by Value'), könnte eine Funktion wie 'scanf' niemals den echten Wert einer Variablen verändern. Erst durch die Übergabe eines Pointers (der Speicheradresse) erhält die Funktion direkten Schreibzugriff auf das Original. 2. Performance: Bei sehr großen Datenstrukturen (wie großen Arrays oder Structs) würde das ständige Kopieren der Werte den Rechner extrem ausbremsen. Ein Pointer kopiert nur die winzige Adresse. 3. Dynamischer Speicher: Wenn man zur Programmierzeit noch nicht weiß, wie viel Speicher man benötigt, muss man Speicher zur Laufzeit anfordern (Heap, z.B. mit 'malloc'). Da dieser Speicher nicht an Variablennamen gebunden ist, kann man auf ihn ausschließlich über Pointer zugreifen."
+    "query": "Wieso brauche ich Pointer überhaupt, wenn ich Variablen habe?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 1.0,
+        "evidence": "Zeiger als Parameter von Funktionen werden in C verwendet, um ' call by reference ' zu simulieren. So wird das Zeigerargument selbst zwar kopiert, durch Dereferenzierung erhalt man aber direkten Zugriff auf die eigentlichen Daten und kann diese andern. Oft mochte man mit einem Zeigerargument aber nur das unter Umstanden aufwandige automatische Kopieren der Argumente umgehen, da sich bei großen Datenstrukturen die Parameterubergabe mit ' call by value ' negativ auf die Laufzeit auswirken konnte.",
+        "page": 123
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.95,
+        "evidence": "Da Zeigervariablen ihre Werte wahrend der Ausfuhrungszeit eines Programms andern konnen, kann man mit ihnen auf Speicher zugreifen, der erst wahrend der Ausfuhrung des Programms bereitgestellt wird. Diese Moglichkeit kennen praktisch alle modernen Programmiersprachen; das Stichwort ist ' Speicher auf dem Heap'. Die Besprechung dieser Moglichkeit wird auf Kapitel 13 verschoben. - · Die andere Moglichkeit ist eine Eigenart von C: Mit Zeigern kann man - in gewissen Grenzen - auch rechnen. Und damit mussen wir uns jetzt beschaftigen.",
+        "page": 124
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.9,
+        "page": 120
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 0.8,
+        "evidence": "Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
+        "page": 24
+      }
+    ],
+    "supplementary_answer": "Obwohl man mit normalen Variablen Werte speichern kann, sind Pointer (Zeiger) in C aus drei essenziellen Gründen unverzichtbar: 1. Veränderbarkeit über Funktionsgrenzen hinweg ('Call by Reference'): Da C bei Funktionsaufrufen standardmäßig nur Kopien von Werten übergibt ('Call by Value'), könnte eine Funktion wie 'scanf' niemals den echten Wert einer Variablen verändern. Erst durch die Übergabe eines Pointers (der Speicheradresse) erhält die Funktion direkten Schreibzugriff auf das Original. 2. Performance: Bei sehr großen Datenstrukturen (wie großen Arrays oder Structs) würde das ständige Kopieren der Werte den Rechner extrem ausbremsen. Ein Pointer kopiert nur die winzige Adresse. 3. Dynamischer Speicher: Wenn man zur Programmierzeit noch nicht weiß, wie viel Speicher man benötigt, muss man Speicher zur Laufzeit anfordern (Heap, z.B. mit 'malloc'). Da dieser Speicher nicht an Variablennamen gebunden ist, kann man auf ihn ausschließlich über Pointer zugreifen."
   },
   {
-  "query": "Wie kann ich auf den Wert hinter einem Pointer zugreifen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 1.0,
-      "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator *: Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
-      "page": 119
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.9,
-      "evidence": "Die (automatische) Dereferenzierung von i im Zuge der Auswertung eines Ausdrucks liefert wie bisher den Wert von i – nur ist das jetzt ein Zeiger auf eine int–Variable und nicht mehr ein int–Wert. Wollen wir auf den int–Wert zugreifen, müssen wir also noch einmal explizit dereferenzieren. Und das geschieht gerade durch *i.",
-      "page": 121
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.8,
-      "evidence": "Der Teilausdruck &i liefert die Adresse von i als Resultat. Durch den Operator * wird der Wert des Teilausdrucks &i dereferenziert und liefert den Wert von i als Resultat.",
-      "page": 120
-    },
-    {
-      "gold_id": "79.txt",
-      "matching_score": 0.7,
-      "evidence": "int sortieren (int* von, int* bis){\n    int tmp=0;\n    int *min=von;\n    if(von >= bis) return 0;\n    for(int *i=von+1; i < bis; i++)\n        if(*i < *min) min = i;\n    if(min == von) return sortieren(von+1, bis);\n    else{\n        tmp = *min;\n        *min = *von;\n        *von = tmp;\n        return 1 + sortieren(von+1, bis);\n    }\n}",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Um auf den Wert hinter einem Pointer (Zeiger) zuzugreifen, verwendet man in C den Dereferenzierungsoperator, also das Sternchen (*). Setzt man diesen Operator direkt vor die Zeigervariable (z. B. '*i' oder '*ptr'), wird die im Pointer gespeicherte Speicheradresse 'dereferenziert'. Das bedeutet, das Programm greift auf den tatsächlichen Wert zu, der an dieser Adresse liegt, und erlaubt es so, diesen Wert entweder auszulesen (z. B. 'if (*i < *min)') oder ihn zu verändern (z. B. '*min = *von')."
+    "query": "Wie kann ich auf den Wert hinter einem Pointer zugreifen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 1.0,
+        "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator * : Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
+        "page": 119
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.9,
+        "evidence": "Die (automatische) Dereferenzierung von i im Zuge der Auswertung eines Ausdrucks liefert wie bisher den Wert von i - nur ist das jetzt ein Zeiger auf eine int -Variable und nicht mehr ein int -Wert. Wollen wir auf den int -Wert zugreifen, mussen wir also noch einmal explizit dereferenzieren. Und das geschieht gerade durch *i .",
+        "page": 121
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.8,
+        "evidence": "Der Teilausdruck &i liefert die Adresse von i als Resultat. Durch den Operator * wird der Wert des Teilausdrucks &i dereferenziert und liefert den Wert von i als Resultat.",
+        "page": 120
+      },
+      {
+        "gold_id": "79.txt",
+        "matching_score": 0.7,
+        "evidence": "int sortieren (int* von, int* bis){\n    int tmp=0;\n    int *min=von;\n    if(von >= bis) return 0;\n    for(int *i=von+1; i < bis; i++)\n        if(*i < *min) min = i;\n    if(min == von) return sortieren(von+1, bis);\n    else{\n        tmp = *min;\n        *min = *von;\n        *von = tmp;\n        return 1 + sortieren(von+1, bis);\n    }\n}",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Um auf den Wert hinter einem Pointer (Zeiger) zuzugreifen, verwendet man in C den Dereferenzierungsoperator, also das Sternchen (*). Setzt man diesen Operator direkt vor die Zeigervariable (z. B. '*i' oder '*ptr'), wird die im Pointer gespeicherte Speicheradresse 'dereferenziert'. Das bedeutet, das Programm greift auf den tatsächlichen Wert zu, der an dieser Adresse liegt, und erlaubt es so, diesen Wert entweder auszulesen (z. B. 'if (*i < *min)') oder ihn zu verändern (z. B. '*min = *von')."
   },
   {
-  "query": "Was ist der Unterschied zwischen Call by Value und Call by Reference?",
-  "type": "concept_comparison",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 1.0,
-      "evidence": "Zeiger als Parameter von Funktionen werden in C verwendet, um ” call by reference“ zu simulieren. So wird das Zeigerargument selbst zwar kopiert, durch Dereferenzierung erhält man aber direkten Zugriff auf die eigentlichen Daten und kann diese ändern. Oft möchte man mit einem Zeigerargument aber nur das unter Umständen aufwändige automatische Kopieren der Argumente umgehen, da sich bei großen Datenstrukturen die Parameterübergabe mit ” call by value“ negativ auf die Laufzeit auswirken könnte.",
-      "page": 123
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "matching_score": 0.9,
-      "evidence": "Die Parameter einer Funktion entsprechen lokalen Variablen des jeweiligen Typs, in die beim Aufruf die Werte der Argumente kopiert werden. Man bezeichnet das als ” call by value“. Die Konsequenzen müssen wir uns noch einmal klar machen: Eine Veränderung eines Parameters innerhalb der Funktion hat keinerlei Auswirkungen auf die Umwelt der Funktion!",
-      "page": 72
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "matching_score": 0.8,
-      "evidence": "Übergabe von Adressen bezeichnet man allgemein als ” call by reference“. Von C wird behauptet, dass es nur ” call by value“ kenne, nicht jedoch ” call by reference“. Der Hintergrund ist ein kleiner sprachlicher ” Klimmzug“: Schreiben wir für eine int–Variable etwa scanf(\"%d\", &i) so betrachtet C &i nicht als ” Adresse der Variablen i“, sondern als ” Ausdruck mit einem Zeigertyp“ – und was dann übergeben wird, ist eben gerade der Wert dieses Ausdrucks.",
-      "page": 73
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.7,
-      "evidence": "Wie bereits erwähnt erfolgt bei Funktionsaufrufen ein ” call by value“. Das bedeutet, nur der Wert des Aufrufarguments – z.B. einer Variable i – wird übergeben. Demzufolge kann ein Funktionsaufruf nicht auf die Variable i zurückwirken, ihren Wert also nicht verändern.",
-      "page": 120
-    }
-  ],
-  "supplementary_answer": "Beim 'Call by Value' (Werteübergabe) wird beim Funktionsaufruf lediglich eine Kopie des Argumentwertes an die lokale Parametervariable der Funktion übergeben. Jegliche Änderungen an diesem Parameter innerhalb der Funktion bleiben ohne Auswirkungen auf die ursprüngliche Variable des Aufrufers. Beim 'Call by Reference' (Referenzübergabe) wird hingegen die Speicheradresse (ein Zeiger/Pointer) der Variablen übergeben. Zwar kopiert C streng genommen auch hier nur den Wert der Adresse ('Call by Value' eines Zeigers), jedoch ermöglicht diese Adresse der Funktion, durch Dereferenzierung direkten Lese- und Schreibzugriff auf die Originaldaten zu nehmen. Dies erlaubt nicht nur das Verändern der Originalwerte, sondern erspart bei sehr großen Datenstrukturen auch das zeit- und speicheraufwändige Kopieren."
+    "query": "Was ist der Unterschied zwischen Call by Value und Call by Reference?",
+    "type": "concept_comparison",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 1.0,
+        "evidence": "Zeiger als Parameter von Funktionen werden in C verwendet, um ' call by reference ' zu simulieren. So wird das Zeigerargument selbst zwar kopiert, durch Dereferenzierung erhalt man aber direkten Zugriff auf die eigentlichen Daten und kann diese andern. Oft mochte man mit einem Zeigerargument aber nur das unter Umstanden aufwandige automatische Kopieren der Argumente umgehen, da sich bei großen Datenstrukturen die Parameterubergabe mit ' call by value ' negativ auf die Laufzeit auswirken konnte.",
+        "page": 123
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+        "matching_score": 0.9,
+        "evidence": "Die Parameter einer Funktion entsprechen lokalen Variablen des jeweiligen Typs, in die beim Aufruf die Werte der Argumente kopiert werden. Man bezeichnet das als ' call by value '. Die Konsequenzen mussen wir uns noch einmal klar machen: Eine Veranderung eines Parameters innerhalb der Funktion hat keinerlei Auswirkungen auf die Umwelt der Funktion!",
+        "page": 72
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+        "matching_score": 0.8,
+        "evidence": "Ubergabe von Adressen bezeichnet man allgemein als ' call by reference '. Von C wird behauptet, dass es nur ' call by value' kenne, nicht jedoch ' call by reference'. Der Hintergrund ist ein kleiner sprachlicher ' Klimmzug': Schreiben wir fur eine int -Variable etwa scanf(\"%d\", &i) so betrachtet C &i nicht als ' Adresse der Variablen i ', sondern als ' Ausdruck mit einem Zeigertyp' - und was dann ubergeben wird, ist eben gerade der Wert dieses Ausdrucks.",
+        "page": 73
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.7,
+        "evidence": "Wie bereits erwahnt erfolgt bei Funktionsaufrufen ein ' call by value'. Das bedeutet, nur der Wert des Aufrufarguments - z.B. einer Variable i - wird ubergeben. Demzufolge kann ein Funktionsaufruf nicht auf die Variable i zuruckwirken, ihren Wert also nicht verandern.",
+        "page": 120
+      }
+    ],
+    "supplementary_answer": "Beim 'Call by Value' (Werteübergabe) wird beim Funktionsaufruf lediglich eine Kopie des Argumentwertes an die lokale Parametervariable der Funktion übergeben. Jegliche Änderungen an diesem Parameter innerhalb der Funktion bleiben ohne Auswirkungen auf die ursprüngliche Variable des Aufrufers. Beim 'Call by Reference' (Referenzübergabe) wird hingegen die Speicheradresse (ein Zeiger/Pointer) der Variablen übergeben. Zwar kopiert C streng genommen auch hier nur den Wert der Adresse ('Call by Value' eines Zeigers), jedoch ermöglicht diese Adresse der Funktion, durch Dereferenzierung direkten Lese- und Schreibzugriff auf die Originaldaten zu nehmen. Dies erlaubt nicht nur das Verändern der Originalwerte, sondern erspart bei sehr großen Datenstrukturen auch das zeit- und speicheraufwändige Kopieren."
   },
   {
-  "query": "Wieso benutzt man structs statt einzelner Variablen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 1.0,
-      "evidence": "Häufig ist es aber auch wünschenswert, Objekte mit unterschiedlichem Typ zu logischen Einheiten zusammenfassen zu können: Will man etwa eine Studentendatei verwalten, benötigt man (u.a.) den Namen, die Matrikelnummer und die Adresse jedes Studenten. [...] C bietet die Möglichkeit, unterschiedliche Objekte zu Strukturen zusammenzufassen.",
-      "page": 149
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 0.8,
-      "evidence": "Wertzuweisungen zwischen Strukturen sind möglich. Dabei werden die Werte aller Komponenten übertragen. Funktionen können Strukturen als Parameter besitzen [...] Funktionen können Strukturen als Funktionswerte zurückliefern.",
-      "page": 150
-    },
-    {
-      "gold_id": "78.txt",
-      "matching_score": 0.6,
-      "evidence": "Definieren Sie den Datentyp bruch_t für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt in Ihrer Abgabedatei:\ntypedef struct{ int zaehler; int nenner; } bruch_t;",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Structs werden in C genutzt, um logisch zusammengehörige Variablen (die oft auch unterschiedliche Datentypen haben) zu einer einzigen logischen Einheit zusammenzufassen (z. B. alle Daten eines Studenten oder Zähler und Nenner eines Bruchs). Dies macht den Programmcode wesentlich übersichtlicher und verhindert Fehler. Ein weiterer entscheidender Vorteil gegenüber einzelnen Variablen ist das einfachere Handling der Daten: Man kann durch eine einzige Zuweisung die Werte aller Komponenten einer Struktur auf eine andere Struktur gleichen Typs kopieren. Zudem kann man die gesamte logische Einheit auf einmal als Parameter an eine Funktion übergeben oder von dieser zurückgeben lassen, anstatt unzählige Einzelvariablen als Argumente angeben zu müssen."
+    "query": "Wieso benutzt man structs statt einzelner Variablen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Häufig ist es aber auch wünschenswert, Objekte mit unterschiedlichem Typ zu logischen Einheiten zusammenfassen zu können: Will man etwa eine Studentendatei verwalten, benötigt man (u.a.) den Namen, die Matrikelnummer und die Adresse jedes Studenten. [...] C bietet die Möglichkeit, unterschiedliche Objekte zu Strukturen zusammenzufassen.",
+        "page": 149
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.8,
+        "evidence": "Wertzuweisungen zwischen Strukturen sind möglich. Dabei werden die Werte aller Komponenten übertragen. Funktionen können Strukturen als Parameter besitzen [...] Funktionen können Strukturen als Funktionswerte zurückliefern.",
+        "page": 150
+      },
+      {
+        "gold_id": "78.txt",
+        "matching_score": 0.6,
+        "evidence": "Definieren Sie den Datentyp bruch_t für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt in Ihrer Abgabedatei:\ntypedef struct{ int zaehler; int nenner; } bruch_t;",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Structs werden in C genutzt, um logisch zusammengehörige Variablen (die oft auch unterschiedliche Datentypen haben) zu einer einzigen logischen Einheit zusammenzufassen (z. B. alle Daten eines Studenten oder Zähler und Nenner eines Bruchs). Dies macht den Programmcode wesentlich übersichtlicher und verhindert Fehler. Ein weiterer entscheidender Vorteil gegenüber einzelnen Variablen ist das einfachere Handling der Daten: Man kann durch eine einzige Zuweisung die Werte aller Komponenten einer Struktur auf eine andere Struktur gleichen Typs kopieren. Zudem kann man die gesamte logische Einheit auf einmal als Parameter an eine Funktion übergeben oder von dieser zurückgeben lassen, anstatt unzählige Einzelvariablen als Argumente angeben zu müssen."
   },
   {
-  "query": "Wann benutze ich den Punkt . und wann den Pfeil -> bei Strukturen?",
-  "type": "concept_comparison",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 1.0,
-      "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
-      "page": 153
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 0.95,
-      "evidence": "Mit den Komponenten von Strukturen kann man dagegen ” ganz normal“ arbeiten. [...] Erforderlich ist, ähnlich wie bei Zeigern, eine Dereferenzierung: Angegeben werden der Name der Struktur und der Name der Komponente; zwischen beide wird der Punktoperator (.) gesetzt:\nstudent_t student;\n...\nstudent.plz = 1000;",
-      "page": 151
-    },
-    {
-      "gold_id": "78.txt",
-      "matching_score": 0.85,
-      "evidence": "void bruchAddition(bruch_t* bruch, bruch_t add) { if (bruch->nenner == add.nenner) { bruch->zaehler += add.zaehler;",
-      "page": 1
-    },
-    {
-      "gold_id": "203.txt",
-      "matching_score": 0.60,
-      "evidence": "node_t *new = (node_t *) malloc(sizeof(node_t)); if (new == NULL) { printf(\"Error on allocating space\\n\"); return; } else { new->prio = value; }",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Der Punktoperator (.) wird verwendet, wenn man direkt mit einer Struktur-Variablen arbeitet, um auf deren Komponenten zuzugreifen (z. B. 'student.plz'). Der Pfeil-Operator (->) kommt hingegen zum Einsatz, wenn man nicht die Struktur selbst, sondern einen Zeiger (Pointer) auf eine Struktur vorliegen hat. Da der Punktoperator eine höhere Priorität als das Sternchen (*) zur Dereferenzierung hat, müsste man den Zeiger eigentlich umständlich klammern: '(*strukturzeiger).komponente'. Der Pfeil-Operator ist eine reine Vereinfachung in C, damit man übersichtlicher direkt 'strukturzeiger->komponente' schreiben kann."
+    "query": "Wann benutze ich den Punkt . und wann den Pfeil -> bei Strukturen?",
+    "type": "concept_comparison",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
+        "page": 153
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.95,
+        "evidence": "Mit den Komponenten von Strukturen kann man dagegen ” ganz normal“ arbeiten. [...] Erforderlich ist, ähnlich wie bei Zeigern, eine Dereferenzierung: Angegeben werden der Name der Struktur und der Name der Komponente; zwischen beide wird der Punktoperator (.) gesetzt:\nstudent_t student;\n...\nstudent.plz = 1000;",
+        "page": 151
+      },
+      {
+        "gold_id": "78.txt",
+        "matching_score": 0.85,
+        "evidence": "void bruchAddition(bruch_t* bruch, bruch_t add) { if (bruch->nenner == add.nenner) { bruch->zaehler += add.zaehler;",
+        "page": 1
+      },
+      {
+        "gold_id": "203.txt",
+        "matching_score": 0.6,
+        "evidence": "node_t *new = (node_t *) malloc(sizeof(node_t)); if (new == NULL) { printf(\"Error on allocating space\\n\"); return; } else { new->prio = value; }",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Der Punktoperator (.) wird verwendet, wenn man direkt mit einer Struktur-Variablen arbeitet, um auf deren Komponenten zuzugreifen (z. B. 'student.plz'). Der Pfeil-Operator (->) kommt hingegen zum Einsatz, wenn man nicht die Struktur selbst, sondern einen Zeiger (Pointer) auf eine Struktur vorliegen hat. Da der Punktoperator eine höhere Priorität als das Sternchen (*) zur Dereferenzierung hat, müsste man den Zeiger eigentlich umständlich klammern: '(*strukturzeiger).komponente'. Der Pfeil-Operator ist eine reine Vereinfachung in C, damit man übersichtlicher direkt 'strukturzeiger->komponente' schreiben kann."
   },
   {
   "query": "Warum nutzt man malloc, um Speicher zu reservieren?",
@@ -1356,7 +1528,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
       "matching_score": 0.95,
-      "evidence": "weiß man in der Regel beim Schreiben des Programms nicht, wie groß die Vektoren und Matrizen maximal werden können. Dies macht die Verwendung von statischen Variablen problematisch. Dieses Problem wird in C durch die Bereitstellung der benötigten Vektoren und Matrizen auf dem Heap gelöst.",
       "page": 142
     },
     {
@@ -1373,6 +1544,34 @@
     }
   ],
   "supplementary_answer": "Man nutzt 'malloc', um dynamisch Speicherplatz auf dem Heap anzufordern, wenn die exakte Speichermenge erst zur Laufzeit (z. B. durch Benutzereingaben oder Berechnungen) feststeht. Bei statischen Variablen (Arrays) muss die Größe bereits beim Schreiben des Programms fest einprogrammiert sein, was sie für flexible oder unbekannte Datengrößen problematisch macht. Ein weiterer entscheidender Grund ist die Lebensdauer: Speicher, der mit 'malloc' reserviert wurde, ist nicht an den lokalen Gültigkeitsbereich (Blockstruktur) einer Funktion gebunden. Er bleibt solange erhalten, bis er explizit mit 'free()' wieder freigegeben wird oder das Programm endet. Dies ist für Datenstrukturen, die flexibel wachsen sollen und über Funktionsgrenzen hinweg existieren müssen (wie z. B. verkettete Listen), zwingend notwendig."
+    "query": "Warum nutzt man malloc, um Speicher zu reservieren?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Ein Programm hat die Moglichkeit, wahrend es lauft Speicher vom Betriebssystem anzufordern, wobei sich die Große des angeforderten Speichers erst bei Ablauf des Programms z.B. durch eine Benutzereingabe ergibt. Dieser Speicher steht ihm dann so lange zur Verfugung, bis es ihn explizit wieder freigibt oder bis es terminiert. Die Verfugbarkeit dieses Speichers ist insbesondere nicht an die Blockstruktur des Programms gebunden.",
+        "page": 141
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.95,
+        "page": 142
+      },
+      {
+        "gold_id": "203.txt",
+        "matching_score": 0.6,
+        "evidence": "Innerhalb der Funktion soll mittels malloc() Speicher auf dem Heap für ein neues Listenelement angefordert werden.\n[...]\nnode_t *new = (node_t *) malloc(sizeof(node_t));",
+        "page": 1
+      },
+      {
+        "gold_id": "408.txt",
+        "matching_score": 0.4,
+        "evidence": "Verwenden Sie in dieser Aufgaben für das Feld dynamischen Speicher um dem Umgang damit zu üben.\nNutzen Sie dafür die Funktion malloc().",
+        "page": 2
+      }
+    ],
+    "supplementary_answer": "Man nutzt 'malloc', um dynamisch Speicherplatz auf dem Heap anzufordern, wenn die exakte Speichermenge erst zur Laufzeit (z. B. durch Benutzereingaben oder Berechnungen) feststeht. Bei statischen Variablen (Arrays) muss die Größe bereits beim Schreiben des Programms fest einprogrammiert sein, was sie für flexible oder unbekannte Datengrößen problematisch macht. Ein weiterer entscheidender Grund ist die Lebensdauer: Speicher, der mit 'malloc' reserviert wurde, ist nicht an den lokalen Gültigkeitsbereich (Blockstruktur) einer Funktion gebunden. Er bleibt solange erhalten, bis er explizit mit 'free()' wieder freigegeben wird oder das Programm endet. Dies ist für Datenstrukturen, die flexibel wachsen sollen und über Funktionsgrenzen hinweg existieren müssen (wie z. B. verkettete Listen), zwingend notwendig."
   },
   {
   "query": "Warum sollte man den Heap für Strukturen nutzen statt den Stack?",
@@ -1387,7 +1586,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
       "matching_score": 0.90,
-      "evidence": "automatische Variablen sind dynamisch. Das hieß, dass der Speicher für sie erst in dem Moment bereitgestellt wird, in dem bei der Ausführung des Programms der Block betreten wird, der ihre Definition enthält, und dass dieser Speicher beim Verlassen des Blocks auch wieder freigegeben wird. Diese Art von Variablen wird in der Regel auf einem Stack bereitgestellt. [...] Ein Programm hat die Möglichkeit, während es läuft Speicher vom Betriebssystem anzufordern [...] Dieser Speicher steht ihm dann so lange zur Verfügung, bis es ihn explizit wieder freigibt oder bis es terminiert. Die Verfügbarkeit dieses Speichers ist insbesondere nicht an die Blockstruktur des Programms gebunden. Man bezeichnet die Gesamtheit dieses Speichers als Heap.",
       "page": 141
     },
     {
@@ -1398,62 +1596,84 @@
     }
   ],
   "supplementary_answer": "Der Heap bietet bei der Verwendung von Strukturen (structs) im Vergleich zum Stack zwei wesentliche Vorteile: Performance und Lebensdauer. Zum einen verhindert man durch die Nutzung des Heaps (und der Weitergabe von Zeigern auf diese Strukturen) das extrem speicher- und laufzeitintensive Kopieren von Daten. Würde man umfangreiche Strukturen stattdessen als normale Variablen ('by value') über den Stack an Funktionen übergeben, müsste das Programm die komplette Struktur jedes Mal im Speicher duplizieren. Zum anderen ist die Lebensdauer von Variablen auf dem Stack strikt an den lokalen Block gebunden – sie werden beim Verlassen einer Funktion sofort zerstört. Speicher auf dem Heap bleibt hingegen solange bestehen, bis er explizit freigegeben wird. Dies ist zwingend notwendig, wenn man komplexe, dynamische Datenstrukturen wie verkettete Listen oder Bäume aufbauen möchte, deren Größe vorab nicht feststeht und deren Elemente funktionsübergreifend (persistent) existieren müssen."
+    "query": "Warum sollte man den Heap für Strukturen nutzen statt den Stack?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.95,
+        "evidence": "Es wurde bereits angesprochen, dass man sich sehr genau überlegen sollte, ob man umfangreiche Strukturen als Parameter von Funktionen oder als Funktionstypen vorsieht, weil beides das Kopieren ganzer Strukturen impliziert. In der Regel wird man deshalb im Zusammenhang mit Funktionen Zeiger auf Strukturen verwenden.",
+        "page": 153
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.9,
+        "page": 141
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.85,
+        "evidence": "Typischerweise werden verkettete Listen auf dem Heap angelegt. Der Fantasie sind beim Aufbau verketteter Strukturen keine Grenzen gesetzt: In einer verketteten Liste kann jeder Eintrag Anfang einer verketteten Liste sein. Mehrere Zeigerkomponenten in jeder Struktur erlauben den Aufbau von mehrfach verketteten Listen oder auch von Bäumen.",
+        "page": 156
+      }
+    ],
+    "supplementary_answer": "Der Heap bietet bei der Verwendung von Strukturen (structs) im Vergleich zum Stack zwei wesentliche Vorteile: Performance und Lebensdauer. Zum einen verhindert man durch die Nutzung des Heaps (und der Weitergabe von Zeigern auf diese Strukturen) das extrem speicher- und laufzeitintensive Kopieren von Daten. Würde man umfangreiche Strukturen stattdessen als normale Variablen ('by value') über den Stack an Funktionen übergeben, müsste das Programm die komplette Struktur jedes Mal im Speicher duplizieren. Zum anderen ist die Lebensdauer von Variablen auf dem Stack strikt an den lokalen Block gebunden – sie werden beim Verlassen einer Funktion sofort zerstört. Speicher auf dem Heap bleibt hingegen solange bestehen, bis er explizit freigegeben wird. Dies ist zwingend notwendig, wenn man komplexe, dynamische Datenstrukturen wie verkettete Listen oder Bäume aufbauen möchte, deren Größe vorab nicht feststeht und deren Elemente funktionsübergreifend (persistent) existieren müssen."
   },
   {
-  "query": "Was bedeutet dereferenzieren eigentlich genau?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 1.0,
-      "evidence": "Die Theorie spricht von Dereferenzierung : Der Name einer Variablen repräsentiert die Adresse der Variablen; durch Dereferenzierung erhält man ihren Wert.",
-      "page": 119
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.95,
-      "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator *: Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
-      "page": 119
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.85,
-      "evidence": "Die (automatische) Dereferenzierung von i im Zuge der Auswertung eines Ausdrucks liefert wie bisher den Wert von i – nur ist das jetzt ein Zeiger auf eine int–Variable und nicht mehr ein int–Wert. Wollen wir auf den int–Wert zugreifen, müssen wir also noch einmal explizit dereferenzieren. Und das geschieht gerade durch *i.",
-      "page": 121
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.60,
-      "evidence": "Weil als Operand in einem Ausdruck meist nur der Wert einer Variablen Sinn macht, nicht jedoch ihre Adresse, wird die Dereferenzierung automatisch vorgenommen. Weil links vom Zuweisungsoperator einer Wertzuweisung nur eine Adresse Sinn macht, nicht jedoch der Wert einer Variablen, unterbleibt die Dereferenzierung.",
-      "page": 119
-    }
-  ],
-  "supplementary_answer": "Dereferenzieren bedeutet grundlegend, dass aus einer Speicheradresse der dort hinterlegte eigentliche Wert ausgelesen wird [1]. Da in C der Name einer Variablen eigentlich nur ihre Adresse im Speicher repräsentiert, führt der Computer beim normalen Rechnen (z.B. in Ausdrücken auf der rechten Seite eines Gleichheitszeichens) automatisch eine Dereferenzierung durch, um an den Wert der Variable zu kommen [1, 2]. Besitzt man jedoch einen Zeiger (Pointer), so speichert dieser selbst nur eine Adresse. Um an den Wert zu gelangen, der sich hinter dieser Adresse verbirgt, muss man den Zeiger explizit dereferenzieren [3]. Dies geschieht mit dem Dereferenzierungsoperator (dem Sternchen `*`), welcher exakt die Umkehrung zum Adressoperator `&` darstellt und den referenzierten Wert zurückgibt [4]."
+    "query": "Was bedeutet dereferenzieren eigentlich genau?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 1.0,
+        "evidence": "Die Theorie spricht von Dereferenzierung : Der Name einer Variablen reprasentiert die Adresse der Variablen; durch Dereferenzierung erhalt man ihren Wert.",
+        "page": 119
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.95,
+        "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator * : Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
+        "page": 119
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.85,
+        "evidence": "Die (automatische) Dereferenzierung von i im Zuge der Auswertung eines Ausdrucks liefert wie bisher den Wert von i - nur ist das jetzt ein Zeiger auf eine int -Variable und nicht mehr ein int -Wert. Wollen wir auf den int -Wert zugreifen, mussen wir also noch einmal explizit dereferenzieren. Und das geschieht gerade durch *i .",
+        "page": 121
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.6,
+        "evidence": "Weil als Operand in einem Ausdruck meist nur der Wert einer Variablen Sinn macht, nicht jedoch ihre Adresse, wird die Dereferenzierung automatisch vorgenommen. - · Weil links vom Zuweisungsoperator einer Wertzuweisung nur eine Adresse Sinn macht, nicht jedoch der Wert einer Variablen, unterbleibt die Dereferenzierung.",
+        "page": 119
+      }
+    ],
+    "supplementary_answer": "Dereferenzieren bedeutet grundlegend, dass aus einer Speicheradresse der dort hinterlegte eigentliche Wert ausgelesen wird [1]. Da in C der Name einer Variablen eigentlich nur ihre Adresse im Speicher repräsentiert, führt der Computer beim normalen Rechnen (z.B. in Ausdrücken auf der rechten Seite eines Gleichheitszeichens) automatisch eine Dereferenzierung durch, um an den Wert der Variable zu kommen [1, 2]. Besitzt man jedoch einen Zeiger (Pointer), so speichert dieser selbst nur eine Adresse. Um an den Wert zu gelangen, der sich hinter dieser Adresse verbirgt, muss man den Zeiger explizit dereferenzieren [3]. Dies geschieht mit dem Dereferenzierungsoperator (dem Sternchen `*`), welcher exakt die Umkehrung zum Adressoperator `&` darstellt und den referenzierten Wert zurückgibt [4]."
   },
   {
-  "query": "Wie dereferenziere ich eine Struktur, die auf dem Heap liegt, korrekt?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 1.0,
-      "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
-      "page": 153
-    },
-    {
-      "gold_id": "203.txt",
-      "matching_score": 0.90,
-      "evidence": "node_t *new = (node_t *) malloc(sizeof(node_t)); if (new == NULL) { printf(\"Error on allocating space\\n\"); return; } else { new->prio = value; }",
-      "page": 1
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 0.80,
-      "evidence": "14.5 Strukturen auf dem Heap\nFür Zeiger auf Strukturen gelten dieselben Regeln wie für Zeiger auf einfache Variablen. [...] Aber auch Bereitstellung von Speicher auf dem Heap ist möglich.\nstudent_t *p;\n...\np = (student_t *) malloc(sizeof (student_t ));",
-      "page": 155
-    }
-  ],
-  "supplementary_answer": "Eine Struktur, die auf dem Heap angelegt wird (mittels 'malloc'), ist im C-Programm immer nur als Zeiger (Pointer) auf den entsprechenden Speicherbereich verfügbar. Um diesen Zeiger korrekt zu dereferenzieren und auf die Komponenten der Struktur zuzugreifen, gibt es zwei Wege: Die empfohlene und lesbarere Schreibweise ist die Nutzung des Pfeil-Operators (z.B. 'strukturzeiger->komponente'). Alternativ kann die Struktur auch manuell mit dem Sternchen (*) dereferenziert und per Punktoperator aufgerufen werden. Dabei ist es jedoch zwingend erforderlich, den Dereferenzierungsteil in Klammern zu setzen (also '(*strukturzeiger).komponente'), da der Punktoperator in C eine höhere Priorität hat als der Dereferenzierungsoperator."
+    "query": "Wie dereferenziere ich eine Struktur, die auf dem Heap liegt, korrekt?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
+        "page": 153
+      },
+      {
+        "gold_id": "203.txt",
+        "matching_score": 0.9,
+        "evidence": "node_t *new = (node_t *) malloc(sizeof(node_t)); if (new == NULL) { printf(\"Error on allocating space\\n\"); return; } else { new->prio = value; }",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.8,
+        "evidence": "14.5 Strukturen auf dem Heap\nFür Zeiger auf Strukturen gelten dieselben Regeln wie für Zeiger auf einfache Variablen. [...] Aber auch Bereitstellung von Speicher auf dem Heap ist möglich.\nstudent_t *p;\n...\np = (student_t *) malloc(sizeof (student_t ));",
+        "page": 155
+      }
+    ],
+    "supplementary_answer": "Eine Struktur, die auf dem Heap angelegt wird (mittels 'malloc'), ist im C-Programm immer nur als Zeiger (Pointer) auf den entsprechenden Speicherbereich verfügbar. Um diesen Zeiger korrekt zu dereferenzieren und auf die Komponenten der Struktur zuzugreifen, gibt es zwei Wege: Die empfohlene und lesbarere Schreibweise ist die Nutzung des Pfeil-Operators (z.B. 'strukturzeiger->komponente'). Alternativ kann die Struktur auch manuell mit dem Sternchen (*) dereferenziert und per Punktoperator aufgerufen werden. Dabei ist es jedoch zwingend erforderlich, den Dereferenzierungsteil in Klammern zu setzen (also '(*strukturzeiger).komponente'), da der Punktoperator in C eine höhere Priorität hat als der Dereferenzierungsoperator."
   },
   {
   "query": "Was heißt [Aufgabe XYZ]? (Aufgabenstellung sagt Kommandozeile)",
@@ -1462,7 +1682,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
       "matching_score": 1.0,
-      "evidence": "Parameter des Hauptprogramms\nJedes C–Programm muss, wie wir wissen, mit der Funktion main ein Hauptprogramm besitzen. [...] Tatsächlich ist der Prototyp für main jedoch\nint main (int argc , char *argv []);\nWas man übergeben erhält, ist der bereits zerlegte Inhalt der Aufrufzeile des Programms:",
       "page": 134
     },
     {
@@ -1491,259 +1710,295 @@
     }
   ],
   "supplementary_answer": "Wenn in einer Aufgabenstellung der Begriff 'Kommandozeile' fällt, sind in C in der Regel zwei völlig verschiedene Dinge gemeint, was oft zu Verwirrung führt: \n\n1. Standardein- und -ausgabe (während das Programm läuft): Wenn es heißt 'liest von der Kommandozeile' oder 'gibt auf der Kommandozeile aus' (wie z. B. in den Aufgaben 'Zahl in Wort' oder 'geteiltes Handy'), ist damit lediglich die ganz normale Eingabe über die Tastatur und Ausgabe auf dem Bildschirm gemeint. Dies lösen Sie mit Funktionen wie 'scanf()', 'getchar()' oder 'printf()'.\n\n2. Kommandozeilenparameter (beim Start des Programms): Wenn es heißt 'bekommt auf der Kommandozeile Argumente übergeben' (wie z. B. in der Aufgabe 'Binäre Suche Hauptprogramm'), meint dies die Aufrufzeile des Programms (z. B. './programm 50 10'). Um diese Werte zu lesen, verwendet man keine Benutzereingaben wie 'scanf', sondern ändert den Prototypen der main-Funktion zu 'int main(int argc, char *argv[])' und greift über das Array 'argv' auf die Startparameter zu."
+    "query": "Was heißt [Aufgabe XYZ]? (Aufgabenstellung sagt Kommandozeile)",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 1.0,
+        "page": 134
+      },
+      {
+        "gold_id": "525.txt",
+        "matching_score": 0.95,
+        "evidence": "Programmieren Sie eine main-Funktion (ohne Benutzereingaben), die auf der Kommandozeile genau zwei Argumente übergeben bekommt. [...] Beide, auf der Kommandozeile übergebene, Argumente werden mit atoi in int-Werte umgewandelt. Das erste Argumente wird in n , das zweite in k gespeichert.",
+        "page": 2
+      },
+      {
+        "gold_id": "407.txt",
+        "matching_score": 0.9,
+        "evidence": "Schreiben Sie ein Programm, dass eine Zahl zwischen 0 und 99 von der Kommandozeile liest und eine String-Repräsentation dieser Zahl in Worten ausgibt. [...] \nint main() { // Zahl einlesen int number; scanf(\"%d\", &number);",
+        "page": 1
+      },
+      {
+        "gold_id": "403.txt",
+        "matching_score": 0.85,
+        "evidence": "Schreiben Sie ein Programm, welches eine Nachricht von der Kommandozeile einliest und zwei Nachrichten auf der Kommandozeile ausgibt: [...] \nint main(){ char str[LAENGE]; int i = 0; while((str[i] = getchar()) != '\\n')",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 0.8,
+        "evidence": "Die Ausgabefunktion printf haben wir in unserem ersten Beispiel bereits kennengelernt, wenn auch nur in extrem elementarer Form. Sie schreibt immer auf das Standardausgabegerat , in der Regel also auf den Bildschirm. Ihr Pendant fur die Eingabe ist die Funktion scanf , die stets vom Standardeingabegerat liest, in der Regel also von der Tastatur.",
+        "page": 21
+      }
+    ],
+    "supplementary_answer": "Wenn in einer Aufgabenstellung der Begriff 'Kommandozeile' fällt, sind in C in der Regel zwei völlig verschiedene Dinge gemeint, was oft zu Verwirrung führt: \n\n1. Standardein- und -ausgabe (während das Programm läuft): Wenn es heißt 'liest von der Kommandozeile' oder 'gibt auf der Kommandozeile aus' (wie z. B. in den Aufgaben 'Zahl in Wort' oder 'geteiltes Handy'), ist damit lediglich die ganz normale Eingabe über die Tastatur und Ausgabe auf dem Bildschirm gemeint. Dies lösen Sie mit Funktionen wie 'scanf()', 'getchar()' oder 'printf()'.\n\n2. Kommandozeilenparameter (beim Start des Programms): Wenn es heißt 'bekommt auf der Kommandozeile Argumente übergeben' (wie z. B. in der Aufgabe 'Binäre Suche Hauptprogramm'), meint dies die Aufrufzeile des Programms (z. B. './programm 50 10'). Um diese Werte zu lesen, verwendet man keine Benutzereingaben wie 'scanf', sondern ändert den Prototypen der main-Funktion zu 'int main(int argc, char *argv[])' und greift über das Array 'argv' auf die Startparameter zu."
   },
   {
-  "query": "Wann beenden sich Schleifen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "matching_score": 1.0,
-      "evidence": "Vor jedem Schleifendurchlauf wird die Bedingung bedingung ausgewertet. Ist das Ergebnis wahr (d.h. ungleich 0), so wird die Anweisungsfolge der Schleife ausgeführt. Ist das Ergebnis dagegen falsch (d.h. gleich 0), so wird zu der Anweisung übergegangen, die dem Schleifenrumpf folgt, d.h. zu der ersten Anweisung, die nicht mehr zur Anweisungfolge der Schleife gehört.",
-      "page": 25
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-63-76.pdf",
-      "matching_score": 0.95,
-      "evidence": "Die break–Anweisung haben wir im Zusammenhang mit der switch–Anweisung kennengelernt. Außerdem darf sie in Schleifen aller Art verwendet werden und bewirkt dann die sofortige Beendigung der Schleife. Im Innern geschachtelter Schleifen wird immer nur die innerste Schleife beendet, während die umgebenden normal weiter abgearbeitet werden.",
-      "page": 65
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-63-76.pdf",
-      "matching_score": 0.60,
-      "evidence": "Erlaubt es die break–Anweisung, eine Schleife sofort zu beenden, so erlaubt die continue– Anweisung , die momentane Abarbeitung eines einzelnen Schleifendurchlaufs zu unterbrechen und sofort zur Prüfung des Endkriteriums für die Schleife überzugehen; vom Ergebnis der Prüfung hängt es dann ab, ob die Schleife beendet oder ein weiterer Schleifendurchlauf ausgeführt wird.",
-      "page": 66
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "matching_score": 0.40,
-      "evidence": "Nützlich ist die break–Anweisung in Schleifen vor allem dann, wenn das logische Ende in der Mitte des Schleifenrumpfes liegt. [...] Da das Ende der Schleife jetzt auch formal in der Mitte ihres Rumpfes liegt, spricht manches dafür, die Schleife als Endlosschleife zu formulieren.",
-      "page": 65
-    }
-  ],
-  "supplementary_answer": "Schleifen beenden sich in C primär dann, wenn ihre Schleifenbedingung bei der Auswertung den Wert 'falsch' (also 0) ergibt. Tritt dieser Fall ein, wird der Rumpf der Schleife nicht mehr ausgeführt und das Programm setzt seine Ausführung bei der ersten Anweisung nach der Schleife fort. Alternativ kann man Schleifen auch explizit von innen heraus beenden, indem man die 'break'-Anweisung verwendet. Ein Aufruf von 'break' bewirkt den sofortigen und bedingungslosen Abbruch der (innersten) Schleife. Zusätzlich gibt es die 'continue'-Anweisung: Diese beendet zwar nicht zwingend die gesamte Schleife, bricht jedoch den aktuellen Durchlauf sofort ab und erzwingt eine direkte Überprüfung der Schleifenbedingung, welche daraufhin über das endgültige Beenden entscheiden kann."
+    "query": "Wann beenden sich Schleifen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 1.0,
+        "evidence": "Vor jedem Schleifendurchlauf wird die Bedingung bedingung ausgewertet. Ist das Ergebnis wahr (d.h. ungleich 0), so wird die Anweisungsfolge der Schleife ausgefuhrt. Ist das Ergebnis dagegen falsch (d.h. gleich 0), so wird zu der Anweisung ubergegangen, die dem Schleifenrumpf folgt, d.h. zu der ersten Anweisung, die nicht mehr zur Anweisungfolge der Schleife gehort.",
+        "page": 25
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 0.95,
+        "evidence": "Die break–Anweisung haben wir im Zusammenhang mit der switch–Anweisung kennengelernt. Außerdem darf sie in Schleifen aller Art verwendet werden und bewirkt dann die sofortige Beendigung der Schleife. Im Innern geschachtelter Schleifen wird immer nur die innerste Schleife beendet, während die umgebenden normal weiter abgearbeitet werden.",
+        "page": 65
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 0.6,
+        "evidence": "Erlaubt es die break–Anweisung, eine Schleife sofort zu beenden, so erlaubt die continue– Anweisung , die momentane Abarbeitung eines einzelnen Schleifendurchlaufs zu unterbrechen und sofort zur Prüfung des Endkriteriums für die Schleife überzugehen; vom Ergebnis der Prüfung hängt es dann ab, ob die Schleife beendet oder ein weiterer Schleifendurchlauf ausgeführt wird.",
+        "page": 66
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 0.4,
+        "evidence": "Nützlich ist die break–Anweisung in Schleifen vor allem dann, wenn das logische Ende in der Mitte des Schleifenrumpfes liegt. [...] Da das Ende der Schleife jetzt auch formal in der Mitte ihres Rumpfes liegt, spricht manches dafür, die Schleife als Endlosschleife zu formulieren.",
+        "page": 65
+      }
+    ],
+    "supplementary_answer": "Schleifen beenden sich in C primär dann, wenn ihre Schleifenbedingung bei der Auswertung den Wert 'falsch' (also 0) ergibt. Tritt dieser Fall ein, wird der Rumpf der Schleife nicht mehr ausgeführt und das Programm setzt seine Ausführung bei der ersten Anweisung nach der Schleife fort. Alternativ kann man Schleifen auch explizit von innen heraus beenden, indem man die 'break'-Anweisung verwendet. Ein Aufruf von 'break' bewirkt den sofortigen und bedingungslosen Abbruch der (innersten) Schleife. Zusätzlich gibt es die 'continue'-Anweisung: Diese beendet zwar nicht zwingend die gesamte Schleife, bricht jedoch den aktuellen Durchlauf sofort ab und erzwingt eine direkte Überprüfung der Schleifenbedingung, welche daraufhin über das endgültige Beenden entscheiden kann."
   },
   {
-  "query": "Wann nutzt man welche Schleife?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "matching_score": 1.0,
-      "evidence": "In anderen Programmiersprachen gibt es in der Regel eine klare Unterscheidung, wann eine while– und wann eine for–Schleife einzusetzen ist: * for–Schleifen können nur dann eingesetzt werden, wenn die Anzahl der Schleifendurchläufe bereits beim Eintritt in die Schleife bekannt ist, weil die Ausdrücke ausdruck1, bedingung und ausdruck2 nur einmalig ausgewertet und aus ihnen, ebenfalls einmalig, die Anzahl der Schleifendurchläufe berechnet wird. [...] * Immer dann, wenn die Wiederholungsbedingung im Rumpf der Schleife modifiziert werden soll, muss man eine while–Schleife verwenden. In C ist man zu dieser Unterscheidung zwar nicht gezwungen, wie wir gesehen haben. Es spricht aber manches dafür, sich freiwillig daran zu halten.",
-      "page": 62
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "matching_score": 0.95,
-      "evidence": "Der Unterschied zwischen den beiden Schleifen ist, dass bei einer do–Schleife sofort der Rumpf ausgeführt und erst danach die Bedingung überprüft wird, während bei einer while–Schleife die erste Operation überhaupt eine Überprüfung der Bedingung ist. [...] In der Praxis kommen while–Schleifen häufiger als do–Schleifen vor, weil man in der Regel zunächst zu prüfen hat, ob der Schleifenrumpf überhaupt ausgeführt werden darf [...] Ein typisches Beispiel für do–Schleifen ist auch die Kommunikation mit dem Benutzer: Zunächst muss er seine Eingabe vornehmen – gibt er Unsinn ein, muss die Abfrage nach einer Ermahnung wiederholt werden.",
-      "page": 61
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "matching_score": 0.85,
-      "evidence": "Typische Beispiele für den Einsatz der for–Anweisung sind in diesem Sinne Operationen auf Feldern. Das Beispiel, in dem das Skalarprodukt von zwei Vektoren berechnet wird, können wir etwa mit for–Anweisungen sehr viel kompakter formulieren, ohne dass die Lesbarkeit darunter leidet;",
-      "page": 63
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "matching_score": 0.50,
-      "evidence": "Die dritte Schleifenanweisung in C ist die for–Anweisung [...] Die Werte von ausdruck1 und ausdruck2 werden nicht verwendet. Man nutzt hier nur die Nebeneffekte, die bei der Berechnung der Ausdrücke auftreten [...] ausdruck1 dient normalerweise der Initialisierung und ausdruck2 der Aktualisierung der Schleifenvariablen",
-      "page": 62
-    }
-  ],
-  "supplementary_answer": "In C unterscheidet man prinzipiell zwischen `for`-, `while`- und `do-while`-Schleifen. Obwohl man in C technisch nicht strikt auf eine bestimmte Schleifenart beschränkt ist, gibt es klare programmiertechnische Best-Practices: Die **for-Schleife** verwendet man primär dann, wenn die Anzahl der Schleifendurchläufe bereits vor dem Eintritt in die Schleife feststeht (ein typisches Beispiel dafür sind Operationen auf Feldern/Arrays). Die **while-Schleife** kommt zum Einsatz, wenn die Anzahl der Durchläufe vorher unklar ist und die Wiederholungsbedingung dynamisch im Rumpf der Schleife modifiziert wird. Sie wird auch genutzt, wenn man zwingend vorab prüfen muss, ob der Code-Block überhaupt ausgeführt werden darf. Die **do-while-Schleife** nutzt man hingegen, wenn der Rumpf auf jeden Fall mindestens ein einziges Mal ausgeführt werden muss, bevor die Bedingung geprüft wird. Ein klassischer Anwendungsfall hierfür ist die Benutzerkommunikation (z. B. Menüauswahl oder Eingabeprüfung)."
+    "query": "Wann nutzt man welche Schleife?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 1.0,
+        "evidence": "In anderen Programmiersprachen gibt es in der Regel eine klare Unterscheidung, wann eine while– und wann eine for–Schleife einzusetzen ist: * for–Schleifen können nur dann eingesetzt werden, wenn die Anzahl der Schleifendurchläufe bereits beim Eintritt in die Schleife bekannt ist, weil die Ausdrücke ausdruck1, bedingung und ausdruck2 nur einmalig ausgewertet und aus ihnen, ebenfalls einmalig, die Anzahl der Schleifendurchläufe berechnet wird. [...] * Immer dann, wenn die Wiederholungsbedingung im Rumpf der Schleife modifiziert werden soll, muss man eine while–Schleife verwenden. In C ist man zu dieser Unterscheidung zwar nicht gezwungen, wie wir gesehen haben. Es spricht aber manches dafür, sich freiwillig daran zu halten.",
+        "page": 62
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 0.95,
+        "evidence": "Der Unterschied zwischen den beiden Schleifen ist, dass bei einer do–Schleife sofort der Rumpf ausgeführt und erst danach die Bedingung überprüft wird, während bei einer while–Schleife die erste Operation überhaupt eine Überprüfung der Bedingung ist. [...] In der Praxis kommen while–Schleifen häufiger als do–Schleifen vor, weil man in der Regel zunächst zu prüfen hat, ob der Schleifenrumpf überhaupt ausgeführt werden darf [...] Ein typisches Beispiel für do–Schleifen ist auch die Kommunikation mit dem Benutzer: Zunächst muss er seine Eingabe vornehmen – gibt er Unsinn ein, muss die Abfrage nach einer Ermahnung wiederholt werden.",
+        "page": 61
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 0.85,
+        "evidence": "Typische Beispiele für den Einsatz der for–Anweisung sind in diesem Sinne Operationen auf Feldern. Das Beispiel, in dem das Skalarprodukt von zwei Vektoren berechnet wird, können wir etwa mit for–Anweisungen sehr viel kompakter formulieren, ohne dass die Lesbarkeit darunter leidet;",
+        "page": 63
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 0.5,
+        "evidence": "Die dritte Schleifenanweisung in C ist die for–Anweisung [...] Die Werte von ausdruck1 und ausdruck2 werden nicht verwendet. Man nutzt hier nur die Nebeneffekte, die bei der Berechnung der Ausdrücke auftreten [...] ausdruck1 dient normalerweise der Initialisierung und ausdruck2 der Aktualisierung der Schleifenvariablen",
+        "page": 62
+      }
+    ],
+    "supplementary_answer": "In C unterscheidet man prinzipiell zwischen `for`-, `while`- und `do-while`-Schleifen. Obwohl man in C technisch nicht strikt auf eine bestimmte Schleifenart beschränkt ist, gibt es klare programmiertechnische Best-Practices: Die **for-Schleife** verwendet man primär dann, wenn die Anzahl der Schleifendurchläufe bereits vor dem Eintritt in die Schleife feststeht (ein typisches Beispiel dafür sind Operationen auf Feldern/Arrays). Die **while-Schleife** kommt zum Einsatz, wenn die Anzahl der Durchläufe vorher unklar ist und die Wiederholungsbedingung dynamisch im Rumpf der Schleife modifiziert wird. Sie wird auch genutzt, wenn man zwingend vorab prüfen muss, ob der Code-Block überhaupt ausgeführt werden darf. Die **do-while-Schleife** nutzt man hingegen, wenn der Rumpf auf jeden Fall mindestens ein einziges Mal ausgeführt werden muss, bevor die Bedingung geprüft wird. Ein klassischer Anwendungsfall hierfür ist die Benutzerkommunikation (z. B. Menüauswahl oder Eingabeprüfung)."
   },
   {
-  "query": "Auf welche Ausnahmefälle soll man achten? Edge cases (leerer String, usw.)",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "513.txt",
-      "matching_score": 1.0,
-      "evidence": "Achten Sie auf die Grenzfälle, z.B. leeres Feld oder Feld enthält nur ein Element.",
-      "page": 1
-    },
-    {
-      "gold_id": "203.txt",
-      "matching_score": 0.95,
-      "evidence": "Achten Sie auch auf Sonderfälle: *head == NULL und der Fall, dass die Priorität des neuen Elements kleiner ist als die des head-Elements.",
-      "page": 1
-    },
-    {
-      "gold_id": "408.txt",
-      "matching_score": 0.85,
-      "evidence": "Für zwei leere Strings gibt die Funktion 0 zurück.\n[...]\nif (wort1 == NULL || wort2 == NULL) return 0; \nif (*wort1 == '\\0' && *wort2 == '\\0') { return 0; }",
-      "page": 1
-    },
-    {
-      "gold_id": "518.txt",
-      "matching_score": 0.80,
-      "evidence": "Ein übergebener Null-Zeiger wird wie ein leeres Intervall behandelt.\n[...]\nif (a == NULL || a->low > a->up || b == NULL || b->low > b->up) return 1;",
-      "page": 1
-    },
-    {
-      "gold_id": "411.txt",
-      "matching_score": 0.60,
-      "evidence": "Gehen Sie davon aus, dass string entweder der NULL-Zeiger ist oder auf den Anfang eines gültigen Strings zeigt.\n[...]\n//Testcase NULL-Zeiger\n[...]\n//Testcase leerer String\n[...]\n//Testcase Buchstabe nicht in String",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Beim Programmieren in C gibt es wiederkehrende Ausnahmefälle (Grenzfälle oder Sonderfälle), die stets abgefangen werden müssen, da sie sonst zu Fehlberechnungen oder Programmabstürzen (z. B. durch Segmentation Faults) führen. Zu den wichtigsten Edge Cases zählen: 1. Array-/Feldgrenzen: Leere Felder (Länge 0) oder Felder, die nur ein einziges Element enthalten. 2. Zeiger-Ausnahmen: Die Übergabe von uninitialisierten oder leeren Zeigern (NULL-Zeiger) an Funktionen. 3. String-Spezifika: Leere Strings (die nur aus dem '\\0'-Zeichen bestehen) oder Strings, die das gesuchte Zeichen überhaupt nicht enthalten. 4. Struktur-Spezifika: Bei dynamischen Datenstrukturen wie der verketteten Liste muss stets das Einfügen oder Löschen am absoluten Anfang (head == NULL oder neues Element ist kleiner als head) als Sonderfall behandelt werden."
+    "query": "Auf welche Ausnahmefälle soll man achten? Edge cases (leerer String, usw.)",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "513.txt",
+        "matching_score": 1.0,
+        "evidence": "Achten Sie auf die Grenzfälle, z.B. leeres Feld oder Feld enthält nur ein Element.",
+        "page": 1
+      },
+      {
+        "gold_id": "203.txt",
+        "matching_score": 0.95,
+        "evidence": "Achten Sie auch auf Sonderfälle: *head == NULL und der Fall, dass die Priorität des neuen Elements kleiner ist als die des head-Elements.",
+        "page": 1
+      },
+      {
+        "gold_id": "408.txt",
+        "matching_score": 0.85,
+        "evidence": "Für zwei leere Strings gibt die Funktion 0 zurück.\n[...]\nif (wort1 == NULL || wort2 == NULL) return 0; \nif (*wort1 == '\\0' && *wort2 == '\\0') { return 0; }",
+        "page": 1
+      },
+      {
+        "gold_id": "518.txt",
+        "matching_score": 0.8,
+        "evidence": "Ein übergebener Null-Zeiger wird wie ein leeres Intervall behandelt.\n[...]\nif (a == NULL || a->low > a->up || b == NULL || b->low > b->up) return 1;",
+        "page": 1
+      },
+      {
+        "gold_id": "411.txt",
+        "matching_score": 0.6,
+        "evidence": "Gehen Sie davon aus, dass string entweder der NULL-Zeiger ist oder auf den Anfang eines gültigen Strings zeigt.\n[...]\n//Testcase NULL-Zeiger\n[...]\n//Testcase leerer String\n[...]\n//Testcase Buchstabe nicht in String",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Beim Programmieren in C gibt es wiederkehrende Ausnahmefälle (Grenzfälle oder Sonderfälle), die stets abgefangen werden müssen, da sie sonst zu Fehlberechnungen oder Programmabstürzen (z. B. durch Segmentation Faults) führen. Zu den wichtigsten Edge Cases zählen: 1. Array-/Feldgrenzen: Leere Felder (Länge 0) oder Felder, die nur ein einziges Element enthalten. 2. Zeiger-Ausnahmen: Die Übergabe von uninitialisierten oder leeren Zeigern (NULL-Zeiger) an Funktionen. 3. String-Spezifika: Leere Strings (die nur aus dem '\\0'-Zeichen bestehen) oder Strings, die das gesuchte Zeichen überhaupt nicht enthalten. 4. Struktur-Spezifika: Bei dynamischen Datenstrukturen wie der verketteten Liste muss stets das Einfügen oder Löschen am absoluten Anfang (head == NULL oder neues Element ist kleiner als head) als Sonderfall behandelt werden."
   },
   {
-  "query": "Wie funktioniert/benutzt man ls?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "matching_score": 1.0,
-      "evidence": "Welche Dateien ein Verzeichnis mit dem Namen name enthält, lässt sich mit dem Kommando\nls name ↵\n(list) feststellen. [...] Gibt man nur das Kommando\nls ↵\nein, so werden alle Einträge im aktuellen Verzeichnis angezeigt, d.h. dem Verzeichnis, dessen Pfadname durch pwd geliefert wird.",
-      "page": 180
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "matching_score": 0.90,
-      "evidence": "Mit der Option -l (long)\nls -l ↵\nwird für jeden Eintrag des Verzeichnisses mehr Information ausgegeben: Jede Zeile enthält Angaben zu einer Datei, deren Name am Ende der Zeile steht.",
-      "page": 180
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "matching_score": 0.85,
-      "evidence": "Mit der Optionenkombination -al\nls -al ↵\nwerden auch Dateien erfasst, deren Name mit einem Punkt beginnt und die sonst nicht aufgelistet werden.",
-      "page": 181
-    }
-  ],
-  "supplementary_answer": "Das UNIX-Kommando 'ls' (steht für 'list') wird verwendet, um den Inhalt von Verzeichnissen anzuzeigen. Gibt man lediglich 'ls' ein, werden alle normalen Dateien und Ordner des aktuellen Arbeitsverzeichnisses aufgelistet. Übergibt man einen konkreten Verzeichnispfad (z. B. 'ls /home'), so wird stattdessen der Inhalt dieses spezifischen Ordners ausgegeben. Für eine genauere Ausgabe nutzt man Befehls-Optionen: Mit 'ls -l' (long) erhält man zusätzliche Details zu jedem Eintrag (wie Dateigröße und Zugriffsrechte). Ergänzt man das Kommando zu 'ls -al', werden zusätzlich auch alle versteckten Dateien angezeigt (Dateien, deren Name mit einem Punkt beginnt)."
+    "query": "Wie funktioniert/benutzt man ls?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 1.0,
+        "evidence": "Welche Dateien ein Verzeichnis mit dem Namen name enthält, lässt sich mit dem Kommando\nls name ↵\n(list) feststellen. [...] Gibt man nur das Kommando\nls ↵\nein, so werden alle Einträge im aktuellen Verzeichnis angezeigt, d.h. dem Verzeichnis, dessen Pfadname durch pwd geliefert wird.",
+        "page": 180
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 0.9,
+        "evidence": "Mit der Option -l (long)\nls -l ↵\nwird für jeden Eintrag des Verzeichnisses mehr Information ausgegeben: Jede Zeile enthält Angaben zu einer Datei, deren Name am Ende der Zeile steht.",
+        "page": 180
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 0.85,
+        "evidence": "Mit der Optionenkombination -al\nls -al ↵\nwerden auch Dateien erfasst, deren Name mit einem Punkt beginnt und die sonst nicht aufgelistet werden.",
+        "page": 181
+      }
+    ],
+    "supplementary_answer": "Das UNIX-Kommando 'ls' (steht für 'list') wird verwendet, um den Inhalt von Verzeichnissen anzuzeigen. Gibt man lediglich 'ls' ein, werden alle normalen Dateien und Ordner des aktuellen Arbeitsverzeichnisses aufgelistet. Übergibt man einen konkreten Verzeichnispfad (z. B. 'ls /home'), so wird stattdessen der Inhalt dieses spezifischen Ordners ausgegeben. Für eine genauere Ausgabe nutzt man Befehls-Optionen: Mit 'ls -l' (long) erhält man zusätzliche Details zu jedem Eintrag (wie Dateigröße und Zugriffsrechte). Ergänzt man das Kommando zu 'ls -al', werden zusätzlich auch alle versteckten Dateien angezeigt (Dateien, deren Name mit einem Punkt beginnt)."
   },
   {
-  "query": "Wie funktioniert/benutzt man cd?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "matching_score": 1.0,
-      "evidence": "Das momentan gültige Namenspräfix kann man durch das Kommando\ncd pfadname ↵\n(change directory) ändern, wobei pfadname den Weg von der Wurzel zu einem Verzeichnis beschreibt.",
-      "page": 180
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "matching_score": 0.95,
-      "evidence": "Mit dem Kommando\ncd .. ↵\nwird das gegenwärtige Präfix um den letzten Namen gekürzt. Dieses entspricht einer Bewegung in der Richtung zur Wurzel im Dateibaum.",
-      "page": 180
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "matching_score": 0.90,
-      "evidence": "Mit dem Kommando\ncd name ↵\nwird das gegenwärtige Präfix um den angegebenen Namen erweitert, sofern in der gegenwärtigen Verzeichnisdatei eine Verzeichnisdatei mit diesem Namen vorhanden ist. Dieses entspricht einer Bewegung in der Richtung weg von der Wurzel im Dateibaum.",
-      "page": 180
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-      "matching_score": 0.85,
-      "evidence": "Nach dem Einloggen befindet man sich in seinem Heimatverzeichnis (home directory), d.h. in der Wurzel des eigenen Teilbaumes. [...] Dieses Präfix kann man jederzeit wiederherstellen, indem man nur\ncd ↵\neintippt.",
-      "page": 180
-    }
-  ],
-  "supplementary_answer": "Das UNIX-Kommando 'cd' (steht für 'change directory') wird benutzt, um das aktuelle Arbeitsverzeichnis im Dateisystem zu wechseln. Der Aufruf 'cd pfadname' ändert den Pfad zu einem beliebigen, angegebenen Verzeichnis. Es gibt zudem drei wichtige Spezialfälle der Benutzung: Mit 'cd ..' bewegt man sich eine Ebene nach oben in Richtung der Wurzel des Dateibaums. Mit 'cd name' bewegt man sich in ein direkt darunterliegendes Unterverzeichnis. Gibt man den Befehl 'cd' ganz ohne Parameter ein, springt das System automatisch direkt zurück in das Heimatverzeichnis (Home-Directory) des Benutzers."
+    "query": "Wie funktioniert/benutzt man cd?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 1.0,
+        "evidence": "Das momentan gültige Namenspräfix kann man durch das Kommando\ncd pfadname ↵\n(change directory) ändern, wobei pfadname den Weg von der Wurzel zu einem Verzeichnis beschreibt.",
+        "page": 180
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 0.95,
+        "evidence": "Mit dem Kommando\ncd .. ↵\nwird das gegenwärtige Präfix um den letzten Namen gekürzt. Dieses entspricht einer Bewegung in der Richtung zur Wurzel im Dateibaum.",
+        "page": 180
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 0.9,
+        "evidence": "Mit dem Kommando\ncd name ↵\nwird das gegenwärtige Präfix um den angegebenen Namen erweitert, sofern in der gegenwärtigen Verzeichnisdatei eine Verzeichnisdatei mit diesem Namen vorhanden ist. Dieses entspricht einer Bewegung in der Richtung weg von der Wurzel im Dateibaum.",
+        "page": 180
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 0.85,
+        "evidence": "Nach dem Einloggen befindet man sich in seinem Heimatverzeichnis (home directory), d.h. in der Wurzel des eigenen Teilbaumes. [...] Dieses Präfix kann man jederzeit wiederherstellen, indem man nur\ncd ↵\neintippt.",
+        "page": 180
+      }
+    ],
+    "supplementary_answer": "Das UNIX-Kommando 'cd' (steht für 'change directory') wird benutzt, um das aktuelle Arbeitsverzeichnis im Dateisystem zu wechseln. Der Aufruf 'cd pfadname' ändert den Pfad zu einem beliebigen, angegebenen Verzeichnis. Es gibt zudem drei wichtige Spezialfälle der Benutzung: Mit 'cd ..' bewegt man sich eine Ebene nach oben in Richtung der Wurzel des Dateibaums. Mit 'cd name' bewegt man sich in ein direkt darunterliegendes Unterverzeichnis. Gibt man den Befehl 'cd' ganz ohne Parameter ein, springt das System automatisch direkt zurück in das Heimatverzeichnis (Home-Directory) des Benutzers."
   },
   {
-  "query": "Welchen Editor kann ich in der Klausur nutzen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "525.txt",
-      "matching_score": 0.6,
-      "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
-      "page": 1
-    },
-    {
+    "query": "Welchen Editor kann ich in der Klausur nutzen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "525.txt",
+        "matching_score": 0.6,
+        "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
+        "page": 1
+      },
+      {
         "gold_id": "tutor_knowledge_base.txt",
         "matching_score": 1.0,
         "evidence": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
         "page": 0
       }
-  ],
-  "supplementary_answer": "In der Klausur stehen folgende Editoren zur Verfügung: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist dabei oft über eine Schaltfläche oder das Terminal aufrufbar."
+    ],
+    "supplementary_answer": "In der Klausur stehen folgende Editoren zur Verfügung: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist dabei oft über eine Schaltfläche oder das Terminal aufrufbar."
   },
   {
     "query": "Was ist in der Klausur verfügbar? Hilfsmittel, Editor, Compiler?",
     "type": "complementary",
-    "references": [{
+    "references": [
+      {
         "gold_id": "525.yaml",
         "matching_score": 0.7,
         "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
         "page": 0
       },
-    {
+      {
         "gold_id": "tutor_knowledge_base.txt",
         "matching_score": 1.0,
         "evidence": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
         "page": 0
       },
-    {
+      {
         "gold_id": "tutor_knowledge_base.txt",
         "matching_score": 1.0,
         "evidence": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus.",
         "page": 0
-      }],
+      }
+    ],
     "supplementary_answer": ""
   },
   {
-  "query": "Wie genau funktioniert der Tausch-Algorithmus bei Bubblesort?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "206.txt",
-      "matching_score": 1.0,
-      "evidence": "In jedem Rekursionsschritt wird das größte Element an das Ende des Feldes sortiert, indem nacheinander das aktuelle Element mit seinem direkten nachfolgenden Nachbarelement verglichen und gegebenenfalls getauscht wird. Dadurch wandert das Maximum des aktuell zu sortierenden Feldes an die hinterste Position",
-      "page": 1
-    },
-    {
-      "gold_id": "404.txt",
-      "matching_score": 0.70,
-      "evidence": "Vergleiche den Inhalt zweier aufeinander folgender Einträge.\nVertausche die Einträge, wenn der linke Eintrag kleiner ist als der rechte.",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Beim Bubblesort-Algorithmus wird das Feld sequenziell durchlaufen, wobei immer zwei direkt nebeneinanderliegende Elemente (Nachbarn) miteinander verglichen werden. Stimmt ihre Reihenfolge nicht mit der gewünschten Sortierung überein (z.B. wenn bei einer aufsteigenden Sortierung das linke Element größer ist als das rechte), tauschen sie ihre Plätze. Für diesen Tausch im Speicher wird eine temporäre Hilfsvariable (oft 'tmp' oder 'h' genannt) verwendet, um den ersten Wert zwischenzuspeichern, während er überschrieben wird. Durch dieses ständige paarweise Tauschen 'wandert' das größte Element am Ende eines jeden Durchlaufs automatisch an die letzte (und damit korrekte) Position des Feldes."
+    "query": "Wie genau funktioniert der Tausch-Algorithmus bei Bubblesort?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "206.txt",
+        "matching_score": 1.0,
+        "evidence": "In jedem Rekursionsschritt wird das größte Element an das Ende des Feldes sortiert, indem nacheinander das aktuelle Element mit seinem direkten nachfolgenden Nachbarelement verglichen und gegebenenfalls getauscht wird. Dadurch wandert das Maximum des aktuell zu sortierenden Feldes an die hinterste Position",
+        "page": 1
+      },
+      {
+        "gold_id": "404.txt",
+        "matching_score": 0.7,
+        "evidence": "Vergleiche den Inhalt zweier aufeinander folgender Einträge.\nVertausche die Einträge, wenn der linke Eintrag kleiner ist als der rechte.",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Beim Bubblesort-Algorithmus wird das Feld sequenziell durchlaufen, wobei immer zwei direkt nebeneinanderliegende Elemente (Nachbarn) miteinander verglichen werden. Stimmt ihre Reihenfolge nicht mit der gewünschten Sortierung überein (z.B. wenn bei einer aufsteigenden Sortierung das linke Element größer ist als das rechte), tauschen sie ihre Plätze. Für diesen Tausch im Speicher wird eine temporäre Hilfsvariable (oft 'tmp' oder 'h' genannt) verwendet, um den ersten Wert zwischenzuspeichern, während er überschrieben wird. Durch dieses ständige paarweise Tauschen 'wandert' das größte Element am Ende eines jeden Durchlaufs automatisch an die letzte (und damit korrekte) Position des Feldes."
   },
   {
-  "query": "Was ist das Pivot-Element bei Quicksort und wieso ist es effizienter?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "matching_score": 1.0,
-      "evidence": "Am schnellsten ist Quicksort dann, wenn in jedem Schritt die Ausgangsfolge in zwei gleich lange Teilfolgen zerlegt wird. Dem kann man Rechnung tragen, indem man nicht jeweils das erste Element der Teilfolge an seinen endgültigen Platz bringt. Denkbar wäre, stets das mittlere Element zu nehmen, oder auch von erstem, mittlerem und letztem Element das mit dem in der Mitte liegenden Wert.",
-      "page": 80
-    },
-    {
-      "gold_id": "207.txt",
-      "matching_score": 0.95,
-      "evidence": "Dazu wird ein Pivotelement pivot und desen index pivot_index zufällig ausgewählt indem ein zufälliger int zwischen low und high als pivot_index bestimmt wird.\nAm Ende des Rekursionsschritts soll die erste Partition von low bis pivot_index-1 gehen und alle Elemente, die kleiner sind als pivot enthalten.\nDie zweite Partition soll dann von pivot_index+1 bis high gehen und alle Elemente, die größer sind als pivot enthalten.",
-      "page": 1
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "matching_score": 0.90,
-      "evidence": "Quicksort funktioniert so: Wir wählen zunächst ein beliebiges Element des Vektors, z.B. das an seinem Anfang stehende. Jetzt vertauschen wir Elemente des Vektors so, dass\n* das ausgewählte Element an seinen endgültigen Platz kommt, und dass\n* links von ihm nur nicht größere und rechts von ihm nur nicht kleinere stehen.",
-      "page": 78
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
-      "matching_score": 0.85,
-      "evidence": "Quicksort ist für Vektoren ein sehr schnelles Sortierverfahren – sofern die Vektoren nicht schon weitgehend vorsortiert sind. In der hier vorgestellten Variante wird Quicksort für (auf– oder absteigend) sortierte Vektoren allerdings zum extremen ” Slowsort“, weil in jedem Schritt die Ausgangsfolge der Länge m in eine leere Teilfolge und eine Teilfolge mit m−1 Komponenten zerlegt wird.",
-      "page": 80
-    },
-    {
-      "gold_id": "207.txt",
-      "matching_score": 0.50,
-      "evidence": "// Random int between low and high\nsrand(time(NULL));\nint pivot_index = rand() % (high - low) + low;\nint pivot = array[pivot_index];",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Das Pivot-Element ist ein beliebig ausgewähltes Element aus dem zu sortierenden Array, das als Referenzwert für die Aufteilung (Partitionierung) des Arrays dient [1, 2]. Der Quicksort-Algorithmus sortiert das Array so um, dass das Pivot-Element an seiner endgültigen, korrekten Position landet [2]. Dabei werden alle Elemente, die kleiner als das Pivot sind, in die linke Partition verschoben, und alle Elemente, die größer sind, in die rechte Partition [1]. Die Effizienz des Algorithmus hängt maßgeblich von der Wahl des Pivot-Elements ab: Wird naiverweise immer das erste Element gewählt, kann Quicksort bei bereits vorsortierten Arrays zu einem extrem langsamen Algorithmus degenerieren, da das Array extrem ungleichmäßig (in ein leeres und ein (m-1) großes Feld) zerlegt wird [3]. Am effizientesten und schnellsten ist Quicksort hingegen, wenn das Array durch das Pivot-Element in zwei exakt gleich große Teilfolgen zerlegt wird [4]. Um diese Effizienz auch in der Praxis zu gewährleisten und den sogenannten Worst-Case zu umgehen, wird in den Programmieraufgaben das Pivot oft zufällig gewählt [1, 5], oder das Skript empfiehlt gezielt das mittlere Element bzw. den Median aus dem ersten, mittleren und letzten Element auszuwählen [4]."
+    "query": "Was ist das Pivot-Element bei Quicksort und wieso ist es effizienter?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+        "matching_score": 1.0,
+        "evidence": "Am schnellsten ist Quicksort dann, wenn in jedem Schritt die Ausgangsfolge in zwei gleich lange Teilfolgen zerlegt wird. Dem kann man Rechnung tragen, indem man nicht jeweils das erste Element der Teilfolge an seinen endgultigen Platz bringt. Denkbar ware, stets das mittlere Element zu nehmen, oder auch von erstem, mittlerem und letztem Element das mit dem in der Mitte liegenden Wert.",
+        "page": 80
+      },
+      {
+        "gold_id": "207.txt",
+        "matching_score": 0.95,
+        "evidence": "Dazu wird ein Pivotelement pivot und desen index pivot_index zufällig ausgewählt indem ein zufälliger int zwischen low und high als pivot_index bestimmt wird.\nAm Ende des Rekursionsschritts soll die erste Partition von low bis pivot_index-1 gehen und alle Elemente, die kleiner sind als pivot enthalten.\nDie zweite Partition soll dann von pivot_index+1 bis high gehen und alle Elemente, die größer sind als pivot enthalten.",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+        "matching_score": 0.9,
+        "evidence": "Quicksort funktioniert so: Wir wahlen zunachst ein beliebiges Element des Vektors, z.B. das an seinem Anfang stehende. Jetzt vertauschen wir Elemente des Vektors so, dass - · das ausgewahlte Element an seinen endgultigen Platz kommt, und dass - · links von ihm nur nicht großere und rechts von ihm nur nicht kleinere stehen.",
+        "page": 78
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
+        "matching_score": 0.85,
+        "evidence": "Quicksort ist fur Vektoren ein sehr schnelles Sortierverfahren - sofern die Vektoren nicht schon weitgehend vorsortiert sind. In der hier vorgestellten Variante wird Quicksort fur (auf- oder absteigend) sortierte Vektoren allerdings zum extremen ' Slowsort', weil in jedem Schritt die Ausgangsfolge der Lange m in eine leere Teilfolge und eine Teilfolge mit m -1 Komponenten zerlegt wird.",
+        "page": 80
+      },
+      {
+        "gold_id": "207.txt",
+        "matching_score": 0.5,
+        "evidence": "// Random int between low and high\nsrand(time(NULL));\nint pivot_index = rand() % (high - low) + low;\nint pivot = array[pivot_index];",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Das Pivot-Element ist ein beliebig ausgewähltes Element aus dem zu sortierenden Array, das als Referenzwert für die Aufteilung (Partitionierung) des Arrays dient [1, 2]. Der Quicksort-Algorithmus sortiert das Array so um, dass das Pivot-Element an seiner endgültigen, korrekten Position landet [2]. Dabei werden alle Elemente, die kleiner als das Pivot sind, in die linke Partition verschoben, und alle Elemente, die größer sind, in die rechte Partition [1]. Die Effizienz des Algorithmus hängt maßgeblich von der Wahl des Pivot-Elements ab: Wird naiverweise immer das erste Element gewählt, kann Quicksort bei bereits vorsortierten Arrays zu einem extrem langsamen Algorithmus degenerieren, da das Array extrem ungleichmäßig (in ein leeres und ein (m-1) großes Feld) zerlegt wird [3]. Am effizientesten und schnellsten ist Quicksort hingegen, wenn das Array durch das Pivot-Element in zwei exakt gleich große Teilfolgen zerlegt wird [4]. Um diese Effizienz auch in der Praxis zu gewährleisten und den sogenannten Worst-Case zu umgehen, wird in den Programmieraufgaben das Pivot oft zufällig gewählt [1, 5], oder das Skript empfiehlt gezielt das mittlere Element bzw. den Median aus dem ersten, mittleren und letzten Element auszuwählen [4]."
   },
   {
   "query": "Wieso brauche ich Pointer und wie greife ich auf die Adresse zu?",
@@ -1758,7 +2013,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
       "matching_score": 0.95,
-      "evidence": "Wie bereits erwähnt erfolgt bei Funktionsaufrufen ein ” call by value“. Das bedeutet, nur der Wert des Aufrufarguments – z.B. einer Variable i – wird übergeben. Demzufolge kann ein Funktionsaufruf nicht auf die Variable i zurückwirken, ihren Wert also nicht verändern. [...] Wie lässt sich dasselbe für einfache Variablen erreichen? [...] Anstelle des Namens der Variablen, etwa v, tragen wir den Ausdruck &v ein. Das bewirkt [...] dass die Dereferenzierung von v unterbleibt und entsprechend der Zeiger auf den Speicherplatz von v anstelle des Wertes von v an die Funktion übergeben wird.",
       "page": 120
     },
     {
@@ -1775,6 +2029,34 @@
     }
   ],
   "supplementary_answer": "Man benötigt die Speicheradresse in C hauptsächlich, um Funktionen (wie z. B. 'scanf') den direkten Zugriff auf Originalvariablen zu gewähren, sodass diese verändert werden können. Da C bei Funktionsaufrufen standardmäßig nur eine Kopie des Wertes übergibt ('Call by Value'), blieben ohne die Übergabe der Adresse alle Änderungen nur lokal in der Funktion. Ein zweiter wesentlicher Grund ist die Performanz: Bei sehr großen Datenstrukturen erspart die Übergabe der reinen Speicheradresse das zeit- und ressourcenaufwändige Kopieren der kompletten Daten ('Call by Reference'-Simulation). Um auf diese Speicheradresse zuzugreifen, verwendet man den Adressoperator, das kaufmännische Und ('&'). Setzt man dieses Zeichen direkt vor eine Variable (z. B. '&v'), liefert der Teilausdruck die exakte Adresse im Speicher zurück, anstatt den eigentlichen Wert der Variablen zu lesen."
+    "query": "Wieso brauche ich Pointer und wie greife ich auf die Adresse zu?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 1.0,
+        "evidence": "Bei scanf ist das anders. Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
+        "page": 24
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.95,
+        "page": 120
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.9,
+        "evidence": "Zeiger als Parameter von Funktionen werden in C verwendet, um ' call by reference ' zu simulieren. So wird das Zeigerargument selbst zwar kopiert, durch Dereferenzierung erhalt man aber direkten Zugriff auf die eigentlichen Daten und kann diese andern. Oft mochte man mit einem Zeigerargument aber nur das unter Umstanden aufwandige automatische Kopieren der Argumente umgehen, da sich bei großen Datenstrukturen die Parameterubergabe mit ' call by value ' negativ auf die Laufzeit auswirken konnte.",
+        "page": 123
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.85,
+        "evidence": "Der Teilausdruck &i liefert die Adresse von i als Resultat.",
+        "page": 120
+      }
+    ],
+    "supplementary_answer": "Man benötigt die Speicheradresse in C hauptsächlich, um Funktionen (wie z. B. 'scanf') den direkten Zugriff auf Originalvariablen zu gewähren, sodass diese verändert werden können. Da C bei Funktionsaufrufen standardmäßig nur eine Kopie des Wertes übergibt ('Call by Value'), blieben ohne die Übergabe der Adresse alle Änderungen nur lokal in der Funktion. Ein zweiter wesentlicher Grund ist die Performanz: Bei sehr großen Datenstrukturen erspart die Übergabe der reinen Speicheradresse das zeit- und ressourcenaufwändige Kopieren der kompletten Daten ('Call by Reference'-Simulation). Um auf diese Speicheradresse zuzugreifen, verwendet man den Adressoperator, das kaufmännische Und ('&'). Setzt man dieses Zeichen direkt vor eine Variable (z. B. '&v'), liefert der Teilausdruck die exakte Adresse im Speicher zurück, anstatt den eigentlichen Wert der Variablen zu lesen."
   },
   {
   "query": "Was ist die Ursache für Segfault?",
@@ -1783,7 +2065,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
       "matching_score": 1.0,
-      "evidence": "Damit ist jetzt auch schon angedeutet, was passiert, wenn man mit unzulässigen Indizes auf ein Feld zugreift: Der Abstand wird ausgerechnet und zum Zugriff verwendet. So bewirkt v[-1] gerade den Zugriff auf den Speicherbereich direkt vor dem Beginn des Vektors. Versuchte Zugriffe auf Feldkomponenten jenseits der Feldgrenzen nennt man Indexüberschreitung. [...] Wird ein Programm mit einer Meldung wie ” segmentation fault“, ” bus error“ bzw. ” memory fault“ abgebrochen, sollte man das Programm zunächst auf Indexüberschreitungen hin untersuchen.",
       "page": 113
     },
     {
@@ -1800,105 +2081,127 @@
     }
   ],
   "supplementary_answer": "Ein 'Segmentation Fault' (Speicherzugriffsfehler) tritt auf, wenn ein Programm versucht, auf einen Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine Zugriffsrechte hat. Laut den Skripten passiert das typischerweise in drei Szenarien: 1. Indexüberschreitungen (Out-of-Bounds Access) bei Arrays, bei denen über die Feldgrenzen hinaus auf fremden Speicher zugegriffen wird. 2. Vergessene Adressoperatoren ('&') bei Funktionen wie scanf, wodurch der normale Wert der Variable fälschlicherweise als Speicheradresse interpretiert und dereferenziert wird (z. B. Adresse 0). 3. Generelles Dereferenzieren von ungültigen oder uninitialisierten Zeigern. Das Betriebssystem bricht das Programm in diesen Fällen zum Schutz des restlichen Speichers hart ab."
+    "query": "Was ist die Ursache für Segfault?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "matching_score": 1.0,
+        "page": 113
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 0.9,
+        "evidence": "Die Funktion scanf wird durch den Formatstring informiert, dass ein int -Wert zu lesen ist, und unterstellt deshalb, dass das nachste Argument die Adresse einer int -Variablen ist. Der Versuch, 0 als Adresse zu verwenden, kann in der Regel nur ins Chaos fuhren. Wenn man Gluck hat, uberschreibt man nur Daten, die man ohnehin nicht mehr braucht. Nur - Gluck hat man in der Regel nicht. Das Programm wird in der Regel mit einem segmentation fault , memory fault oder bus error vom Betriebssystem ' gekillt', hoffentlich ohne Auswirkungen auf andere, gleichzeitig laufende Prozesse.",
+        "page": 24
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.8,
+        "evidence": "Auch ein falscher Indexzugriff oder allgemein das Dereferenzieren eines ungultigen Zeigers kann zu Problemen fuhren und ist haufig Ursache von Programmabsturzen. Das untersuchen wir anhand eines Beispiels: ``` int v[10], w[50], i, *p = v; /* Berechnung von i */ v[i] = 44; *(p + i) = 44; ``` Welchen Wert i hat, liegt erst fest, wenn die Wertzuweisungen ausgefuhrt werden. Allerdings:",
+        "page": 128
+      }
+    ],
+    "supplementary_answer": "Ein 'Segmentation Fault' (Speicherzugriffsfehler) tritt auf, wenn ein Programm versucht, auf einen Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine Zugriffsrechte hat. Laut den Skripten passiert das typischerweise in drei Szenarien: 1. Indexüberschreitungen (Out-of-Bounds Access) bei Arrays, bei denen über die Feldgrenzen hinaus auf fremden Speicher zugegriffen wird. 2. Vergessene Adressoperatoren ('&') bei Funktionen wie scanf, wodurch der normale Wert der Variable fälschlicherweise als Speicheradresse interpretiert und dereferenziert wird (z. B. Adresse 0). 3. Generelles Dereferenzieren von ungültigen oder uninitialisierten Zeigern. Das Betriebssystem bricht das Programm in diesen Fällen zum Schutz des restlichen Speichers hart ab."
   },
   {
-  "query": "Wieso nutzt man Structs und wann brauche ich den Pfeil -> statt dem Punkt?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 1.0,
-      "evidence": "Häufig ist es aber auch wünschenswert, Objekte mit unterschiedlichem Typ zu logischen Einheiten zusammenfassen zu können: Will man etwa eine Studentendatei verwalten, benötigt man (u.a.) den Namen, die Matrikelnummer und die Adresse jedes Studenten. [...] C bietet die Möglichkeit, unterschiedliche Objekte zu Strukturen zusammenzufassen.",
-      "page": 149
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 1.0,
-      "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
-      "page": 153
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 0.90,
-      "evidence": "Mit den Komponenten von Strukturen kann man dagegen ” ganz normal“ arbeiten. [...] Angegeben werden der Name der Struktur und der Name der Komponente; zwischen beide wird der Punktoperator (.) gesetzt:\nstudent_t student;\n...\nstudent.plz = 1000;",
-      "page": 151
-    },
-    {
-      "gold_id": "78.txt",
-      "matching_score": 0.85,
-      "evidence": "void bruchAddition(bruch_t* bruch, bruch_t add) { if (bruch->nenner == add.nenner) { bruch->zaehler += add.zaehler;",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Structs werden in C genutzt, um logisch zusammengehörige Variablen, die oft unterschiedliche Datentypen haben (z. B. Name als String, Matrikelnummer als Integer), zu einer einzigen logischen Einheit zusammenzufassen. Bezüglich des Zugriffs: Den Punktoperator (.) verwendet man, wenn man eine Struktur-Variable direkt vorliegen hat. Hat man hingegen einen Zeiger (Pointer) auf eine Struktur, benötigt man den Pfeil-Operator (->) zum Zugriff auf die Komponenten. Der Pfeil ist letztlich nur eine bequeme Abkürzung: Da der Punktoperator eine höhere Priorität als der Dereferenzierungsoperator (*) besitzt, müsste man den Zeigerzugriff sonst umständlich klammern ('(*strukturzeiger).komponente'). Der Pfeil erlaubt stattdessen die lesbarere Schreibweise 'strukturzeiger->komponente'."
+    "query": "Wieso nutzt man Structs und wann brauche ich den Pfeil -> statt dem Punkt?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Häufig ist es aber auch wünschenswert, Objekte mit unterschiedlichem Typ zu logischen Einheiten zusammenfassen zu können: Will man etwa eine Studentendatei verwalten, benötigt man (u.a.) den Namen, die Matrikelnummer und die Adresse jedes Studenten. [...] C bietet die Möglichkeit, unterschiedliche Objekte zu Strukturen zusammenzufassen.",
+        "page": 149
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
+        "page": 153
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.9,
+        "evidence": "Mit den Komponenten von Strukturen kann man dagegen ” ganz normal“ arbeiten. [...] Angegeben werden der Name der Struktur und der Name der Komponente; zwischen beide wird der Punktoperator (.) gesetzt:\nstudent_t student;\n...\nstudent.plz = 1000;",
+        "page": 151
+      },
+      {
+        "gold_id": "78.txt",
+        "matching_score": 0.85,
+        "evidence": "void bruchAddition(bruch_t* bruch, bruch_t add) { if (bruch->nenner == add.nenner) { bruch->zaehler += add.zaehler;",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Structs werden in C genutzt, um logisch zusammengehörige Variablen, die oft unterschiedliche Datentypen haben (z. B. Name als String, Matrikelnummer als Integer), zu einer einzigen logischen Einheit zusammenzufassen. Bezüglich des Zugriffs: Den Punktoperator (.) verwendet man, wenn man eine Struktur-Variable direkt vorliegen hat. Hat man hingegen einen Zeiger (Pointer) auf eine Struktur, benötigt man den Pfeil-Operator (->) zum Zugriff auf die Komponenten. Der Pfeil ist letztlich nur eine bequeme Abkürzung: Da der Punktoperator eine höhere Priorität als der Dereferenzierungsoperator (*) besitzt, müsste man den Zeigerzugriff sonst umständlich klammern ('(*strukturzeiger).komponente'). Der Pfeil erlaubt stattdessen die lesbarere Schreibweise 'strukturzeiger->komponente'."
   },
   {
-  "query": "Wie kombiniere ich Pointer mit Structs, um auf Daten zuzugreifen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 1.0,
-      "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
-      "page": 153
-    },
-    {
-      "gold_id": "78.txt",
-      "matching_score": 0.90,
-      "evidence": "void bruchKuerzen(bruch_t* bruch) {\nfor (int i = 2; i <= bruch->nenner; i++) {\nif (bruch->zaehler % i == 0 && bruch->nenner % i == 0) {\nbruch->zaehler /= i;\nbruch->nenner /= i;\n}\n}\n}",
-      "page": 1
-    },
-    {
-      "gold_id": "203.txt",
-      "matching_score": 0.85,
-      "evidence": "node_t *new = (node_t *) malloc(sizeof(node_t));\nif (new == NULL) {\nprintf(\"Error on allocating space\\n\");\nreturn;\n} else {\nnew->prio = value;\n}",
-      "page": 1
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 0.60,
-      "evidence": "void satz_schreiben (const student_t *const s) {\nprintf(\"Vorname: %s\\n\", s->name.vorname );",
-      "page": 154
-    },
-    {
-      "gold_id": "518.txt",
-      "matching_score": 0.40,
-      "evidence": "int is_empty_intersection(const interval_t *a, const interval_t *b) {\nif (a == NULL || a->low > a->up || b == NULL || b->low > b->up)\nreturn 1;",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Um über einen Pointer auf die inneren Daten (Komponenten) eines Structs zuzugreifen, verwendet man in C standardmäßig den Pfeil-Operator (`->`). Da der Struct-Pointer selbst nur die Speicheradresse der gesamten Struktur repräsentiert, muss er dereferenziert werden, um an die tatsächlichen Werte zu gelangen. Theoretisch ist dies durch die Kombination aus dem Dereferenzierungs-Sternchen und dem Punktoperator möglich. Da der Punktoperator jedoch eine höhere Priorität hat, erfordert dies zwingend Klammern: `(*strukturzeiger).komponente`. Zur Vereinfachung der Syntax und für eine deutlich bessere Lesbarkeit bietet C den Pfeil-Operator (`strukturzeiger->komponente`), welcher das Dereferenzieren und den Elementzugriff elegant in einem einzigen Schritt kombiniert."
+    "query": "Wie kombiniere ich Pointer mit Structs, um auf Daten zuzugreifen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 1.0,
+        "evidence": "Beim Zugriff auf die Komponenten muss man berücksichtigen, dass der Punktoperator höhere Priorität besitzt als der Dereferenzierungsoperator (*). Wir müssen also (*strukturzeiger).strukturkomponente schreiben. Abkürzend und suggestiver ist die äquivalente Schreibweise mit dem Pfeil– Operator (->). strukturzeiger->strukturkomponente",
+        "page": 153
+      },
+      {
+        "gold_id": "78.txt",
+        "matching_score": 0.9,
+        "evidence": "void bruchKuerzen(bruch_t* bruch) {\nfor (int i = 2; i <= bruch->nenner; i++) {\nif (bruch->zaehler % i == 0 && bruch->nenner % i == 0) {\nbruch->zaehler /= i;\nbruch->nenner /= i;\n}\n}\n}",
+        "page": 1
+      },
+      {
+        "gold_id": "203.txt",
+        "matching_score": 0.85,
+        "evidence": "node_t *new = (node_t *) malloc(sizeof(node_t));\nif (new == NULL) {\nprintf(\"Error on allocating space\\n\");\nreturn;\n} else {\nnew->prio = value;\n}",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.6,
+        "evidence": "void satz_schreiben (const student_t *const s) {\nprintf(\"Vorname: %s\\n\", s->name.vorname );",
+        "page": 154
+      },
+      {
+        "gold_id": "518.txt",
+        "matching_score": 0.4,
+        "evidence": "int is_empty_intersection(const interval_t *a, const interval_t *b) {\nif (a == NULL || a->low > a->up || b == NULL || b->low > b->up)\nreturn 1;",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Um über einen Pointer auf die inneren Daten (Komponenten) eines Structs zuzugreifen, verwendet man in C standardmäßig den Pfeil-Operator (`->`). Da der Struct-Pointer selbst nur die Speicheradresse der gesamten Struktur repräsentiert, muss er dereferenziert werden, um an die tatsächlichen Werte zu gelangen. Theoretisch ist dies durch die Kombination aus dem Dereferenzierungs-Sternchen und dem Punktoperator möglich. Da der Punktoperator jedoch eine höhere Priorität hat, erfordert dies zwingend Klammern: `(*strukturzeiger).komponente`. Zur Vereinfachung der Syntax und für eine deutlich bessere Lesbarkeit bietet C den Pfeil-Operator (`strukturzeiger->komponente`), welcher das Dereferenzieren und den Elementzugriff elegant in einem einzigen Schritt kombiniert."
   },
   {
-  "query": "Wie erstellt man Strings?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
-      "matching_score": 1.0,
-      "evidence": "Stringvariablen und –konstanten\nDen Datentyp char haben wir bereits kennengelernt. Ebenso wurde bereits angesprochen, wie Stringkonstanten aussehen. Wie sieht es mit Stringvariablen aus? Diese werden durch Felder von char–Werten realisiert. Ein Feld von Zeichen wird dadurch zu einem String, dass man hinter dem letzten ” echten“ Zeichen ein Null–Zeichen speichert. Bei Stringkonstanten sorgt der Compiler sogar dafür, dass dieses Null–Zeichen automatisch angehängt wird.",
-      "page": 47
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-113-118.pdf",
-      "matching_score": 0.95,
-      "evidence": "Für Strings haben wir bereits eine Kurzform der Initialisierung kennengelernt: Wenn eine Stringkonstante angegeben ist, zerlegt der Compiler diese in einzelne Zeichen und sorgt selber für das abschließende Null–Zeichen. Die beiden Definitionen\nchar str1 [1] = \"hallo\",\nstr2 [1] = {’h’, ’a’, ’l’, ’l’, ’o’, ’\\0’};\nsind also äquivalent.\nUnd da wir auch hier wieder den Compiler abzählen lassen können, sind die beiden Definitionen\nchar str3[] = \"hallo\",\nstr4[] = {’h’, ’a’, ’l’, ’l’, ’o’, ’\\0’};\nebenfalls äquivalent.",
-      "page": 117
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-      "matching_score": 0.85,
-      "evidence": "Eine letztlich durchaus andere Wirkung hat die ebenfalls zulässige Anfangswertzuweisung\nchar *str5 = \"hallo\";\nHier bezeichnet str5 nicht mehr den Vektor, in dem der String gespeichert wird, sondern eine Variable, deren Anfangswert der Zeiger auf den Anfang des Vektors ist.",
-      "page": 130
-    },
-    {
-      "gold_id": "415.txt",
-      "matching_score": 0.60,
-      "evidence": "Erstellen Sie dafür ein Feld aus char-Werten, das folgenden String repräsentiert: Hallo Welt!\n[...]\nchar s[] = \"Hallo Welt!\";",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "In C gibt es keinen eigenen Basis-Datentyp für Strings. Stattdessen erstellt man Strings (Zeichenketten), indem man eindimensionale Felder (Arrays) vom Typ 'char' definiert. Ein solches Feld wird genau dann zu einem String, wenn es durch ein Null-Zeichen ('\\0') terminiert wird. Die Erstellung kann auf verschiedene Arten erfolgen: Am komfortabelsten ist die Initialisierung des Arrays direkt mit einer in doppelten Anführungszeichen gesetzten Stringkonstanten (z. B. 'char str[] = \"hallo\";'). Hierbei bricht der Compiler den String automatisch in die einzelnen Buchstaben auf und hängt das obligatorische Null-Zeichen unsichtbar ans Ende an. Alternativ kann man das Feld elementweise in geschweiften Klammern initialisieren ('{'h', 'a', 'l', 'l', 'o', '\\0'}'), wobei man das Null-Zeichen dann zwingend selbst setzen muss. Eine dritte Form der Erstellung ist die Nutzung eines Zeigers ('char *str = \"hallo\";'). Hierbei liegt der eigentliche Text als Konstante irgendwo im Speicher, und man erhält lediglich eine Zeigervariable, die auf den Anfang dieser Zeichenkette verweist."
+    "query": "Wie erstellt man Strings?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-55-62.pdf",
+        "matching_score": 1.0,
+        "evidence": "Stringvariablen und -konstanten Den Datentyp char haben wir bereits kennengelernt. Ebenso wurde bereits angesprochen, wie Stringkonstanten aussehen. Wie sieht es mit Stringvariablen aus? Diese werden durch Felder von char -Werten realisiert. Ein Feld von Zeichen wird dadurch zu einem String, dass man hinter dem letzten ' echten' Zeichen ein Null-Zeichen speichert. Bei Stringkonstanten sorgt der Compiler sogar dafur, dass dieses Null-Zeichen automatisch angehangt wird.",
+        "page": 47
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-113-118.pdf",
+        "matching_score": 0.95,
+        "evidence": "Für Strings haben wir bereits eine Kurzform der Initialisierung kennengelernt: Wenn eine Stringkonstante angegeben ist, zerlegt der Compiler diese in einzelne Zeichen und sorgt selber für das abschließende Null–Zeichen. Die beiden Definitionen\nchar str1 [1] = \"hallo\",\nstr2 [1] = {’h’, ’a’, ’l’, ’l’, ’o’, ’\\0’};\nsind also äquivalent.\nUnd da wir auch hier wieder den Compiler abzählen lassen können, sind die beiden Definitionen\nchar str3[] = \"hallo\",\nstr4[] = {’h’, ’a’, ’l’, ’l’, ’o’, ’\\0’};\nebenfalls äquivalent.",
+        "page": 117
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
+        "matching_score": 0.85,
+        "evidence": "Eine letztlich durchaus andere Wirkung hat die ebenfalls zulassige Anfangswertzuweisung char *str5 = \"hallo\"; Hier bezeichnet str5 nicht mehr den Vektor, in dem der String gespeichert wird, sondern eine Variable, deren Anfangswert der Zeiger auf den Anfang des Vektors ist.",
+        "page": 130
+      },
+      {
+        "gold_id": "415.txt",
+        "matching_score": 0.6,
+        "evidence": "Erstellen Sie dafür ein Feld aus char-Werten, das folgenden String repräsentiert: Hallo Welt!\n[...]\nchar s[] = \"Hallo Welt!\";",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "In C gibt es keinen eigenen Basis-Datentyp für Strings. Stattdessen erstellt man Strings (Zeichenketten), indem man eindimensionale Felder (Arrays) vom Typ 'char' definiert. Ein solches Feld wird genau dann zu einem String, wenn es durch ein Null-Zeichen ('\\0') terminiert wird. Die Erstellung kann auf verschiedene Arten erfolgen: Am komfortabelsten ist die Initialisierung des Arrays direkt mit einer in doppelten Anführungszeichen gesetzten Stringkonstanten (z. B. 'char str[] = \"hallo\";'). Hierbei bricht der Compiler den String automatisch in die einzelnen Buchstaben auf und hängt das obligatorische Null-Zeichen unsichtbar ans Ende an. Alternativ kann man das Feld elementweise in geschweiften Klammern initialisieren ('{'h', 'a', 'l', 'l', 'o', '\\0'}'), wobei man das Null-Zeichen dann zwingend selbst setzen muss. Eine dritte Form der Erstellung ist die Nutzung eines Zeigers ('char *str = \"hallo\";'). Hierbei liegt der eigentliche Text als Konstante irgendwo im Speicher, und man erhält lediglich eine Zeigervariable, die auf den Anfang dieser Zeichenkette verweist."
   },
   {
   "query": "Mein Code funktioniert nicht, was kann ich tun?",
@@ -1913,7 +2216,6 @@
     {
       "gold_id": "programmierung_mit_ansi_c-113-118.pdf",
       "matching_score": 0.90,
-      "evidence": "Für die Fehlersuche in großen Projekten mit mehreren Quelldateien können diese Makros sehr nützlich sein. Zum Beispiel liefert\n#define DEBUG\n...\n#ifdef DEBUG\n#define REPORT printf(\"Zeile %d in %s erreicht\\n\", \\\n__LINE__ , __FILE__)\n#else\n#define REPORT\n#endif\neine einfache und ausbaufähige Hilfe bei der Überwachung des Programmablaufs. [...] Maßnahmen wie solche raffinierten Testausgaben fass man untr dem Begriff ”low-level debugging“ zusammen. Geschickt eingesetzt können sie Programmierer sehr bei der Fehlersuche unterstützen.",
       "page": 109
     },
     {
@@ -1930,79 +2232,108 @@
     }
   ],
   "supplementary_answer": "Wenn der Code nicht funktioniert, gibt es in C verschiedene Strategien zur Fehlersuche (Debugging). Zunächst sollte man den Compiler voll ausschöpfen: Durch das Hinzufügen der Option '-Wall' (beim gcc) zwingt man den Compiler, alle Warnungen auszugeben. C akzeptiert sonst vielen fehlerhaften Code kommentarlos; die Warnungen weisen oft präzise auf die Programmierfehler hin. Um logische Fehler zu finden, empfiehlt das Skript sogenanntes 'Low-Level Debugging' durch bedingte Testausgaben (mit 'printf' und Makros wie __LINE__), um zu kontrollieren, ob Variablen die erwarteten Werte haben und welche Codezeilen überhaupt erreicht werden. Bei komplexeren Datenstrukturen (wie Arrays) ist es ratsam, sich eine eigene Ausgabefunktion (z.B. 'printArray') zu schreiben, um sich Zwischenergebnisse während des Programmablaufs ausgeben zu lassen. Zudem kann man die Funktion 'assert()' einbauen, die den Programmablauf mit einer Fehlermeldung stoppt, falls eine erwartete Bedingung nicht erfüllt ist."
+    "query": "Mein Code funktioniert nicht, was kann ich tun?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
+        "matching_score": 0.95,
+        "evidence": "Eine zusätzliche Option sollte man beim Aufruf des gcc auf jeden Fall angeben, nämlich -Wall [...] Ist diese Option angegeben, schreibt der Compiler zu ”verdächtigem“ Code, den er sonst kommentarlos akzeptieren würde, Warnungen. In vielen Fällen weisen diese Warnungen auf Programmierfehler hin, ohne deren Beseitigung das Programm nicht laufen wird.",
+        "page": 184
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-113-118.pdf",
+        "matching_score": 0.9,
+        "page": 109
+      },
+      {
+        "gold_id": "207.txt",
+        "matching_score": 0.85,
+        "evidence": "Erstelle zur Kontrolle und zum Debugging eine void printMyArray(int *a, int len); Funktion, die ein Array a der Länge len ausgibt.",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
+        "matching_score": 0.7,
+        "evidence": "Die Funktion\nvoid assert(int bedingung);\nbewirkt nichts, wenn bedingung den Wert wahr besitzt. Sollte der Wert falsch sein, wird das Programm mit einer Fehlermeldung abgebrochen.",
+        "page": 102
+      }
+    ],
+    "supplementary_answer": "Wenn der Code nicht funktioniert, gibt es in C verschiedene Strategien zur Fehlersuche (Debugging). Zunächst sollte man den Compiler voll ausschöpfen: Durch das Hinzufügen der Option '-Wall' (beim gcc) zwingt man den Compiler, alle Warnungen auszugeben. C akzeptiert sonst vielen fehlerhaften Code kommentarlos; die Warnungen weisen oft präzise auf die Programmierfehler hin. Um logische Fehler zu finden, empfiehlt das Skript sogenanntes 'Low-Level Debugging' durch bedingte Testausgaben (mit 'printf' und Makros wie __LINE__), um zu kontrollieren, ob Variablen die erwarteten Werte haben und welche Codezeilen überhaupt erreicht werden. Bei komplexeren Datenstrukturen (wie Arrays) ist es ratsam, sich eine eigene Ausgabefunktion (z.B. 'printArray') zu schreiben, um sich Zwischenergebnisse während des Programmablaufs ausgeben zu lassen. Zudem kann man die Funktion 'assert()' einbauen, die den Programmablauf mit einer Fehlermeldung stoppt, falls eine erwartete Bedingung nicht erfüllt ist."
   },
   {
-  "query": "Was ist der Rückgabewert von scanf ?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "matching_score": 1.0,
-      "evidence": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewandelten Werte; tritt jedoch bereits vor dem Lesen und der Umwandlung des ersten Wertes ein Fehler ein (und das Dateiende zählt in diesem Sinne als Fehler), so ist der Funktionswert EOF (End Of File).",
-      "page": 28
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "matching_score": 0.95,
-      "evidence": "Der Funktionswert von scanf erlaubt nicht nur die Erkennung des Dateiendes, sondern auch die Erkennung anderer Fehler bei der Eingabe: Ist der Funktionswert kleiner als die Anzahl der Prozentzeichen im Format und der Variablen in der Argumentliste, so muss etwas schief gelaufen sein. [...] EOF wird nur dann geliefert, wenn bereits vor dem Lesen des ersten Wertes etwas schief geht. Tritt beim Lesen des ersten Wertes ein Fehler ein, so ist der Funktionswert 0.",
-      "page": 29
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-      "matching_score": 0.80,
-      "evidence": "Statt mit EOF sollte man den Funktionswert von scanf in unserem Beispiel besser mit 1 vergleichen (scanf (...) == 1).",
-      "page": 29
-    },
-    {
-      "gold_id": "46.txt",
-      "matching_score": 0.60,
-      "evidence": "int main() { int n; while(scanf(\"%d\", &n) == 1) printf(\"OKT: %o, HEX: %x\\n\", n, n); }",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Der Rückgabewert (bzw. Funktionswert) von 'scanf' gibt prinzipiell die Anzahl der erfolgreich eingelesenen und umgewandelten Werte zurück. Anhand dieses Wertes lassen sich drei Zustände ableiten: 1. Erfolg: Stimmt der Rückgabewert mit der Anzahl der erwarteten Formatbeschreiber (die %-Zeichen) überein, war das Einlesen erfolgreich. Ist er kleiner, deutet dies auf einen Eingabefehler hin. 2. Fehler beim ersten Wert: Wenn schon das Lesen des allerersten Wertes fehlschlägt (z. B. Buchstabe statt Zahl), ist der Rückgabewert exakt 0. 3. Dateiende / fataler Fehler: Wenn vor dem ersten Leseversuch keine Zeichen mehr vorhanden sind (End Of File) oder ein grundlegender Fehler auftritt, liefert die Funktion die Konstante 'EOF' (meist -1) zurück. In der Praxis wird dieser Rückgabewert sehr häufig als Abbruchbedingung für Schleifen verwendet (z. B. 'while(scanf(...) == 1)')."
+    "query": "Was ist der Rückgabewert von scanf ?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 1.0,
+        "evidence": "scanf liefert als Funktionswert die Anzahl der gelesenen und erfolgreich umgewandelten Werte; tritt jedoch bereits vor dem Lesen und der Umwandlung des ersten Wertes ein Fehler ein (und das Dateiende zahlt in diesem Sinne als Fehler), so ist der Funktionswert EOF ( End Of File ).",
+        "page": 28
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 0.95,
+        "evidence": "Der Funktionswert von scanf erlaubt nicht nur die Erkennung des Dateiendes, sondern auch die Erkennung anderer Fehler bei der Eingabe: Ist der Funktionswert kleiner als die Anzahl der Prozentzeichen im Format und der Variablen in der Argumentliste, so muss etwas schief gelaufen sein. Sollen etwa 10 Werte gelesen werden und ist der Funktionswert 8, so kann man daraus ruckschließen, dass beim Lesen des neunten Wertes etwas schief gegangen ist. - EOF wird nur dann geliefert, wenn bereits vor dem Lesen des ersten Wertes etwas schief geht. Tritt beim Lesen des ersten Wertes ein Fehler ein, so ist der Funktionswert 0.",
+        "page": 29
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
+        "matching_score": 0.8,
+        "evidence": "Statt mit EOF sollte man den Funktionswert von scanf in unserem Beispiel besser mit 1 vergleichen ( scanf (...) == 1 ). - · Auch printf liefert einen wohldefinierten Funktionswert.",
+        "page": 29
+      },
+      {
+        "gold_id": "46.txt",
+        "matching_score": 0.6,
+        "evidence": "int main() { int n; while(scanf(\"%d\", &n) == 1) printf(\"OKT: %o, HEX: %x\\n\", n, n); }",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Der Rückgabewert (bzw. Funktionswert) von 'scanf' gibt prinzipiell die Anzahl der erfolgreich eingelesenen und umgewandelten Werte zurück. Anhand dieses Wertes lassen sich drei Zustände ableiten: 1. Erfolg: Stimmt der Rückgabewert mit der Anzahl der erwarteten Formatbeschreiber (die %-Zeichen) überein, war das Einlesen erfolgreich. Ist er kleiner, deutet dies auf einen Eingabefehler hin. 2. Fehler beim ersten Wert: Wenn schon das Lesen des allerersten Wertes fehlschlägt (z. B. Buchstabe statt Zahl), ist der Rückgabewert exakt 0. 3. Dateiende / fataler Fehler: Wenn vor dem ersten Leseversuch keine Zeichen mehr vorhanden sind (End Of File) oder ein grundlegender Fehler auftritt, liefert die Funktion die Konstante 'EOF' (meist -1) zurück. In der Praxis wird dieser Rückgabewert sehr häufig als Abbruchbedingung für Schleifen verwendet (z. B. 'while(scanf(...) == 1)')."
   },
   {
-  "query": "Wie kann man Integerüberläufen vorbeugen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-157-166.pdf",
-      "matching_score": 0.95,
-      "evidence": "15.2 Überlauf bei ganzen Zahlen\nDie ganzzahligen Typen sind auf der einen Seite weniger problematisch, da bei ihnen nur der Überlauf eintreten kann, und auf der anderen Seite problematischer, da die Verhinderung/Vermeidung von Überläufen grundsätzlich und ausschließlich in die Verantwortung des Programmierers gestellt ist. Überlauf bei ganzzahligen Operationen bewirkt nämlich in der Regel nichts – außer dass mit falschen Werten weitergerechnet wird.",
-      "page": 160
-    },
-    {
-      "gold_id": "83.txt",
-      "matching_score": 0.90,
-      "evidence": "Mögliche Ganzzahlüberläufe werden erkannt und verhindert. Wird ein Überlauf erkannt ist der Funktionswert -1.\n[...]\nxn = 3*x0 + 1; if (xn < x0) { return -1; }",
-      "page": 1
-    },
-    {
-      "gold_id": "501.txt",
-      "matching_score": 0.85,
-      "evidence": "#include <limits.h>\n[...]\ncount++; if (count == INT_MAX) { printf(\"Leider keine Aussage möglich!\\n\"); flag = 0; }",
-      "page": 1
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "matching_score": 0.50,
-      "evidence": "Der ANSI-Standard für C trägt dem Rechnung, indem er keine festen Wertebereiche, sondern nur Mindestschranken für die Wertebereiche vorschreibt, und indem er außerdem vorschreibt, dass für die verschiedenen Typen bestimmte benannte Konstanten in bestimmten Standard–Headerdateien verfügbar sein müssen [...] Die im Standard festgelegten Namen der Schranken–Konstanten in limits.h sind [...] INT_MIN, INT_MAX und UINT_MAX für die int–Typen",
-      "page": 10
-    }
-  ],
-  "supplementary_answer": "In C werden Integerüberläufe (Ganzzahlüberläufe) nicht automatisch vom Compiler oder zur Laufzeit verhindert; das Programm stürzt in der Regel nicht ab, sondern rechnet einfach mit falschen Werten (oft im negativen Bereich) weiter. Die Vorbeugung und Verhinderung liegt laut Skript einzig und allein in der Verantwortung des Programmierers. Um Überläufen vorzubeugen, gibt es in der Praxis zwei gängige Muster: 1. Prüfung auf logische Unmöglichkeit (Wrap-around): Man prüft nach einer arithmetischen Operation, ob das Ergebnis mathematisch unmöglich ist. Addiert oder multipliziert man beispielsweise positive Zahlen, darf das Ergebnis nicht kleiner sein als der Ausgangswert (z.B. 'if (xn < x0)'). Ist es das doch, hat ein Überlauf stattgefunden und man kann die Berechnung abbrechen. 2. Prüfung gegen absolute Systemgrenzen: Man nutzt die in der Headerdatei '<limits.h>' definierten maximalen Schranken des Systems (z.B. 'INT_MAX'), um Variablen (wie etwa Zähler in Endlosschleifen) davor zu schützen, diese absolute Obergrenze überhaupt erst zu überschreiten (z.B. 'if (count == INT_MAX)')."
+    "query": "Wie kann man Integerüberläufen vorbeugen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-157-166.pdf",
+        "matching_score": 0.95,
+        "evidence": "15.2 Überlauf bei ganzen Zahlen\nDie ganzzahligen Typen sind auf der einen Seite weniger problematisch, da bei ihnen nur der Überlauf eintreten kann, und auf der anderen Seite problematischer, da die Verhinderung/Vermeidung von Überläufen grundsätzlich und ausschließlich in die Verantwortung des Programmierers gestellt ist. Überlauf bei ganzzahligen Operationen bewirkt nämlich in der Regel nichts – außer dass mit falschen Werten weitergerechnet wird.",
+        "page": 160
+      },
+      {
+        "gold_id": "83.txt",
+        "matching_score": 0.9,
+        "evidence": "Mögliche Ganzzahlüberläufe werden erkannt und verhindert. Wird ein Überlauf erkannt ist der Funktionswert -1.\n[...]\nxn = 3*x0 + 1; if (xn < x0) { return -1; }",
+        "page": 1
+      },
+      {
+        "gold_id": "501.txt",
+        "matching_score": 0.85,
+        "evidence": "#include <limits.h>\n[...]\ncount++; if (count == INT_MAX) { printf(\"Leider keine Aussage möglich!\\n\"); flag = 0; }",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+        "matching_score": 0.5,
+        "evidence": "Der ANSI-Standard fur C tragt dem Rechnung, indem er keine festen Wertebereiche, sondern nur Mindestschranken fur die Wertebereiche vorschreibt, und indem er außerdem vorschreibt, dass fur die verschiedenen Typen bestimmte benannte Konstanten in bestimmten Standard-Headerdateien verfugbar sein mussen, die die konkreten, implementationsspezifischen Werte wiedergeben. Diese Headerdateien sind limits.h fur die Wertebereiche der ganzzahligen Typen und float.h fur die Gleitkommatypen.",
+        "page": 10
+      }
+    ],
+    "supplementary_answer": "In C werden Integerüberläufe (Ganzzahlüberläufe) nicht automatisch vom Compiler oder zur Laufzeit verhindert; das Programm stürzt in der Regel nicht ab, sondern rechnet einfach mit falschen Werten (oft im negativen Bereich) weiter. Die Vorbeugung und Verhinderung liegt laut Skript einzig und allein in der Verantwortung des Programmierers. Um Überläufen vorzubeugen, gibt es in der Praxis zwei gängige Muster: 1. Prüfung auf logische Unmöglichkeit (Wrap-around): Man prüft nach einer arithmetischen Operation, ob das Ergebnis mathematisch unmöglich ist. Addiert oder multipliziert man beispielsweise positive Zahlen, darf das Ergebnis nicht kleiner sein als der Ausgangswert (z.B. 'if (xn < x0)'). Ist es das doch, hat ein Überlauf stattgefunden und man kann die Berechnung abbrechen. 2. Prüfung gegen absolute Systemgrenzen: Man nutzt die in der Headerdatei '<limits.h>' definierten maximalen Schranken des Systems (z.B. 'INT_MAX'), um Variablen (wie etwa Zähler in Endlosschleifen) davor zu schützen, diese absolute Obergrenze überhaupt erst zu überschreiten (z.B. 'if (count == INT_MAX)')."
   },
   {
     "query": "Was ist wichtig für die Klausur? Welche Aufgaben sollte ich noch bearbeiten?",
     "type": "redundant",
-    "references": [{
+    "references": [
+      {
         "gold_id": "79.yaml",
         "matching_score": 0.9,
         "evidence": "Aufgabe: Schreiben Sie eine Funktion, die den in Aufgabe  <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://c109-223.cloud.gwdg.de/tasks/50\">**Selectionsort**</a> beschriebenen Algorithmus \"Sortieren durch direkte Auswahl\" auf einem (Teil-)Feld von ganzen Zahlen umsetzt, mit folgendem Prototyp:\n```\nint sortieren (int *von, int *bis);\n```\nDabei ist `von` ein Zeiger auf die erste Komponente und `bis` ein Zeiger **hinter** die letzte Komponente des zu sortierenden (Teil-)Feldes. Die Funktion soll das Feld von vorne aufsteigend sortieren. Die Funktion liefert die Anzahl der umgespeicherten Werte zurück. Speichern Sie die Werte nur um, wenn es nötig ist. Benutzen Sie in der Funktion ausschließlich Zeigerarithmetik und nicht den `[]`-Operator. Verwenden Sie Rekursion.\n\n\nLösung: int sortieren (int* von, int* bis){\n  int tmp=0;\n  int *min=von;\n  \n  if(von >= bis) return 0;\n  \n  for(int *i=von+1; i < bis; i++)\n      if(*i < *min) min = i;\n  \n  if(min == von) return sortieren(von+1, bis);\n  else{\n      tmp = *min;\n      *min = *von;\n      *von = tmp;\n      return 1 + sortieren(von+1, bis);\n  }\n}\n",
         "page": 0
       },
-    {
+      {
         "gold_id": "209.yaml",
         "matching_score": 0.9,
         "evidence": "Aufgabe: Programmieren Sie eine Funktion `void magic(char *path, int number);`, die\neinen String mit dem Pfad zu einer Datei `path` und einen ganzzahligen Wert\n`number` zwischen `0` und `9` übergeben bekommt. In die Datei am Pfad `path`\nsoll ein String folgender Form geschrieben werden: Der String besteht aus\nendlich vielen Satzteilen, die je mit einem Komma getrennt werden. Das erste\nWort eines Satzteiles ist das englische Zahlwort von `number` gefolgt von \"is\"\nund dem englischen Zahlwort von *der Anzahl der Zeichen des Zahlwortes von*\n`number`. Diese Teile werden solange gebildet und aneinander gereiht, bis `4`\n(four) erreicht wurde, dann lautet der String \"four is magic\".\n\n\n### Beispielaufruf\n```\nmagic(\"beispiel_1.txt\", 0);\nmagic(\"beispiel_2.txt\", 1);\n```\n### Beispielergebnis\n```\nbeispiel_1.txt: \n  zero is four, four is magic.\nbeispiel_2.txt: \n  one is three, three is five, five is four, four is magic.\n```\n\n### Hinweis\nBenutzen Sie `<string.h>`, um geeignete Funktionen zur\nStringbearbeitungen zu benutzen.\n\n\nLösung: #include <stdio.h>\n#include <string.h>\n\nchar *names[10] = {\"zero\", \"one\", \"two\", \"three\", \"four\", \"five\", \"six\", \"seven\", \"eight\", \"nine\"};\n\nvoid magic(char *path, int number) {\n  FILE *fp;\n  fp = fopen (path,\"w\");\n  if(fp == NULL) {\n    printf(\"Error on opening file\");\n    return;\n  }\n  char stringtoput[1000];\n  char *is = \"is\";\n  int count = number;\n\n  while (count != 4) {\n    strcat(stringtoput, names[count]);\n    strcat(stringtoput, \" \");\n    strcat(stringtoput, is);\n    strcat(stringtoput, \" \");\n    count = strlen(names[count]) ;\n    strcat(stringtoput, names[count]);\n    strcat(stringtoput, \", \");\n  }\n  strcat(stringtoput, \"four is magic.\");\n  // printf(\"%s\\n\",stringtoput);\n\n  for (int i = 0; i < strlen(stringtoput); i++) {\n    fputc(stringtoput[i], fp);\n  }\n  fclose(fp);\n}\n",
@@ -2026,86 +2357,87 @@
         "evidence": "Aufgabe: Der Datentyp `interval_t` zur Beschreibung von abgeschlossenen Intervallen ganzer Zahlen durch die untere \nund obere Intervallgrenze, ist wie folgt gegeben.\n\n```\ntypedef struct {\n  long low;   // lower bound\n  long up;    // upper bound\n} interval_t;\n```\n\nEin Intervall ist genau dann leer, wenn seine untere Intervallgrenze größer ist als seine obere. \nDer Durchschnitt zweier Intervalle ist wieder ein (möglicherweise leeres) Intervall.\n\nProgrammieren Sie eine Funktion, die bestimmt ob der Durchschnitt der übergebenen\nIntervalle leer ist, mit folgendem Prototyp.\n\n```\nint is_empty_intersection(const interval_t *a, const interval_t *b);\n```\n\n*Anforderungen:*\n\n- Das Durchschnittsintervall der Intervalle, auf die a und b verweisen, wird bestimmt.\n- Ein übergebener Null-Zeiger wird wie ein leeres Intervall behandelt.\n- Die untere Intervallgrenze des Durchschnittsintervalls ist gegeben durch das Maximum der beiden unteren Intervallgrenzen, die obere Intervallgrenze durch das Minimum der beiden oberen Intervallgrenzen.\n- Die Funktion liefert 0 zurück wenn das Durchschnittsintervall nicht leer ist, sonst wird ein positiver Wert zurückgeliefert.\n- Definieren Sie die Struktur `interval_t` in der Abgabedatei.\n\n\nLösung: #include <stdlib.h>\n\ntypedef struct {\n  long low;   // lower bound\n  long up;    // upper bound\n} interval_t;\n\nint is_empty_intersection(const interval_t *a, const interval_t *b) {\n  if (a == NULL || a->low > a->up || b == NULL || b->low > b->up)\n    return 1;\n\n  interval_t inter;\n\n  /* max lower bound */\n  if (a->low > b->low)\n    inter.low = a->low;\n  else\n    inter.low = b->low;\n\n  /* min upper bound */\n  if (a->up < b->up)\n    inter.up = a->up;\n  else\n\n    inter.up = b->up;\n\n  /* ( upper < lower ) <= > empty */\n\n  return (inter.up < inter.low);\n}\n",
         "page": 0
       },
-    {
+      {
         "gold_id": "523.yaml",
         "matching_score": 0.9,
         "evidence": "Aufgabe: Definieren Sie den Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt in Ihrer Abgabedatei:\n\n```\ntypedef struct {\n  int zaehler;\n  int nenner;\n} bruch_t;\n```\n\n---\n\nProgrammieren Sie eine Funktion mit Prototyp:\n\n```\nint compare_rational( bruch_t x, bruch_t y );\n```\n\ndie die übergebenen rationalen Zahlen `x`, `y` vergleicht und `0` zurückliefert, wenn `x` und `y` gleich sind, einen Wert kleiner `0` zurückliefert, wenn `x` kleiner als `y` ist und einen Wert größer `0` zurückliefert, wenn `x` größer als `y` ist.\n\nVerwenden Sie keine Gleitkommaarithmetik. Sorgen Sie dafür, dass beide Nenner nicht negativ sind und benutzen Sie folgende Beziehungen.\n\n- a/b = c/d genau dann, wenn ad = bc\n- a/b < c/d genau dann, wenn ad < bc\n- a/b > c/d genau dann, wenn ad > bc\n\n*Hinweis*\n- Kümmern Sie sich nicht um mögliche Überläufe, diese Problematik kann ignoriert werden.\n\n\nLösung: typedef struct {\n  int zaehler;\n  int nenner;\n} bruch_t;\n\nint compare_rational(bruch_t x, bruch_t y) {\n  if(x.nenner < 0){\n    x.nenner *= -1;\n    x.zaehler *= -1;\n  }\n\n  if(y.nenner < 0){\n    y.nenner *= -1;\n    y.zaehler *= -1;\n  }\n\n  if (x.zaehler * y.nenner == x.nenner * y.zaehler) {\n    return 0;\n  } else if (x.zaehler * y.nenner < x.nenner * y.zaehler) {\n    return -1;\n  } else {\n    return 1;\n  }\n}\n",
         "page": 0
       },
-    {
+      {
         "gold_id": "524.yaml",
         "matching_score": 0.9,
         "evidence": "Aufgabe: Der Datentyp `bruch_t` für die Beschreibung von rationalen Zahlen als Brüche ganzer Zahlen, mit Zähler und Nenner ist wie folgt **gegeben** (nicht in der Abegabedatei definieren):\n\n```\ntypedef struct {\n  int zaehler;\n  int nenner;\n} bruch_t;\n```\n\nEs steht eine Funktion mit Prototyp:\n\n```\nbruch_t sub_rational(bruch_t *x, bruch_t *y);\n```\n\nzum Subtrahieren zweier rationaler Zahlen zur Verfügung, die sicherstellt, dass der Denominator des Rückgabewerts nicht negativ ist.\n\n---\n\nProgrammieren Sie eine Funktion mit Prototyp:\n\n```\nbruch_t *max_rational(bruch_t list[], int length);\n```\n\ndie angewendet auf das Feld `list` der Länge `length` die größte rationale Zahl ermittelt und einen Zeiger auf die entsprechende Feldkomponente als Funktionswert zurückliefert. Falls mehrere gleich große rationale Zahlen im Feld erfasst sind, so wird ein Zeiger auf irgendeine davon zurückgegeben.\n\n*Anforderungen*\n\n- Führen Sie den Vergleich zweier rationaler Zahlen mit der Funktion `sub_rational` durch. Es gilt aus a-b < 0 folgt a < b.\n- Die Funktion liefert bei ungültigen Argumenten, `list` ist der Nullzeiger oder `length` ist kleiner Null, den Nullzeiger zurück.\n- Sind die übergebenen Argumente gültig, können Sie davon ausgehen, dass `list` auf den Anfang eines `bruch_t`-Feldes der Länge `length` zeigt.\n\n\nLösung: bruch_t *max_rational(bruch_t list[], int length) {\n  if (list == NULL || length < 0) {\n    return NULL;\n  }\n  int max_index = 0;\n  for (int i = 1; i < length; i++) {\n    if (sub_rational(&list[max_index], &list[i]).zaehler < 0) {\n      max_index = i;        \n    }\n  }\n  return &list[max_index];\n}\n",
         "page": 0
-      }],
+      }
+    ],
     "supplementary_answer": "Die Klausuraufgaben decken typischerweise die zentralen Themen der Vorlesung ab. Aus den verfügbaren Aufgaben lassen sich folgende Themengebiete ableiten: Sortieralgorithmen (Selectionsort rekursiv mit Zeigerarithmetik, Bubblesort-Varianten), Suchen (binäre Suche iterativ und rekursiv), Strings und Zeichenoperationen, Dateioperationen (zeilenweises Lesen und Schreiben), Strukturen und rationale Zahlen (Brüche, Intervalle), sowie Zeigerarithmetik und Felder. Die Aufgaben verlangen häufig den Einsatz von Zeigern statt Index-Notation und die Implementierung als Funktion mit vorgegebenem Prototyp."
   },
   {
-  "query": "Wie wandelt man zwischen Zahlensystemen um?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "52.txt",
-      "matching_score": 1.0,
-      "evidence": "scanf(\"%d\", &binary); while (binary > 0) { tmp = binary % 10; sum += (tmp * potenz); binary /= 10; potenz *= 2; }",
-      "page": 1
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
-      "matching_score": 0.90,
-      "evidence": "Die Umwandlung zwischen Binär– und Oktaldarstellung bzw. zwischen Binär– und Hexadezimaldarstellung ist besonders einfach: Jede Oktalziffer entspricht gerade einer Gruppe von 3 Binärziffern, jede Hexadezimalziffer gerade einer Gruppe von 4 Binärziffern.",
-      "page": 9
-    },
-    {
-      "gold_id": "70.txt",
-      "matching_score": 0.85,
-      "evidence": "while(c<z){ c *= b; i++; } char* adic; adic = (char*) malloc(sizeof(char) * (i+1)); [...] for(j=0; c > 1; j++){ c/=b; adic[j] = inttochar(z/c); }",
-      "page": 1
-    },
-    {
-      "gold_id": "46.txt",
-      "matching_score": 0.70,
-      "evidence": "while(scanf(\"%d\", &n) == 1) printf(\"OKT: %o, HEX: %x\\n\", n, n);",
-      "page": 1
-    }
-  ],
-  "supplementary_answer": "Die Umwandlung zwischen Zahlensystemen in C lässt sich auf drei verschiedene Arten bewerkstelligen: 1. Algorithmische Umwandlung (in Dezimal): Um z. B. eine Binärzahl in eine Dezimalzahl umzuwandeln, spaltet man in einer Schleife die Zahl mit Modulo 10 ('binary % 10') in ihre Ziffern auf, multipliziert diese mit der entsprechenden Potenz der Basis (für Binär: 1, 2, 4, 8...) und addiert sie auf. 2. Algorithmische Umwandlung (von Dezimal in eine beliebige Basis b): Hierfür ermittelt man die benötigte Länge, teilt die Dezimalzahl wiederholt durch die Zielbasis 'b' und nutzt Hilfsfunktionen, um die Divisionsergebnisse in Zeichen (z.B. 0-9 und a-z) für das neue System umzuwandeln. 3. Theoretische Gruppierung: Die Umwandlung zwischen dem Binär-, Oktal- und Hexadezimalsystem ist mathematisch laut Skript besonders einfach, da eine Oktalziffer exakt 3 Binärziffern und eine Hexadezimalziffer exakt 4 Binärziffern entspricht. 4. C-interne Ausgabe-Formatierung: Möchte man eine dezimale C-Variable (int) lediglich in einem anderen gängigen Zahlensystem (Oktal oder Hexadezimal) auf der Konsole ausgeben, muss man keinen Umwandlungsalgorithmus programmieren. Man kann direkt die speziellen Formatbeschreiber von 'printf' nutzen: '%o' für Oktal und '%x' für Hexadezimal."
+    "query": "Wie wandelt man zwischen Zahlensystemen um?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "52.txt",
+        "matching_score": 1.0,
+        "evidence": "scanf(\"%d\", &binary); while (binary > 0) { tmp = binary % 10; sum += (tmp * potenz); binary /= 10; potenz *= 2; }",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
+        "matching_score": 0.9,
+        "evidence": "Die Umwandlung zwischen Binar- und Oktaldarstellung bzw. zwischen Binar- und Hexadezimaldarstellung ist besonders einfach: Jede Oktalziffer entspricht gerade einer Gruppe von 3 Binarziffern, jede Hexadezimalziffer gerade einer Gruppe von 4 Binarziffern.",
+        "page": 9
+      },
+      {
+        "gold_id": "70.txt",
+        "matching_score": 0.85,
+        "evidence": "while(c<z){ c *= b; i++; } char* adic; adic = (char*) malloc(sizeof(char) * (i+1)); [...] for(j=0; c > 1; j++){ c/=b; adic[j] = inttochar(z/c); }",
+        "page": 1
+      },
+      {
+        "gold_id": "46.txt",
+        "matching_score": 0.7,
+        "evidence": "while(scanf(\"%d\", &n) == 1) printf(\"OKT: %o, HEX: %x\\n\", n, n);",
+        "page": 1
+      }
+    ],
+    "supplementary_answer": "Die Umwandlung zwischen Zahlensystemen in C lässt sich auf drei verschiedene Arten bewerkstelligen: 1. Algorithmische Umwandlung (in Dezimal): Um z. B. eine Binärzahl in eine Dezimalzahl umzuwandeln, spaltet man in einer Schleife die Zahl mit Modulo 10 ('binary % 10') in ihre Ziffern auf, multipliziert diese mit der entsprechenden Potenz der Basis (für Binär: 1, 2, 4, 8...) und addiert sie auf. 2. Algorithmische Umwandlung (von Dezimal in eine beliebige Basis b): Hierfür ermittelt man die benötigte Länge, teilt die Dezimalzahl wiederholt durch die Zielbasis 'b' und nutzt Hilfsfunktionen, um die Divisionsergebnisse in Zeichen (z.B. 0-9 und a-z) für das neue System umzuwandeln. 3. Theoretische Gruppierung: Die Umwandlung zwischen dem Binär-, Oktal- und Hexadezimalsystem ist mathematisch laut Skript besonders einfach, da eine Oktalziffer exakt 3 Binärziffern und eine Hexadezimalziffer exakt 4 Binärziffern entspricht. 4. C-interne Ausgabe-Formatierung: Möchte man eine dezimale C-Variable (int) lediglich in einem anderen gängigen Zahlensystem (Oktal oder Hexadezimal) auf der Konsole ausgeben, muss man keinen Umwandlungsalgorithmus programmieren. Man kann direkt die speziellen Formatbeschreiber von 'printf' nutzen: '%o' für Oktal und '%x' für Hexadezimal."
   },
   {
-  "query": "Wie erstellt man 2D-Matrizen?",
-  "type": "complementary",
-  "references": [
-    {
-      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "matching_score": 1.0,
-      "evidence": "Ähnlich wie eindimensionale Felder (Vektoren) können auch Felder mit mehreren Dimensionen vereinbart werden: Dem Namen folgen dann, jeweils in eckigen Klammern eingeschlossen, die Längenangaben für die verschiedenen Dimensionen. So ergibt\nint m[1][2];\nein zweidimensionales Feld (Matrix ).",
-      "page": 111
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 0.95,
-      "evidence": "Wir wollen einmal unterstellen, dass wir eine n x m-Matrix A mit double-Komponenten benötigen. [...] a = (double **) malloc(n * sizeof (double *));\nif (a == NULL)\n/* ... Fehlerbehandlung */\nfor (i = 0; i < n; i++) {\na[i] = (double *) malloc(m * sizeof (double ));\nif (a[i] == NULL)\n/* ... Fehlerbehandlung */\n}",
-      "page": 147
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-      "matching_score": 0.85,
-      "evidence": "Bei der Initialisierung mehrdimensionaler Felder muss man sich wieder klar machen, dass sie formal Vektoren von Vektoren sind. Entsprechend kann man dann zum Beispiel\nint m[1][2] = {{ 6, 5, 4},\n{17, 18, 19}};\nschreiben.",
-      "page": 116
-    },
-    {
-      "gold_id": "57.txt",
-      "matching_score": 0.80,
-      "evidence": "int mat1[MAX_SIZE][MAX_SIZE] = {0}, mat2[MAX_SIZE][MAX_SIZE] = {0}, mat3[MAX_SIZE][MAX_SIZE] = {0};",
-      "page": 1
-    },
-    {
-      "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-      "matching_score": 0.60,
-      "evidence": "float *m;\nint n;\n/* ... Initialisierung von n */\nm = (float *) malloc(n * n * sizeof(float ));\nif (m == NULL) {\n/* Fehlerbehandlung , ggf. Programmabbruch */\n}",
-      "page": 142
-    }
-  ],
-  "supplementary_answer": "In C gibt es grundsätzlich drei Herangehensweisen, um 2D-Matrizen zu erstellen: \n1. Statisch/Automatisch (Stack): Man deklariert ein Feld mit mehreren Dimensionen, indem man hinter den Variablennamen die jeweiligen Längen in eckigen Klammern anfügt (z. B. 'int m[1][2];'). Diese Matrizen können direkt bei der Erstellung zeilenweise über geschweifte Klammern initialisiert werden.\n2. Dynamisch als Zeiger-Array (Heap): Man erstellt einen Doppelzeiger (z. B. 'double **a') und alloziert zunächst Speicherplatz für ein Array von Pointern (die Zeilen). Anschließend iteriert man in einer Schleife über diese Zeiger und alloziert für jeden davon ein Array für die eigentlichen Spaltenwerte.\n3. Dynamisch als simulierter 1D-Vektor (Heap): Man alloziert ein einfaches, eindimensionales Array, das groß genug für alle Elemente der Matrix ist (z. B. 'malloc(zeilen * spalten * sizeof(typ))'). In diesem Fall muss man die 2D-Struktur simulieren, indem man Zeilen- und Spaltenindizes später über eine mathematische Speicherabbildungsfunktion ('index = zeile * spaltenanzahl + spalte') berechnet."
+    "query": "Wie erstellt man 2D-Matrizen?",
+    "type": "complementary",
+    "references": [
+      {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "matching_score": 1.0,
+        "evidence": "Ahnlich wie eindimensionale Felder ( Vektoren ) konnen auch Felder mit mehreren Dimensionen vereinbart werden: Dem Namen folgen dann, jeweils in eckigen Klammern eingeschlossen, die Langenangaben fur die verschiedenen Dimensionen. So ergibt int m[2][3]; ein zweidimensionales Feld ( Matrix ).",
+        "page": 111
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.95,
+        "evidence": "Wir wollen einmal unterstellen, dass wir eine n × m -Matrix A mit double -Komponenten benotigen. Dann beschaffen wir uns in einem ersten Schritt einen Vektor mit n Komponenten, die jeweils den Zeiger auf eine Zeile aufnehmen konnen. In einem zweiten Schritt beschaffen wir uns die Speicher fur die Zeilen und tragen die Zeiger darauf in die Komponenten des zunachst beschafften Vektors ein.",
+        "page": 147
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
+        "matching_score": 0.85,
+        "evidence": "Bei der Initialisierung mehrdimensionaler Felder muss man sich wieder klar machen, dass sie formal Vektoren von Vektoren sind. Entsprechend kann man dann zum Beispiel int m[2][3] = {{ 6, 5, 4}, {17, 18, 19}};",
+        "page": 116
+      },
+      {
+        "gold_id": "57.txt",
+        "matching_score": 0.8,
+        "evidence": "int mat1[MAX_SIZE][MAX_SIZE] = {0}, mat2[MAX_SIZE][MAX_SIZE] = {0}, mat3[MAX_SIZE][MAX_SIZE] = {0};",
+        "page": 1
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
+        "matching_score": 0.6,
+        "evidence": "float *m; int n; /* ... Initialisierung von n */ m = (float *) malloc(n * n * sizeof(float)); if (m == NULL) { /* Fehlerbehandlung , ggf. Programmabbruch */ }",
+        "page": 142
+      }
+    ],
+    "supplementary_answer": "In C gibt es grundsätzlich drei Herangehensweisen, um 2D-Matrizen zu erstellen: \n1. Statisch/Automatisch (Stack): Man deklariert ein Feld mit mehreren Dimensionen, indem man hinter den Variablennamen die jeweiligen Längen in eckigen Klammern anfügt (z. B. 'int m[1][2];'). Diese Matrizen können direkt bei der Erstellung zeilenweise über geschweifte Klammern initialisiert werden.\n2. Dynamisch als Zeiger-Array (Heap): Man erstellt einen Doppelzeiger (z. B. 'double **a') und alloziert zunächst Speicherplatz für ein Array von Pointern (die Zeilen). Anschließend iteriert man in einer Schleife über diese Zeiger und alloziert für jeden davon ein Array für die eigentlichen Spaltenwerte.\n3. Dynamisch als simulierter 1D-Vektor (Heap): Man alloziert ein einfaches, eindimensionales Array, das groß genug für alle Elemente der Matrix ist (z. B. 'malloc(zeilen * spalten * sizeof(typ))'). In diesem Fall muss man die 2D-Struktur simulieren, indem man Zeilen- und Spaltenindizes später über eine mathematische Speicherabbildungsfunktion ('index = zeile * spaltenanzahl + spalte') berechnet."
   }
 ]
