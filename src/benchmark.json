@@ -1037,41 +1037,7 @@
     }
   ],
   "supplementary_answer": "Das kaufmännische Und (&) ist der Adressoperator. Man benutzt ihn, wenn man nicht den gespeicherten Wert einer Variablen benötigt, sondern den Ort im Speicher (die Adresse), an dem die Variable liegt. Dies ist z. B. bei 'scanf' zwingend notwendig, da diese Funktion den eingelesenen Wert an der exakten Speicheradresse ablegen muss. Das Sternchen (*) hat hingegen zwei Aufgaben: Zum einen dient es bei der Variablendeklaration (z. B. 'int *ptr') dazu, dem Compiler mitzuteilen, dass diese Variable eine Adresse (einen Zeiger) speichert. Zum anderen dient es als Dereferenzierungsoperator vor einem Zeiger im regulären Code (z. B. '*ptr = 5'). Damit greift man auf den eigentlichen Wert zu, der an dieser Adresse liegt, und kann ihn verändern oder auslesen."
-    "query": "Wann benutze ich & und wann * bzw. was ist der Unterschied?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 1.0,
-        "evidence": "Die Umkehrung des Adressoperators & ist der Dereferenzierungsoperator * : Er bewirkt, dass sein Operand derefenziert wird, oder, anders formuliert: Er bewirkt, dass der Wert seines Operanden dereferenziert und der dabei resultierende Wert als Wert des Ausdrucks betrachtet wird.",
-        "page": 119
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.9,
-        "evidence": "Im Funktionsheader muss, sowohl in der Deklaration als auch in der Definition, markiert werden, dass ein Parameter ein Zeiger ist. Das geschieht, indem dem Namen des Parameters ein Stern ( * ) vorangestellt wird. - · Im Funktionsrumpf muss dem Namen des Parameters in der Regel ebenfalls an jeder Stelle ein Stern vorangestellt und damit explizit dereferenziert werden.",
-        "page": 120
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-        "matching_score": 0.9,
-        "evidence": "Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
-        "page": 24
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.8,
-        "evidence": "Der Adressoperator & verhindert, dass Variablen dereferenziert werden! Einsetzen kann man diesen Operator prinzipiell uberall - nur macht er ohne weiteres an den meisten Stellen keinen Sinn.",
-        "page": 119
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.7,
-        "page": 120
-      }
-    ],
-    "supplementary_answer": "Das kaufmännische Und (&) ist der Adressoperator. Man benutzt ihn, wenn man nicht den gespeicherten Wert einer Variablen benötigt, sondern den Ort im Speicher (die Adresse), an dem die Variable liegt. Dies ist z. B. bei 'scanf' zwingend notwendig, da diese Funktion den eingelesenen Wert an der exakten Speicheradresse ablegen muss. Das Sternchen (*) hat hingegen zwei Aufgaben: Zum einen dient es bei der Variablendeklaration (z. B. 'int *ptr') dazu, dem Compiler mitzuteilen, dass diese Variable eine Adresse (einen Zeiger) speichert. Zum anderen dient es als Dereferenzierungsoperator vor einem Zeiger im regulären Code (z. B. '*ptr = 5'). Damit greift man auf den eigentlichen Wert zu, der an dieser Adresse liegt, und kann ihn verändern oder auslesen."
-  },
   {
   "query": "Warum soll ich malloc benutzen? (z.B. Aufgabe Permutation mit Speicher)",
   "type": "complementary",
@@ -1095,29 +1061,7 @@
     }
   ],
   "supplementary_answer": "Die Funktion 'malloc' (Memory Allocation) wird benutzt, um zur Laufzeit dynamisch Speicherplatz auf dem Heap anzufordern. Das ist immer dann notwendig, wenn die exakte Größe einer benötigten Datenstruktur (wie z. B. eines Arrays) beim Schreiben des Codes (zur Compile-Zeit) noch nicht feststeht. Bei der Aufgabe 'Permutation mit Speicher' wird die Größe des benötigten Hilfs-Arrays erst durch den übergebenen Parameter 'laenge' definiert. Da statische Arrays eine feste, konstante Größe benötigen, muss der Speicherplatz in diesem Fall zwingend mit 'malloc' dynamisch bereitgestellt werden."
-    "query": "Warum soll ich malloc benutzen? (z.B. Aufgabe Permutation mit Speicher)",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 1.0,
-        "evidence": "Ein Programm hat die Moglichkeit, wahrend es lauft Speicher vom Betriebssystem anzufordern, wobei sich die Große des angeforderten Speichers erst bei Ablauf des Programms z.B. durch eine Benutzereingabe ergibt. Dieser Speicher steht ihm dann so lange zur Verfugung, bis es ihn explizit wieder freigibt oder bis es terminiert.",
-        "page": 141
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 0.9,
-        "page": 142
-      },
-      {
-        "gold_id": "517.txt",
-        "matching_score": 0.8,
-        "evidence": "1. Speicher für ein int-Feld anzahl der Länge length auf dem Heap anfordern (hier kann ein Fehler auftreten).",
-        "page": 1
-      }
-    ],
-    "supplementary_answer": "Die Funktion 'malloc' (Memory Allocation) wird benutzt, um zur Laufzeit dynamisch Speicherplatz auf dem Heap anzufordern. Das ist immer dann notwendig, wenn die exakte Größe einer benötigten Datenstruktur (wie z. B. eines Arrays) beim Schreiben des Codes (zur Compile-Zeit) noch nicht feststeht. Bei der Aufgabe 'Permutation mit Speicher' wird die Größe des benötigten Hilfs-Arrays erst durch den übergebenen Parameter 'laenge' definiert. Da statische Arrays eine feste, konstante Größe benötigen, muss der Speicherplatz in diesem Fall zwingend mit 'malloc' dynamisch bereitgestellt werden."
-  },
   {
   "query": "Static und malloc vergleichen? (bei einer stringaufgabe)",
   "type": "concept_comparison",
@@ -1141,29 +1085,7 @@
     }
   ],
   "supplementary_answer": "In der Aufgabe 'String Basics III' werden beide Ansätze direkt miteinander verglichen, um das Problem der sicheren Zeiger-Rückgabe aus einer Funktion zu lösen. Verwendet man 'static' (z.B. 'static char array[1];'), weist der Compiler zur Übersetzungszeit einmalig einen fixen Speicherbereich zu. Dieser Speicherbereich bleibt auch nach Verlassen der Funktion bestehen, weshalb der Zeiger darauf gültig bleibt. Nachteil: Die Array-Größe ist fest eincodiert und bei jedem neuen Funktionsaufruf wird exakt derselbe Speicherbereich wieder überschrieben. Verwendet man hingegen 'malloc', kann der benötigte Speicher dynamisch zur Laufzeit an die tatsächliche String-Länge angepasst werden. Auch dieser Speicher auf dem Heap überlebt das Ende der Funktion. Hierbei wird jedoch für jeden Aufruf ein eigener, neuer Speicherblock erzeugt, den der Programmierer später eigenverantwortlich mit 'free()' wieder freigeben muss."
-    "query": "Static und malloc vergleichen? (bei einer stringaufgabe)",
-    "type": "concept_comparison",
-    "references": [
-      {
-        "gold_id": "417.txt",
-        "matching_score": 1.0,
-        "evidence": "char* static_str(char* string){ \n    static char str_return[1]; \n    strcpy(str_return, string); \n    return str_return; \n}\nchar* malloc_str(char string[], int len){ \n    char* ptr = malloc(len*sizeof(char)); \n    strcpy(ptr, string); \n    return ptr; \n}",
-        "page": 1
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-        "matching_score": 0.8,
-        "page": 95
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 0.7,
-        "evidence": "Ein Programm hat die Moglichkeit, wahrend es lauft Speicher vom Betriebssystem anzufordern, wobei sich die Große des angeforderten Speichers erst bei Ablauf des Programms z.B. durch eine Benutzereingabe ergibt. Dieser Speicher steht ihm dann so lange zur Verfugung, bis es ihn explizit wieder freigibt oder bis es terminiert.",
-        "page": 141
-      }
-    ],
-    "supplementary_answer": "In der Aufgabe 'String Basics III' werden beide Ansätze direkt miteinander verglichen, um das Problem der sicheren Zeiger-Rückgabe aus einer Funktion zu lösen. Verwendet man 'static' (z.B. 'static char array[1];'), weist der Compiler zur Übersetzungszeit einmalig einen fixen Speicherbereich zu. Dieser Speicherbereich bleibt auch nach Verlassen der Funktion bestehen, weshalb der Zeiger darauf gültig bleibt. Nachteil: Die Array-Größe ist fest eincodiert und bei jedem neuen Funktionsaufruf wird exakt derselbe Speicherbereich wieder überschrieben. Verwendet man hingegen 'malloc', kann der benötigte Speicher dynamisch zur Laufzeit an die tatsächliche String-Länge angepasst werden. Auch dieser Speicher auf dem Heap überlebt das Ende der Funktion. Hierbei wird jedoch für jeden Aufruf ein eigener, neuer Speicherblock erzeugt, den der Programmierer später eigenverantwortlich mit 'free()' wieder freigeben muss."
-  },
   {
   "query": "In welcher Reihenfolge muss ich die Argumente beim GCC-Aufruf angeben?",
   "type": "complementary",
@@ -1193,35 +1115,7 @@
     }
   ],
   "supplementary_answer": "Beim Aufruf des GCC-Compilers steht der Befehl 'gcc' ganz am Anfang, gefolgt von allgemeinen Compiler-Optionen (wie '-Wall', '-ansi', '-O' oder '-std=c11'). Danach wird, falls gewünscht, mit der Option '-o' und dem direkten nachfolgenden Namen die Zieldatei angegeben (z. B. '-o prog'). Erst im Anschluss folgen die Namen der zu kompilierenden Quelltext- oder Objektdateien (z. B. 'prog.c' oder 'a01.o'). Ganz wichtig für die Reihenfolge: Linker-Optionen (wie '-lm' zum Einbinden der Mathe-Bibliothek) müssen zwingend am Ende des Aufrufs stehen, also erst nach den Quelltextdateien angegeben werden."
-    "query": "In welcher Reihenfolge muss ich die Argumente beim GCC-Aufruf angeben?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-        "matching_score": 1.0,
-        "evidence": "Der normale einfache Compileraufruf sieht also so aus: gcc -Wall -ansi -pedantic -O [ -o prog ] prog.c Eine weitere oft benotigte Option ist -lm . Sie sorgt dafur, dass der Bibliotheksteil mit den mathematischen Funktionen gebunden wird. Da es sich um eine Linker-Option handelt, wird sie nach den Quelltextdateien angegeben.",
-        "page": 184
       },
-      {
-        "gold_id": "55.txt",
-        "matching_score": 0.9,
-        "evidence": "Schreiben Sie das Programm in eine Datei namens wurzel.c, compilieren sie mit dem Aufruf\ngcc -Wall -o wurzel wurzel.c -lm\nund führen das Programm aus. Die Option -lm am Ende ist für den Linker bestimmt.",
-        "page": 1
-      },
-      {
-        "gold_id": "82.txt",
-        "matching_score": 0.6,
-        "evidence": "Kompilieren Sie Ihre Lösung gcc -c -Wall -std=c11 a01.c. Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm. gcc -o a01 a01.o a01-testing.o.",
-        "page": 1
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-        "matching_score": 0.5,
-        "page": 90
-      }
-    ],
-    "supplementary_answer": "Beim Aufruf des GCC-Compilers steht der Befehl 'gcc' ganz am Anfang, gefolgt von allgemeinen Compiler-Optionen (wie '-Wall', '-ansi', '-O' oder '-std=c11'). Danach wird, falls gewünscht, mit der Option '-o' und dem direkten nachfolgenden Namen die Zieldatei angegeben (z. B. '-o prog'). Erst im Anschluss folgen die Namen der zu kompilierenden Quelltext- oder Objektdateien (z. B. 'prog.c' oder 'a01.o'). Ganz wichtig für die Reihenfolge: Linker-Optionen (wie '-lm' zum Einbinden der Mathe-Bibliothek) müssen zwingend am Ende des Aufrufs stehen, also erst nach den Quelltextdateien angegeben werden."
-  },
   {
   "query": "Was bewirkt der Parameter -o genau?",
   "type": "complementary",
@@ -1251,35 +1145,7 @@
     }
   ],
   "supplementary_answer": "Der Parameter '-o' (steht für 'output') beim Aufruf des GCC-Compilers bewirkt, dass Sie den Dateinamen des zu erzeugenden ausführbaren Programms selbst festlegen können. Wenn Sie diesen Parameter weglassen, generiert der Compiler standardmäßig immer eine Ausgabedatei mit dem Namen 'a.out'. Verwenden Sie hingegen z. B. '-o meinprogramm', heißt die fertig kompilierte Datei anschließend 'meinprogramm'."
-    "query": "Was bewirkt der Parameter -o genau?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-        "matching_score": 1.0,
-        "evidence": "Soll das ausfuhrbare Programm einen anderen Namen als a.out erhalten, zum Beispiel prog , so muss man die Option -o und den neuen Namen zusatzlich in das gcc -Kommando eintragen: gcc -o prog prog.c",
-        "page": 184
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
-        "matching_score": 0.9,
-        "page": 90
-      },
-      {
-        "gold_id": "55.txt",
-        "matching_score": 0.5,
-        "evidence": "Schreiben Sie das Programm in eine Datei namens wurzel.c, compilieren sie mit dem Aufruf\ngcc -Wall -o wurzel wurzel.c -lm\nund führen das Programm aus.",
-        "page": 1
-      },
-      {
-        "gold_id": "83.txt",
-        "matching_score": 0.4,
-        "evidence": "Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm gcc -o a02 a02.o a02-testing.o",
-        "page": 1
-      }
-    ],
-    "supplementary_answer": "Der Parameter '-o' (steht für 'output') beim Aufruf des GCC-Compilers bewirkt, dass Sie den Dateinamen des zu erzeugenden ausführbaren Programms selbst festlegen können. Wenn Sie diesen Parameter weglassen, generiert der Compiler standardmäßig immer eine Ausgabedatei mit dem Namen 'a.out'. Verwenden Sie hingegen z. B. '-o meinprogramm', heißt die fertig kompilierte Datei anschließend 'meinprogramm'."
-  },
   {
   "query": "Was bedeutet die Flag -Wall und warum ist sie wichtig?",
   "type": "complementary",
@@ -1297,23 +1163,7 @@
     }
   ],
   "supplementary_answer": "Die Flag '-Wall' ist eine essenzielle Compiler-Option beim GCC. Sie veranlasst den Compiler dazu, bei 'verdächtigem' Code Warnungen auszugeben, den er ohne diese Flag einfach stillschweigend kompilieren würde. Die Wichtigkeit dieser Flag liegt darin, dass diese Warnungen sehr häufig auf handfeste Programmierfehler hindeuten. Ohne deren Beseitigung läuft das Programm später oft fehlerhaft oder gar nicht. Wie das Skript betont, bedeutet ein fehlerfrei (aber ohne '-Wall') kompiliertes Programm noch lange nicht, dass die Logik auch korrekt ist."
-    "query": "Was bedeutet die Flag -Wall und warum ist sie wichtig?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-        "matching_score": 1.0,
-        "page": 184
       },
-      {
-        "gold_id": "82.txt",
-        "matching_score": 0.3,
-        "evidence": "Kompilieren Sie Ihre Lösung gcc -c -Wall -std=c11 a01.c.",
-        "page": 1
-      }
-    ],
-    "supplementary_answer": "Die Flag '-Wall' ist eine essenzielle Compiler-Option beim GCC. Sie veranlasst den Compiler dazu, bei 'verdächtigem' Code Warnungen auszugeben, den er ohne diese Flag einfach stillschweigend kompilieren würde. Die Wichtigkeit dieser Flag liegt darin, dass diese Warnungen sehr häufig auf handfeste Programmierfehler hindeuten. Ohne deren Beseitigung läuft das Programm später oft fehlerhaft oder gar nicht. Wie das Skript betont, bedeutet ein fehlerfrei (aber ohne '-Wall') kompiliertes Programm noch lange nicht, dass die Logik auch korrekt ist."
-  },
   {
     "query": "Ich bekomme einen Segmentation Fault – was ist da eigentlich das Problem im Speicher?",
     "type": "complementary",
@@ -1368,35 +1218,7 @@
     }
   ],
   "supplementary_answer": "Obwohl man mit normalen Variablen Werte speichern kann, sind Pointer (Zeiger) in C aus drei essenziellen Gründen unverzichtbar: 1. Veränderbarkeit über Funktionsgrenzen hinweg ('Call by Reference'): Da C bei Funktionsaufrufen standardmäßig nur Kopien von Werten übergibt ('Call by Value'), könnte eine Funktion wie 'scanf' niemals den echten Wert einer Variablen verändern. Erst durch die Übergabe eines Pointers (der Speicheradresse) erhält die Funktion direkten Schreibzugriff auf das Original. 2. Performance: Bei sehr großen Datenstrukturen (wie großen Arrays oder Structs) würde das ständige Kopieren der Werte den Rechner extrem ausbremsen. Ein Pointer kopiert nur die winzige Adresse. 3. Dynamischer Speicher: Wenn man zur Programmierzeit noch nicht weiß, wie viel Speicher man benötigt, muss man Speicher zur Laufzeit anfordern (Heap, z.B. mit 'malloc'). Da dieser Speicher nicht an Variablennamen gebunden ist, kann man auf ihn ausschließlich über Pointer zugreifen."
-    "query": "Wieso brauche ich Pointer überhaupt, wenn ich Variablen habe?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 1.0,
-        "evidence": "Zeiger als Parameter von Funktionen werden in C verwendet, um ' call by reference ' zu simulieren. So wird das Zeigerargument selbst zwar kopiert, durch Dereferenzierung erhalt man aber direkten Zugriff auf die eigentlichen Daten und kann diese andern. Oft mochte man mit einem Zeigerargument aber nur das unter Umstanden aufwandige automatische Kopieren der Argumente umgehen, da sich bei großen Datenstrukturen die Parameterubergabe mit ' call by value ' negativ auf die Laufzeit auswirken konnte.",
-        "page": 123
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.95,
-        "evidence": "Da Zeigervariablen ihre Werte wahrend der Ausfuhrungszeit eines Programms andern konnen, kann man mit ihnen auf Speicher zugreifen, der erst wahrend der Ausfuhrung des Programms bereitgestellt wird. Diese Moglichkeit kennen praktisch alle modernen Programmiersprachen; das Stichwort ist ' Speicher auf dem Heap'. Die Besprechung dieser Moglichkeit wird auf Kapitel 13 verschoben. - · Die andere Moglichkeit ist eine Eigenart von C: Mit Zeigern kann man - in gewissen Grenzen - auch rechnen. Und damit mussen wir uns jetzt beschaftigen.",
-        "page": 124
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.9,
-        "page": 120
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-        "matching_score": 0.8,
-        "evidence": "Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
-        "page": 24
-      }
-    ],
-    "supplementary_answer": "Obwohl man mit normalen Variablen Werte speichern kann, sind Pointer (Zeiger) in C aus drei essenziellen Gründen unverzichtbar: 1. Veränderbarkeit über Funktionsgrenzen hinweg ('Call by Reference'): Da C bei Funktionsaufrufen standardmäßig nur Kopien von Werten übergibt ('Call by Value'), könnte eine Funktion wie 'scanf' niemals den echten Wert einer Variablen verändern. Erst durch die Übergabe eines Pointers (der Speicheradresse) erhält die Funktion direkten Schreibzugriff auf das Original. 2. Performance: Bei sehr großen Datenstrukturen (wie großen Arrays oder Structs) würde das ständige Kopieren der Werte den Rechner extrem ausbremsen. Ein Pointer kopiert nur die winzige Adresse. 3. Dynamischer Speicher: Wenn man zur Programmierzeit noch nicht weiß, wie viel Speicher man benötigt, muss man Speicher zur Laufzeit anfordern (Heap, z.B. mit 'malloc'). Da dieser Speicher nicht an Variablennamen gebunden ist, kann man auf ihn ausschließlich über Pointer zugreifen."
-  },
   {
     "query": "Wie kann ich auf den Wert hinter einem Pointer zugreifen?",
     "type": "complementary",
@@ -1544,35 +1366,7 @@
     }
   ],
   "supplementary_answer": "Man nutzt 'malloc', um dynamisch Speicherplatz auf dem Heap anzufordern, wenn die exakte Speichermenge erst zur Laufzeit (z. B. durch Benutzereingaben oder Berechnungen) feststeht. Bei statischen Variablen (Arrays) muss die Größe bereits beim Schreiben des Programms fest einprogrammiert sein, was sie für flexible oder unbekannte Datengrößen problematisch macht. Ein weiterer entscheidender Grund ist die Lebensdauer: Speicher, der mit 'malloc' reserviert wurde, ist nicht an den lokalen Gültigkeitsbereich (Blockstruktur) einer Funktion gebunden. Er bleibt solange erhalten, bis er explizit mit 'free()' wieder freigegeben wird oder das Programm endet. Dies ist für Datenstrukturen, die flexibel wachsen sollen und über Funktionsgrenzen hinweg existieren müssen (wie z. B. verkettete Listen), zwingend notwendig."
-    "query": "Warum nutzt man malloc, um Speicher zu reservieren?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 1.0,
-        "evidence": "Ein Programm hat die Moglichkeit, wahrend es lauft Speicher vom Betriebssystem anzufordern, wobei sich die Große des angeforderten Speichers erst bei Ablauf des Programms z.B. durch eine Benutzereingabe ergibt. Dieser Speicher steht ihm dann so lange zur Verfugung, bis es ihn explizit wieder freigibt oder bis es terminiert. Die Verfugbarkeit dieses Speichers ist insbesondere nicht an die Blockstruktur des Programms gebunden.",
-        "page": 141
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 0.95,
-        "page": 142
-      },
-      {
-        "gold_id": "203.txt",
-        "matching_score": 0.6,
-        "evidence": "Innerhalb der Funktion soll mittels malloc() Speicher auf dem Heap für ein neues Listenelement angefordert werden.\n[...]\nnode_t *new = (node_t *) malloc(sizeof(node_t));",
-        "page": 1
-      },
-      {
-        "gold_id": "408.txt",
-        "matching_score": 0.4,
-        "evidence": "Verwenden Sie in dieser Aufgaben für das Feld dynamischen Speicher um dem Umgang damit zu üben.\nNutzen Sie dafür die Funktion malloc().",
-        "page": 2
-      }
-    ],
-    "supplementary_answer": "Man nutzt 'malloc', um dynamisch Speicherplatz auf dem Heap anzufordern, wenn die exakte Speichermenge erst zur Laufzeit (z. B. durch Benutzereingaben oder Berechnungen) feststeht. Bei statischen Variablen (Arrays) muss die Größe bereits beim Schreiben des Programms fest einprogrammiert sein, was sie für flexible oder unbekannte Datengrößen problematisch macht. Ein weiterer entscheidender Grund ist die Lebensdauer: Speicher, der mit 'malloc' reserviert wurde, ist nicht an den lokalen Gültigkeitsbereich (Blockstruktur) einer Funktion gebunden. Er bleibt solange erhalten, bis er explizit mit 'free()' wieder freigegeben wird oder das Programm endet. Dies ist für Datenstrukturen, die flexibel wachsen sollen und über Funktionsgrenzen hinweg existieren müssen (wie z. B. verkettete Listen), zwingend notwendig."
-  },
   {
   "query": "Warum sollte man den Heap für Strukturen nutzen statt den Stack?",
   "type": "complementary",
@@ -1596,29 +1390,7 @@
     }
   ],
   "supplementary_answer": "Der Heap bietet bei der Verwendung von Strukturen (structs) im Vergleich zum Stack zwei wesentliche Vorteile: Performance und Lebensdauer. Zum einen verhindert man durch die Nutzung des Heaps (und der Weitergabe von Zeigern auf diese Strukturen) das extrem speicher- und laufzeitintensive Kopieren von Daten. Würde man umfangreiche Strukturen stattdessen als normale Variablen ('by value') über den Stack an Funktionen übergeben, müsste das Programm die komplette Struktur jedes Mal im Speicher duplizieren. Zum anderen ist die Lebensdauer von Variablen auf dem Stack strikt an den lokalen Block gebunden – sie werden beim Verlassen einer Funktion sofort zerstört. Speicher auf dem Heap bleibt hingegen solange bestehen, bis er explizit freigegeben wird. Dies ist zwingend notwendig, wenn man komplexe, dynamische Datenstrukturen wie verkettete Listen oder Bäume aufbauen möchte, deren Größe vorab nicht feststeht und deren Elemente funktionsübergreifend (persistent) existieren müssen."
-    "query": "Warum sollte man den Heap für Strukturen nutzen statt den Stack?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 0.95,
-        "evidence": "Es wurde bereits angesprochen, dass man sich sehr genau überlegen sollte, ob man umfangreiche Strukturen als Parameter von Funktionen oder als Funktionstypen vorsieht, weil beides das Kopieren ganzer Strukturen impliziert. In der Regel wird man deshalb im Zusammenhang mit Funktionen Zeiger auf Strukturen verwenden.",
-        "page": 153
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 0.9,
-        "page": 141
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-149-156.pdf",
-        "matching_score": 0.85,
-        "evidence": "Typischerweise werden verkettete Listen auf dem Heap angelegt. Der Fantasie sind beim Aufbau verketteter Strukturen keine Grenzen gesetzt: In einer verketteten Liste kann jeder Eintrag Anfang einer verketteten Liste sein. Mehrere Zeigerkomponenten in jeder Struktur erlauben den Aufbau von mehrfach verketteten Listen oder auch von Bäumen.",
-        "page": 156
-      }
-    ],
-    "supplementary_answer": "Der Heap bietet bei der Verwendung von Strukturen (structs) im Vergleich zum Stack zwei wesentliche Vorteile: Performance und Lebensdauer. Zum einen verhindert man durch die Nutzung des Heaps (und der Weitergabe von Zeigern auf diese Strukturen) das extrem speicher- und laufzeitintensive Kopieren von Daten. Würde man umfangreiche Strukturen stattdessen als normale Variablen ('by value') über den Stack an Funktionen übergeben, müsste das Programm die komplette Struktur jedes Mal im Speicher duplizieren. Zum anderen ist die Lebensdauer von Variablen auf dem Stack strikt an den lokalen Block gebunden – sie werden beim Verlassen einer Funktion sofort zerstört. Speicher auf dem Heap bleibt hingegen solange bestehen, bis er explizit freigegeben wird. Dies ist zwingend notwendig, wenn man komplexe, dynamische Datenstrukturen wie verkettete Listen oder Bäume aufbauen möchte, deren Größe vorab nicht feststeht und deren Elemente funktionsübergreifend (persistent) existieren müssen."
-  },
   {
     "query": "Was bedeutet dereferenzieren eigentlich genau?",
     "type": "complementary",
@@ -1710,41 +1482,7 @@
     }
   ],
   "supplementary_answer": "Wenn in einer Aufgabenstellung der Begriff 'Kommandozeile' fällt, sind in C in der Regel zwei völlig verschiedene Dinge gemeint, was oft zu Verwirrung führt: \n\n1. Standardein- und -ausgabe (während das Programm läuft): Wenn es heißt 'liest von der Kommandozeile' oder 'gibt auf der Kommandozeile aus' (wie z. B. in den Aufgaben 'Zahl in Wort' oder 'geteiltes Handy'), ist damit lediglich die ganz normale Eingabe über die Tastatur und Ausgabe auf dem Bildschirm gemeint. Dies lösen Sie mit Funktionen wie 'scanf()', 'getchar()' oder 'printf()'.\n\n2. Kommandozeilenparameter (beim Start des Programms): Wenn es heißt 'bekommt auf der Kommandozeile Argumente übergeben' (wie z. B. in der Aufgabe 'Binäre Suche Hauptprogramm'), meint dies die Aufrufzeile des Programms (z. B. './programm 50 10'). Um diese Werte zu lesen, verwendet man keine Benutzereingaben wie 'scanf', sondern ändert den Prototypen der main-Funktion zu 'int main(int argc, char *argv[])' und greift über das Array 'argv' auf die Startparameter zu."
-    "query": "Was heißt [Aufgabe XYZ]? (Aufgabenstellung sagt Kommandozeile)",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 1.0,
-        "page": 134
       },
-      {
-        "gold_id": "525.txt",
-        "matching_score": 0.95,
-        "evidence": "Programmieren Sie eine main-Funktion (ohne Benutzereingaben), die auf der Kommandozeile genau zwei Argumente übergeben bekommt. [...] Beide, auf der Kommandozeile übergebene, Argumente werden mit atoi in int-Werte umgewandelt. Das erste Argumente wird in n , das zweite in k gespeichert.",
-        "page": 2
-      },
-      {
-        "gold_id": "407.txt",
-        "matching_score": 0.9,
-        "evidence": "Schreiben Sie ein Programm, dass eine Zahl zwischen 0 und 99 von der Kommandozeile liest und eine String-Repräsentation dieser Zahl in Worten ausgibt. [...] \nint main() { // Zahl einlesen int number; scanf(\"%d\", &number);",
-        "page": 1
-      },
-      {
-        "gold_id": "403.txt",
-        "matching_score": 0.85,
-        "evidence": "Schreiben Sie ein Programm, welches eine Nachricht von der Kommandozeile einliest und zwei Nachrichten auf der Kommandozeile ausgibt: [...] \nint main(){ char str[LAENGE]; int i = 0; while((str[i] = getchar()) != '\\n')",
-        "page": 1
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-        "matching_score": 0.8,
-        "evidence": "Die Ausgabefunktion printf haben wir in unserem ersten Beispiel bereits kennengelernt, wenn auch nur in extrem elementarer Form. Sie schreibt immer auf das Standardausgabegerat , in der Regel also auf den Bildschirm. Ihr Pendant fur die Eingabe ist die Funktion scanf , die stets vom Standardeingabegerat liest, in der Regel also von der Tastatur.",
-        "page": 21
-      }
-    ],
-    "supplementary_answer": "Wenn in einer Aufgabenstellung der Begriff 'Kommandozeile' fällt, sind in C in der Regel zwei völlig verschiedene Dinge gemeint, was oft zu Verwirrung führt: \n\n1. Standardein- und -ausgabe (während das Programm läuft): Wenn es heißt 'liest von der Kommandozeile' oder 'gibt auf der Kommandozeile aus' (wie z. B. in den Aufgaben 'Zahl in Wort' oder 'geteiltes Handy'), ist damit lediglich die ganz normale Eingabe über die Tastatur und Ausgabe auf dem Bildschirm gemeint. Dies lösen Sie mit Funktionen wie 'scanf()', 'getchar()' oder 'printf()'.\n\n2. Kommandozeilenparameter (beim Start des Programms): Wenn es heißt 'bekommt auf der Kommandozeile Argumente übergeben' (wie z. B. in der Aufgabe 'Binäre Suche Hauptprogramm'), meint dies die Aufrufzeile des Programms (z. B. './programm 50 10'). Um diese Werte zu lesen, verwendet man keine Benutzereingaben wie 'scanf', sondern ändert den Prototypen der main-Funktion zu 'int main(int argc, char *argv[])' und greift über das Array 'argv' auf die Startparameter zu."
-  },
   {
     "query": "Wann beenden sich Schleifen?",
     "type": "complementary",
@@ -2029,35 +1767,7 @@
     }
   ],
   "supplementary_answer": "Man benötigt die Speicheradresse in C hauptsächlich, um Funktionen (wie z. B. 'scanf') den direkten Zugriff auf Originalvariablen zu gewähren, sodass diese verändert werden können. Da C bei Funktionsaufrufen standardmäßig nur eine Kopie des Wertes übergibt ('Call by Value'), blieben ohne die Übergabe der Adresse alle Änderungen nur lokal in der Funktion. Ein zweiter wesentlicher Grund ist die Performanz: Bei sehr großen Datenstrukturen erspart die Übergabe der reinen Speicheradresse das zeit- und ressourcenaufwändige Kopieren der kompletten Daten ('Call by Reference'-Simulation). Um auf diese Speicheradresse zuzugreifen, verwendet man den Adressoperator, das kaufmännische Und ('&'). Setzt man dieses Zeichen direkt vor eine Variable (z. B. '&v'), liefert der Teilausdruck die exakte Adresse im Speicher zurück, anstatt den eigentlichen Wert der Variablen zu lesen."
-    "query": "Wieso brauche ich Pointer und wie greife ich auf die Adresse zu?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-        "matching_score": 1.0,
-        "evidence": "Bei scanf ist das anders. Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
-        "page": 24
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.95,
-        "page": 120
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.9,
-        "evidence": "Zeiger als Parameter von Funktionen werden in C verwendet, um ' call by reference ' zu simulieren. So wird das Zeigerargument selbst zwar kopiert, durch Dereferenzierung erhalt man aber direkten Zugriff auf die eigentlichen Daten und kann diese andern. Oft mochte man mit einem Zeigerargument aber nur das unter Umstanden aufwandige automatische Kopieren der Argumente umgehen, da sich bei großen Datenstrukturen die Parameterubergabe mit ' call by value ' negativ auf die Laufzeit auswirken konnte.",
-        "page": 123
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.85,
-        "evidence": "Der Teilausdruck &i liefert die Adresse von i als Resultat.",
-        "page": 120
-      }
-    ],
-    "supplementary_answer": "Man benötigt die Speicheradresse in C hauptsächlich, um Funktionen (wie z. B. 'scanf') den direkten Zugriff auf Originalvariablen zu gewähren, sodass diese verändert werden können. Da C bei Funktionsaufrufen standardmäßig nur eine Kopie des Wertes übergibt ('Call by Value'), blieben ohne die Übergabe der Adresse alle Änderungen nur lokal in der Funktion. Ein zweiter wesentlicher Grund ist die Performanz: Bei sehr großen Datenstrukturen erspart die Übergabe der reinen Speicheradresse das zeit- und ressourcenaufwändige Kopieren der kompletten Daten ('Call by Reference'-Simulation). Um auf diese Speicheradresse zuzugreifen, verwendet man den Adressoperator, das kaufmännische Und ('&'). Setzt man dieses Zeichen direkt vor eine Variable (z. B. '&v'), liefert der Teilausdruck die exakte Adresse im Speicher zurück, anstatt den eigentlichen Wert der Variablen zu lesen."
-  },
+   },
   {
   "query": "Was ist die Ursache für Segfault?",
   "type": "complementary",
@@ -2081,29 +1791,7 @@
     }
   ],
   "supplementary_answer": "Ein 'Segmentation Fault' (Speicherzugriffsfehler) tritt auf, wenn ein Programm versucht, auf einen Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine Zugriffsrechte hat. Laut den Skripten passiert das typischerweise in drei Szenarien: 1. Indexüberschreitungen (Out-of-Bounds Access) bei Arrays, bei denen über die Feldgrenzen hinaus auf fremden Speicher zugegriffen wird. 2. Vergessene Adressoperatoren ('&') bei Funktionen wie scanf, wodurch der normale Wert der Variable fälschlicherweise als Speicheradresse interpretiert und dereferenziert wird (z. B. Adresse 0). 3. Generelles Dereferenzieren von ungültigen oder uninitialisierten Zeigern. Das Betriebssystem bricht das Programm in diesen Fällen zum Schutz des restlichen Speichers hart ab."
-    "query": "Was ist die Ursache für Segfault?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-119-126.pdf",
-        "matching_score": 1.0,
-        "page": 113
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
-        "matching_score": 0.9,
-        "evidence": "Die Funktion scanf wird durch den Formatstring informiert, dass ein int -Wert zu lesen ist, und unterstellt deshalb, dass das nachste Argument die Adresse einer int -Variablen ist. Der Versuch, 0 als Adresse zu verwenden, kann in der Regel nur ins Chaos fuhren. Wenn man Gluck hat, uberschreibt man nur Daten, die man ohnehin nicht mehr braucht. Nur - Gluck hat man in der Regel nicht. Das Programm wird in der Regel mit einem segmentation fault , memory fault oder bus error vom Betriebssystem ' gekillt', hoffentlich ohne Auswirkungen auf andere, gleichzeitig laufende Prozesse.",
-        "page": 24
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
-        "matching_score": 0.8,
-        "evidence": "Auch ein falscher Indexzugriff oder allgemein das Dereferenzieren eines ungultigen Zeigers kann zu Problemen fuhren und ist haufig Ursache von Programmabsturzen. Das untersuchen wir anhand eines Beispiels: ``` int v[10], w[50], i, *p = v; /* Berechnung von i */ v[i] = 44; *(p + i) = 44; ``` Welchen Wert i hat, liegt erst fest, wenn die Wertzuweisungen ausgefuhrt werden. Allerdings:",
-        "page": 128
-      }
-    ],
-    "supplementary_answer": "Ein 'Segmentation Fault' (Speicherzugriffsfehler) tritt auf, wenn ein Programm versucht, auf einen Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine Zugriffsrechte hat. Laut den Skripten passiert das typischerweise in drei Szenarien: 1. Indexüberschreitungen (Out-of-Bounds Access) bei Arrays, bei denen über die Feldgrenzen hinaus auf fremden Speicher zugegriffen wird. 2. Vergessene Adressoperatoren ('&') bei Funktionen wie scanf, wodurch der normale Wert der Variable fälschlicherweise als Speicheradresse interpretiert und dereferenziert wird (z. B. Adresse 0). 3. Generelles Dereferenzieren von ungültigen oder uninitialisierten Zeigern. Das Betriebssystem bricht das Programm in diesen Fällen zum Schutz des restlichen Speichers hart ab."
-  },
   {
     "query": "Wieso nutzt man Structs und wann brauche ich den Pfeil -> statt dem Punkt?",
     "type": "complementary",
@@ -2232,35 +1920,7 @@
     }
   ],
   "supplementary_answer": "Wenn der Code nicht funktioniert, gibt es in C verschiedene Strategien zur Fehlersuche (Debugging). Zunächst sollte man den Compiler voll ausschöpfen: Durch das Hinzufügen der Option '-Wall' (beim gcc) zwingt man den Compiler, alle Warnungen auszugeben. C akzeptiert sonst vielen fehlerhaften Code kommentarlos; die Warnungen weisen oft präzise auf die Programmierfehler hin. Um logische Fehler zu finden, empfiehlt das Skript sogenanntes 'Low-Level Debugging' durch bedingte Testausgaben (mit 'printf' und Makros wie __LINE__), um zu kontrollieren, ob Variablen die erwarteten Werte haben und welche Codezeilen überhaupt erreicht werden. Bei komplexeren Datenstrukturen (wie Arrays) ist es ratsam, sich eine eigene Ausgabefunktion (z.B. 'printArray') zu schreiben, um sich Zwischenergebnisse während des Programmablaufs ausgeben zu lassen. Zudem kann man die Funktion 'assert()' einbauen, die den Programmablauf mit einer Fehlermeldung stoppt, falls eine erwartete Bedingung nicht erfüllt ist."
-    "query": "Mein Code funktioniert nicht, was kann ich tun?",
-    "type": "complementary",
-    "references": [
-      {
-        "gold_id": "programmierung_mit_ansi_c-173-184.pdf",
-        "matching_score": 0.95,
-        "evidence": "Eine zusätzliche Option sollte man beim Aufruf des gcc auf jeden Fall angeben, nämlich -Wall [...] Ist diese Option angegeben, schreibt der Compiler zu ”verdächtigem“ Code, den er sonst kommentarlos akzeptieren würde, Warnungen. In vielen Fällen weisen diese Warnungen auf Programmierfehler hin, ohne deren Beseitigung das Programm nicht laufen wird.",
-        "page": 184
       },
-      {
-        "gold_id": "programmierung_mit_ansi_c-113-118.pdf",
-        "matching_score": 0.9,
-        "page": 109
-      },
-      {
-        "gold_id": "207.txt",
-        "matching_score": 0.85,
-        "evidence": "Erstelle zur Kontrolle und zum Debugging eine void printMyArray(int *a, int len); Funktion, die ein Array a der Länge len ausgibt.",
-        "page": 1
-      },
-      {
-        "gold_id": "programmierung_mit_ansi_c-107-112.pdf",
-        "matching_score": 0.7,
-        "evidence": "Die Funktion\nvoid assert(int bedingung);\nbewirkt nichts, wenn bedingung den Wert wahr besitzt. Sollte der Wert falsch sein, wird das Programm mit einer Fehlermeldung abgebrochen.",
-        "page": 102
-      }
-    ],
-    "supplementary_answer": "Wenn der Code nicht funktioniert, gibt es in C verschiedene Strategien zur Fehlersuche (Debugging). Zunächst sollte man den Compiler voll ausschöpfen: Durch das Hinzufügen der Option '-Wall' (beim gcc) zwingt man den Compiler, alle Warnungen auszugeben. C akzeptiert sonst vielen fehlerhaften Code kommentarlos; die Warnungen weisen oft präzise auf die Programmierfehler hin. Um logische Fehler zu finden, empfiehlt das Skript sogenanntes 'Low-Level Debugging' durch bedingte Testausgaben (mit 'printf' und Makros wie __LINE__), um zu kontrollieren, ob Variablen die erwarteten Werte haben und welche Codezeilen überhaupt erreicht werden. Bei komplexeren Datenstrukturen (wie Arrays) ist es ratsam, sich eine eigene Ausgabefunktion (z.B. 'printArray') zu schreiben, um sich Zwischenergebnisse während des Programmablaufs ausgeben zu lassen. Zudem kann man die Funktion 'assert()' einbauen, die den Programmablauf mit einer Fehlermeldung stoppt, falls eine erwartete Bedingung nicht erfüllt ist."
-  },
   {
     "query": "Was ist der Rückgabewert von scanf ?",
     "type": "complementary",
