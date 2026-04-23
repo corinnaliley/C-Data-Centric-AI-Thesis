@@ -26,11 +26,15 @@ from reporting import log_query_result, compute_and_print_metrics, save_report
 
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
+# --- Version -----------------------------------------------------------------
+VERSION               = "v1_baseline"   # ← hier ändern für neue Experimente
+
 # --- Pfade -------------------------------------------------------------------
-OUTPUT_CHUNKS_PATH    = PROCESSED_PATH / "processed_v1_chunks.json"
-OUTPUT_RESULTS_PATH   = RESULTS_PATH   / "eval_results_v1.json"
-COVERAGE_REPORT_PATH  = RESULTS_PATH   / "evidence_coverage.json"
-MISSING_DEBUG_PATH    = RESULTS_PATH   / "missing_debug.txt"
+VERSION_PATH          = RESULTS_PATH   / VERSION
+OUTPUT_CHUNKS_PATH    = PROCESSED_PATH / f"chunks_{VERSION}.json"
+OUTPUT_RESULTS_PATH   = VERSION_PATH   / "eval_results.json"
+COVERAGE_REPORT_PATH  = VERSION_PATH   / "evidence_coverage.json"
+MISSING_DEBUG_PATH    = VERSION_PATH   / "missing_debug.txt"
 
 model_slug            = EMBEDDING_MODEL_NAME.replace("/", "_")
 EMBEDDINGS_CACHE_PATH = PROCESSED_PATH / f"embeddings_{model_slug}.pt"

@@ -176,21 +176,6 @@ def load_any_file(path: str, cache_dir: pathlib.Path = None) -> List[Block]:
                           text=f.read(),
                           meta={"source": path})]
 
-def convert_json_faq(path: str) -> List[Block]:
-    with open(path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    blocks = []
-    for entry in data:
-        # V1 Logik: Wir klatschen Frage und Antwort einfach zusammen
-        text = f"{entry['question']} {entry['answer']}"
-        blocks.append(Block(
-            doc_id=entry['id'],
-            block_type=BlockType.PARAGRAPH,
-            text=text,
-            meta={"source": path, "version": "V1"}
-        ))
-    return blocks
-
 # --- TEST-LAUF ---
 if __name__ == "__main__":
     # Beispielpfad anpassen
