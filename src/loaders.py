@@ -115,9 +115,15 @@ def chunk_markdown_structural(md: str, doc_id: str) -> List[Block]:
     for i, (section_path, text) in enumerate(raw_chunks):
         if i > 0:
             prev_words = raw_chunks[i - 1][1].split()
-            overlap_n  = int(len(prev_words) * OVERLAP_RATIO)
-            if overlap_n > 0:
-                text = " ".join(prev_words[-overlap_n:]) + "\n\n" + text
+            n = int(len(prev_words) * OVERLAP_RATIO)
+            if n > 0:
+                text = " ".join(prev_words[-n:]) + "\n\n" + text
+
+        if i < len(raw_chunks) - 1:
+            next_words = raw_chunks[i + 1][1].split()
+            n = int(len(next_words) * OVERLAP_RATIO)
+            if n > 0:
+                text = text + "\n\n" + " ".join(next_words[:n])
 
         blocks.append(Block(
             doc_id=doc_id,

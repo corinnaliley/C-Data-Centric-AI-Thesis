@@ -48,7 +48,8 @@ VERSION_CONFIG = {
     },
 }
 
-VERSION  = "v1_baseline"   # ← hier ändern für neue Experimente
+VERSION  = "v2_chunking_hybrid"   # ← hier ändern für neue Experimente
+#VERSION  = "v1_baseline"   # ← hier ändern für neue Experimente
 _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]
