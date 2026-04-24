@@ -3,10 +3,12 @@ retrieval.py: Embeddings und Vektor-Retrieval via OpenAI-kompatibler API.
 """
 
 import json
+import re
 import time
 import torch
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed, TimeoutError as FutureTimeoutError
 from pathlib import Path
+from rank_bm25 import BM25Okapi
 from zvec.extension import OpenAIDenseEmbedding
 
 from constants import (
@@ -15,6 +17,26 @@ from constants import (
     EMBEDDING_API_BASE_URL,
     SAIA_API_KEY,
 )
+
+
+def _tokenize(s: str) -> list[str]:
+    return re.findall(r"\w+", s.lower())
+
+
+class BM25Index:
+    def __init__(self, corpus_texts: list[str]):
+        self.bm25 = BM25Okapi([_tokenize(t) for t in corpus_texts])
+
+    def scores(self, query: str):
+        return self.bm25.get_scores(_tokenize(query))
+
+
+def rrf(rank_lists: list[list[int]], k: int = 60, top_k: int = 20) -> list[int]:
+    scores: dict[int, float] = {}
+    for ranks in rank_lists:
+        for pos, idx in enumerate(ranks):
+            scores[idx] = scores.get(idx, 0.0) + 1.0 / (k + pos + 1)
+    return [idx for idx, _ in sorted(scores.items(), key=lambda x: -x[1])[:top_k]]
 
 
 def _build_embed_model() -> OpenAIDenseEmbedding:
@@ -63,14 +85,15 @@ def load_chunks_from_file(filepath: Path) -> list | None:
     return chunks
 
 
-def _embed_with_retry(embed_model: OpenAIDenseEmbedding, text: str, retries: int = 3, wait: float = 2.0, delay: float = 0.5) -> list[float]:
+def _embed_with_retry(embed_model: OpenAIDenseEmbedding, text: str, retries: int = 5, wait: float = 5.0, delay: float = 0.3) -> list[float]:
     for attempt in range(retries):
         try:
             result = embed_model.embed(text)
             time.sleep(delay)
             return result
-        except RuntimeError as e:
+        except Exception as e:
             if attempt < retries - 1:
+                print(f"\n⚠️  Embed-Fehler (Versuch {attempt+1}/{retries}): {e} — warte {wait*(attempt+1):.0f}s...")
                 time.sleep(wait * (attempt + 1))
             else:
                 raise
@@ -104,20 +127,23 @@ def load_or_build_embeddings(
     vectors: dict[int, list[float]] = dict(partial)
 
     if remaining:
-        print(f"🔢 Vektoriere {len(remaining)} Chunks via API (max_workers=3)...")
+        print(f"🔢 Vektoriere {len(remaining)} Chunks via API...")
         cache_path.parent.mkdir(parents=True, exist_ok=True)
-        with ThreadPoolExecutor(max_workers=3) as executor:
-            futures = {
-                executor.submit(_embed_with_retry, embed_model, text): i
-                for i, text in remaining
-            }
-            with tqdm(total=len(corpus_texts), initial=len(partial), unit="chunk") as pbar:
-                for future in as_completed(futures):
-                    i = futures[future]
-                    vectors[i] = future.result()
-                    pbar.update(1)
-                    if len(vectors) % 10 == 0:
-                        torch.save(vectors, partial_path)
+        with tqdm(total=len(corpus_texts), initial=len(partial), unit="chunk") as pbar:
+            for i, text in remaining:
+                with ThreadPoolExecutor(max_workers=1) as executor:
+                    future = executor.submit(_embed_with_retry, embed_model, text)
+                    try:
+                        vectors[i] = future.result(timeout=120)
+                    except FutureTimeoutError:
+                        print(f"\n⏱️  Chunk {i} Timeout nach 120s — überspringe.")
+                        continue
+                    except Exception as e:
+                        print(f"\n❌ Chunk {i} Fehler: {e} — überspringe.")
+                        continue
+                pbar.update(1)
+                if len(vectors) % 10 == 0:
+                    torch.save(vectors, partial_path)
 
     embeddings = torch.tensor([vectors[i] for i in range(len(corpus_texts))], dtype=torch.float32)
     torch.save(embeddings, cache_path)
@@ -133,16 +159,26 @@ def retrieve_top_k(
     corpus_ids: list[str],
     corpus_texts: list[str],
     top_k: int = 5,
+    bm25_index: BM25Index | None = None,
 ) -> dict:
-    from sentence_transformers import util  # bleibt für cos_sim
+    from sentence_transformers import util
 
     query_vec = embed_model.embed(query_text)
     query_embedding = torch.tensor(query_vec, dtype=torch.float32)
 
-    cos_scores    = util.cos_sim(query_embedding, corpus_embeddings)[0]
-    top_k_capped  = min(top_k, len(corpus_texts))
-    top_k_indices = torch.topk(cos_scores, top_k_capped).indices.tolist()
-    top_idx       = top_k_indices[0]
+    cos_scores = util.cos_sim(query_embedding, corpus_embeddings)[0]
+
+    if bm25_index is not None:
+        n = len(corpus_texts)
+        dense_ranked = torch.argsort(cos_scores, descending=True).tolist()
+        bm25_scores  = bm25_index.scores(query_text)
+        bm25_ranked  = sorted(range(n), key=lambda i: -bm25_scores[i])
+        top_k_indices = rrf([dense_ranked, bm25_ranked], top_k=top_k)
+    else:
+        top_k_capped  = min(top_k, len(corpus_texts))
+        top_k_indices = torch.topk(cos_scores, top_k_capped).indices.tolist()
+
+    top_idx = top_k_indices[0]
 
     return {
         "top_idx":       top_idx,

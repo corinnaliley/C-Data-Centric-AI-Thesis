@@ -15,12 +15,61 @@ from collections import defaultdict
 
 
 # ---------------------------------------------------------------------------
-# Hilfsfunktion
+# Hilfsfunktionen
 # ---------------------------------------------------------------------------
+
+EVIDENCE_COVERAGE_THRESHOLD = 0.7
+
 
 def _normalize(s: str) -> str:
     """Kollabiert Whitespace und lowercased — für robuste Substring-Suche."""
     return re.sub(r"\s+", " ", s).strip().lower()
+
+
+def _normalize_words(s: str) -> list[str]:
+    return _normalize(s).split()
+
+
+def _longest_common_substring(a: list[str], b: list[str]) -> list[str]:
+    """Längste gemeinsame zusammenhängende Wortfolge (DP, O(m*n))."""
+    if not a or not b:
+        return []
+    m, n = len(a), len(b)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    best_len, best_end = 0, 0
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if a[i - 1] == b[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+                if dp[i][j] > best_len:
+                    best_len = dp[i][j]
+                    best_end = i
+            else:
+                dp[i][j] = 0
+    return a[best_end - best_len : best_end]
+
+
+def evidence_coverage_ratio(evidence: str, chunk: str) -> float:
+    """
+    Anteil der längsten zusammenhängenden Evidence-Wortfolge die im Chunk vorkommt.
+    1.0 = vollständig enthalten, 0.0 = keine Übereinstimmung.
+    """
+    ev_words = _normalize_words(evidence)
+    if not ev_words:
+        return 0.0
+    ch_words = _normalize_words(chunk)
+    longest = _longest_common_substring(ev_words, ch_words)
+    return len(longest) / len(ev_words)
+
+
+def _has_evidence(evidence: str, chunk_text: str) -> bool:
+    """
+    Prüft ob Chunk die Evidence hinreichend enthält.
+    Fast path: exakter Substring-Match. Fallback: LCS-Ratio >= THRESHOLD.
+    """
+    if _normalize(evidence) in _normalize(chunk_text):
+        return True
+    return evidence_coverage_ratio(evidence, chunk_text) >= EVIDENCE_COVERAGE_THRESHOLD
 
 
 # ---------------------------------------------------------------------------
@@ -138,8 +187,7 @@ def validate_evidence_coverage(
                 print()
                 continue
 
-            evidence_norm    = _normalize(evidence)
-            hit = any(evidence_norm in _normalize(t) for t in doc_to_texts[gold_id])
+            hit = any(_has_evidence(evidence, t) for t in doc_to_texts[gold_id])
 
             status = "OK" if hit else "MISSING"
             if hit:
@@ -190,12 +238,6 @@ def validate_evidence_coverage(
 # 3. Chunk-Level Evidence-Suche
 # ---------------------------------------------------------------------------
 
-def find_evidence_chunk_indices(evidence: str, corpus_texts: list[str]) -> list[int]:
-    """Gibt alle Corpus-Indizes zurück, in deren Text die Evidence vorkommt."""
-    evidence_norm = _normalize(evidence)
-    return [i for i, t in enumerate(corpus_texts) if evidence_norm in _normalize(t)]
-
-
 def evaluate_chunk_level(
     gold_references: list[dict],
     top_idx: int,
@@ -209,12 +251,9 @@ def evaluate_chunk_level(
 
     WRS = Σ(matching_score_i * top1_hit_i) / Σ(matching_score_i)
 
-        WRS = 1.0  → Top-1 enthält alle Evidenzen vollständig gewichtet
-        WRS = 0.0  → Top-1 enthält keine relevante Evidence
-
-    chunk_hit_high : Top-1 enthält mindestens eine Evidence mit score ≥ 0.8
-    chunk_hit_any  : Top-1 enthält irgendeine Evidence (score ≥ threshold)
-    topk_hit_high  : Top-K enthält mindestens eine Evidence mit score ≥ 0.8
+    Nutzt _has_evidence (exakter Match + LCS-Fallback) statt reinem Substring-Check,
+    damit Evidenzen die an Chunk-Grenzen liegen (z.B. V1) trotzdem zählen können.
+    Nur top_idx und top_k_indices werden gecheckt — nicht der gesamte Corpus.
     """
     chunk_hit_high   = False
     chunk_hit_any    = False
@@ -232,9 +271,8 @@ def evaluate_chunk_level(
 
         score_sum += matching_score
 
-        matching_indices  = find_evidence_chunk_indices(evidence, corpus_texts)
-        top1_hit          = top_idx in matching_indices
-        topk_hit          = any(idx in matching_indices for idx in top_k_indices)
+        top1_hit = _has_evidence(evidence, corpus_texts[top_idx])
+        topk_hit = any(_has_evidence(evidence, corpus_texts[i]) for i in top_k_indices)
 
         if top1_hit:
             weighted_hits += matching_score
@@ -248,7 +286,6 @@ def evaluate_chunk_level(
         evidence_details.append({
             "evidence_snippet":       evidence[:80],
             "matching_score":         matching_score,
-            "evidence_chunk_indices": matching_indices,
             "top1_is_evidence_chunk": top1_hit,
             "topk_has_evidence":      topk_hit,
         })
@@ -303,13 +340,13 @@ def dump_missing_evidence_with_context(
                 continue
 
             evidence_words = set(_normalize(evidence_full).split())
-            best_score, best_chunk = 0, ""
+            best_overlap, best_chunk = 0, ""
             for ct in doc_chunks:
                 overlap = len(evidence_words & set(_normalize(ct).split()))
-                if overlap > best_score:
-                    best_score, best_chunk = overlap, ct
+                if overlap > best_overlap:
+                    best_overlap, best_chunk = overlap, ct
 
-            f.write(f"  Nächster Chunk ({best_score} Wort-Overlap):\n")
+            f.write(f"  Nächster Chunk ({best_overlap} Wort-Overlap):\n")
             f.write(f"  {best_chunk[:500]}\n\n")
 
     print(f"✅ Debug-Datei: {output_path} ({len(missing)} Einträge)")
