@@ -1,12 +1,15 @@
 """
-retrieval.py: Embeddings und Vektor-Retrieval via OpenAI-kompatibler API.
+Embedding and vector retrieval via OpenAI-compatible API.
+
+Provides dense vector retrieval (via an API-hosted embedding model) and
+sparse BM25 retrieval, fused via Reciprocal Rank Fusion (RRF).
 """
 
 import json
 import re
 import time
 import torch
-from concurrent.futures import ThreadPoolExecutor, as_completed, TimeoutError as FutureTimeoutError
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 from pathlib import Path
 from rank_bm25 import BM25Okapi
 from zvec.extension import OpenAIDenseEmbedding
@@ -20,18 +23,47 @@ from constants import (
 
 
 def _tokenize(s: str) -> list[str]:
+    """Lowercase and split text into word tokens for BM25 indexing."""
     return re.findall(r"\w+", s.lower())
 
 
 class BM25Index:
+    """Thin wrapper around BM25Okapi for sparse keyword retrieval."""
+
     def __init__(self, corpus_texts: list[str]):
+        """
+        Build a BM25 index over the given corpus.
+
+        Args:
+            corpus_texts: List of document texts to index.
+        """
         self.bm25 = BM25Okapi([_tokenize(t) for t in corpus_texts])
 
-    def scores(self, query: str):
+    def scores(self, query: str) -> list[float]:
+        """
+        Return BM25 scores for all documents given a query.
+
+        Args:
+            query: The search query string.
+
+        Returns:
+            Array of BM25 relevance scores, one per corpus document.
+        """
         return self.bm25.get_scores(_tokenize(query))
 
 
 def rrf(rank_lists: list[list[int]], k: int = 60, top_k: int = 20) -> list[int]:
+    """
+    Combine multiple ranked lists via Reciprocal Rank Fusion.
+
+    Args:
+        rank_lists: List of ranked index arrays (one per retriever).
+        k: RRF damping constant; higher values reduce the impact of top ranks.
+        top_k: Number of results to return.
+
+    Returns:
+        Sorted list of the top-k indices by combined RRF score.
+    """
     scores: dict[int, float] = {}
     for ranks in rank_lists:
         for pos, idx in enumerate(ranks):
@@ -40,6 +72,7 @@ def rrf(rank_lists: list[list[int]], k: int = 60, top_k: int = 20) -> list[int]:
 
 
 def _build_embed_model() -> OpenAIDenseEmbedding:
+    """Instantiate the embedding model with credentials from constants."""
     emb = OpenAIDenseEmbedding(
         api_key=SAIA_API_KEY,
         model=EMBEDDING_MODEL_NAME,
@@ -50,7 +83,13 @@ def _build_embed_model() -> OpenAIDenseEmbedding:
 
 
 def save_chunks_to_file(chunks: list, filepath: Path) -> None:
-    """Serialisiert Block-Objekte als JSON auf Disk."""
+    """
+    Serialize Block objects to a JSON file on disk.
+
+    Args:
+        chunks: List of Block objects to serialize.
+        filepath: Destination path; parent directories are created if needed.
+    """
     serialized = [
         {
             "doc_id": getattr(c, "doc_id", "unknown_id"),
@@ -62,11 +101,19 @@ def save_chunks_to_file(chunks: list, filepath: Path) -> None:
     filepath.parent.mkdir(parents=True, exist_ok=True)
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(serialized, f, ensure_ascii=False, indent=2)
-    print(f"💾 Chunks gespeichert: {filepath} ({len(serialized)} Einträge)")
+    print(f"Chunks saved: {filepath} ({len(serialized)} entries)")
 
 
 def load_chunks_from_file(filepath: Path) -> list | None:
-    """Lädt gecachte Chunks aus JSON. Gibt None zurück wenn kein Cache vorhanden."""
+    """
+    Load cached chunks from a JSON file.
+
+    Args:
+        filepath: Path to the cached chunks JSON file.
+
+    Returns:
+        List of Block objects, or None if the cache file does not exist.
+    """
     if not filepath.exists():
         return None
     from loaders import Block, BlockType
@@ -81,11 +128,33 @@ def load_chunks_from_file(filepath: Path) -> list | None:
         )
         for d in data
     ]
-    print(f"📂 Chunks aus Cache geladen: {filepath.name} ({len(chunks)} Einträge)")
+    print(f"Chunks loaded from cache: {filepath.name} ({len(chunks)} entries)")
     return chunks
 
 
-def _embed_with_retry(embed_model: OpenAIDenseEmbedding, text: str, retries: int = 5, wait: float = 5.0, delay: float = 0.3) -> list[float]:
+def _embed_with_retry(
+    embed_model: OpenAIDenseEmbedding,
+    text: str,
+    retries: int = 5,
+    wait: float = 5.0,
+    delay: float = 0.3,
+) -> list[float]:
+    """
+    Call the embedding API with exponential-backoff retry on failure.
+
+    Args:
+        embed_model: The embedding model instance.
+        text: Text to embed.
+        retries: Maximum number of attempts.
+        wait: Base wait time in seconds; multiplied by the attempt number.
+        delay: Fixed sleep after each successful call to respect rate limits.
+
+    Returns:
+        Embedding vector as a list of floats.
+
+    Raises:
+        Exception: Re-raises the last exception after all retries are exhausted.
+    """
     for attempt in range(retries):
         try:
             result = embed_model.embed(text)
@@ -93,7 +162,7 @@ def _embed_with_retry(embed_model: OpenAIDenseEmbedding, text: str, retries: int
             return result
         except Exception as e:
             if attempt < retries - 1:
-                print(f"\n⚠️  Embed-Fehler (Versuch {attempt+1}/{retries}): {e} — warte {wait*(attempt+1):.0f}s...")
+                print(f"\nEmbed error (attempt {attempt+1}/{retries}): {e} — waiting {wait*(attempt+1):.0f}s...")
                 time.sleep(wait * (attempt + 1))
             else:
                 raise
@@ -105,29 +174,40 @@ def load_or_build_embeddings(
     cache_path: Path,
 ) -> torch.Tensor:
     """
-    Lädt Embeddings aus Cache oder baut sie neu via API (parallel, mit Retry).
-    Unterstützt Resume via partial cache falls ein vorheriger Run abgebrochen wurde.
+    Load embeddings from cache or build them via API with resume support.
+
+    If a complete cache exists and matches the current corpus size it is
+    returned immediately. If a partial cache from a previous interrupted run
+    exists, embedding resumes from where it left off.
+
+    Args:
+        embed_model: Embedding model used to encode texts.
+        corpus_texts: List of texts to embed.
+        cache_path: Path to the .pt cache file.
+
+    Returns:
+        Float32 tensor of shape (len(corpus_texts), embedding_dim).
     """
     from tqdm import tqdm
 
     if cache_path.exists():
-        print(f"📂 Lade Vektor-Cache: {cache_path.name}...")
+        print(f"Loading vector cache: {cache_path.name}...")
         embeddings = torch.load(cache_path)
         if embeddings.shape[0] == len(corpus_texts):
             return embeddings
-        print("⚠️  Cache veraltet (Chunk-Anzahl geändert). Vektoriere neu...")
+        print("Cache outdated (chunk count changed). Re-embedding...")
 
     partial_path = cache_path.with_suffix(".partial.pt")
     partial: dict[int, list[float]] = {}
     if partial_path.exists():
         partial = torch.load(partial_path)
-        print(f"🔄 Setze fort: {len(partial)}/{len(corpus_texts)} Chunks bereits gecacht")
+        print(f"Resuming: {len(partial)}/{len(corpus_texts)} chunks already cached")
 
     remaining = [(i, text) for i, text in enumerate(corpus_texts) if i not in partial]
     vectors: dict[int, list[float]] = dict(partial)
 
     if remaining:
-        print(f"🔢 Vektoriere {len(remaining)} Chunks via API...")
+        print(f"Embedding {len(remaining)} chunks via API...")
         cache_path.parent.mkdir(parents=True, exist_ok=True)
         with tqdm(total=len(corpus_texts), initial=len(partial), unit="chunk") as pbar:
             for i, text in remaining:
@@ -136,10 +216,10 @@ def load_or_build_embeddings(
                     try:
                         vectors[i] = future.result(timeout=120)
                     except FutureTimeoutError:
-                        print(f"\n⏱️  Chunk {i} Timeout nach 120s — überspringe.")
+                        print(f"\nChunk {i} timed out after 120s — skipping.")
                         continue
                     except Exception as e:
-                        print(f"\n❌ Chunk {i} Fehler: {e} — überspringe.")
+                        print(f"\nChunk {i} error: {e} — skipping.")
                         continue
                 pbar.update(1)
                 if len(vectors) % 10 == 0:
@@ -148,7 +228,7 @@ def load_or_build_embeddings(
     embeddings = torch.tensor([vectors[i] for i in range(len(corpus_texts))], dtype=torch.float32)
     torch.save(embeddings, cache_path)
     partial_path.unlink(missing_ok=True)
-    print(f"💾 Embeddings gecacht: {cache_path.name}")
+    print(f"Embeddings cached: {cache_path.name}")
     return embeddings
 
 
@@ -161,6 +241,24 @@ def retrieve_top_k(
     top_k: int = 5,
     bm25_index: BM25Index | None = None,
 ) -> dict:
+    """
+    Retrieve the top-k most relevant chunks for a query.
+
+    Uses dense cosine similarity alone when no BM25 index is provided,
+    or fuses dense and sparse rankings via RRF when one is given.
+
+    Args:
+        query_text: The search query.
+        embed_model: Model used to embed the query.
+        corpus_embeddings: Pre-computed corpus embeddings tensor.
+        corpus_ids: Document IDs aligned with corpus_embeddings rows.
+        corpus_texts: Raw texts aligned with corpus_embeddings rows.
+        top_k: Number of results to retrieve.
+        bm25_index: Optional BM25 index for hybrid retrieval.
+
+    Returns:
+        Dict with keys: top_idx, predicted_id, best_score, top_k_indices, cos_scores.
+    """
     from sentence_transformers import util
 
     query_vec = embed_model.embed(query_text)

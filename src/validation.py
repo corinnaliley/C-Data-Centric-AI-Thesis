@@ -1,11 +1,11 @@
 """
-validation.py: Validierungsfunktionen für den Benchmark.
+Validation and chunk-level evaluation for the RAG benchmark.
 
-Zuständig für:
-- ID-Abgleich Gold ↔ Corpus (validate_ids_or_exit)
-- Evidence-Coverage-Check (validate_evidence_coverage)
-- Chunk-Level Evaluation mit matching_score-Gewichtung (evaluate_chunk_level)
-- Debug-Dump für MISSING-Einträge (dump_missing_evidence_with_context)
+Responsibilities:
+- ID cross-check: gold_id references vs. corpus doc_ids (validate_ids_or_exit)
+- Evidence coverage check: evidence snippets present in expected chunks (validate_evidence_coverage)
+- Chunk-level evaluation with matching_score weighting (evaluate_chunk_level)
+- Debug dump for MISSING entries (dump_missing_evidence_with_context)
 """
 
 import re
@@ -15,23 +15,34 @@ from collections import defaultdict
 
 
 # ---------------------------------------------------------------------------
-# Hilfsfunktionen
+# Helper functions
 # ---------------------------------------------------------------------------
 
-EVIDENCE_COVERAGE_THRESHOLD = 0.7
+EVIDENCE_COVERAGE_THRESHOLD = 0.7  # minimum LCS ratio to count as a match
 
 
 def _normalize(s: str) -> str:
-    """Kollabiert Whitespace und lowercased — für robuste Substring-Suche."""
+    """Collapse whitespace and lowercase — for robust substring matching."""
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
 def _normalize_words(s: str) -> list[str]:
+    """Return a normalized, whitespace-split word list."""
     return _normalize(s).split()
 
 
 def _longest_common_substring(a: list[str], b: list[str]) -> list[str]:
-    """Längste gemeinsame zusammenhängende Wortfolge (DP, O(m*n))."""
+    """
+    Find the longest common contiguous word sequence via dynamic programming.
+
+    Args:
+        a: First word list.
+        b: Second word list.
+
+    Returns:
+        The longest common contiguous subsequence as a word list.
+        Empty list if either input is empty or no overlap exists.
+    """
     if not a or not b:
         return []
     m, n = len(a), len(b)
@@ -51,8 +62,18 @@ def _longest_common_substring(a: list[str], b: list[str]) -> list[str]:
 
 def evidence_coverage_ratio(evidence: str, chunk: str) -> float:
     """
-    Anteil der längsten zusammenhängenden Evidence-Wortfolge die im Chunk vorkommt.
-    1.0 = vollständig enthalten, 0.0 = keine Übereinstimmung.
+    Compute what fraction of the evidence word sequence appears in the chunk.
+
+    Uses the longest common contiguous word sequence (LCS) as the coverage
+    measure. Returns 1.0 when the evidence is fully contained, 0.0 when
+    there is no word overlap.
+
+    Args:
+        evidence: Gold evidence string.
+        chunk: Candidate chunk text.
+
+    Returns:
+        Coverage ratio in [0.0, 1.0].
     """
     ev_words = _normalize_words(evidence)
     if not ev_words:
@@ -64,8 +85,17 @@ def evidence_coverage_ratio(evidence: str, chunk: str) -> float:
 
 def _has_evidence(evidence: str, chunk_text: str) -> bool:
     """
-    Prüft ob Chunk die Evidence hinreichend enthält.
-    Fast path: exakter Substring-Match. Fallback: LCS-Ratio >= THRESHOLD.
+    Check whether a chunk sufficiently contains the evidence text.
+
+    Fast path: exact normalized substring match.
+    Fallback: LCS coverage ratio >= EVIDENCE_COVERAGE_THRESHOLD.
+
+    Args:
+        evidence: Gold evidence string.
+        chunk_text: Candidate chunk text.
+
+    Returns:
+        True if the evidence is considered present in the chunk.
     """
     if _normalize(evidence) in _normalize(chunk_text):
         return True
@@ -73,13 +103,19 @@ def _has_evidence(evidence: str, chunk_text: str) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# 1. ID-Validierung
+# 1. ID validation
 # ---------------------------------------------------------------------------
 
 def validate_ids_or_exit(gold_data: list, corpus_ids: list[str]) -> None:
     """
-    Gleicht alle gold_ids aus benchmark.json mit den doc_ids der Chunks ab.
-    Bricht nur bei Totalausfall ab.
+    Cross-check all gold_ids from benchmark.json against corpus doc_ids.
+
+    Prints a summary of missing and extra IDs. Exits only on total failure
+    (no single gold_id found in the corpus).
+
+    Args:
+        gold_data: Parsed benchmark.json entries.
+        corpus_ids: List of doc_id values from the ingested chunks.
     """
     gold_ids: set[str] = set()
     for item in gold_data:
@@ -94,29 +130,29 @@ def validate_ids_or_exit(gold_data: list, corpus_ids: list[str]) -> None:
     missing_in_corpus = gold_ids - chunk_ids
     extra_in_corpus   = chunk_ids - gold_ids
 
-    print("\n🔍 ID-VALIDIERUNG")
-    print(f"   Gold-IDs im Benchmark : {len(gold_ids)}")
-    print(f"   Unique Chunk-doc_ids  : {len(chunk_ids)}")
+    print("\nID Validation")
+    print(f"   Gold IDs in benchmark : {len(gold_ids)}")
+    print(f"   Unique chunk doc_ids  : {len(chunk_ids)}")
 
     if not missing_in_corpus:
-        print("   ✅ Alle Gold-IDs sind im Corpus vorhanden.")
+        print("   All gold IDs found in corpus.")
     else:
-        print(f"   ⚠️  {len(missing_in_corpus)} Gold-ID(s) fehlen im Corpus:")
+        print(f"   {len(missing_in_corpus)} gold ID(s) missing from corpus:")
         for mid in sorted(missing_in_corpus):
             print(f"      - {mid}")
 
     if extra_in_corpus:
-        print(f"   ℹ️  {len(extra_in_corpus)} Chunk-IDs ohne Benchmark-Referenz (normal).")
+        print(f"   {len(extra_in_corpus)} chunk ID(s) without a benchmark reference (expected).")
 
     if missing_in_corpus == gold_ids:
-        print("\n❌ KRITISCHER FEHLER: Keine einzige Gold-ID im Corpus gefunden.")
+        print("\nCRITICAL: No gold ID found in corpus at all.")
         sys.exit(1)
 
     print()
 
 
 # ---------------------------------------------------------------------------
-# 2. Evidence-Coverage-Check
+# 2. Evidence coverage check
 # ---------------------------------------------------------------------------
 
 def validate_evidence_coverage(
@@ -125,11 +161,19 @@ def validate_evidence_coverage(
     score_threshold: float = 0.5,
 ) -> dict:
     """
-    Prüft für jede Referenz ob der evidence-Text als Substring in einem Chunk
-    des erwarteten Dokuments vorkommt.
+    Check whether each evidence snippet appears in a chunk of the expected document.
 
-    score_threshold: Referenzen mit matching_score < threshold werden als
-                     LOW_SCORE markiert und nicht als Fehler gezählt.
+    References with matching_score below score_threshold are skipped and
+    reported as LOW_SCORE rather than errors.
+
+    Args:
+        gold_data: Parsed benchmark.json entries.
+        chunks: Ingested Block objects representing the full corpus.
+        score_threshold: References below this matching_score are not evaluated.
+
+    Returns:
+        Dict with keys: total, found, not_found, wrong_doc, skipped_low_score, details.
+        ``details`` is a list of per-reference result dicts.
     """
     doc_to_texts: dict[str, list[str]] = defaultdict(list)
     for chunk in chunks:
@@ -141,8 +185,8 @@ def validate_evidence_coverage(
     results = []
     total = found = not_found = wrong_doc = skipped_low_score = 0
 
-    print("\n🔬 EVIDENCE-COVERAGE-CHECK")
-    print(f"   Score-Threshold: ≥{score_threshold}")
+    print("\nEvidence Coverage Check")
+    print(f"   Score threshold: >={score_threshold}")
     print("=" * 70)
 
     for item in gold_data:
@@ -182,8 +226,8 @@ def validate_evidence_coverage(
                     "evidence_snippet": evidence[:80],
                     "evidence_full":    evidence,
                 })
-                print(f"  ❌ NO_DOC  [score={matching_score:.1f}] {gold_id}")
-                print(f"             Query   : {query[:60]}")
+                print(f"  NO_DOC  [score={matching_score:.1f}] {gold_id}")
+                print(f"          Query   : {query[:60]}")
                 print()
                 continue
 
@@ -194,9 +238,9 @@ def validate_evidence_coverage(
                 found += 1
             else:
                 not_found += 1
-                print(f"  ⚠️  MISSING [score={matching_score:.1f}] {gold_id}")
-                print(f"             Query   : {query[:60]}")
-                print(f"             Evidence: {evidence[:80]}...")
+                print(f"  MISSING [score={matching_score:.1f}] {gold_id}")
+                print(f"          Query   : {query[:60]}")
+                print(f"          Evidence: {evidence[:80]}...")
                 print()
 
             results.append({
@@ -210,18 +254,17 @@ def validate_evidence_coverage(
 
     print("=" * 70)
     if total:
-        print(f"  Gesamt geprüft (score≥{score_threshold}) : {total}")
-        print(f"  ✅ Gefunden     : {found}  ({found/total*100:.1f}%)")
-        print(f"  ⚠️  Fehlend     : {not_found}  ({not_found/total*100:.1f}%)")
-        print(f"  ❌ Kein Dokument: {wrong_doc}")
-        print(f"  ℹ️  Übersprungen (score<{score_threshold}): {skipped_low_score}")
+        print(f"  Total checked (score>={score_threshold}) : {total}")
+        print(f"  Found   : {found}  ({found/total*100:.1f}%)")
+        print(f"  Missing : {not_found}  ({not_found/total*100:.1f}%)")
+        print(f"  No doc  : {wrong_doc}")
+        print(f"  Skipped (score<{score_threshold}): {skipped_low_score}")
 
-        # Aufschlüsselung nach Score-Bucket
-        for label, lo, hi in [("high ≥0.8", 0.8, 1.01), ("mid  0.5–0.8", 0.5, 0.8)]:
+        for label, lo, hi in [("high >=0.8", 0.8, 1.01), ("mid  0.5-0.8", 0.5, 0.8)]:
             sub     = [r for r in results if lo <= r["matching_score"] < hi and r["status"] in ("OK", "MISSING")]
             sub_hit = sum(1 for r in sub if r["status"] == "OK")
             if sub:
-                print(f"  → {label}: {sub_hit}/{len(sub)} gefunden ({sub_hit/len(sub)*100:.1f}%)")
+                print(f"  -> {label}: {sub_hit}/{len(sub)} found ({sub_hit/len(sub)*100:.1f}%)")
     print()
 
     return {
@@ -235,7 +278,7 @@ def validate_evidence_coverage(
 
 
 # ---------------------------------------------------------------------------
-# 3. Chunk-Level Evidence-Suche
+# 3. Chunk-level evidence evaluation
 # ---------------------------------------------------------------------------
 
 def evaluate_chunk_level(
@@ -246,14 +289,27 @@ def evaluate_chunk_level(
     score_threshold: float = 0.5,
 ) -> dict:
     """
-    Prüft ob der top-ranked Chunk die Evidence enthält.
-    Gewichtet Treffer mit matching_score → Weighted Relevance Score (WRS).
+    Evaluate whether the top-ranked chunk contains the gold evidence.
 
-    WRS = Σ(matching_score_i * top1_hit_i) / Σ(matching_score_i)
+    Computes the Weighted Relevance Score (WRS) by weighting hits with
+    their matching_score:
 
-    Nutzt _has_evidence (exakter Match + LCS-Fallback) statt reinem Substring-Check,
-    damit Evidenzen die an Chunk-Grenzen liegen (z.B. V1) trotzdem zählen können.
-    Nur top_idx und top_k_indices werden gecheckt — nicht der gesamte Corpus.
+        WRS = sum(matching_score_i * top1_hit_i) / sum(matching_score_i)
+
+    Uses _has_evidence (exact match + LCS fallback) rather than a pure
+    substring check so that evidence spanning chunk boundaries still counts.
+    Only top_idx and top_k_indices are checked — not the entire corpus.
+
+    Args:
+        gold_references: List of reference dicts from benchmark.json.
+        top_idx: Corpus index of the top-1 retrieved chunk.
+        top_k_indices: Corpus indices of all top-k retrieved chunks.
+        corpus_texts: Full list of chunk texts in corpus order.
+        score_threshold: References below this matching_score are ignored.
+
+    Returns:
+        Dict with keys: wrs, chunk_hit_high, chunk_hit_any, topk_hit_high,
+        evidence_details.
     """
     chunk_hit_high   = False
     chunk_hit_any    = False
@@ -302,7 +358,7 @@ def evaluate_chunk_level(
 
 
 # ---------------------------------------------------------------------------
-# 4. Debug-Dump für MISSING-Einträge
+# 4. Debug dump for MISSING entries
 # ---------------------------------------------------------------------------
 
 def dump_missing_evidence_with_context(
@@ -310,7 +366,18 @@ def dump_missing_evidence_with_context(
     chunks: list,
     output_path: Path,
 ) -> None:
-    """Schreibt für jede MISSING-Referenz den nächstähnlichsten Chunk."""
+    """
+    Write a debug file showing the closest chunk for each MISSING evidence entry.
+
+    For every reference marked MISSING, finds the chunk in the expected document
+    that has the highest word overlap with the evidence and writes it to the
+    output file for manual inspection.
+
+    Args:
+        coverage_report: Return value of validate_evidence_coverage.
+        chunks: Full list of ingested Block objects.
+        output_path: Path for the output text file.
+    """
     doc_to_chunks: dict[str, list[str]] = defaultdict(list)
     for chunk in chunks:
         doc_id = getattr(chunk, "doc_id", "")
@@ -321,7 +388,7 @@ def dump_missing_evidence_with_context(
     missing = [d for d in coverage_report["details"] if d["status"] == "MISSING"]
 
     with open(output_path, "w", encoding="utf-8") as f:
-        f.write(f"MISSING EVIDENCE DEBUG — {len(missing)} Einträge\n")
+        f.write(f"MISSING EVIDENCE DEBUG — {len(missing)} entries\n")
         f.write("=" * 80 + "\n\n")
 
         for i, entry in enumerate(missing, 1):
@@ -336,7 +403,7 @@ def dump_missing_evidence_with_context(
 
             doc_chunks = doc_to_chunks.get(gold_id, [])
             if not doc_chunks:
-                f.write("  ⚠️  Kein Chunk für dieses Dokument.\n\n")
+                f.write("  No chunk found for this document.\n\n")
                 continue
 
             evidence_words = set(_normalize(evidence_full).split())
@@ -346,7 +413,7 @@ def dump_missing_evidence_with_context(
                 if overlap > best_overlap:
                     best_overlap, best_chunk = overlap, ct
 
-            f.write(f"  Nächster Chunk ({best_overlap} Wort-Overlap):\n")
+            f.write(f"  Closest chunk ({best_overlap} word overlap):\n")
             f.write(f"  {best_chunk[:500]}\n\n")
 
-    print(f"✅ Debug-Datei: {output_path} ({len(missing)} Einträge)")
+    print(f"Debug file written: {output_path} ({len(missing)} entries)")

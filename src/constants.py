@@ -17,7 +17,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_ROOT = BASE_DIR / "data"
 FOLIEN_DIR = DATA_ROOT / "Folien"
 SMARTBEANS_DIR = DATA_ROOT / "smartbeans_exercises"
-QUERY_PATH = DATA_ROOT / "FAQ.json"
 BENCHMARK_PATH = BASE_DIR / "src" / "benchmark.json"
 PROCESSED_PATH = BASE_DIR / "processed"
 RESULTS_PATH = BASE_DIR / "results"

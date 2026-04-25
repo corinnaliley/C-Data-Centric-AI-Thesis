@@ -1283,7 +1283,7 @@
   },
   {
     "query": "Static und malloc vergleichen? (bei einer stringaufgabe)",
-    "type": "concept_comparison",
+    "type": "complementary",
     "references": [
       {
         "gold_id": "417.yaml",
@@ -1524,7 +1524,7 @@
   },
   {
     "query": "Was ist der Unterschied zwischen Call by Value und Call by Reference?",
-    "type": "concept_comparison",
+    "type": "complementary",
     "references": [
       {
         "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
@@ -1588,7 +1588,7 @@
   },
   {
     "query": "Wann benutze ich den Punkt . und wann den Pfeil -> bei Strukturen?",
-    "type": "concept_comparison",
+    "type": "complementary",
     "references": [
       {
         "gold_id": "programmierung_mit_ansi_c-157-166.pdf",

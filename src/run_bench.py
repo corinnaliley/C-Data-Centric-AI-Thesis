@@ -1,12 +1,12 @@
 """
-run_bench.py: Orchestrator für die RAG-Benchmark-Pipeline.
+Orchestrator for the RAG benchmark evaluation pipeline.
 
-Ablauf:
-    1. Ingest        — Dokumente laden und chunken
-    2. Validierung   — ID-Check und Evidence-Coverage
-    3. Embeddings    — Corpus vektorisieren (mit Cache)
-    4. Evaluation    — Query-Loop: Doc-Level + Chunk-Level + WRS
-    5. Report        — Metriken berechnen und speichern
+Pipeline phases:
+    1. Ingest        — load and chunk all documents
+    2. Validation    — ID cross-check and evidence coverage verification
+    3. Embeddings    — vectorize corpus (with disk cache)
+    4. Evaluation    — query loop: doc-level + chunk-level + WRS
+    5. Report        — aggregate metrics and save to disk
 """
 
 import json
@@ -26,12 +26,15 @@ from reporting import log_query_result, compute_and_print_metrics, save_report
 
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
-# --- Versions-Konfiguration --------------------------------------------------
-# Für neue Versionen: Cache löschen (chunks_*.json + embeddings_*.pt) und neu starten.
+# ---------------------------------------------------------------------------
+# Version configuration
+# ---------------------------------------------------------------------------
+# To switch versions: delete the relevant chunk and embedding caches
+# (chunks_*.json and embeddings_*.pt) then re-run.
 #
-# v1_baseline:       Fixed-Size-Chunking (500 Wörter), plain-text YAML, Dense-only
-# v2_chunking_hybrid: Structural Chunking, YAML task/solution-Split, Dense + BM25
-# v3_metadata:       wie V2, aber section_path + YAML-Tags als Text-Präfix injiziert
+# v1_baseline:        fixed-size chunking (500 words), plain-text YAML, dense-only
+# v2_chunking_hybrid: structural chunking, YAML task/solution split, dense + BM25
+# v3_metadata:        like V2 but section_path + YAML tags injected as text prefix
 
 VERSION_CONFIG = {
     "v1_baseline": {
@@ -48,13 +51,14 @@ VERSION_CONFIG = {
     },
 }
 
-VERSION  = "v2_chunking_hybrid"   # ← hier ändern für neue Experimente
-#VERSION  = "v1_baseline"   # ← hier ändern für neue Experimente
+VERSION  = "v2_chunking_hybrid"   # <- change here to switch experiment
 _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]
 
-# --- Pfade -------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
 VERSION_PATH          = RESULTS_PATH   / VERSION
 OUTPUT_CHUNKS_PATH    = PROCESSED_PATH / f"chunks_{VERSION}.json"
 OUTPUT_RESULTS_PATH   = VERSION_PATH   / "eval_results.json"
@@ -64,34 +68,42 @@ MISSING_DEBUG_PATH    = VERSION_PATH   / "missing_debug.txt"
 model_slug            = EMBEDDING_MODEL_NAME.replace("/", "_")
 EMBEDDINGS_CACHE_PATH = PROCESSED_PATH / f"embeddings_{VERSION}_{model_slug}.pt"
 
-# --- Parameter ---------------------------------------------------------------
-TOP_K            = 20    # für Top-K Retrieval
-SCORE_THRESHOLD  = 0.5   # matching_score unterhalb = nicht als Fehler gewertet
+# ---------------------------------------------------------------------------
+# Tunable parameters
+# ---------------------------------------------------------------------------
+TOP_K            = 20    # number of chunks retrieved per query
+SCORE_THRESHOLD  = 0.5   # references below this matching_score are not counted as errors
 
 
-# -----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
-def run_evaluation():
-    print("🚀 STARTE EVALUATION...\n")
+def run_evaluation() -> None:
+    """
+    Execute all five pipeline phases in sequence and save results to disk.
 
-    # 1. INGEST (mit Chunk-Cache)
+    Chunk and embedding caches are reused across runs. Delete the relevant
+    cache files under processed/ to force a full re-ingest or re-embedding.
+    """
+    print("Starting evaluation...\n")
+
+    # 1. Ingest (with chunk cache)
     chunks = load_chunks_from_file(OUTPUT_CHUNKS_PATH)
     if chunks is None:
         chunks = INGEST_FN()
         if not chunks:
-            print("❌ Keine Chunks geladen. Abbruch.")
+            print("No chunks loaded. Aborting.")
             return
         save_chunks_to_file(chunks, OUTPUT_CHUNKS_PATH)
 
-    # 2. GOLD-DATEN LADEN
-    print(f"Lade Gold-Daten von: {BENCHMARK_PATH}")
+    # 2. Load gold data
+    print(f"Loading gold data from: {BENCHMARK_PATH}")
     with open(BENCHMARK_PATH, "r", encoding="utf-8") as f:
         gold_data = json.load(f)
 
     corpus_texts = [getattr(c, "text", "") for c in chunks]
     corpus_ids   = [getattr(c, "doc_id", "unknown") for c in chunks]
 
-    # 3. VALIDIERUNG
+    # 3. Validation
     validate_ids_or_exit(gold_data, corpus_ids)
 
     coverage_report = validate_evidence_coverage(
@@ -103,18 +115,18 @@ def run_evaluation():
 
     dump_missing_evidence_with_context(coverage_report, chunks, MISSING_DEBUG_PATH)
 
-    # 4. EMBEDDINGS + BM25
-    print(f"\n🧠 LADE EMBEDDING-MODELL ({EMBEDDING_MODEL_NAME})...")
+    # 4. Embeddings + BM25
+    print(f"\nLoading embedding model ({EMBEDDING_MODEL_NAME})...")
     model = _build_embed_model()
     corpus_embeddings = load_or_build_embeddings(model, corpus_texts, EMBEDDINGS_CACHE_PATH)
 
     bm25_index = None
     if USE_BM25:
-        print("🔍 Baue BM25-Index...")
+        print("Building BM25 index...")
         bm25_index = BM25Index(corpus_texts)
 
-    # 5. QUERY-LOOP
-    print("\n🎯 STARTE EVALUATION...")
+    # 5. Query loop
+    print("\nStarting evaluation...")
     results_log = []
 
     for q in gold_data:
@@ -122,7 +134,7 @@ def run_evaluation():
         query_type = q.get("type", "redundant")
 
         if query_type == "out_of_scope":
-            print(f"⚪ Skip (Out-of-Scope) | {query_text[:40]}...")
+            print(f"Skip (out-of-scope) | {query_text[:40]}...")
             continue
 
         gold_references = q.get("references", [])
@@ -140,7 +152,7 @@ def run_evaluation():
 
         is_hit = result["predicted_id"] in expected_ids
 
-        # Chunk-Level Evaluation mit WRS
+        # Chunk-level evaluation with WRS
         chunk_eval = evaluate_chunk_level(
             gold_references,
             top_idx        = result["top_idx"],
@@ -166,7 +178,7 @@ def run_evaluation():
         )
         results_log.append(entry)
 
-    # 6. REPORT
+    # 6. Report
     metrics = compute_and_print_metrics(results_log, total_queries=len(gold_data))
     save_report(metrics, results_log, OUTPUT_RESULTS_PATH)
 
