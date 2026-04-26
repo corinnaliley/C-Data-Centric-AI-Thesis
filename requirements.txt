@@ -1,0 +1,18 @@
+# Core pipeline dependencies
+python-dotenv
+sentence-transformers>=2.7
+torch
+tqdm
+pyyaml
+requests
+
+# Retrieval
+rank-bm25
+
+# V3a — KeyBERT keyword extraction
+keybert>=0.8
+keyphrase-vectorizers>=0.0.13
+spacy>=3.7
+
+# Testing
+pytest

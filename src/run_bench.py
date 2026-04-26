@@ -14,7 +14,7 @@ import os
 from retrieval import _build_embed_model
 
 from constants import EMBEDDING_MODEL_NAME, PROCESSED_PATH, RESULTS_PATH, BENCHMARK_PATH
-from ingest_pipeline import run_ingest_v1, run_ingest_v2, run_ingest_v3
+from ingest_pipeline import run_ingest_v1, run_ingest_v2, run_ingest_v3, run_ingest_v3a
 from retrieval import save_chunks_to_file, load_chunks_from_file, load_or_build_embeddings, retrieve_top_k, BM25Index
 from validation import (
     validate_ids_or_exit,
@@ -35,6 +35,7 @@ os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 # v1_baseline:        fixed-size chunking (500 words), plain-text YAML, dense-only
 # v2_chunking_hybrid: structural chunking, YAML task/solution split, dense + BM25
 # v3_metadata:        like V2 but section_path + YAML tags injected as text prefix
+# v3a_keywords:       like V2 + KeyBERT keyword header injected before embedding
 
 VERSION_CONFIG = {
     "v1_baseline": {
@@ -47,6 +48,10 @@ VERSION_CONFIG = {
     },
     "v3_metadata": {
         "ingest_fn": run_ingest_v3,
+        "use_bm25":  True,
+    },
+    "v3a_keywords": {
+        "ingest_fn": run_ingest_v3a,
         "use_bm25":  True,
     },
 }
