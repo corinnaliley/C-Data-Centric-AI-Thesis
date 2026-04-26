@@ -63,6 +63,68 @@ def run_ingest_v3a() -> list:
     return inject_keywords_into_chunks(chunks, keywords)
 
 
+def run_ingest_v3b(cache_path=None) -> list:
+    """
+    Run the V3b ingest: V2 structural chunking with LLM keyword headers.
+
+    Reads keywords from a pre-generated cache file (produced by running
+    ``python -m llm_keyword_extraction --cache <path>``).  No LLM calls are
+    made here — the expensive extraction step is intentionally separated so
+    the pipeline can be re-run cheaply after the one-time keyword generation.
+
+    Fails with a clear message if the cache is absent or missing entries for
+    any chunk (null entries are accepted — those chunks fall back to V2 headers).
+
+    Args:
+        cache_path: Path to the JSON keyword cache.  Defaults to
+            ``processed/v3b/keywords_llm_v3b.json``.
+
+    Returns:
+        Flat list of Block objects with LLM keyword headers injected where
+        available. Chunks whose cache entry is null get the plain V2 header.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+    from llm_keyword_extraction import _chunk_id, inject_keywords_into_chunks
+
+    if cache_path is None:
+        cache_path = PROCESSED_PATH / "v3b" / "keywords_llm_v3b.json"
+
+    if not cache_path.exists():
+        raise FileNotFoundError(
+            f"Keyword cache not found: {cache_path}\n"
+            "Run keyword extraction first:\n"
+            "    python -m llm_keyword_extraction \\\n"
+            "        --base-url https://chat-ai.academiccloud.de/v1 \\\n"
+            "        --model qwen2.5-72b-instruct \\\n"
+            "        --api-key-env ACADEMICCLOUD_API_KEY \\\n"
+            f"        --cache {cache_path}"
+        )
+
+    with open(cache_path, "r", encoding="utf-8") as _f:
+        _stored = _json.load(_f)
+    _chunks_data: dict = _stored.get("chunks", {})
+    _meta = _stored.get("_meta", {})
+
+    chunks = _run_ingest("v2")
+
+    # Check completeness: every chunk must have an entry (null is fine; absent is not).
+    missing_ids = [_chunk_id(c) for c in chunks if _chunk_id(c) not in _chunks_data]
+    if missing_ids:
+        raise RuntimeError(
+            f"Keyword cache is incomplete: {len(missing_ids)} chunk(s) have no cache entry.\n"
+            f"First missing: {missing_ids[0]}\n"
+            "Re-run keyword extraction to fill the gaps:\n"
+            "    python -m llm_keyword_extraction "
+            f"--cache {cache_path} [--model ...] [--api-key-env ...]"
+        )
+
+    keywords = {
+        _chunk_id(c): _chunks_data.get(_chunk_id(c)) for c in chunks
+    }
+    return inject_keywords_into_chunks(chunks, keywords)
+
+
 def _run_ingest(version: str) -> list:
     """
     Discover all files under DATA_ROOT and load them with the given version strategy.
