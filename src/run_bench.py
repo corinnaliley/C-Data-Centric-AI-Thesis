@@ -14,7 +14,7 @@ import os
 from retrieval import _build_embed_model
 
 from constants import EMBEDDING_MODEL_NAME, PROCESSED_PATH, RESULTS_PATH, BENCHMARK_PATH
-from ingest_pipeline import run_ingest_v1, run_ingest_v2, run_ingest_v3, run_ingest_v3a
+from ingest_pipeline import run_ingest_v1, run_ingest_v2, run_ingest_v3a, run_ingest_v3b
 from retrieval import save_chunks_to_file, load_chunks_from_file, load_or_build_embeddings, retrieve_top_k, BM25Index
 from validation import (
     validate_ids_or_exit,
@@ -32,31 +32,31 @@ os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 # To switch versions: delete the relevant chunk and embedding caches
 # (chunks_*.json and embeddings_*.pt) then re-run.
 #
-# v1_baseline:        fixed-size chunking (500 words), plain-text YAML, dense-only
-# v2_chunking_hybrid: structural chunking, YAML task/solution split, dense + BM25
-# v3_metadata:        like V2 but section_path + YAML tags injected as text prefix
-# v3a_keywords:       like V2 + KeyBERT keyword header injected before embedding
+# v1_baseline:        fixed-size chunking (500 words), plain-text YAML, hybrid (dense + BM25)
+# v2_chunking_hybrid: structural chunking, YAML task/solution split, hybrid
+# v3a_keywords:       like V2 + KeyBERT keyword header injected before embedding, hybrid
+# v3b_llm_keywords:   like V2 + LLM-generated keyword header injected before embedding, hybrid
 
 VERSION_CONFIG = {
     "v1_baseline": {
         "ingest_fn": run_ingest_v1,
-        "use_bm25":  False,
+        "use_bm25":  True,
     },
     "v2_chunking_hybrid": {
         "ingest_fn": run_ingest_v2,
-        "use_bm25":  True,
-    },
-    "v3_metadata": {
-        "ingest_fn": run_ingest_v3,
         "use_bm25":  True,
     },
     "v3a_keywords": {
         "ingest_fn": run_ingest_v3a,
         "use_bm25":  True,
     },
+    "v3b_llm_keywords": {
+        "ingest_fn": run_ingest_v3b,
+        "use_bm25":  True,
+    },
 }
 
-VERSION  = "v2_chunking_hybrid"   # <- change here to switch experiment
+VERSION  = "v1_baseline"   # <- change here to switch experiment
 _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]

@@ -694,7 +694,7 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     )
     p.add_argument(
         "--cache",
-        required=True,
+        default="processed/v3b/keywords_llm_v3b.json",
         help="Path to the JSON keyword cache file.",
     )
     p.add_argument(

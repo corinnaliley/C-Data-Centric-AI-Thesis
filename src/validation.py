@@ -327,8 +327,9 @@ def evaluate_chunk_level(
 
         score_sum += matching_score
 
-        top1_hit = _has_evidence(evidence, corpus_texts[top_idx])
-        topk_hit = any(_has_evidence(evidence, corpus_texts[i]) for i in top_k_indices)
+        top1_hit        = _has_evidence(evidence, corpus_texts[top_idx])
+        evidence_indices = [i for i in top_k_indices if _has_evidence(evidence, corpus_texts[i])]
+        topk_hit        = bool(evidence_indices)
 
         if top1_hit:
             weighted_hits += matching_score
@@ -344,6 +345,7 @@ def evaluate_chunk_level(
             "matching_score":         matching_score,
             "top1_is_evidence_chunk": top1_hit,
             "topk_has_evidence":      topk_hit,
+            "evidence_chunk_indices": evidence_indices,
         })
 
     wrs = (weighted_hits / score_sum) if score_sum > 0 else 0.0

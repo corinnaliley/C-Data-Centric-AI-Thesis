@@ -1,4 +1,4 @@
-MISSING EVIDENCE DEBUG — 4 Einträge
+MISSING EVIDENCE DEBUG — 4 entries
 ================================================================================
 
 [1/4] score=0.7 | programmierung_mit_ansi_c-149-156.pdf
@@ -7,7 +7,7 @@ Evidence: Am Ende dieses Kapitels wird noch einmal auf Matrizen auf dem Heap ein
 
 Speicher, den man sich mit malloc beschafft, besitzt ubrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit fur deren Zuweisung sorgen.
 ----------------------------------------
-  Nächster Chunk (34 Wort-Overlap):
+  Closest chunk (34 word overlap):
   auch Matrizen erzeugen lassen. Speicher, den man sich mit malloc beschafft, besitzt ubrigens keine wohldefinierten Werte. Will man bestimmte Anfangswerte haben, muss man selber explizit fur deren Zuweisung sorgen. ## 13.4 Beispiel: Speichern von Zahlen Es wird Zeit fur ein konkretes Beispiel. Wir wollen nur die letzten Zahlen einer Eingabe verarbeiten, zum Beispiel die letzten 10. Allerdings soll die Anzahl letztlich erst beim Aufruf des Programms festgelegt werden: Wenn ein entsprechender Aufru
 
 [2/4] score=0.7 | programmierung_mit_ansi_c-91-106.pdf
@@ -17,7 +17,7 @@ Evidence: Die Interpretation ist klar:
 - · Bei f1 wird der Variablen z bei jedem Aufruf erneut ein Speicherplatz und diesem Speicherplatz der Anfangswert 1 zugeordnet, den f1 auch als Funktionswert liefert. Die Erhohung des Wertes von z als Nebeneffekt bleibt letzlich ohne Wirkung, weil die Zuordnung der Variablen zu dem Speicherplatz mit dem Rucksprung wieder gelost wird.
 - · Bei f2 wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeordnet und mit dem Anfangswert 1 belegt. Bei jedem Aufruf liefert f2 als Funktionswert den Wert, den z gerade besitzt - und erhoht als Nebeneffekt den Wert von z . Da die Zuordnung zwischen der Variablen z und ihrem Speicherplatz mit dem Rucksprung nicht gelost wird, hat z beim nachsten Aufruf den veranderten Wert des vorhergehenden Aufrufs.
 ----------------------------------------
-  Nächster Chunk (55 Wort-Overlap):
+  Closest chunk (55 word overlap):
   wird der Variablen z bereits durch den Compiler ein Speicherplatz zugeordnet und mit dem Anfangswert 1 belegt. Bei jedem Aufruf liefert f2 als Funktionswert den Wert, den z gerade besitzt - und erhoht als Nebeneffekt den Wert von z . Da die Zuordnung zwischen der Variablen z und ihrem Speicherplatz mit dem Rucksprung nicht gelost wird, hat z beim nachsten Aufruf den veranderten Wert des vorhergehenden Aufrufs. ## 8.8 register und volatile Drei Speicherklassen-Attribute haben wir inzwischen kenne
 
 [3/4] score=0.85 | programmierung_mit_ansi_c-157-166.pdf
@@ -27,13 +27,13 @@ Evidence: Typischerweise werden verkettete Listen auf dem Heap angelegt. Der Fan
 - · In einer verketteten Liste kann jeder Eintrag Anfang einer verketteten Liste sein.
 - · Mehrere Zeigerkomponenten in jeder Struktur erlauben den Aufbau von mehrfach verketteten Listen oder auch von Baumen .
 ----------------------------------------
-  Nächster Chunk (30 Wort-Overlap):
+  Closest chunk (30 word overlap):
   Grundregel sollte man sich einfach merken: Bei jedem Aufruf von malloc steckt im Argument der Operator sizeof ! ## 14.6 Datum und Uhrzeit Mit der Kenntnis von Strukturen kann nun auch die Headerdatei time.h besprochen werden. Aktuelles Datum und Uhrzeit kann man sich von der Funktion ``` time\_t time(time\_t *zeit); ``` liefern lassen - in einer implementationsspezifischen Darstellung. Dabei: - · Der Funktionswert (time\_t)(-1) ( Typecast ) markiert, dass Datum und Uhrzeit nicht verfugbar sind. 
 
 [4/4] score=0.85 | programmierung_mit_ansi_c-185-192.pdf
 Query   : Wie funktioniert/benutzt man cd?
 Evidence: Nach dem Einloggen befindet man sich in seinem Heimatverzeichnis ( home directory ), d.h. in der Wurzel des eigenen Teilbaumes.
 ----------------------------------------
-  Nächster Chunk (18 Wort-Overlap):
+  Closest chunk (18 word overlap):
   baumartigen Dateistruktur organisiert, in der jeder Benutzer uber einen eigenen Teil des Dateibaumes (einen Ast) verfugt. Hier darf der Benutzer Dateien erzeugen, loschen und ausfuhren; dem Superbenutzer root gehort der gesamte Baum (vgl. Abbildung A.1). Ob der gesamte Dateibaum auf einer einzigen Platte gespeichert oder auf eine Vielzahl von Platten verteilt ist, ist fur den Benutzer weitgehend transparent. Das UNIX-Dateisystem unterscheidet zwischen Verzeichnissen und (anderen) Dateien . Die V
 

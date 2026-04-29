@@ -1,10 +1,13 @@
+zvec
 # Core pipeline dependencies
 python-dotenv
 sentence-transformers>=2.7
 torch
+numpy
 tqdm
 pyyaml
 requests
+# zvec: install manually via local .whl (zvec-*.whl in project root)
 
 # Retrieval
 rank-bm25

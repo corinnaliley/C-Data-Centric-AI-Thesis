@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "model": "qwen2.5-72b-instruct",
+    "base_url": "https://chat-ai.academiccloud.de/v1",
+    "prompt_hash": "sha256:054ba31da1b5836be30ed566367d695523c7c4d563ea4d4f237319c5c4e62e30",
+    "created_at": "2026-04-29T08:55:44Z",
+    "n_chunks_total": 433,
+    "n_chunks_cached": 0,
+    "n_chunks_failed": 12
+  },
+  "chunks": {
+    "abe24593fbccf013": null,
+    "b15ed3f4d7611304": null,
+    "bd80f53506eafae3": null,
+    "d32e4dc677795172": null,
+    "2fdf6ae8dd6d2e43": null,
+    "967ed5c3423f6386": null,
+    "ac80ce5d933df793": null,
+    "f5d5d9b16c6d6eaa": null,
+    "5734a6fa29aecc9e": null,
+    "c1211f3cccea1413": null,
+    "10fe1f48e63c779a": null,
+    "4fee93f199e65b44": null
+  }
+}
