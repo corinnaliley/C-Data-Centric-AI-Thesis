@@ -251,6 +251,39 @@ def convert_pdf_via_saia(
 # YAML exercise loaders
 # ---------------------------------------------------------------------------
 
+def convert_knowledge_base(path: str) -> List[Block]:
+    """Load tutor_knowledge_base.yaml as one Block per Q&A entry.
+
+    Each YAML list item must have at least an ``answer`` field.
+    The optional ``question`` field is prepended to the block text so
+    that semantic search can match on both the question phrasing and the
+    answer content.
+    """
+    with open(path, 'r', encoding='utf-8') as f:
+        entries = yaml.safe_load(f)
+
+    if not isinstance(entries, list):
+        return []
+
+    doc_id = pathlib.Path(path).name
+    blocks = []
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        question = str(entry.get('question', '')).strip()
+        answer = str(entry.get('answer', '')).strip()
+        if not answer:
+            continue
+        text = f"{question}\n{answer}" if question else answer
+        blocks.append(Block(
+            doc_id=doc_id,
+            block_type=BlockType.PARAGRAPH,
+            text=text,
+            meta={'tags': entry.get('tags', [])},
+        ))
+    return blocks
+
+
 def convert_yaml_v1(path: str) -> List[Block]:
     """
     V1 baseline: load a YAML exercise as a single plain-text block.
@@ -340,7 +373,9 @@ def load_any_file(
         return convert_pdf_via_saia(path, cache_dir=cache_dir, chunker=chunker)
 
     elif ext in [".yaml", ".yml"]:
-        if version == "v1":
+        if path_obj.name == "tutor_knowledge_base.yaml":
+            return convert_knowledge_base(path)
+        elif version == "v1":
             return convert_yaml_v1(path)
         else:
             return convert_yaml_v2(path)

@@ -1,0 +1,204 @@
+# tutor_knowledge_base.yaml
+# Tutor Knowledge Base — C-Programmierkurs (Propädeutikum)
+#
+# Format: Eine semantische Q&A-Einheit pro Eintrag.
+# Jeder Eintrag wird zu einem eigenen Chunk in der RAG-Pipeline.
+# Das Feld `answer` enthält die direkt retrivierbaren Informationen.
+# Tags dienen der thematischen Einordnung.
+
+# ── Umgebung & Setup ──────────────────────────────────────────────────────────
+
+- question: Wie bekomme ich WSL in VS Code eingebunden?
+  tags: [umgebung, wsl, vscode, einrichten, windows]
+  answer: |
+    WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden
+    Um WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.
+    Hier sind die erforderlichen Schritte für die Einrichtung:
+    1. Voraussetzungen schaffen
+
+        WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.
+        VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).
+        WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen" (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.
+
+    2. WSL-Erweiterung installieren
+
+        Starten Sie VS Code unter Windows.
+        Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).
+        Suchen Sie nach der Erweiterung „WSL" (früher „Remote - WSL") oder installieren Sie das „Remote Development"-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.
+        Klicken Sie auf Installieren.
+
+    3. Verbindung herstellen
+    Es gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:
+
+        Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.
+        Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL" (oder „WSL: Connect to WSL using Distro" für eine spezifische Distribution) ein.
+        Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.
+
+    Woran erkennen Sie die erfolgreiche Einbindung?
+    Nachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu"), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt.
+
+- question: Wie öffne ich ein Terminal in VS Code?
+  tags: [vscode, terminal, shortcut]
+  answer: |
+    Öffnen eines Terminals in Visual Studio Code (VS Code)
+    Tastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.
+
+    Über das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).
+
+    Befehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal.
+
+- question: Wie setze ich eine C-Entwicklungsumgebung unter Windows auf?
+  tags: [umgebung, einrichten, windows, wsl, linux, gcc]
+  answer: |
+    Wenn die Linux-Installation oder das Aufsetzen der C-Entwicklungsumgebung Probleme bereitet, ist die erste Anlaufstelle das Tutorium oder die Anleitungssammlung unter https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen/. Dort sind die unterstützten Wege (WSL+Ubuntu+VS Code, MinGW/MSYS2 unter Windows nativ, native Linux-Installation) Schritt für Schritt dokumentiert.
+
+- question: Warum muss VS Code auf der Windows-Seite installiert werden und nicht in WSL?
+  tags: [umgebung, wsl, vscode, windows]
+  answer: |
+    VS Code wird auf der Windows-Seite installiert (nicht innerhalb des WSL-Dateisystems), weil die WSL-Erweiterung von dort aus die Verbindung in die Linux-Umgebung aufbaut. Wäre VS Code innerhalb von WSL installiert, würde die Erweiterung nicht funktionieren. Wichtig: Bei der Installation die Option „Zu PATH hinzufügen" aktivieren, damit man VS Code später direkt aus dem Linux-Terminal mit `code .` starten kann.
+
+- question: Woran erkenne ich, dass VS Code erfolgreich mit WSL verbunden ist?
+  tags: [umgebung, wsl, vscode]
+  answer: |
+    Nach erfolgreicher Verbindung erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige, z. B. „WSL: Ubuntu". Diese bestätigt, dass VS Code im Kontext der Linux-Distribution läuft. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt in WSL ausgeführt. Fehlt diese Anzeige, ist VS Code noch im Windows-Modus.
+
+# ── VS Code Bedienung ─────────────────────────────────────────────────────────
+
+- question: Wie starte ich VS Code aus dem WSL-Terminal heraus?
+  tags: [vscode, wsl, terminal]
+  answer: |
+    Im Linux-Terminal in den gewünschten Projektordner navigieren und `code .` eingeben. VS Code lädt dann die erforderlichen Server-Komponenten in WSL und öffnet den Ordner in einer neuen Instanz. Der Punkt (.) steht dabei für das aktuelle Verzeichnis.
+
+# ── SmartBeans ────────────────────────────────────────────────────────────────
+
+- question: Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?
+  tags: [smartbeans, variablen, undefined_behavior, initialisierung]
+  answer: |
+    Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable. Der C-Standard schreibt keinen definierten Anfangswert für automatische Variablen vor — was im Speicher steht, hängt von Compiler, Flags und Plattform ab. Lokale GCC-Debug-Builds können zufällig 0 liefern, andere Umgebungen liefern beliebige Werte. Lösung: Variablen immer explizit initialisieren, z. B. `int x = 0;`.
+
+- question: Darf ich eine eigene main-Funktion beim Upload zu SmartBeans hinzufügen?
+  tags: [smartbeans, main, redefinition, upload]
+  answer: |
+    Nein. Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler. Bei reinen Funktions-Aufgaben stellt SmartBeans selbst eine main bereit — der Upload soll ausschließlich die geforderte Funktion (z. B. `int is_perm(...)`) enthalten, ohne eigene main.
+
+- question: Wie teste ich eine SmartBeans-Aufgabe lokal, ohne einen main-Konflikt zu riskieren?
+  tags: [smartbeans, testen, main, workaround, local]
+  answer: |
+    Zum lokalen Testen einer Funktions-Aufgabe ohne Konflikt mit SmartBeans: Eigene main in einer separaten Test-Datei (`test.c`) schreiben und mit `#include "aufgabe.c"` die zu testende Datei einbinden. Für den Upload nur `aufgabe.c` ohne main verwenden. Alternativ beide Dateien gemeinsam kompilieren: `gcc -o test test.c aufgabe.c`.
+
+- question: SmartBeans zeigt 'Ausgabe nicht identisch' — wie finde ich den Unterschied?
+  tags: [smartbeans, ausgabe, diff, whitespace, vergleich]
+  answer: |
+    Wenn SmartBeans meldet, dass die Ausgabe nicht identisch sei, der Unterschied aber visuell nicht erkennbar ist, hilft das Kommandozeilen-Programm `diff`: Eigene Ausgabe in eine Datei umleiten (`./programm > a.txt`), erwartete Ausgabe in eine zweite Datei kopieren (`b.txt`), und mit `diff a.txt b.txt` vergleichen. `diff` arbeitet zeilenweise und gibt nichts aus, wenn die Dateien identisch sind. Typische unsichtbare Unterschiede sind: Leerzeichen am Zeilenende, fehlender abschließender Zeilenumbruch, Tabs statt Leerzeichen.
+
+- question: Was bedeutet 'diff gibt keine Ausgabe'?
+  tags: [diff, ausgabe, vergleich]
+  answer: |
+    Gibt `diff datei1.txt datei2.txt` keine Ausgabe, sind die beiden Dateien identisch. Jede Zeile in der Ausgabe von `diff` beschreibt eine Abweichung zwischen den Dateien — keine Ausgabe bedeutet vollständige Übereinstimmung.
+
+- question: Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?
+  tags: [smartbeans, reset, fortschritt, dozent]
+  answer: |
+    Eine Zurücksetzung des SmartBeans-Fortschritts ist in der Regel nicht notwendig, weil gelöste Aufgaben beliebig oft erneut bearbeitet und mit neuen Lösungen eingereicht werden können. Falls dennoch ein vollständiger Reset gewünscht ist, kann der Dozent das nach Erhalt der StudIP-Kennung per Privatnachricht durchführen.
+
+- question: Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?
+  tags: [smartbeans, klausur, zulassung, pflicht]
+  answer: |
+    Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt.
+
+- question: Wie viele Übungsaufgaben sollte ich bearbeiten?
+  tags: [smartbeans, uebungsaufgaben, empfehlung, lernen]
+  answer: |
+    Es gibt keine offizielle Mindestanzahl an Übungsaufgaben, die bearbeitet werden müssen. Empfohlen wird aber, einen großen Teil der Aufgaben eigenständig zu lösen, da das aktive Üben für das Verständnis der C-Konzepte und die Klausurvorbereitung entscheidend ist.
+
+- question: Kann ich auf SmartBeans eingereichte Aufgaben erneut einreichen?
+  tags: [smartbeans, einreichen, versuche]
+  answer: |
+    Ja, bei SmartBeans können gelöste Aufgaben beliebig oft erneut bearbeitet und neue Lösungen eingereicht werden. Es gibt keine Begrenzung der Einreichungsversuche.
+
+# ── Klausur ───────────────────────────────────────────────────────────────────
+
+- question: Welche Editoren stehen in der Klausur zur Verfügung?
+  tags: [klausur, editor, vscode, vim, emacs]
+  answer: |
+    Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.
+
+- question: Gibt es in der Klausur Schmierpapier?
+  tags: [klausur, schmierpapier, notizen]
+  answer: |
+    Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus.
+
+- question: Ist im E-Prüfungsraum eine Volltextsuche im Skript möglich?
+  tags: [klausur, suche, pdf, skript]
+  answer: |
+    Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt.
+
+- question: Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?
+  tags: [klausur, editor, highlighting, syntax]
+  answer: |
+    Ja, in Editoren wie VSCodium ist der Code ge-highlighted.
+
+- question: Kann ich in der Klausur meinen Code kompilieren und testen?
+  tags: [klausur, gcc, kompilieren, testen]
+  answer: |
+    Ja, in der Klausur ist ein GCC-Compiler vorhanden und es kann kompiliert und getestet werden. Die Klausur findet an Linux-Rechnern statt.
+
+- question: Welche Inhalte sind klausurrelevant?
+  tags: [klausur, relevanz, themen, dozent]
+  answer: |
+    Fragen nach Klausurrelevanz einzelner Themen werden nicht vom Bot beantwortet, sondern an den Dozenten verwiesen. Verbindliche Aussagen zur Klausurrelevanz macht ausschließlich der Dozent in Vorlesung, Forum oder Tutorium.
+
+# ── C-Programmierung: Funktionen & Dateien ────────────────────────────────────
+
+- question: Wie lagere ich Funktionen in eigene Dateien aus?
+  tags: [funktionen, header, multifile, gcc, kompilieren]
+  answer: |
+    Funktionen können in eigene Dateien ausgelagert werden. Üblich ist eine Aufteilung in Header-Datei (`.h`) mit den Prototypen und Implementierungs-Datei (`.c`) mit den Definitionen. Eingebunden wird die Header-Datei mit `#include "datei.h"` in der aufrufenden Datei. Kompiliert wird mit `gcc -o program main.c hilfsfunktion.c` (alles in einem Schritt) oder getrennt: zuerst `gcc -c main.c` und `gcc -c hilfsfunktion.c`, dann linken mit `gcc -o program main.o hilfsfunktion.o`.
+
+- question: Was ist der Unterschied zwischen einer Header-Datei (.h) und einer Implementierungsdatei (.c)?
+  tags: [header, funktionen, deklaration, definition]
+  answer: |
+    Eine Header-Datei (`.h`) enthält Funktionsprototypen (Deklarationen): sie informiert den Compiler über Namen, Parametertypen und Rückgabetyp, ohne den Funktionskörper. Eine Implementierungsdatei (`.c`) enthält die eigentlichen Funktionsdefinitionen mit dem Programmcode. Durch `#include "datei.h"` wird die Header-Datei in der aufrufenden Datei eingebunden, sodass der Compiler die Deklarationen kennt.
+
+- question: Wie kompiliere ich ein C-Programm aus mehreren Dateien?
+  tags: [gcc, multifile, kompilieren, linken]
+  answer: |
+    Entweder alles in einem Schritt: `gcc -o program main.c hilfsfunktion.c`. Oder getrennt kompilieren und dann linken: zuerst `gcc -c main.c` (erzeugt `main.o`) und `gcc -c hilfsfunktion.c` (erzeugt `hilfsfunktion.o`), dann `gcc -o program main.o hilfsfunktion.o`. Linker-Bibliotheken wie `-lm` (Mathe) müssen immer am Ende stehen.
+
+# ── C-Programmierung: Speicher & Pointer ─────────────────────────────────────
+
+- question: Warum brauche ich Pointer in C?
+  tags: [pointer, heap, stack, speicher, malloc]
+  answer: |
+    Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden.
+
+- question: Was ist der Unterschied zwischen Stack und Heap in C?
+  tags: [stack, heap, speicher, lebensdauer, malloc]
+  answer: |
+    Stack: automatisch verwalteter Speicher für lokale Variablen. Wird beim Betreten einer Funktion reserviert und beim Verlassen automatisch freigegeben. Begrenzte Größe; geeignet für kleine, kurzlebige Daten.
+    Heap: dynamisch verwalteter Speicher, der explizit mit `malloc`/`calloc` angefordert und mit `free` freigegeben werden muss. Größer als der Stack; Daten überleben das Funktionsende. Zugriff nur über Pointer.
+
+- question: Was sind Variable Length Arrays (VLAs) in C?
+  tags: [arrays, vla, stack, c99, speicher]
+  answer: |
+    C99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur Laufzeit bestimmten Größe (`int array[n];` mit variablem n), die aber auf dem Stack liegen. Sie unterliegen den Stack-Limits (maximale Größe, automatische Freigabe am Funktionsende, kein Return) und sollten nur für kleine, temporäre Daten verwendet werden. Für größere oder über die Funktion hinaus benötigte Daten wird Heap-Speicher mit `malloc` verwendet.
+
+- question: Was sind häufige Spezialfälle eines Segmentation Faults?
+  tags: [segfault, pointer, fehler, null, use_after_free, malloc]
+  answer: |
+    Häufige Spezialfälle eines Segmentation Faults sind: NULL-Dereferenzierung (z.B. wenn der Rückgabewert von `malloc` nicht auf NULL geprüft und der Zeiger anschließend dereferenziert wird) und Use-after-free (Zugriff auf einen Heap-Bereich nach `free`). Beide gehören zur allgemeinen Klasse 'Dereferenzierung ungültiger Zeiger'.
+
+- question: Was passiert, wenn ich malloc-Speicher nicht mit free freigebe?
+  tags: [malloc, free, memory_leak, heap]
+  answer: |
+    Wird Heap-Speicher nicht mit `free` freigegeben, entsteht ein Memory Leak: der Speicher bleibt für die gesamte Programmlaufzeit belegt, auch wenn er nicht mehr gebraucht wird. Bei kurzen Programmen ist das oft harmlos (das OS räumt beim Programmende auf), bei lang laufenden Programmen oder Schleifen kann es zu Speichermangel führen.
+
+- question: Was ist der Unterschied zwischen malloc und calloc?
+  tags: [malloc, calloc, heap, initialisierung, speicher]
+  answer: |
+    `malloc(n)` reserviert n Bytes Heap-Speicher, ohne den Inhalt zu initialisieren (Garbage Data). `calloc(count, size)` reserviert count * size Bytes und initialisiert alle Bytes auf 0. Für ein Array, bei dem man sicher alle Einträge auf 0 haben will (z. B. ein Zähler-Array für Permutationstests), ist `calloc` bequemer als `malloc` gefolgt von manuellem Nullsetzen.
+
+- question: Wie kann ich eine als 1D-Array allokierte Matrix als 2D-Matrix ansprechen?
+  tags: [matrizen, pointer, cast, malloc, 2d, indexberechnung]
+  answer: |
+    Eine mit `malloc(zeilen * spalten * sizeof(typ))` als 1D-Array allokierte Matrix kann durch einen Cast zu einem Array-Zeiger mit fixer innerer Dimension wie eine echte 2D-Matrix angesprochen werden: `float (*m2d)[SPALTEN] = (float (*)[SPALTEN]) m1d;` erlaubt anschließend `m2d[i][j]`-Zugriffe, wobei der Compiler die Indexberechnung übernimmt. Voraussetzung ist, dass die Spaltenanzahl zur Compile-Zeit bekannt ist.
