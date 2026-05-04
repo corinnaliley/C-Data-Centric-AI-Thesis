@@ -178,15 +178,26 @@
         "matching_score": 0.5,
         "evidence": "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org ) zusammen mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc ) installiert. Beide kann man kostenlos im Internet herunterladen.",
         "page": 184
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 1.0,
+        "evidence": "Wenn die Linux-Installation oder das Aufsetzen der C-Entwicklungsumgebung Probleme bereitet, ist die erste Anlaufstelle das Tutorium oder die Anleitungssammlung unter https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen/. Dort sind die unterstützten Wege (WSL+Ubuntu+VS Code, MinGW/MSYS2 unter Windows nativ, native Linux-Installation) Schritt für Schritt dokumentiert."
       }
     ],
-    "supplementary_answer": "Wenn die Linux-Installation nicht klappt, gibt es zwei bewährte Alternativen für C-Entwicklung unter Windows: 1. WSL (Windows Subsystem for Linux): WSL installieren, eine Ubuntu-Distribution einrichten und VS Code mit der WSL-Erweiterung verbinden. So arbeitet man in einer vollständigen Linux-Umgebung mit GCC direkt von Windows aus. 2. Direkt unter Windows: MinGW oder MSYS2 installieren, die den GCC-Compiler für Windows bereitstellen. Für beide Ansätze benötigt man den GCC (GNU Compiler Collection) sowie die GNU C Library (glibc), beides kostenlos verfügbar. Als Editor eignet sich ein reiner Texteditor ohne Formatierungsanweisungen – VS Code ist eine empfehlenswerte Wahl."
+    "supplementary_answer": "Wenn die Linux-Installation Probleme macht, hilft am besten ein direkter Blick in die Kursanleitungen oder das Tutorium: Unter https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen/ findest du Schritt-für-Schritt-Anleitungen zum Aufsetzen einer C-Programmierumgebung. Im Tutorium können dir die Tutoren auch direkt bei konkreten Fehlermeldungen helfen. Grundsätzlich gibt es zwei verbreitete Wege unter Windows: WSL (Windows Subsystem for Linux) mit Ubuntu und VS Code mit WSL-Erweiterung, oder direkt unter Windows mit MinGW/MSYS2 als GCC-Bereitstellung."
   },
   {
     "query": "SmartBeans zeigt mir an, dass die Ausgabe nicht identisch ist, aber ich sehe nicht, wo. Kannst du nochmal schauen?",
-    "type": "out_of_scope",
-    "references": [],
-    "supplementary_answer": "Diese Frage kann das System nicht beantworten, da es keinen Zugriff auf deinen aktuellen Code-Stand oder die Live-Ausgabe von SmartBeans hat."
+    "type": "redundant",
+    "references": [
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 1.0,
+        "evidence": "Wenn SmartBeans meldet, dass die Ausgabe nicht identisch sei, der Unterschied aber visuell nicht erkennbar ist, hilft das Kommandozeilen-Programm `diff`: Eigene Ausgabe in eine Datei umleiten (`./programm > a.txt`), erwartete Ausgabe in eine zweite Datei kopieren (`b.txt`), und mit `diff a.txt b.txt` vergleichen. `diff` arbeitet zeilenweise und gibt nichts aus, wenn die Dateien identisch sind. Typische unsichtbare Unterschiede sind: Leerzeichen am Zeilenende, fehlender abschließender Zeilenumbruch, Tabs statt Leerzeichen."
+      }
+    ],
+    "supplementary_answer": "Ohne Einsicht in deinen Code und die genaue Ausgabe kann ich den Unterschied nicht selbst prüfen. Zwei Möglichkeiten: (1) Kopiere mir deine Programmausgabe und die erwartete Ausgabe direkt hier rein, dann vergleiche ich sie zeichenweise. (2) Auf der Kommandozeile hilft das Programm `diff`: Speichere die Ausgabe deines Programms in eine Datei (z.B. `./programm > meine.txt`) und die erwartete Ausgabe in eine zweite (`erwartet.txt`), dann vergleiche mit `diff meine.txt erwartet.txt`. Vorsicht: `diff` arbeitet zeilenweise; eine leere Ausgabe bedeutet, dass die Dateien identisch sind. Häufige Ursachen für 'nicht identisch' sind unsichtbare Whitespace-Unterschiede (Leerzeichen am Zeilenende, fehlender finaler \\n, Tab vs. Spaces)."
   },
   {
     "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
@@ -221,7 +232,7 @@
     "supplementary_answer": "In VS Code lässt sich ein Terminal auf drei Wegen öffnen: 1. Tastenkombination: Strg + ö (deutsche Tastatur) bzw. Ctrl + ` (Backtick, internationale Tastatur). 2. Über das Menü: Terminal → Neues Terminal. 3. Befehlspalette: Strg + Umschalt + P, dann 'Terminal: Create New Terminal' eingeben. Ist VS Code mit WSL verbunden (grüne Anzeige unten links), öffnet sich automatisch ein Linux-Terminal in der WSL-Umgebung."
   },
   {
-    "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+    "query": "Wie funktioniert die formatierte Ausgabe bei der Aufgabe 59 'Multiplikationstafel' (5x5)?",
     "type": "complementary",
     "references": [
       {
@@ -264,7 +275,7 @@
         "page": 0
       }
     ],
-    "supplementary_answer": "In der Klausur steht ein Linux-System zur Verfügung, auf dem ein C-Compiler (GCC) installiert ist. Es gibt eine Liste vorgefertigter Dateien, die heruntergeladen und gespeichert werden können. Als Editoren stehen emacs, gedit, nano, vim und VSCodium (codium) zur Verfügung; VSCodium ist oft über eine Schaltfläche oder das Terminal aufrufbar und bietet Syntax-Highlighting."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. In der Klausur steht ein Linux-System zur Verfügung, auf dem ein C-Compiler (GCC) installiert ist. Es gibt eine Liste vorgefertigter Dateien, die heruntergeladen und gespeichert werden können. Als Editoren stehen emacs, gedit, nano, vim und VSCodium (codium) zur Verfügung; VSCodium ist oft über eine Schaltfläche oder das Terminal aufrufbar und bietet Syntax-Highlighting."
   },
   {
     "query": "Kann man in der Klausur auch kompilieren und testen?",
@@ -283,7 +294,7 @@
         "page": 0
       }
     ],
-    "supplementary_answer": "Ja, in der Klausur ist ein GCC-Compiler vorhanden. Man kann den eigenen Code also kompilieren und lokal testen, bevor man ihn abgibt. Das Linux-System stellt dafür Terminal und Compiler bereit. Als Editoren stehen u.a. VSCodium, vim, nano, gedit und emacs zur Verfügung."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. Ja, in der Klausur ist ein GCC-Compiler vorhanden. Man kann den eigenen Code also kompilieren und lokal testen, bevor man ihn abgibt. Das Linux-System stellt dafür Terminal und Compiler bereit. Als Editoren stehen u.a. VSCodium, vim, nano, gedit und emacs zur Verfügung."
   },
   {
     "query": "Ist das realistisch, die Klausur in 2 Wochen zu bestehen?",
@@ -296,13 +307,19 @@
         "page": 0
       }
     ],
-    "supplementary_answer": "Zwei Wochen sind ein sehr knapper Zeitrahmen. Das Skript entspricht vom Umfang her einem Drei-Wochen-Kurs (bei etwa 1,5 Stunden pro Kapitel), wobei der Schwierigkeitsgrad von Kapitel zu Kapitel steigt. Es ist grundsätzlich möglich, wenn man sich auf die klausurrelevanten Kernthemen konzentriert und einzelne Abschnitte zunächst auslässt, die man sich ggf. im Selbststudium erarbeiten kann. Regelmäßiges aktives Üben (Aufgaben lösen, nicht nur lesen) ist dabei entscheidend."
+    "supplementary_answer": "Ob das in deinem konkreten Fall realistisch ist, kann ich nicht beurteilen — das hängt von deinem Vorwissen, deiner verfügbaren Zeit und deinem Lerntempo ab. Was ich dir an Anhaltspunkten zum Zeitaufwand geben kann: Das Skript entspricht vom Umfang her einem Drei-Wochen-Kurs, jedes Kapitel umfasst etwa eineinhalb Vorlesungsstunden, und der Schwierigkeitsgrad steigt von Kapitel zu Kapitel. Entscheidend ist aktives Üben (Aufgaben selbst lösen, nicht nur lesen). Sprich am besten mit deinen Tutoren oder dem Dozenten über eine sinnvolle Priorisierung der Themen."
   },
   {
     "query": "Wie viele der Übungsaufgaben sollte man machen?",
-    "type": "out_of_scope",
-    "references": [],
-    "supplementary_answer": "Diese Frage ist nicht direkt aus den Kursmaterialien beantwortbar, da es keine offizielle Mindest- oder Empfehlungsanzahl gibt. Allgemein gilt: Je mehr Aufgaben man eigenständig löst, desto besser festigt sich das Verständnis für C-Konzepte. Klausurrelevante Themen sollten dabei bevorzugt geübt werden."
+    "type": "redundant",
+    "references": [
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 1.0,
+        "evidence": "Es gibt keine offizielle Mindestanzahl an Übungsaufgaben, die bearbeitet werden müssen. Empfohlen wird aber, einen großen Teil der Aufgaben eigenständig zu lösen, da das aktive Üben für das Verständnis der C-Konzepte und die Klausurvorbereitung entscheidend ist."
+      }
+    ],
+    "supplementary_answer": "Eine offizielle Mindest- oder Empfehlungsanzahl gibt es nicht. Empfohlen wird aber, einen großen Teil der Aufgaben zu bearbeiten — je mehr Aufgaben man eigenständig löst, desto besser festigt sich das Verständnis der C-Konzepte und desto sicherer wird man in der praktischen Anwendung."
   },
   {
     "query": "Was für Aufgaben kommen in der Klausur dran?",
@@ -407,7 +424,7 @@
         "chunk_type": "solution"
       }
     ],
-    "supplementary_answer": "Die Klausuraufgaben decken typischerweise die zentralen Themen der Vorlesung ab. Aus den verfügbaren Aufgaben lassen sich folgende Themengebiete ableiten: Sortieralgorithmen (Selectionsort rekursiv mit Zeigerarithmetik, Bubblesort-Varianten), Suchen (binäre Suche iterativ und rekursiv), Strings und Zeichenoperationen, Dateioperationen (zeilenweises Lesen und Schreiben), Strukturen und rationale Zahlen (Brüche, Intervalle), sowie Zeigerarithmetik und Felder. Die Aufgaben verlangen häufig den Einsatz von Zeigern statt Index-Notation und die Implementierung als Funktion mit vorgegebenem Prototyp."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. Die Klausuraufgaben decken typischerweise die zentralen Themen der Vorlesung ab. Aus den verfügbaren Aufgaben lassen sich folgende Themengebiete ableiten: Sortieralgorithmen (Selectionsort rekursiv mit Zeigerarithmetik, Bubblesort-Varianten), Suchen (binäre Suche iterativ und rekursiv), Strings und Zeichenoperationen, Dateioperationen (zeilenweises Lesen und Schreiben), Strukturen und rationale Zahlen (Brüche, Intervalle), sowie Zeigerarithmetik und Felder. Die Aufgaben verlangen häufig den Einsatz von Zeigern statt Index-Notation und die Implementierung als Funktion mit vorgegebenem Prototyp."
   },
   {
     "query": "Können wir vielleicht eine Aufgabe gemeinsam machen?",
@@ -448,7 +465,7 @@
         "chunk_type": "solution"
       }
     ],
-    "supplementary_answer": "Um zu prüfen, ob ein Array der Länge 'n' eine Permutation der Zahlen 1 bis n darstellt, ist folgendes Vorgehen üblich: 1. Speicher für ein Hilfs-Array 'anzahl' der Länge 'n' auf dem Heap anfordern ('malloc'). Bei Fehler negativen Wert zurückgeben. 2. Für jeden Wert 'k' aus dem Eingabe-Array prüfen: Liegt 'k' außerhalb von [1..n]? → keine Permutation (return 0). Wurde 'k' bereits gezählt ('anzahl[k-1] > 0')? → Duplikat, keine Permutation. Sonst 'anzahl[k-1]' erhöhen. 3. Sind alle Prüfungen bestanden, positiven Wert zurückgeben. Heap-Speicher anschließend mit 'free' freigeben."
+    "supplementary_answer": "Um zu prüfen, ob ein Array der Länge `n` eine Permutation der Zahlen 1 bis n darstellt, prüft man, ob jede dieser Zahlen genau einmal vorkommt. Das geht am einfachsten mit einem Hilfs-Array `anzahl` der Länge `n+1`, in dem für jede vorkommende Zahl ein Zähler hochgezählt wird. Vorgehen: (1) Hilfs-Array anlegen — entweder als lokales Stack-Array `int anzahl[n+1] = {0};` (alle Werte initial 0) oder mit `calloc(n+1, sizeof(int))` (auch 0-initialisiert) oder mit `malloc` und anschließendem manuellen Nullsetzen. (2) Über das Eingabe-Array iterieren: Liegt ein Wert `k` außerhalb von [1..n], ist es keine Permutation. Sonst `anzahl[k]++`. (3) Wenn am Ende ein Wert in `anzahl[1..n]` ungleich 1 ist (also fehlt oder doppelt), ist es keine Permutation. Bei Heap-Speicher anschließend mit `free` freigeben."
   },
   {
     "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
@@ -457,23 +474,46 @@
       {
         "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
         "matching_score": 0.7,
-        "evidence": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.\n- · In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw.",
+        "evidence": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Deklaration werden die Eigenschaften einer F",
         "page": 69
       },
       {
         "gold_id": "programmierung_mit_ansi_c-77-90.pdf",
         "matching_score": 0.8,
-        "evidence": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Aufruf der Funktion durchzufuhren sind. Die Funktionsdefinition hat die Form\n\n```\ntyp name ( typ1 parameter1 , ..., typN parameterN ) { lokale deklarationen anweisungsfolge }\n```\n\nMan beachte: In der Definition einer Funktion wird der Funktionsheader nicht wie in der Deklaration durch ein Semikolon abgeschlossen!",
+        "evidence": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Aufruf der Funktion durchzufuhren sind. Die",
         "page": 70
       },
       {
         "gold_id": "programmierung_mit_ansi_c-1-16.pdf",
         "matching_score": 0.9,
-        "evidence": "lokale deklarationen\n\nanweisungsfolge\n\n}\n\n...\n\n... funktN(...) {\n\nlokale deklarationen\n\nanweisungsfolge\n\n}\n\n```\nint main(...) { lokale deklarationen anweisungsfolge\n```\n\n}\n\nmain ist, wie bereits gesagt, das Hauptprogramm, d.h. die Ausfuhrung des gesamten Programms beginnt am Anfang von main . Die Funktionen funkt1 , . . . , funktN konnen vom Hauptprogramm oder auch von den Funktionen aufgerufen werden. Insbesondere ist auch Rekursion erlaubt, d.h. eine Funktion darf sich selbst aufrufen.",
+        "evidence": "lokale deklarationen\n\nanweisungsfolge\n\n}\n\n...\n\n... funktN(...) {\n\nlokale deklarationen\n\nanweisungsfolge\n\n}\n\n```\nint main",
         "page": 4
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "matching_score": 0.9,
+        "evidence": "Ein Modul, der nur Unterprogramme enthält, wird in zwei Quelldateien gespeichert: * Eine Datei enthält nur die Deklarationen der Größen, die der Modul exportiert, also in der Regel Typdeklarationen und Prototypen von Funktionen, gelegentlich auch Konstanten und Variablen. Solch eine Datei wird als Headerdatei bezeichnet. * Die andere Datei enthält die Definitionen der zu exportierenden Größen, also insbesondere die Definitionen der Prototypen aus der Headerdatei.",
+        "page": 88
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+        "matching_score": 0.85,
+        "evidence": "8.4 Separate Compilation, make\nWir müssen uns jetzt noch ansehen, wie man Programme, die aus mehreren Modulen bestehen, übersetzen und binden kann. Letzlich ist das ganz einfach. Für unser Beispielprogramm können wir etwa schreiben\ngcc -Wall -ansi stapeltest.c stapel.c",
+        "page": 90
+      },
+      {
+        "gold_id": "programmierung_mit_ansi_c-113-118.pdf",
+        "matching_score": 0.7,
+        "evidence": "10.2 Die Direktive #include\nDie include–Direktive kennen wir bereits vollständig. Ihre beiden Formen sind\n#include <name>\n#include \"name\"\nZur Erinnerung noch einmal der Unterschied zwischen den beiden Formen: Bei der zweiten Form sucht der Präprozessor die angegebene Datei zunächst im aktuellen Verzeichnis. [...] die Gänsefüßchen bei eigenen Dateien.",
+        "page": 106
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 0.7,
+        "evidence": "Funktionen können in eigene Dateien ausgelagert werden. Üblich ist eine Aufteilung in Header-Datei (`.h`) mit den Prototypen und Implementierungs-Datei (`.c`) mit den Definitionen. Eingebunden wird die Header-Datei mit `#include \"datei.h\"` in der aufrufenden Datei. Kompiliert wird mit `gcc -o program main.c hilfsfunktion.c` (alles in einem Schritt) oder getrennt: zuerst `gcc -c main.c` und `gcc -c hilfsfunktion.c`, dann linken mit `gcc -o program main.o hilfsfunktion.o`."
       }
     ],
-    "supplementary_answer": "Eine Funktion in C besteht aus zwei Teilen: der Deklaration (Prototyp) und der Definition. Der Prototyp informiert den Compiler vorab über Name, Parametertypen und Rückgabetyp und steht typischerweise vor 'main': z.B. 'int addiere(int a, int b);'. Die Definition enthält den eigentlichen Funktionskörper: 'int addiere(int a, int b) { return a + b; }'. Der Aufruf aus 'main' erfolgt dann einfach mit dem Funktionsnamen und passenden Argumenten. Wichtig: Im Gegensatz zur Deklaration wird der Funktionsheader in der Definition nicht mit einem Semikolon abgeschlossen. Funktionen können auch andere Funktionen aufrufen, Rekursion (Selbstaufruf) ist in C explizit erlaubt."
+    "supplementary_answer": "Eine Funktion in C besteht aus zwei Teilen: der Deklaration (Prototyp) und der Definition. Der Prototyp informiert den Compiler vorab über Name, Parametertypen und Rückgabetyp und steht typischerweise vor `main`: z.B. `int addiere(int a, int b);`. Die Definition enthält den eigentlichen Funktionskörper: `int addiere(int a, int b) { return a + b; }`. Der Aufruf aus `main` erfolgt dann mit dem Funktionsnamen und passenden Argumenten. Wichtig: Im Gegensatz zur Deklaration wird der Funktionsheader in der Definition nicht mit einem Semikolon abgeschlossen.\n\nLiegt die Funktion in einer **anderen Datei**, gibt es zwei Wege: (a) Direktes `#include \"datei.c\"` — dadurch wird der Inhalt der Datei vor dem Kompilieren in die aktuelle eingefügt. (b) **In der Praxis üblich:** eine eigene Header-Datei (`hilfsfunktion.h`) mit den Prototypen, die mit `#include \"hilfsfunktion.h\"` vor `main` eingebunden wird, und eine `.c`-Datei (`hilfsfunktion.c`) mit den Definitionen. Beim Kompilieren werden beide Dateien zusammen übersetzt: `gcc -o program program.c hilfsfunktion.c`. Alternativ kann man getrennt übersetzen (`gcc -c program.c` und `gcc -c hilfsfunktion.c`) und anschließend linken (`gcc -o program program.o hilfsfunktion.o`). Rekursion (Selbstaufruf einer Funktion) ist in C ebenfalls erlaubt."
   },
   {
     "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
@@ -675,7 +715,7 @@
         "page": 1
       }
     ],
-    "supplementary_answer": "In der Klausur stehen folgende Editoren zur Verfügung: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist dabei oft über eine Schaltfläche oder das Terminal aufrufbar."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. In der Klausur stehen folgende Editoren zur Verfügung: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist dabei oft über eine Schaltfläche oder das Terminal aufrufbar."
   },
   {
     "query": "Gibt es in der Klausur Schmierpapier?",
@@ -688,7 +728,7 @@
         "page": 0
       }
     ],
-    "supplementary_answer": "Ja, an den Rechnern im E-Prüfungsraum liegt Schmierpapier für Überlegungen zur Implementierung oder Notizen aus."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. Ja, an den Rechnern im E-Prüfungsraum liegt Schmierpapier für Überlegungen zur Implementierung oder Notizen aus."
   },
   {
     "query": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
@@ -701,7 +741,7 @@
         "page": 0
       }
     ],
-    "supplementary_answer": "Ja, eine Volltextsuche im PDF-Skript ist im E-Prüfungsraum möglich. Die genaue Tastenkombination hängt von der verwendeten Anwendung ab (in den meisten PDF-Viewern ist es Strg+F)."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. Ja, eine Volltextsuche im PDF-Skript ist im E-Prüfungsraum möglich. Die genaue Tastenkombination hängt von der verwendeten Anwendung ab (in den meisten PDF-Viewern ist es Strg+F)."
   },
   {
     "query": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
@@ -714,7 +754,7 @@
         "page": 0
       }
     ],
-    "supplementary_answer": "Ja, in Editoren wie VSCodium ist der Code farblich hervorgehoben (Syntax-Highlighting). Bei anderen verfügbaren Editoren wie nano oder vim ist Highlighting teils konfigurationsabhängig."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. Ja, in Editoren wie VSCodium ist der Code farblich hervorgehoben (Syntax-Highlighting). Bei anderen verfügbaren Editoren wie nano oder vim ist Highlighting teils konfigurationsabhängig."
   },
   {
     "query": "Welchen Return-Wert erwartet SmartBeans bei Erfolg?",
@@ -772,7 +812,7 @@
         "page": 17
       }
     ],
-    "supplementary_answer": "Ja, SmartBeans verhält sich bei uninitialisierten Variablen anders als ein lokaler Rechner. Lokale C-Compiler (z.B. GCC) initialisieren manche Variablen in Debug-Builds zufällig oder mit 0 – das ist aber kein garantiertes Verhalten. SmartBeans setzt grundsätzlich keine Default-Werte: Eine nicht initialisierte Variable enthält 'Garbage Data', also zufällige Speicherinhalte. Der C-Standard schreibt explizit vor, dass automatische Variablen keinen wohldefinierten Anfangswert besitzen, bevor ihnen einer zugewiesen wird. Dasselbe gilt für 'malloc'-Speicher: Auch dieser enthält keine wohldefinierten Werte. Lösung: Variablen immer explizit initialisieren, z.B. 'int x = 0;'."
+    "supplementary_answer": "Ja, das Verhalten bei uninitialisierten Variablen kann zwischen SmartBeans und deinem lokalen Rechner abweichen — aber nicht, weil SmartBeans sich 'anders' verhielte, sondern weil **der C-Standard für automatische Variablen schlicht keinen definierten Anfangswert vorschreibt**. Was tatsächlich im Speicher steht, hängt von der Compilerversion, den verwendeten Compilerflags (z.B. Debug- vs. Optimierungslevel) und sogar von der CPU/Architektur ab. Ein lokaler GCC-Debug-Build setzt manche Variablen zufällig auf 0, ein anderer Build oder eine andere Maschine liefert Garbage Data. Dasselbe gilt für `malloc`-Speicher: Auch dort sind die Werte nicht definiert (im Gegensatz zu `calloc`, das nullt). Lösung: Variablen immer explizit initialisieren, z.B. `int x = 0;`."
   },
   {
     "query": "Was bedeutet der Fehler 'ld: Undefined symbols: _main'?",
@@ -791,7 +831,7 @@
         "page": 3
       }
     ],
-    "supplementary_answer": "Der Fehler 'ld: Undefined symbols: _main' kommt vom Linker (nicht vom Compiler) und bedeutet: Das Programm enthält keine Funktion namens 'main'. Jedes C-Programm muss genau eine Funktion 'main' als Einstiegspunkt besitzen – sie wird beim Programmstart vom Betriebssystem aufgerufen. Fehlt sie (z.B. weil 'main' auskommentiert oder umbenannt wurde), kann der Linker das ausführbare Binary nicht erzeugen. Das kleinste gültige C-Programm besteht ausschließlich aus 'int main() { return 0; }'."
+    "supplementary_answer": "Der Fehler `ld: Undefined symbols: _main` kommt vom Linker (nicht vom Compiler) und bedeutet: Das Programm enthält keine Funktion namens `main`. Jedes ausführbare C-Programm muss genau eine Funktion `main` als Einstiegspunkt besitzen — sie wird beim Programmstart vom Betriebssystem aufgerufen. Fehlt sie (z.B. weil `main` auskommentiert oder umbenannt wurde, oder weil eine Datei zwar Funktionen enthält, aber nicht zum eigenständigen Programm gedacht ist), kann der Linker das ausführbare Binary nicht erzeugen."
   },
   {
     "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
@@ -808,9 +848,14 @@
         "matching_score": 1.0,
         "evidence": "Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler.",
         "page": 0
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 1.0,
+        "evidence": "Zum lokalen Testen einer Funktions-Aufgabe ohne Konflikt mit SmartBeans: Eigene main in einer separaten Test-Datei (`test.c`) schreiben und mit `#include \"aufgabe.c\"` die zu testende Datei einbinden. Für den Upload nur `aufgabe.c` ohne main verwenden."
       }
     ],
-    "supplementary_answer": "Nein, das ist nicht erlaubt. Wenn die Korrekturumgebung von SmartBeans bereits eine eigene 'main'-Funktion bereitstellt (was bei reinen Funktions-Aufgaben der Fall ist), führt eine eigene 'main' im hochgeladenen Code zu einem 'Redefinition'-Fehler beim Kompilieren. Jedes C-Programm darf nur genau eine 'main'-Funktion haben. In solchen Aufgaben soll ausschließlich die geforderte Funktion (z.B. 'int is_perm(...)') implementiert werden, ohne eigene 'main'."
+    "supplementary_answer": "Nein, wenn die Korrekturumgebung von SmartBeans bereits eine eigene `main`-Funktion bereitstellt (was bei reinen Funktions-Aufgaben der Fall ist), führt eine eigene `main` im hochgeladenen Code zu einem `Redefinition`-Fehler beim Kompilieren — jedes C-Programm darf nur genau eine `main` haben. In solchen Aufgaben soll ausschließlich die geforderte Funktion (z.B. `int is_perm(...)`) implementiert werden.\n\nZum lokalen Testen kannst du aber problemlos eine eigene `main` schreiben — leg sie einfach in eine separate Datei (`test.c`) und importiere die zu testende Funktion mit `#include \"aufgabe.c\"` (oder kompiliere beide gemeinsam: `gcc -o test test.c aufgabe.c`). Für den Upload zu SmartBeans lädst du dann nur `aufgabe.c` ohne `main` hoch."
   },
   {
     "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
@@ -865,9 +910,14 @@
         "matching_score": 0.7,
         "evidence": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```\n\nbesagt so: v ist ein Vektor (eindimensionales Feld) mit 5 Komponenten. Die Dimensionierung muss mit Konstanten erfolgen - allerdings sind die benannten Konstanten eben auch Konstanten.\n\nAnsprechen kann man einzelne Komponenten eines Vektors, indem man seinem Namen den Index der entsprechenden Komponente nachstellt, erneut eingeschlossen in eckige Klammern. Dabei muss man beachten: Die Numerierung der Komponenten beginnt immer",
         "page": 30
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 0.8,
+        "evidence": "C99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur Laufzeit bestimmten Größe (`int array[n];` mit variablem n), die aber auf dem Stack liegen. Sie unterliegen den Stack-Limits (maximale Größe, automatische Freigabe am Funktionsende, kein Return) und sollten nur für kleine, temporäre Daten verwendet werden. Für größere oder über die Funktion hinaus benötigte Daten wird Heap-Speicher mit `malloc` verwendet."
       }
     ],
-    "supplementary_answer": "Statische Dimensionierung bei Matrizen bedeutet, dass die Größe des Arrays zur Compile-Zeit als Konstante festgelegt wird – im Gegensatz zu dynamischer Speicherallokation mit 'malloc' zur Laufzeit. Die Array-Deklaration lautet z.B. 'double matrix[MAX_ZEILEN][MAX_SPALTEN]', wobei 'MAX_ZEILEN' und 'MAX_SPALTEN' als Konstanten definiert sind. Das Programm kann dadurch keine größeren Matrizen verarbeiten als die definierten Maximalgrößen, aber beliebig kleinere (wenn das tatsächlich genutzte Format vorher abgefragt wird). Der Vorteil: einfachere Implementierung ohne Speicherverwaltung. Der Nachteil: Speicher wird auch dann reserviert, wenn die Matrix kleiner ist."
+    "supplementary_answer": "'Statische Dimensionierung' bedeutet, dass die Größe eines Arrays bereits zur **Compile-Zeit** als Konstante feststeht — z.B. `double matrix[MAX_ZEILEN][MAX_SPALTEN]` mit `MAX_ZEILEN`/`MAX_SPALTEN` als `#define` oder `const`. Vorteil: einfache Implementierung ohne Speicherverwaltung. Nachteil: Speicher wird auch reserviert, wenn die tatsächliche Matrix kleiner ist; größere Matrizen lassen sich nicht verarbeiten.\n\n**Wichtige Ergänzung:** C kennt seit C99 auch Variable Length Arrays (VLAs) auf dem Stack — `int array[n]` mit einer Variablen `n` wird also zur Laufzeit dimensioniert, lebt aber trotzdem auf dem Stack. Das hat zwei Limits: (1) der Stack ist begrenzt, sehr große Arrays sprengen ihn (Stack Overflow), (2) ein VLA kann nicht aus der Funktion zurückgegeben werden, da sein Speicher beim Funktionsende automatisch freigegeben wird. Deshalb nimmt man den Stack nur für kleine, temporäre Hilfsvariablen, und für größere oder zurückzugebende Daten den Heap mit `malloc`."
   },
   {
     "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
@@ -915,11 +965,10 @@
       {
         "gold_id": "tutor_knowledge_base.txt",
         "matching_score": 1.0,
-        "evidence": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende Klausur nicht relevant.",
-        "page": 0
+        "evidence": "Fragen nach Klausurrelevanz einzelner Themen werden nicht vom Bot beantwortet, sondern an den Dozenten verwiesen. Verbindliche Aussagen zur Klausurrelevanz macht ausschließlich der Dozent in Vorlesung, Forum oder Tutorium."
       }
     ],
-    "supplementary_answer": "Nein, das Thema '13_Rechnerarithmetik' ist für die kommende Klausur nicht relevant, da dazu keine Vorlesung mehr stattgefunden hat."
+    "supplementary_answer": "Welche Inhalte klausurrelevant sind, beantwortet ausschließlich der Dozent — auf solche Fragen kann ich keine verbindliche Antwort geben, weder habe ich Zugriff auf aktuelle Semester-Informationen, noch sollte man der Antwort eines Sprachmodells in Klausurrelevanz-Fragen vertrauen. Frag direkt im Forum, im Tutorium oder beim Dozenten nach."
   },
   {
     "query": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
@@ -928,11 +977,11 @@
       {
         "gold_id": "tutor_knowledge_base.txt",
         "matching_score": 1.0,
-        "evidence": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den Account zurücksetzen zu lassen.",
+        "evidence": "Eine Zurücksetzung des SmartBeans-Fortschritts ist in der Regel nicht notwendig, weil gelöste Aufgaben beliebig oft erneut bearbeitet und mit neuen Lösungen eingereicht werden können. Falls dennoch ein vollständiger Reset gewünscht ist, kann der Dozent das nach Erhalt der StudIP-Kennung per Privatnachricht durchführen.",
         "page": 0
       }
     ],
-    "supplementary_answer": "Um den SmartBeans-Fortschritt zurückzusetzen, muss die StudIP-Kennung per Privatnachricht an den Dozenten geschickt werden, der den Account dann zurücksetzt."
+    "supplementary_answer": "Eine Zurücksetzung des SmartBeans-Fortschritts ist normalerweise gar nicht nötig — gelöste Aufgaben kannst du beliebig oft erneut bearbeiten und neue Lösungen einreichen. Wenn du dennoch einen vollständigen Reset wünschst, schicke deine StudIP-Kennung per Privatnachricht an den Dozenten; er kann den Account dann zurücksetzen."
   },
   {
     "query": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
@@ -984,7 +1033,7 @@
         "page": 95
       }
     ],
-    "supplementary_answer": "Ohne 'static' ist 'char array[150]' eine automatische (lokale) Variable auf dem Stack. Sie existiert nur, solange die Funktion ausgeführt wird – beim Verlassen der Funktion wird ihr Speicherplatz freigegeben. Der zurückgegebene Zeiger zeigt dann auf ungültigen Speicher, was undefiniertes Verhalten auslöst. Mit 'static char array[150]' wird der Speicher einmalig vom Compiler im Datensegment reserviert und bleibt für die gesamte Programmlaufzeit erhalten. Der zurückgegebene Zeiger ist damit dauerhaft gültig. Nachteil: Das Array existiert nur einmal im Speicher; bei erneutem Aufruf der Funktion wird es überschrieben. Die Alternative ohne diesen Nachteil ist dynamische Allokation mit 'malloc'."
+    "supplementary_answer": "Ohne 'static' ist 'char array[150]' automatisch eine lokale Variable auf dem Stack. Sie existiert nur, solange die Funktion ausgeführt wird – beim Verlassen der Funktion wird ihr Speicherplatz freigegeben. Der zurückgegebene Zeiger zeigt dann auf ungültigen Speicher, was undefiniertes Verhalten auslöst. Mit 'static char array[150]' wird der Speicher einmalig vom Compiler im Datensegment reserviert und bleibt für die gesamte Programmlaufzeit erhalten. Der zurückgegebene Zeiger ist damit dauerhaft gültig. Nachteil: Das Array existiert nur einmal im Speicher; bei erneutem Aufruf der Funktion wird es überschrieben. Die Alternative ohne diesen Nachteil ist dynamische Allokation mit 'malloc'."
   },
   {
     "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
@@ -1021,7 +1070,7 @@
         "page": 30
       }
     ],
-    "supplementary_answer": "'Statische Dimensionierung mit benannten Konstanten' meint nicht das Keyword 'static', sondern die Verwendung von '#define'-Makros (oder 'const int') zur Festlegung der Array-Größe zur Compile-Zeit. Gemeint ist also z.B. '#define MAX_SIZE 20' gefolgt von 'double matrix[MAX_SIZE][MAX_SIZE]'. Die Dimensionierung ist 'statisch', weil die Größe bereits beim Kompilieren feststeht (nicht erst zur Laufzeit via 'malloc'). 'Benannte Konstante' bedeutet, dass statt einer Magic Number (z.B. '20') ein aussagekräftiger Name verwendet wird. Das Keyword 'static' im Sinne von Speicherklasse ist hier nicht gemeint."
+    "supplementary_answer": "'Statische Dimensionierung mit benannten Konstanten' meint nicht das Keyword `static`, sondern die Verwendung von `#define`-Makros (oder `const int`) zur Festlegung der Array-Größe zur Compile-Zeit. Gemeint ist also z.B. `#define MAX_SIZE 20` gefolgt von `double matrix[MAX_SIZE][MAX_SIZE]`. Die Dimensionierung ist 'statisch', weil die Größe bereits beim Kompilieren feststeht — im Gegensatz zu **dynamischer** Dimensionierung, bei der die Größe erst zur Laufzeit feststeht. 'Benannte Konstante' bedeutet, dass statt einer Magic Number (z.B. `20`) ein aussagekräftiger Name verwendet wird. Das Keyword `static` im Sinne von Speicherklasse ist hier nicht gemeint."
   },
   {
     "query": "Was bedeutet iterativ vs rekursiv im kontext von programmieren?",
@@ -1068,7 +1117,7 @@
         "chunk_type": "solution"
       }
     ],
-    "supplementary_answer": "Iterativ und rekursiv sind zwei grundlegend verschiedene Ansätze, um wiederholte Berechnungen zu formulieren. Iterativ bedeutet: Die Wiederholung wird durch eine Schleife ('for', 'while', 'do-while') realisiert. Rekursiv bedeutet: Die Funktion ruft sich selbst auf, wobei jeder Aufruf das Problem verkleinert, bis ein Basisfall erreicht ist. Klassisches Beispiel ist die Fakultät: iterativ mit einer 'for'-Schleife, rekursiv mit 'n! = n * (n-1)!'. Beide Ansätze sind grundsätzlich gleichwertig (jede Rekursion lässt sich in eine Iteration umschreiben). Rekursion ist oft näher an der mathematischen Definition, aber laufzeitintensiver (Parameter kopieren, Unterprogrammsprung, Stack-Aufbau). Bei Aufgaben wie 'Binäre Suche' oder 'Folge A' sind beide Varianten explizit als separate Aufgaben gefordert."
+    "supplementary_answer": "Iterativ und rekursiv sind zwei grundlegend verschiedene Ansätze, um wiederholte Berechnungen zu formulieren. Iterativ bedeutet: Die Wiederholung wird durch eine Schleife ('for', 'while', 'do-while') realisiert. Rekursiv bedeutet: Die Funktion ruft sich selbst auf, wobei jeder Aufruf einen immer größeren Teil des Problems löst, bis ein Basisfall erreicht ist. Klassisches Beispiel ist die Fakultät: iterativ mit einer 'for'-Schleife, rekursiv mit 'n! = n * (n-1)!'. Beide Ansätze sind grundsätzlich gleichwertig (jede Rekursion lässt sich in eine Iteration umschreiben). Rekursion ist oft näher an der mathematischen Definition, aber laufzeitintensiver (Parameter kopieren, Unterprogrammsprung, Stack-Aufbau). Bei Aufgaben wie 'Binäre Suche' oder 'Folge A' sind beide Varianten explizit als separate Aufgaben gefordert."
   },
   {
     "query": "Warum kann ich einen char mit einem int vergleichen?",
@@ -1209,7 +1258,7 @@
         "page": 119
       }
     ],
-    "supplementary_answer": "Das Ampersand (&) ist der Adressoperator in C. Es wird verwendet, um die konkrete Speicheradresse einer Variablen zu erhalten, anstatt ihren Wert zu übergeben (sehr häufig bei 'scanf', da die Funktion wissen muss, wo im Speicher der eingelesene Wert abgelegt werden soll). Das Sternchen (*) ist der Dereferenzierungsoperator und hat im Code zwei Hauptaufgaben: Bei der Deklaration einer Variablen (oder eines Funktionsparameters) markiert es, dass diese Variable ein Zeiger (Pointer) ist und somit eine Speicheradresse speichert. Setzt man das Sternchen später im Code vor diesen Zeiger, wird er 'dereferenziert' – das bedeutet, man greift auf den eigentlichen Wert zu, der an dieser Speicheradresse liegt, und kann diesen lesen oder verändern."
+    "supplementary_answer": "Das Ampersand (&) ist der Adressoperator in C. Es wird verwendet, um die konkrete Speicheradresse einer Variablen zu erhalten und meist an eine Funktion zu übergeben (sehr häufig bei 'scanf', da die Funktion wissen muss, wo im Speicher der eingelesene Wert abgelegt werden soll). Das Sternchen (*) ist der Dereferenzierungsoperator und hat im Code zwei Hauptaufgaben: Bei der Deklaration einer Variablen (oder eines Funktionsparameters) markiert es, dass diese Variable ein Zeiger (Pointer) ist und somit eine Speicheradresse speichert. Setzt man das Sternchen später im Code vor diesen Zeiger, wird er 'dereferenziert' – das bedeutet, man greift auf den eigentlichen Wert zu, der an dieser Speicheradresse liegt, und kann diesen lesen oder verändern."
   },
   {
     "query": "Wann benutze ich & und wann * bzw. was ist der Unterschied?",
@@ -1279,7 +1328,7 @@
         "chunk_type": "solution"
       }
     ],
-    "supplementary_answer": "Die Funktion 'malloc' (Memory Allocation) wird benutzt, um zur Laufzeit dynamisch Speicherplatz auf dem Heap anzufordern. Das ist immer dann notwendig, wenn die exakte Größe einer benötigten Datenstruktur (wie z. B. eines Arrays) beim Schreiben des Codes (zur Compile-Zeit) noch nicht feststeht. Bei der Aufgabe 'Permutation mit Speicher' wird die Größe des benötigten Hilfs-Arrays erst durch den übergebenen Parameter 'laenge' definiert. Da statische Arrays eine feste, konstante Größe benötigen, muss der Speicherplatz in diesem Fall zwingend mit 'malloc' dynamisch bereitgestellt werden."
+    "supplementary_answer": "Die Funktion `malloc` (Memory Allocation) fordert zur Laufzeit dynamisch Speicherplatz auf dem **Heap** an. Man nutzt sie hauptsächlich aus zwei Gründen: (1) **Größere Datenmengen:** Der Stack ist in seiner Größe stark begrenzt — für größere Arrays, Matrizen oder Datenstrukturen ist der Heap der richtige Ort. (2) **Lebensdauer über das Funktionsende hinaus:** Heap-Speicher wird **nicht** automatisch beim Verlassen der Funktion freigegeben. Damit kann eine Funktion z.B. ein Array allokieren und dessen Zeiger zurückgeben, ohne dass der Speicher invalidiert wird (im Gegensatz zu Stack-Variablen). Bei der Aufgabe 'Permutation mit Speicher' wird die Größe des Hilfs-Arrays erst durch den Parameter `laenge` bestimmt — für kleine Werte ginge das auch auf dem Stack (z.B. als VLA `int anzahl[laenge];`), für beliebig große Werte ist `malloc` aber sicherer.\n\n**Wichtig:** Heap-Speicher muss explizit mit `free(ptr)` wieder freigegeben werden, sobald er nicht mehr gebraucht wird. Wer das vergisst, produziert ein Memory Leak."
   },
   {
     "query": "Static und malloc vergleichen? (bei einer stringaufgabe)",
@@ -1357,7 +1406,7 @@
         "page": 90
       }
     ],
-    "supplementary_answer": "Beim Aufruf des GCC-Compilers steht der Befehl 'gcc' ganz am Anfang, gefolgt von allgemeinen Compiler-Optionen (wie '-Wall', '-ansi', '-O' oder '-std=c11'). Danach wird, falls gewünscht, mit der Option '-o' und dem direkten nachfolgenden Namen die Zieldatei angegeben (z. B. '-o prog'). Erst im Anschluss folgen die Namen der zu kompilierenden Quelltext- oder Objektdateien (z. B. 'prog.c' oder 'a01.o'). Ganz wichtig für die Reihenfolge: Linker-Optionen (wie '-lm' zum Einbinden der Mathe-Bibliothek) müssen zwingend am Ende des Aufrufs stehen, also erst nach den Quelltextdateien angegeben werden."
+    "supplementary_answer": "Beim Aufruf des GCC steht der Befehl `gcc` ganz am Anfang, gefolgt von Compiler-Optionen (`-Wall`, `-ansi`, `-O`, `-std=c11`). Mit `-o name` wird die Zieldatei festgelegt. Anschließend folgen die Quelltext- oder Objektdateien.\n\n**Reihenfolge im Detail:**\n- **Beim reinen Kompilieren** mehrerer `.c`-Dateien zu einem Programm (`gcc -o prog a.c b.c c.c`) ist die Reihenfolge der `.c`-Dateien **egal** — der Compiler löst die Abhängigkeiten selbst auf.\n- **Beim Linken** von Objektdateien gilt traditionell: aufrufende Datei zuerst, aufgerufene danach (z.B. `gcc -o program main.o hilfsfunktion.o`). Das ist beim klassischen `ld`-Verhalten relevant.\n- **Linker-Bibliotheken** (`-lm` für Mathe, `-lpthread` etc.) müssen **immer am Ende** stehen, also nach allen `.c`/`.o`-Dateien, da der Linker Bibliotheks-Symbole nur einmal vorwärts auflöst."
   },
   {
     "query": "Was bewirkt der Parameter -o genau?",
@@ -1421,7 +1470,7 @@
         "page": 1
       }
     ],
-    "supplementary_answer": "Die Flag '-Wall' ist eine essenzielle Compiler-Option beim GCC. Sie veranlasst den Compiler dazu, bei 'verdächtigem' Code Warnungen auszugeben, den er ohne diese Flag einfach stillschweigend kompilieren würde. Die Wichtigkeit dieser Flag liegt darin, dass diese Warnungen sehr häufig auf handfeste Programmierfehler hindeuten. Ohne deren Beseitigung läuft das Programm später oft fehlerhaft oder gar nicht. Wie das Skript betont, bedeutet ein fehlerfrei (aber ohne '-Wall') kompiliertes Programm noch lange nicht, dass die Logik auch korrekt ist."
+    "supplementary_answer": "Die Flag `-Wall` (kurz für '**all warnings**' — alle Warnungen aktivieren) ist eine essenzielle Compiler-Option beim GCC. Sie veranlasst den Compiler dazu, bei 'verdächtigem' Code Warnungen auszugeben, den er ohne diese Flag stillschweigend kompilieren würde. Die Wichtigkeit liegt darin, dass diese Warnungen sehr häufig auf handfeste Programmierfehler hindeuten — ohne deren Beseitigung läuft das Programm später oft fehlerhaft oder gar nicht. Wie das Skript betont: Ein fehlerfrei (aber ohne `-Wall`) kompiliertes Programm bedeutet noch lange nicht, dass die Logik korrekt ist."
   },
   {
     "query": "Ich bekomme einen Segmentation Fault – was ist da eigentlich das Problem im Speicher?",
@@ -1450,9 +1499,14 @@
         "matching_score": 0.8,
         "evidence": "Auch ein falscher Indexzugriff oder allgemein das Dereferenzieren eines ungultigen Zeigers kann zu Problemen fuhren und ist haufig Ursache von Programmabsturzen. Das untersuchen wir anhand eines Beispiels: ``` int v[10], w[50], i, *p = v; /* Berechnung von i */ v[i] = 44; *(p + i) = 44; ``` Welchen Wert i hat, liegt erst fest, wenn die Wertzuweisungen ausgefuhrt werden. Allerdings:",
         "page": 128
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 0.8,
+        "evidence": "Häufige Spezialfälle eines Segmentation Faults sind: NULL-Dereferenzierung (z.B. wenn der Rückgabewert von `malloc` nicht auf NULL geprüft und der Zeiger anschließend dereferenziert wird) und Use-after-free (Zugriff auf einen Heap-Bereich nach `free`). Beide gehören zur allgemeinen Klasse 'Dereferenzierung ungültiger Zeiger'."
       }
     ],
-    "supplementary_answer": "Ein 'Segmentation Fault' (Speicherzugriffsfehler) tritt auf, wenn ein Programm versucht, auf einen Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine Zugriffsrechte hat. Laut den Skripten passiert das typischerweise in drei Szenarien: 1. Indexüberschreitungen (Out-of-Bounds Access) bei Arrays, bei denen über die Feldgrenzen hinaus auf fremden Speicher zugegriffen wird. 2. Vergessene Adressoperatoren ('&') bei Funktionen wie scanf, wodurch der normale Wert der Variable fälschlicherweise als Speicheradresse interpretiert und dereferenziert wird (z. B. Adresse 0). 3. Generelles Dereferenzieren von ungültigen oder uninitialisierten Zeigern. Das Betriebssystem bricht das Programm in diesen Fällen zum Schutz des restlichen Speichers hart ab."
+    "supplementary_answer": "Ein 'Segmentation Fault' tritt auf, wenn ein Programm versucht, auf einen Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine Zugriffsrechte hat. Typische Ursachen: (1) **Indexüberschreitung** bei Arrays — Zugriff über die Feldgrenzen hinaus. (2) **Vergessene Adressoperatoren** (`&`) bei Funktionen wie `scanf`, wodurch der Wert der Variable fälschlicherweise als Speicheradresse interpretiert und dereferenziert wird. (3) **Dereferenzierung von ungültigen oder uninitialisierten Zeigern** — häufiger Spezialfall: NULL-Dereferenzierung, wenn z.B. der Rückgabewert von `malloc` nicht auf `NULL` geprüft wurde. (4) **Use-after-free**: Zugriff auf Heap-Speicher, der bereits mit `free` freigegeben wurde — der Zeiger zeigt dann auf invaliden Speicher. Das Betriebssystem bricht das Programm in diesen Fällen zum Schutz des restlichen Speichers hart ab."
   },
   {
     "query": "Wieso brauche ich Pointer überhaupt, wenn ich Variablen habe?",
@@ -1487,9 +1541,14 @@
         "matching_score": 0.8,
         "evidence": "Bei scanf ist das anders. Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
         "page": 24
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 0.8,
+        "evidence": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden."
       }
     ],
-    "supplementary_answer": "Obwohl man mit normalen Variablen Werte speichern kann, sind Pointer (Zeiger) in C aus drei essenziellen Gründen unverzichtbar: 1. Veränderbarkeit über Funktionsgrenzen hinweg ('Call by Reference'): Da C bei Funktionsaufrufen standardmäßig nur Kopien von Werten übergibt ('Call by Value'), könnte eine Funktion wie 'scanf' niemals den echten Wert einer Variablen verändern. Erst durch die Übergabe eines Pointers (der Speicheradresse) erhält die Funktion direkten Schreibzugriff auf das Original. 2. Performance: Bei sehr großen Datenstrukturen (wie großen Arrays oder Structs) würde das ständige Kopieren der Werte den Rechner extrem ausbremsen. Ein Pointer kopiert nur die winzige Adresse. 3. Dynamischer Speicher: Wenn man zur Programmierzeit noch nicht weiß, wie viel Speicher man benötigt, muss man Speicher zur Laufzeit anfordern (Heap, z.B. mit 'malloc'). Da dieser Speicher nicht an Variablennamen gebunden ist, kann man auf ihn ausschließlich über Pointer zugreifen."
+    "supplementary_answer": "Pointer sind in C aus mehreren miteinander verbundenen Gründen unverzichtbar — der Kerngrund liegt in der **Speicherorganisation des Programms**: Lokale Variablen liegen auf dem **Stack**, der nur begrenzt Platz hat und dessen Inhalt am Funktionsende automatisch freigegeben wird. Will man in einer Funktion z.B. ein Array erzeugen und an den Aufrufer zurückgeben, dann müssen die Daten auf dem **Heap** liegen — und auf den Heap-Speicher kann man nur über Pointer zugreifen, weil er nicht an einen Variablennamen gebunden ist (siehe `malloc`).\n\nPointer selbst sind dabei **auch nur Variablen** — Variablen, die Speicheradressen als Wert enthalten. Daraus ergeben sich weitere praktische Vorteile: (1) **Call by Reference simulieren:** Da C bei Funktionsaufrufen standardmäßig Werte kopiert (Call by Value), kann eine Funktion wie `scanf` nur dann den echten Wert einer Variablen ändern, wenn sie deren Adresse erhält. (2) **Performance bei großen Datenstrukturen:** Statt einen ganzen Struct oder ein großes Array zu kopieren, übergibt man nur dessen Adresse. (3) **Flexible Datenstrukturen:** Verkettete Listen, Bäume usw. funktionieren nur über Zeiger zwischen den Knoten. Insgesamt erlauben Pointer flexiblere Programme, die Speicher selbst verwalten, mit großen Datenmengen umgehen und Daten über einen einzelnen Funktionsaufruf hinaus verfügbar halten."
   },
   {
     "query": "Wie kann ich auf den Wert hinter einem Pointer zugreifen?",
@@ -1676,7 +1735,7 @@
         "page": 2
       }
     ],
-    "supplementary_answer": "Man nutzt 'malloc', um dynamisch Speicherplatz auf dem Heap anzufordern, wenn die exakte Speichermenge erst zur Laufzeit (z. B. durch Benutzereingaben oder Berechnungen) feststeht. Bei statischen Variablen (Arrays) muss die Größe bereits beim Schreiben des Programms fest einprogrammiert sein, was sie für flexible oder unbekannte Datengrößen problematisch macht. Ein weiterer entscheidender Grund ist die Lebensdauer: Speicher, der mit 'malloc' reserviert wurde, ist nicht an den lokalen Gültigkeitsbereich (Blockstruktur) einer Funktion gebunden. Er bleibt solange erhalten, bis er explizit mit 'free()' wieder freigegeben wird oder das Programm endet. Dies ist für Datenstrukturen, die flexibel wachsen sollen und über Funktionsgrenzen hinweg existieren müssen (wie z. B. verkettete Listen), zwingend notwendig."
+    "supplementary_answer": "Man nutzt `malloc`, um zur Laufzeit dynamisch Speicher auf dem Heap anzufordern. Das ist vor allem in zwei Fällen nötig: bei **größeren Datenmengen**, die der begrenzte Stack nicht aufnehmen kann, und bei **Daten, die länger als ein einzelner Funktionsaufruf** leben sollen — denn Heap-Speicher ist nicht an den lokalen Gültigkeitsbereich einer Funktion gebunden, sondern bleibt erhalten, bis er explizit mit `free()` freigegeben wird oder das Programm endet. Bei statischen Arrays muss die Größe bereits beim Schreiben des Programms feststehen, was sie für flexible oder unbekannte Datengrößen ungeeignet macht. Für Datenstrukturen, die flexibel wachsen (wie z.B. verkettete Listen) oder über Funktionsgrenzen hinweg existieren müssen, ist `malloc` daher zwingend notwendig. **Wichtig:** Jeden mit `malloc` reservierten Block am Lebensende explizit mit `free` freigeben, sonst entsteht ein Memory Leak."
   },
   {
     "query": "Warum sollte man den Heap für Strukturen nutzen statt den Stack?",
@@ -2043,7 +2102,7 @@
         "page": 0
       }
     ],
-    "supplementary_answer": "In der Klausur stehen folgende Editoren zur Verfügung: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist dabei oft über eine Schaltfläche oder das Terminal aufrufbar."
+    "supplementary_answer": "Achtung: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und können sich von Semester zu Semester ändern — verbindlich sind immer die aktuellen Hinweise des Dozenten. In der Klausur stehen folgende Editoren zur Verfügung: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist dabei oft über eine Schaltfläche oder das Terminal aufrufbar."
   },
   {
     "query": "Was ist in der Klausur verfügbar? Hilfsmittel, Editor, Compiler?",
@@ -2175,9 +2234,14 @@
         "matching_score": 0.85,
         "evidence": "Der Teilausdruck &i liefert die Adresse von i als Resultat.",
         "page": 120
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 0.8,
+        "evidence": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden."
       }
     ],
-    "supplementary_answer": "Man benötigt die Speicheradresse in C hauptsächlich, um Funktionen (wie z. B. 'scanf') den direkten Zugriff auf Originalvariablen zu gewähren, sodass diese verändert werden können. Da C bei Funktionsaufrufen standardmäßig nur eine Kopie des Wertes übergibt ('Call by Value'), blieben ohne die Übergabe der Adresse alle Änderungen nur lokal in der Funktion. Ein zweiter wesentlicher Grund ist die Performanz: Bei sehr großen Datenstrukturen erspart die Übergabe der reinen Speicheradresse das zeit- und ressourcenaufwändige Kopieren der kompletten Daten ('Call by Reference'-Simulation). Um auf diese Speicheradresse zuzugreifen, verwendet man den Adressoperator, das kaufmännische Und ('&'). Setzt man dieses Zeichen direkt vor eine Variable (z. B. '&v'), liefert der Teilausdruck die exakte Adresse im Speicher zurück, anstatt den eigentlichen Wert der Variablen zu lesen."
+    "supplementary_answer": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Man braucht sie aus mehreren Gründen: (1) **Lebensdauer und Speicherorganisation:** Lokale Variablen liegen auf dem Stack und werden beim Funktionsende automatisch freigegeben. Daten, die länger leben sollen — z.B. ein in der Funktion erzeugtes Array, das zurückgegeben wird —, müssen auf dem Heap liegen, der mit `malloc` angefordert wird; und auf Heap-Speicher kann man nur über Pointer zugreifen. (2) **Funktionen sollen Originale verändern können:** Da C bei Funktionsaufrufen standardmäßig nur Wert-Kopien übergibt (Call by Value), kann z.B. `scanf` nur dann den Originalwert einer Variablen ändern, wenn man die Adresse übergibt. (3) **Performance:** Bei großen Datenstrukturen erspart die Übergabe der Adresse das Kopieren aller Daten.\n\n**Auf die Speicheradresse einer Variablen** zugreift man mit dem Adressoperator `&`. Setzt man `&` direkt vor eine Variable (z.B. `&v`), liefert der Ausdruck deren konkrete Speicheradresse zurück, statt den Wert. Diese Adresse kann man in einer Pointer-Variable speichern (`int *p = &v;`) oder direkt an eine Funktion übergeben (`scanf(\"%d\", &v);`)."
   },
   {
     "query": "Was ist die Ursache für Segfault?",
@@ -2660,8 +2724,13 @@
         "matching_score": 0.6,
         "evidence": "float *m; int n; /* ... Initialisierung von n */ m = (float *) malloc(n * n * sizeof(float)); if (m == NULL) { /* Fehlerbehandlung , ggf. Programmabbruch */ }",
         "page": 142
+      },
+      {
+        "gold_id": "tutor_knowledge_base.txt",
+        "matching_score": 0.8,
+        "evidence": "Eine mit `malloc(zeilen * spalten * sizeof(typ))` als 1D-Array allokierte Matrix kann durch einen Cast zu einem Array-Zeiger mit fixer innerer Dimension wie eine echte 2D-Matrix angesprochen werden: `float (*m2d)[SPALTEN] = (float (*)[SPALTEN]) m1d;` erlaubt anschließend `m2d[i][j]`-Zugriffe, wobei der Compiler die Indexberechnung übernimmt. Voraussetzung ist, dass die Spaltenanzahl zur Compile-Zeit bekannt ist."
       }
     ],
-    "supplementary_answer": "In C gibt es grundsätzlich drei Herangehensweisen, um 2D-Matrizen zu erstellen: \n1. Statisch/Automatisch (Stack): Man deklariert ein Feld mit mehreren Dimensionen, indem man hinter den Variablennamen die jeweiligen Längen in eckigen Klammern anfügt (z. B. 'int m[1][2];'). Diese Matrizen können direkt bei der Erstellung zeilenweise über geschweifte Klammern initialisiert werden.\n2. Dynamisch als Zeiger-Array (Heap): Man erstellt einen Doppelzeiger (z. B. 'double **a') und alloziert zunächst Speicherplatz für ein Array von Pointern (die Zeilen). Anschließend iteriert man in einer Schleife über diese Zeiger und alloziert für jeden davon ein Array für die eigentlichen Spaltenwerte.\n3. Dynamisch als simulierter 1D-Vektor (Heap): Man alloziert ein einfaches, eindimensionales Array, das groß genug für alle Elemente der Matrix ist (z. B. 'malloc(zeilen * spalten * sizeof(typ))'). In diesem Fall muss man die 2D-Struktur simulieren, indem man Zeilen- und Spaltenindizes später über eine mathematische Speicherabbildungsfunktion ('index = zeile * spaltenanzahl + spalte') berechnet."
+    "supplementary_answer": "In C gibt es grundsätzlich drei Herangehensweisen, um 2D-Matrizen zu erstellen:\n\n**1. Statisch/Automatisch (Stack):** Man deklariert ein Feld mit mehreren Dimensionen, indem man hinter den Variablennamen die jeweiligen Längen in eckigen Klammern anfügt (z.B. `int m[3][2];`). Diese Matrizen können direkt bei der Erstellung zeilenweise über geschweifte Klammern initialisiert werden.\n\n**2. Dynamisch als Zeiger-Array (Heap):** Man erstellt einen Doppelzeiger (z.B. `double **a`) und allokiert zunächst Speicherplatz für ein Array von Pointern (die Zeilen). Anschließend iteriert man in einer Schleife über diese Zeiger und allokiert für jeden davon ein Array für die eigentlichen Spaltenwerte.\n\n**3. Dynamisch als simulierter 1D-Vektor (Heap):** Man allokiert ein einfaches, eindimensionales Array, das groß genug für alle Elemente der Matrix ist (z.B. `malloc(zeilen * spalten * sizeof(typ))`). Den Zugriff kann man dann auf zwei Arten gestalten: entweder explizit über die Speicherabbildungsfunktion `index = zeile * spaltenanzahl + spalte` (`array1D[i*spalten + j]`), oder man **castet den 1D-Pointer zu einem Array-Zeiger** mit konstanter innerer Dimension: `float (*array2D)[10] = (float (*)[10]) array1D;` — danach kann man wie bei Variante 1 mit `array2D[i][j]` zugreifen, und C wendet die Speicherabbildungsfunktion bei jedem Zugriff intern selbst an."
   }
 ]
