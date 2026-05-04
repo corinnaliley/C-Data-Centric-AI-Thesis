@@ -42,7 +42,7 @@ VERSION_CONFIG = {
         "ingest_fn": run_ingest_v1,
         "use_bm25":  True,
     },
-    "v2_chunking_hybrid": {
+    "v2_chunking": {
         "ingest_fn": run_ingest_v2,
         "use_bm25":  True,
     },
@@ -56,7 +56,7 @@ VERSION_CONFIG = {
     },
 }
 
-VERSION  = "v1_baseline"   # <- change here to switch experiment
+VERSION  = "v3a_keywords"   # <- switch version
 _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]

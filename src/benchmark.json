@@ -169,13 +169,13 @@
     "references": [
       {
         "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-        "matching_score": 0.6,
+        "matching_score": 0.4,
         "evidence": "Meist hat man die Wahl zwischen verschiedene Editoren , d.h. Programmen, mit denen man Texte, zum Beispiel auch C-Quellprogramme eingeben kann. Wichtig ist, dass der Editor den eingegebenen Quelltext ohne Formatierungsanweisungen oder Anweisungen zur Dokumentorganisation speichert. Ein normales Textverarbeitungsprogramm, mit dem man z.B. seine Briefe verfasst ist daher in der Regel nicht geeignet. Mit der Zeit entwickelt sicher jeder eine Vorliebe fur einen bestimmten Editor.",
         "page": 183
       },
       {
         "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-        "matching_score": 0.7,
+        "matching_score": 0.5,
         "evidence": "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org ) zusammen mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc ) installiert. Beide kann man kostenlos im Internet herunterladen.",
         "page": 184
       }

@@ -74,7 +74,6 @@ def _build_vectorizer() -> Optional[object]:
         return KeyphraseCountVectorizer(
             spacy_pipeline="de_core_news_sm",
             pos_pattern="<N.*|ADJ>*<N.*>+",
-            ngram_range=(1, 3),
         )
     except Exception as exc:
         logger.warning("Could not load de_core_news_sm vectorizer (%s); using default.", exc)

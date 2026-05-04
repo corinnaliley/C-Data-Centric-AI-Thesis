@@ -1,7 +1,7 @@
 """
 Embedding and vector retrieval via OpenAI-compatible API.
 
-Provides dense vector retrieval (via an API-hosted embedding model) and
+Provides hybrid retrieval: Dense vector retrieval (via an API-hosted embedding model) and
 sparse BM25 retrieval, fused via Reciprocal Rank Fusion (RRF).
 """
 
