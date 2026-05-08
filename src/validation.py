@@ -290,8 +290,8 @@ def evaluate_chunk_level(
 
         WRS@K = sum(matching_score_i * decay(rank_i)) / sum(matching_score_i)
 
-    Ghigh flags (chunk_hit_high, topk_hit_high) still use the 0.8 threshold
-    defined in reporting.py.
+    All Ghigh-aware metrics (recall, strict, chain_mrr) live in reporting.py
+    and are computed from ``evidence_details``.
 
     Args:
         gold_references: List of reference dicts from benchmark.json.
@@ -300,12 +300,8 @@ def evaluate_chunk_level(
         rank_decay: "reciprocal" (1/rank) or "log2" (1/log2(rank+1)).
 
     Returns:
-        Dict with keys: wrs, chunk_hit_high, chunk_hit_any, topk_hit_high,
-        evidence_details.
+        Dict with keys: wrs, evidence_details.
     """
-    chunk_hit_high      = False
-    chunk_hit_any       = False
-    topk_hit_high       = False
     evidence_details    = []
     score_sum           = 0.0
     weighted_topk_score = 0.0
@@ -320,27 +316,17 @@ def evaluate_chunk_level(
         score_sum += matching_score
 
         rank             = _rank_in_topk(evidence, top_k_indices, corpus_texts)
-        top1_hit         = (rank == 1)
-        topk_hit         = rank is not None
         evidence_indices = [i for i in top_k_indices
                             if _has_evidence(evidence, corpus_texts[i])]
 
-        if top1_hit:
-            chunk_hit_any = True
-            if matching_score >= 0.8:
-                chunk_hit_high = True
-
-        if topk_hit:
+        if rank is not None:
             decay = 1.0 / rank if rank_decay == "reciprocal" else 1.0 / math.log2(rank + 1)
             weighted_topk_score += matching_score * decay
-            if matching_score >= 0.8:
-                topk_hit_high = True
 
         evidence_details.append({
             "evidence_snippet":       evidence[:80],
             "matching_score":         matching_score,
-            "top1_is_evidence_chunk": top1_hit,
-            "topk_has_evidence":      topk_hit,
+            "topk_has_evidence":      rank is not None,
             "topk_rank":              rank,
             "evidence_chunk_indices": evidence_indices,
         })
@@ -349,9 +335,6 @@ def evaluate_chunk_level(
 
     return {
         "wrs":              round(wrs, 4),
-        "chunk_hit_high":   chunk_hit_high,
-        "chunk_hit_any":    chunk_hit_any,
-        "topk_hit_high":    topk_hit_high,
         "evidence_details": evidence_details,
     }
 

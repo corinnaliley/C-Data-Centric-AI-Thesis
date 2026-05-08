@@ -2,31 +2,34 @@
 Aggregates evaluation results, prints a summary report, and saves metrics to disk.
 
 Primary chunk-level metrics (continuous, score-aware):
-- WRS@k                — sum(score_i * decay(rank_i)) / sum(score_i) over all refs
-                         decay = 1/rank (reciprocal). Captures both finding and ranking.
-- nDCG@k               — graded-relevance nDCG at chunk level. IDCG is built from
-                         ALL gold reference scores (not just chunks in top-k).
+- WRS@k                — sum(score_i * decay(rank_i)) / sum(score_i) over all refs.
+                         Captures both ``was it found'' and ``how high''.
+- Weighted Recall@k    — sum(score_i * found_i) / sum(score_i) over ALL refs.
+                         WRS without rank decay — isolates finding from ranking.
 - Recall@k (Ghigh)     — |Ghigh refs found in top-k| / |Ghigh refs|.
                          None for queries without Ghigh refs (excluded from mean).
-- Weighted Recall@k    — sum(score_i * found_i) / sum(score_i) over ALL refs.
-                         Companion to WRS without rank decay — isolates ``did we
-                         find it'' from ``how high is it ranked''.
+- Chunk-MRR            — 1 / rank of the FIRST chunk containing any evidence.
+                         ``How quickly does the tutor get its first usable hit?''
+- nDCG@k               — graded-relevance nDCG. IDCG built from ALL gold ref
+                         scores (not just chunks in top-k).
 
 Doc-level (context):
-- Hit@k (k=1,5,10,20) — gold doc appears in the top-k retrieved doc IDs.
-- MRR                 — Mean Reciprocal Rank at document level.
+- Hit@k (k=1,5,10,20)  — gold doc appears in the top-k retrieved doc IDs.
+- MRR                  — doc-level Mean Reciprocal Rank.
 
-Diagnostic / binary (top-1 or all-or-nothing):
-- Any High-Score Hit@1   — top-1 chunk contains a Ghigh evidence piece.
-- Chunk Hit@1 (any)      — top-1 chunk contains any evidence piece.
-- Strict High-Score Hit@k— ALL Ghigh refs found in top-k. Reported as x/n_appl
-                            (queries without Ghigh refs are excluded).
-- Chain-MRR (complementary) — 1/max_rank if all Ghigh refs found, 0 if any missing,
-                               None if no Ghigh refs (excluded from mean).
+Out-of-scope (refusal calibration):
+- best_score distribution for OOS queries vs. in-scope.
+- AUROC and threshold-sweet-spot analysis for picking a refusal cutoff.
+
+Diagnostic:
+- Strict High-Score Hit@k — ALL Ghigh refs found in top-k (binary). Reported as
+                             x/n_appl over queries that have Ghigh refs.
+- Chain-MRR (complementary) — 1/max_rank: bottleneck rank for Ghigh refs.
+                               Complements Chunk-MRR (best-case) with worst-case.
 
 Ghigh = references with matching_score >= 0.8 (must-have information).
-All means / CIs over Ghigh-dependent metrics use only the queries where the
-metric is defined (None values are filtered out).
+Means / CIs over Ghigh-dependent metrics use only the applicable queries
+(None values are filtered out).
 """
 
 import json
@@ -240,6 +243,86 @@ def _doc_type(expected_ids: list[str]) -> str:
     return "mixed"
 
 
+def _chunk_mrr(evidence_details: list) -> float | None:
+    """
+    Reciprocal rank of the FIRST chunk in top-k that contains any evidence.
+
+    Use-case fit: ``how quickly does the tutor get its first usable hit?''
+    Complements Chain-MRR (which is the LAST/bottleneck rank for Ghigh refs)
+    by reporting the best-case rank.
+
+    Returns ``None`` if no references with evidence exist for the query, and
+    0.0 if references exist but none was found in top-k.
+    """
+    if not evidence_details:
+        return None
+    ranks = [ed["topk_rank"] for ed in evidence_details if ed["topk_rank"] is not None]
+    if not ranks:
+        return 0.0
+    return round(1.0 / min(ranks), 4)
+
+
+def _auroc(positive_scores: list[float], negative_scores: list[float]) -> float | None:
+    """
+    Area-under-ROC for separating positives from negatives by scalar score.
+
+    Equivalent to P(score(positive) > score(negative)) with ties counted as
+    half. 1.0 = perfect separation, 0.5 = random, < 0.5 = inverted.
+    """
+    if not positive_scores or not negative_scores:
+        return None
+    pairs = 0.0
+    for p in positive_scores:
+        for n in negative_scores:
+            if p > n:
+                pairs += 1.0
+            elif p == n:
+                pairs += 0.5
+    return round(pairs / (len(positive_scores) * len(negative_scores)), 4)
+
+
+def _percentile(values: list[float], q: float) -> float:
+    """Empirical q-percentile (q in [0, 1]) over a non-empty list."""
+    s = sorted(values)
+    return s[min(len(s) - 1, max(0, int(q * len(s))))]
+
+
+def _oos_stats(oos_scores: list[float], in_scope_scores: list[float]) -> dict | None:
+    """
+    Refusal-calibration stats for out-of-scope queries.
+
+    Reports best_score distribution for OOS queries and compares to the
+    in-scope distribution. Useful for picking a refusal threshold:
+    ``at the threshold where 95 % of in-scope queries pass, how many OOS
+    are correctly rejected?''
+    """
+    if not oos_scores:
+        return None
+    n_oos = len(oos_scores)
+    out: dict = {
+        "n_oos":          n_oos,
+        "mean_oos_score": round(sum(oos_scores) / n_oos, 4),
+        "p50_oos_score":  round(_percentile(oos_scores, 0.50), 4),
+        "p95_oos_score":  round(_percentile(oos_scores, 0.95), 4),
+        "max_oos_score":  round(max(oos_scores), 4),
+    }
+    if in_scope_scores:
+        n_in = len(in_scope_scores)
+        mean_in    = sum(in_scope_scores) / n_in
+        p5_in      = _percentile(in_scope_scores, 0.05)
+        rejected   = sum(1 for s in oos_scores if s < p5_in) / n_oos
+        out.update({
+            "n_in_scope":         n_in,
+            "mean_in_score":      round(mean_in, 4),
+            "p5_in_score":        round(p5_in, 4),
+            "score_gap_in_oos":   round(mean_in - out["mean_oos_score"], 4),
+            "auroc_in_vs_oos":    _auroc(in_scope_scores, oos_scores),
+            "threshold_p5_in":    round(p5_in, 4),
+            "frac_oos_rejected_at_p5": round(rejected, 4),
+        })
+    return out
+
+
 def _bootstrap_ci(
     values: list[float],
     n_boot: int = N_BOOTSTRAP,
@@ -274,9 +357,6 @@ def log_query_result(
     ranked_doc_ids: list[str] = None,
     top_k_indices: list[int] = None,
     wrs: float = 0.0,
-    chunk_hit_high: bool = False,
-    chunk_hit_any: bool = False,
-    topk_hit_high: bool = False,
     evidence_details: list = None,
     embed_latency_ms: float = 0.0,
     bm25_latency_ms: float = 0.0,
@@ -294,22 +374,14 @@ def log_query_result(
         ranked_doc_ids: Ordered doc IDs of all top-k results.
         top_k_indices: Corpus indices of all top-k results.
         wrs: Weighted Relevance Score for this query.
-        chunk_hit_high: True if top-1 chunk contains a Ghigh evidence piece.
-        chunk_hit_any: True if top-1 chunk contains any evidence piece.
-        topk_hit_high: True if any top-k chunk contains a Ghigh evidence piece.
         evidence_details: Per-reference evaluation dicts from evaluate_chunk_level.
 
     Returns:
-        Dict with all input values plus derived metrics (rr, strict_topk_hit, etc.).
+        Dict with all input values plus derived metrics (rr, recall_at_k,
+        weighted_recall_at_k, chunk_mrr, chain_mrr, ndcg, strict_topk_hit, ...).
     """
     doc_marker   = "OK" if is_hit else "--"
-    chunk_marker = ""
-    if chunk_hit_high:
-        chunk_marker = f" [Chunk+ WRS={wrs:.2f}]"
-    elif chunk_hit_any:
-        chunk_marker = f" [Chunk~ WRS={wrs:.2f}]"
-    elif wrs > 0:
-        chunk_marker = f" [WRS={wrs:.2f}]"
+    chunk_marker = f" [WRS={wrs:.2f}]" if wrs > 0 else ""
 
     print(
         f"{doc_marker}{chunk_marker} | "
@@ -334,12 +406,10 @@ def log_query_result(
         "strict_topk_hit":        _strict_topk_hit(ed),
         "recall_at_k":            _recall_at_k(ed),
         "weighted_recall_at_k":   _weighted_recall_at_k(ed),
+        "chunk_mrr":              _chunk_mrr(ed),
         "chain_mrr":              _chain_mrr(ed, tki) if tki else None,
         "ndcg":                   _ndcg_at_k(ed, tki, k=len(tki)) if tki else 0.0,
         "wrs":                    wrs,
-        "chunk_hit_high":         chunk_hit_high,
-        "chunk_hit_any":          chunk_hit_any,
-        "topk_hit_high":          topk_hit_high,
         "score":                  round(best_score, 4),
         "embed_latency_ms":       round(embed_latency_ms, 2),
         "bm25_latency_ms":        round(bm25_latency_ms, 2),
@@ -350,6 +420,7 @@ def log_query_result(
 def compute_and_print_metrics(
     results_log: list[dict],
     total_queries: int,
+    oos_scores: list[float] = None,
 ) -> dict:
     """
     Aggregate per-query results into final metrics and print a summary table.
@@ -378,26 +449,30 @@ def compute_and_print_metrics(
     mrr     = sum(rr_vals) / n
 
     # Continuous chunk-level metrics — primary signal across versions
-    ndcg_vals   = [r.get("ndcg",                 0.0) for r in results_log]
-    wrs_vals    = [r.get("wrs",                  0.0) for r in results_log]
-    recall_vals = [r.get("recall_at_k")              for r in results_log]   # None when no Ghigh
-    wrec_vals   = [r.get("weighted_recall_at_k")     for r in results_log]   # None when no refs
-    mean_ndcg   = sum(ndcg_vals)   / n
-    mean_wrs    = sum(wrs_vals)    / n
-    mean_recall, n_recall = _mean_ignoring_none(recall_vals)
-    mean_wrec,   n_wrec   = _mean_ignoring_none(wrec_vals)
+    ndcg_vals      = [r.get("ndcg",                 0.0) for r in results_log]
+    wrs_vals       = [r.get("wrs",                  0.0) for r in results_log]
+    recall_vals    = [r.get("recall_at_k")              for r in results_log]   # None when no Ghigh
+    wrec_vals      = [r.get("weighted_recall_at_k")     for r in results_log]   # None when no refs
+    chunk_mrr_vals = [r.get("chunk_mrr")                for r in results_log]   # None when no refs
+    mean_ndcg      = sum(ndcg_vals) / n
+    mean_wrs       = sum(wrs_vals)  / n
+    mean_recall,    n_recall    = _mean_ignoring_none(recall_vals)
+    mean_wrec,      n_wrec      = _mean_ignoring_none(wrec_vals)
+    mean_chunk_mrr, n_chunk_mrr = _mean_ignoring_none(chunk_mrr_vals)
 
-    # Diagnostic / binary chunk metrics (top-1 or all-or-nothing)
-    any_high_hit1   = sum(1 for r in results_log if r.get("chunk_hit_high"))
-    chunk_hits_any  = sum(1 for r in results_log if r.get("chunk_hit_any"))
-    strict_vals     = [r.get("strict_topk_hit")  for r in results_log]   # True/False/None
-    strict_hits     = sum(1 for v in strict_vals if v is True)
-    n_strict_appl   = sum(1 for v in strict_vals if v is not None)
+    # Strict@k (Ghigh-only, applicable count)
+    strict_vals   = [r.get("strict_topk_hit") for r in results_log]   # True/False/None
+    strict_hits   = sum(1 for v in strict_vals if v is True)
+    n_strict_appl = sum(1 for v in strict_vals if v is not None)
 
     # Chain-MRR (complementary queries only, ignoring queries without Ghigh)
     comp = [r for r in results_log if r["type"] == "complementary"]
     chain_vals_comp = [r.get("chain_mrr") for r in comp]
     chain_mrr_mean, n_chain_appl = _mean_ignoring_none(chain_vals_comp)
+
+    # Out-of-scope refusal calibration
+    in_scope_scores = [r.get("score", 0.0) for r in results_log]
+    oos_block       = _oos_stats(oos_scores or [], in_scope_scores)
 
     # Latency stats
     embed_lats     = [r.get("embed_latency_ms", 0.0) for r in results_log]
@@ -406,41 +481,59 @@ def compute_and_print_metrics(
     p95_embed_lat  = sorted(embed_lats)[int(0.95 * n)]
     mean_bm25_lat  = sum(bm25_lats) / n
 
-    # Bootstrap 95 % CIs (filter None for Ghigh-dependent metrics)
-    recall_clean = [v for v in recall_vals if v is not None]
-    wrec_clean   = [v for v in wrec_vals   if v is not None]
-    ci_hit1   = _bootstrap_ci(hit1_vals)
-    ci_mrr    = _bootstrap_ci(rr_vals)
-    ci_ndcg   = _bootstrap_ci(ndcg_vals)
-    ci_wrs    = _bootstrap_ci(wrs_vals)
-    ci_recall = _bootstrap_ci(recall_clean) if recall_clean else (0.0, 0.0)
-    ci_wrec   = _bootstrap_ci(wrec_clean)   if wrec_clean   else (0.0, 0.0)
+    # Bootstrap 95 % CIs (filter None where applicable)
+    recall_clean    = [v for v in recall_vals    if v is not None]
+    wrec_clean      = [v for v in wrec_vals      if v is not None]
+    chunk_mrr_clean = [v for v in chunk_mrr_vals if v is not None]
+    ci_hit1     = _bootstrap_ci(hit1_vals)
+    ci_mrr      = _bootstrap_ci(rr_vals)
+    ci_ndcg     = _bootstrap_ci(ndcg_vals)
+    ci_wrs      = _bootstrap_ci(wrs_vals)
+    ci_recall   = _bootstrap_ci(recall_clean)    if recall_clean    else (0.0, 0.0)
+    ci_wrec     = _bootstrap_ci(wrec_clean)      if wrec_clean      else (0.0, 0.0)
+    ci_chunkmrr = _bootstrap_ci(chunk_mrr_clean) if chunk_mrr_clean else (0.0, 0.0)
 
     def pct(x): return round(x / n * 100, 2)
     def fmt_ci(lo, hi): return f"[{lo*100:.1f}%, {hi*100:.1f}%]"
 
     print(f"\n{'='*60}")
-    print(f"Final Results  ({n} evaluated of {total_queries} total)  — 95% bootstrap CI, {N_BOOTSTRAP} resamples")
+    print(f"Final Results  ({n} in-scope of {total_queries} total)  — 95% bootstrap CI, {N_BOOTSTRAP} resamples")
     print(f"{'='*60}")
     print(f"  --- Chunk-Level (continuous, score-aware) ---")
-    print(f"  Mean WRS@{k}             : {mean_wrs:.4f}    95% CI [{ci_wrs[0]:.4f}, {ci_wrs[1]:.4f}]")
-    print(f"  nDCG@{k}                 : {mean_ndcg:.4f}    95% CI [{ci_ndcg[0]:.4f}, {ci_ndcg[1]:.4f}]")
-    print(f"  Recall@{k} (Ghigh)       : {mean_recall:.4f}    95% CI [{ci_recall[0]:.4f}, {ci_recall[1]:.4f}]   (n_appl={n_recall})")
+    print(f"  WRS@{k}                  : {mean_wrs:.4f}    95% CI [{ci_wrs[0]:.4f}, {ci_wrs[1]:.4f}]")
     print(f"  Weighted Recall@{k}      : {mean_wrec:.4f}    95% CI [{ci_wrec[0]:.4f}, {ci_wrec[1]:.4f}]   (n_appl={n_wrec})")
-    print(f"  --- Doc-Level ---")
+    print(f"  Recall@{k} (Ghigh)       : {mean_recall:.4f}    95% CI [{ci_recall[0]:.4f}, {ci_recall[1]:.4f}]   (n_appl={n_recall})")
+    print(f"  Chunk-MRR                : {mean_chunk_mrr:.4f}    95% CI [{ci_chunkmrr[0]:.4f}, {ci_chunkmrr[1]:.4f}]   (n_appl={n_chunk_mrr})")
+    print(f"  nDCG@{k}                 : {mean_ndcg:.4f}    95% CI [{ci_ndcg[0]:.4f}, {ci_ndcg[1]:.4f}]")
+    print(f"  --- Doc-Level (context) ---")
     print(f"  Hit@1   : {hits1}/{n} ({pct(hits1):.1f}%)  95% CI {fmt_ci(*ci_hit1)}")
     print(f"  Hit@5   : {hits5}/{n} ({pct(hits5):.1f}%)")
     print(f"  Hit@10  : {hits10}/{n} ({pct(hits10):.1f}%)")
     print(f"  Hit@20  : {hits20}/{n} ({pct(hits20):.1f}%)")
     print(f"  MRR     : {mrr:.4f}  95% CI [{ci_mrr[0]:.4f}, {ci_mrr[1]:.4f}]")
-    print(f"  --- Diagnostic (binary / top-1) ---")
-    print(f"  Any High-Score Hit@1            : {any_high_hit1}/{n} ({pct(any_high_hit1):.1f}%)")
-    print(f"  Chunk Hit@1 (any)               : {chunk_hits_any}/{n} ({pct(chunk_hits_any):.1f}%)")
+    if oos_block:
+        print(f"  --- Out-of-Scope (refusal calibration) ---")
+        print(f"  OOS queries                     : n={oos_block['n_oos']}")
+        print(f"  OOS best_score (mean/p50/p95/max): "
+              f"{oos_block['mean_oos_score']:.3f} / "
+              f"{oos_block['p50_oos_score']:.3f} / "
+              f"{oos_block['p95_oos_score']:.3f} / "
+              f"{oos_block['max_oos_score']:.3f}")
+        if "auroc_in_vs_oos" in oos_block:
+            print(f"  In-scope best_score (mean/p5)   : "
+                  f"{oos_block['mean_in_score']:.3f} / {oos_block['p5_in_score']:.3f}")
+            print(f"  Score gap (in - oos)            : {oos_block['score_gap_in_oos']:.3f}")
+            print(f"  AUROC (in-scope vs OOS)         : {oos_block['auroc_in_vs_oos']:.3f}   (1=perfect, 0.5=random)")
+            print(f"  At threshold={oos_block['threshold_p5_in']:.3f} (in-scope p5): "
+                  f"{int(oos_block['frac_oos_rejected_at_p5']*oos_block['n_oos'])}/"
+                  f"{oos_block['n_oos']} OOS rejected "
+                  f"({oos_block['frac_oos_rejected_at_p5']*100:.0f}%)")
+    print(f"  --- Diagnostic ---")
     if n_strict_appl:
         strict_rate = strict_hits / n_strict_appl * 100
         print(f"  Strict High-Score Hit@{k}         : {strict_hits}/{n_strict_appl} ({strict_rate:.1f}%)   (only Ghigh queries)")
     if n_chain_appl:
-        print(f"  Chain-MRR  (complementary, n={n_chain_appl})  : {chain_mrr_mean:.4f}")
+        print(f"  Chain-MRR  (complementary, n={n_chain_appl})  : {chain_mrr_mean:.4f}   (bottleneck rank for Ghigh refs)")
     print(f"  --- Latency (per query) ---")
     print(f"  Embed (mean/p95)                : {mean_embed_lat:.0f} ms / {p95_embed_lat:.0f} ms")
     print(f"  BM25+RRF (mean)                 : {mean_bm25_lat:.1f} ms")
@@ -456,18 +549,20 @@ def compute_and_print_metrics(
         sub_mrr        = sum(r.get("rr",   0.0) for r in sub) / sn
         sub_ndcg       = sum(r.get("ndcg", 0.0) for r in sub) / sn
         sub_wrs        = sum(r.get("wrs",  0.0) for r in sub) / sn
-        sub_recall, sub_n_recall = _mean_ignoring_none([r.get("recall_at_k")           for r in sub])
-        sub_wrec,   sub_n_wrec   = _mean_ignoring_none([r.get("weighted_recall_at_k")  for r in sub])
-        sub_chain,  sub_n_chain  = _mean_ignoring_none([r.get("chain_mrr")             for r in sub])
+        sub_recall,  _ = _mean_ignoring_none([r.get("recall_at_k")           for r in sub])
+        sub_wrec,    _ = _mean_ignoring_none([r.get("weighted_recall_at_k")  for r in sub])
+        sub_chunkmrr,_ = _mean_ignoring_none([r.get("chunk_mrr")             for r in sub])
+        sub_chain,   sub_n_chain = _mean_ignoring_none([r.get("chain_mrr")  for r in sub])
         sub_strict_vals = [r.get("strict_topk_hit") for r in sub]
         sub_strict_appl = sum(1 for v in sub_strict_vals if v is not None)
         sub_strict_hits = sum(1 for v in sub_strict_vals if v is True)
         line = (
             f"  -> {qtype:15} (n={sn}): "
             f"WRS={sub_wrs:.3f}  "
-            f"nDCG={sub_ndcg:.3f}  "
-            f"Recall@{k}={sub_recall:.3f}  "
             f"WRec@{k}={sub_wrec:.3f}  "
+            f"Recall@{k}={sub_recall:.3f}  "
+            f"ChunkMRR={sub_chunkmrr:.3f}  "
+            f"nDCG={sub_ndcg:.3f}  "
             f"Hit@1={sub_hits/sn*100:.0f}%  "
             f"MRR={sub_mrr:.3f}  "
         )
@@ -489,28 +584,32 @@ def compute_and_print_metrics(
         s_mrr     = sum(r.get("rr",   0.0) for r in sub) / sn
         s_ndcg    = sum(r.get("ndcg", 0.0) for r in sub) / sn
         s_wrs     = sum(r.get("wrs",  0.0) for r in sub) / sn
-        s_recall, s_n_recall = _mean_ignoring_none([r.get("recall_at_k")          for r in sub])
-        s_wrec,   s_n_wrec   = _mean_ignoring_none([r.get("weighted_recall_at_k") for r in sub])
+        s_recall,    s_n_recall    = _mean_ignoring_none([r.get("recall_at_k")          for r in sub])
+        s_wrec,      s_n_wrec      = _mean_ignoring_none([r.get("weighted_recall_at_k") for r in sub])
+        s_chunkmrr,  s_n_chunkmrr  = _mean_ignoring_none([r.get("chunk_mrr")            for r in sub])
         s_strict_vals = [r.get("strict_topk_hit") for r in sub]
         s_strict_appl = sum(1 for v in s_strict_vals if v is not None)
         s_strict_hits = sum(1 for v in s_strict_vals if v is True)
         print(
             f"  -> {dtype:8} (n={sn:2}): "
             f"WRS={s_wrs:.3f}  "
-            f"nDCG={s_ndcg:.3f}  "
-            f"Recall@{k}={s_recall:.3f}  "
             f"WRec@{k}={s_wrec:.3f}  "
+            f"Recall@{k}={s_recall:.3f}  "
+            f"ChunkMRR={s_chunkmrr:.3f}  "
+            f"nDCG={s_ndcg:.3f}  "
             f"Hit@1={s_hit1/sn*100:.0f}%  "
             f"MRR={s_mrr:.3f}"
         )
         by_doc_type[dtype] = {
             "n":                    sn,
             "wrs":                  round(s_wrs,    4),
-            "ndcg":                 round(s_ndcg,   4),
-            "recall_at_k":          round(s_recall, 4),
-            "n_recall_applicable":  s_n_recall,
             "weighted_recall_at_k": round(s_wrec,   4),
             "n_wrec_applicable":    s_n_wrec,
+            "recall_at_k":          round(s_recall, 4),
+            "n_recall_applicable":  s_n_recall,
+            "chunk_mrr":            round(s_chunkmrr, 4),
+            "n_chunk_mrr_applicable": s_n_chunkmrr,
+            "ndcg":                 round(s_ndcg,   4),
             "hit1":                 round(s_hit1 / sn, 4),
             "mrr":                  round(s_mrr,    4),
             "strict_topk_hit":      (round(s_strict_hits / s_strict_appl, 4) if s_strict_appl else None),
@@ -538,24 +637,25 @@ def compute_and_print_metrics(
         # Continuous chunk-level metrics (primary)
         "mean_wrs":                 round(mean_wrs, 4),
         "ci_wrs":                   [round(ci_wrs[0],    4), round(ci_wrs[1],    4)],
-        "mean_ndcg":                round(mean_ndcg, 4),
-        "ci_ndcg":                  [round(ci_ndcg[0],   4), round(ci_ndcg[1],   4)],
-        "mean_recall_at_k":         round(mean_recall, 4),
-        "ci_recall_at_k":           [round(ci_recall[0], 4), round(ci_recall[1], 4)],
-        "n_recall_applicable":      n_recall,
         "mean_weighted_recall_at_k":round(mean_wrec, 4),
         "ci_weighted_recall_at_k":  [round(ci_wrec[0],   4), round(ci_wrec[1],   4)],
         "n_wrec_applicable":        n_wrec,
-        # Diagnostic Ghigh metrics
-        "any_high_score_hit1":      any_high_hit1,
-        "accuracy_any_high_hit1":   pct(any_high_hit1),
-        "chunk_hits_any":           chunk_hits_any,
-        "accuracy_chunk_any":       pct(chunk_hits_any),
+        "mean_recall_at_k":         round(mean_recall, 4),
+        "ci_recall_at_k":           [round(ci_recall[0], 4), round(ci_recall[1], 4)],
+        "n_recall_applicable":      n_recall,
+        "mean_chunk_mrr":           round(mean_chunk_mrr, 4),
+        "ci_chunk_mrr":             [round(ci_chunkmrr[0], 4), round(ci_chunkmrr[1], 4)],
+        "n_chunk_mrr_applicable":   n_chunk_mrr,
+        "mean_ndcg":                round(mean_ndcg, 4),
+        "ci_ndcg":                  [round(ci_ndcg[0],   4), round(ci_ndcg[1],   4)],
+        # Diagnostic
         "strict_topk_hit":          strict_hits,
         "n_strict_applicable":      n_strict_appl,
         "accuracy_strict_topk_hit": (round(strict_hits / n_strict_appl * 100, 2) if n_strict_appl else None),
         "chain_mrr_complementary":  round(chain_mrr_mean, 4),
         "n_chain_mrr_applicable":   n_chain_appl,
+        # Out-of-Scope refusal calibration
+        "out_of_scope":             oos_block,
         # Latency
         "mean_embed_latency_ms":    round(mean_embed_lat, 2),
         "p95_embed_latency_ms":     round(p95_embed_lat,  2),

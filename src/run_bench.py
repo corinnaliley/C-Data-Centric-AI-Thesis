@@ -63,7 +63,7 @@ VERSION_CONFIG = {
     },
 }
 
-VERSION  = "v3a_keywords"   # <- switch version
+VERSION  = "v1_baseline"   # <- switch version
 _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]
@@ -134,16 +134,26 @@ def run_evaluation() -> None:
         print("Building BM25 index...")
         bm25_index = BM25Index(corpus_texts)
 
-    # 5. Query loop
+    # 5. Query loop — in-scope queries are evaluated, OOS queries only contribute
+    # their best_score to the refusal-calibration block.
     print("\nStarting evaluation...")
-    results_log = []
+    results_log: list = []
+    oos_scores:  list[float] = []
 
     for q in gold_data:
         query_text = q["query"]
         query_type = q.get("type", "redundant")
 
+        # Retrieval (run for every query, including out-of-scope)
+        result = retrieve_top_k(
+            query_text, model, corpus_embeddings,
+            corpus_ids, corpus_texts, top_k=TOP_K,
+            bm25_index=bm25_index,
+        )
+
         if query_type == "out_of_scope":
-            print(f"Skip (out-of-scope) | {query_text[:40]}...")
+            oos_scores.append(result["best_score"])
+            print(f"OOS | {query_text[:40]}... | best_score={result['best_score']:.3f}")
             continue
 
         gold_references = q.get("references", [])
@@ -152,16 +162,8 @@ def run_evaluation() -> None:
             if isinstance(ref, dict) and ref.get("gold_id")
         ]
 
-        # Retrieval
-        result = retrieve_top_k(
-            query_text, model, corpus_embeddings,
-            corpus_ids, corpus_texts, top_k=TOP_K,
-            bm25_index=bm25_index,
-        )
-
         is_hit = result["predicted_id"] in expected_ids
 
-        # Chunk-level evaluation with WRS
         chunk_eval = evaluate_chunk_level(
             gold_references,
             top_k_indices = result["top_k_indices"],
@@ -178,9 +180,6 @@ def run_evaluation() -> None:
             ranked_doc_ids    = [corpus_ids[i] for i in result["top_k_indices"]],
             top_k_indices     = result["top_k_indices"],
             wrs               = chunk_eval["wrs"],
-            chunk_hit_high    = chunk_eval["chunk_hit_high"],
-            chunk_hit_any     = chunk_eval["chunk_hit_any"],
-            topk_hit_high     = chunk_eval["topk_hit_high"],
             evidence_details  = chunk_eval["evidence_details"],
             embed_latency_ms  = result["embed_latency_ms"],
             bm25_latency_ms   = result["bm25_latency_ms"],
@@ -188,7 +187,11 @@ def run_evaluation() -> None:
         results_log.append(entry)
 
     # 6. Report
-    metrics = compute_and_print_metrics(results_log, total_queries=len(gold_data))
+    metrics = compute_and_print_metrics(
+        results_log,
+        total_queries = len(gold_data),
+        oos_scores    = oos_scores,
+    )
 
     # V3b setup token costs (one-time, read from keyword cache metadata)
     if VERSION == "v3b_llm_keywords" and V3B_KEYWORD_CACHE_PATH.exists():
