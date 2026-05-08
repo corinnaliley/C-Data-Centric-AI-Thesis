@@ -1,8 +1,384 @@
 [
   {
-    "doc_id": "tutor_knowledge_base.txt",
-    "text": "WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden\nUm WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.\nHier sind die erforderlichen Schritte für die Einrichtung:\n1. Voraussetzungen schaffen\n\n    WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.\n    VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).\n    WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen“ (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.\n\n2. WSL-Erweiterung installieren\n\n    Starten Sie VS Code unter Windows.\n    Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).\n    Suchen Sie nach der Erweiterung „WSL“ (früher „Remote - WSL“) oder installieren Sie das „Remote Development“-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.\n    Klicken Sie auf Installieren.\n\n3. Verbindung herstellen\nEs gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:\n\n    Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.\n    Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL“ (oder „WSL: Connect to WSL using Distro“ für eine spezifische Distribution) ein.\n    Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.\n\nWoran erkennen Sie die erfolgreiche Einbindung?\nNachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu“), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt.\n\n\n\n\"question\": \"Welche Editoren stehen in der Klausur zur Verfügung?\",\n\"answer\": \"Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.\"\n\n   \"question\": \"Gibt es in der Klausur Schmierpapier?\",\n    \"answer\": \"Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus.\"\n\n    \"question\": \"Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?\",\n    \"answer\": \"Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt.\"\n\n    \"question\": \"Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?\",\n    \"answer\": \"Ja, in Editoren wie VSCodium ist der Code ge-highlighted.\"\n\n   \"question\": \"Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?\",\n    \"answer\": \"Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable.\"\n\n   \"question\": \"Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?\",\n    \"answer\": \"Nein. Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler.\"\n\n    \"question\": \"Ist das Thema '13_Rechnerarithmetik' klausurrelevant?\",\n    \"answer\": \"Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende Klausur nicht relevant.\"\n\n   \"question\": \"Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?\",\n    \"answer\": \"Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den Account zurücksetzen zu lassen.\"\n\n   \"question\": \"Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?\",\n    \"answer\": \"Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt.\"\n\nÖffnen eines Terminals in Visual Studio Code (VS Code)\nTastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.\n\nÜber das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).\n\nBefehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal.",
-    "meta": {}
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie bekomme ich WSL in VS Code eingebunden?\nWSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden\nUm WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.\nHier sind die erforderlichen Schritte für die Einrichtung:\n1. Voraussetzungen schaffen\n\n    WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.\n    VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).\n    WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen\" (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.\n\n2. WSL-Erweiterung installieren\n\n    Starten Sie VS Code unter Windows.\n    Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).\n    Suchen Sie nach der Erweiterung „WSL\" (früher „Remote - WSL\") oder installieren Sie das „Remote Development\"-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.\n    Klicken Sie auf Installieren.\n\n3. Verbindung herstellen\nEs gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:\n\n    Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.\n    Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL\" (oder „WSL: Connect to WSL using Distro\" für eine spezifische Distribution) ein.\n    Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.\n\nWoran erkennen Sie die erfolgreiche Einbindung?\nNachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu\"), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt.",
+    "meta": {
+      "tags": [
+        "umgebung",
+        "wsl",
+        "vscode",
+        "einrichten",
+        "windows"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie öffne ich ein Terminal in VS Code?\nÖffnen eines Terminals in Visual Studio Code (VS Code)\nTastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.\n\nÜber das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).\n\nBefehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal.",
+    "meta": {
+      "tags": [
+        "vscode",
+        "terminal",
+        "shortcut"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie setze ich eine C-Entwicklungsumgebung unter Windows auf?\nWenn die Linux-Installation oder das Aufsetzen der C-Entwicklungsumgebung Probleme bereitet, ist die erste Anlaufstelle das Tutorium oder die Anleitungssammlung unter https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen/. Dort sind die unterstützten Wege (WSL+Ubuntu+VS Code, MinGW/MSYS2 unter Windows nativ, native Linux-Installation) Schritt für Schritt dokumentiert.",
+    "meta": {
+      "tags": [
+        "umgebung",
+        "einrichten",
+        "windows",
+        "wsl",
+        "linux",
+        "gcc"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Warum muss VS Code auf der Windows-Seite installiert werden und nicht in WSL?\nVS Code wird auf der Windows-Seite installiert (nicht innerhalb des WSL-Dateisystems), weil die WSL-Erweiterung von dort aus die Verbindung in die Linux-Umgebung aufbaut. Wäre VS Code innerhalb von WSL installiert, würde die Erweiterung nicht funktionieren. Wichtig: Bei der Installation die Option „Zu PATH hinzufügen\" aktivieren, damit man VS Code später direkt aus dem Linux-Terminal mit `code .` starten kann.",
+    "meta": {
+      "tags": [
+        "umgebung",
+        "wsl",
+        "vscode",
+        "windows"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Woran erkenne ich, dass VS Code erfolgreich mit WSL verbunden ist?\nNach erfolgreicher Verbindung erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige, z. B. „WSL: Ubuntu\". Diese bestätigt, dass VS Code im Kontext der Linux-Distribution läuft. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt in WSL ausgeführt. Fehlt diese Anzeige, ist VS Code noch im Windows-Modus.",
+    "meta": {
+      "tags": [
+        "umgebung",
+        "wsl",
+        "vscode"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie starte ich VS Code aus dem WSL-Terminal heraus?\nIm Linux-Terminal in den gewünschten Projektordner navigieren und `code .` eingeben. VS Code lädt dann die erforderlichen Server-Komponenten in WSL und öffnet den Ordner in einer neuen Instanz. Der Punkt (.) steht dabei für das aktuelle Verzeichnis.",
+    "meta": {
+      "tags": [
+        "vscode",
+        "wsl",
+        "terminal"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?\nJa, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable. Der C-Standard schreibt keinen definierten Anfangswert für automatische Variablen vor — was im Speicher steht, hängt von Compiler, Flags und Plattform ab. Lokale GCC-Debug-Builds können zufällig 0 liefern, andere Umgebungen liefern beliebige Werte. Lösung: Variablen immer explizit initialisieren, z. B. `int x = 0;`.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "variablen",
+        "undefined_behavior",
+        "initialisierung"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Darf ich eine eigene main-Funktion beim Upload zu SmartBeans hinzufügen?\nNein. Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler. Bei reinen Funktions-Aufgaben stellt SmartBeans selbst eine main bereit — der Upload soll ausschließlich die geforderte Funktion (z. B. `int is_perm(...)`) enthalten, ohne eigene main.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "main",
+        "redefinition",
+        "upload"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie teste ich eine SmartBeans-Aufgabe lokal, ohne einen main-Konflikt zu riskieren?\nZum lokalen Testen einer Funktions-Aufgabe ohne Konflikt mit SmartBeans: Eigene main in einer separaten Test-Datei (`test.c`) schreiben und mit `#include \"aufgabe.c\"` die zu testende Datei einbinden. Für den Upload nur `aufgabe.c` ohne main verwenden. Alternativ beide Dateien gemeinsam kompilieren: `gcc -o test test.c aufgabe.c`.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "testen",
+        "main",
+        "workaround",
+        "local"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "SmartBeans zeigt 'Ausgabe nicht identisch' — wie finde ich den Unterschied?\nWenn SmartBeans meldet, dass die Ausgabe nicht identisch sei, der Unterschied aber visuell nicht erkennbar ist, hilft das Kommandozeilen-Programm `diff`: Eigene Ausgabe in eine Datei umleiten (`./programm > a.txt`), erwartete Ausgabe in eine zweite Datei kopieren (`b.txt`), und mit `diff a.txt b.txt` vergleichen. `diff` arbeitet zeilenweise und gibt nichts aus, wenn die Dateien identisch sind. Typische unsichtbare Unterschiede sind: Leerzeichen am Zeilenende, fehlender abschließender Zeilenumbruch, Tabs statt Leerzeichen.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "ausgabe",
+        "diff",
+        "whitespace",
+        "vergleich"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Was bedeutet 'diff gibt keine Ausgabe'?\nGibt `diff datei1.txt datei2.txt` keine Ausgabe, sind die beiden Dateien identisch. Jede Zeile in der Ausgabe von `diff` beschreibt eine Abweichung zwischen den Dateien — keine Ausgabe bedeutet vollständige Übereinstimmung.",
+    "meta": {
+      "tags": [
+        "diff",
+        "ausgabe",
+        "vergleich"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?\nEine Zurücksetzung des SmartBeans-Fortschritts ist in der Regel nicht notwendig, weil gelöste Aufgaben beliebig oft erneut bearbeitet und mit neuen Lösungen eingereicht werden können. Falls dennoch ein vollständiger Reset gewünscht ist, kann der Dozent das nach Erhalt der StudIP-Kennung per Privatnachricht durchführen.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "reset",
+        "fortschritt",
+        "dozent"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?\nNein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "klausur",
+        "zulassung",
+        "pflicht"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie viele Übungsaufgaben sollte ich bearbeiten?\nEs gibt keine offizielle Mindestanzahl an Übungsaufgaben, die bearbeitet werden müssen. Empfohlen wird aber, einen großen Teil der Aufgaben eigenständig zu lösen, da das aktive Üben für das Verständnis der C-Konzepte und die Klausurvorbereitung entscheidend ist.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "uebungsaufgaben",
+        "empfehlung",
+        "lernen"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Kann ich auf SmartBeans eingereichte Aufgaben erneut einreichen?\nJa, bei SmartBeans können gelöste Aufgaben beliebig oft erneut bearbeitet und neue Lösungen eingereicht werden. Es gibt keine Begrenzung der Einreichungsversuche.",
+    "meta": {
+      "tags": [
+        "smartbeans",
+        "einreichen",
+        "versuche"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Welche Editoren stehen in der Klausur zur Verfügung?\nEs gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
+    "meta": {
+      "tags": [
+        "klausur",
+        "editor",
+        "vscode",
+        "vim",
+        "emacs"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Gibt es in der Klausur Schmierpapier?\nJa, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus.",
+    "meta": {
+      "tags": [
+        "klausur",
+        "schmierpapier",
+        "notizen"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Ist im E-Prüfungsraum eine Volltextsuche im Skript möglich?\nJa, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt.",
+    "meta": {
+      "tags": [
+        "klausur",
+        "suche",
+        "pdf",
+        "skript"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?\nJa, in Editoren wie VSCodium ist der Code ge-highlighted.",
+    "meta": {
+      "tags": [
+        "klausur",
+        "editor",
+        "highlighting",
+        "syntax"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Kann ich in der Klausur meinen Code kompilieren und testen?\nJa, in der Klausur ist ein GCC-Compiler vorhanden und es kann kompiliert und getestet werden. Die Klausur findet an Linux-Rechnern statt.",
+    "meta": {
+      "tags": [
+        "klausur",
+        "gcc",
+        "kompilieren",
+        "testen"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Welche Inhalte sind klausurrelevant?\nFragen nach Klausurrelevanz einzelner Themen werden nicht vom Bot beantwortet, sondern an den Dozenten verwiesen. Verbindliche Aussagen zur Klausurrelevanz macht ausschließlich der Dozent in Vorlesung, Forum oder Tutorium.",
+    "meta": {
+      "tags": [
+        "klausur",
+        "relevanz",
+        "themen",
+        "dozent"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie lagere ich Funktionen in eigene Dateien aus?\nFunktionen können in eigene Dateien ausgelagert werden. Üblich ist eine Aufteilung in Header-Datei (`.h`) mit den Prototypen und Implementierungs-Datei (`.c`) mit den Definitionen. Eingebunden wird die Header-Datei mit `#include \"datei.h\"` in der aufrufenden Datei. Kompiliert wird mit `gcc -o program main.c hilfsfunktion.c` (alles in einem Schritt) oder getrennt: zuerst `gcc -c main.c` und `gcc -c hilfsfunktion.c`, dann linken mit `gcc -o program main.o hilfsfunktion.o`.",
+    "meta": {
+      "tags": [
+        "funktionen",
+        "header",
+        "multifile",
+        "gcc",
+        "kompilieren"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Was ist der Unterschied zwischen einer Header-Datei (.h) und einer Implementierungsdatei (.c)?\nEine Header-Datei (`.h`) enthält Funktionsprototypen (Deklarationen): sie informiert den Compiler über Namen, Parametertypen und Rückgabetyp, ohne den Funktionskörper. Eine Implementierungsdatei (`.c`) enthält die eigentlichen Funktionsdefinitionen mit dem Programmcode. Durch `#include \"datei.h\"` wird die Header-Datei in der aufrufenden Datei eingebunden, sodass der Compiler die Deklarationen kennt.",
+    "meta": {
+      "tags": [
+        "header",
+        "funktionen",
+        "deklaration",
+        "definition"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie kompiliere ich ein C-Programm aus mehreren Dateien?\nEntweder alles in einem Schritt: `gcc -o program main.c hilfsfunktion.c`. Oder getrennt kompilieren und dann linken: zuerst `gcc -c main.c` (erzeugt `main.o`) und `gcc -c hilfsfunktion.c` (erzeugt `hilfsfunktion.o`), dann `gcc -o program main.o hilfsfunktion.o`. Linker-Bibliotheken wie `-lm` (Mathe) müssen immer am Ende stehen.",
+    "meta": {
+      "tags": [
+        "gcc",
+        "multifile",
+        "kompilieren",
+        "linken"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Warum brauche ich Pointer in C?\nPointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden.",
+    "meta": {
+      "tags": [
+        "pointer",
+        "heap",
+        "stack",
+        "speicher",
+        "malloc"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Was ist der Unterschied zwischen Stack und Heap in C?\nStack: automatisch verwalteter Speicher für lokale Variablen. Wird beim Betreten einer Funktion reserviert und beim Verlassen automatisch freigegeben. Begrenzte Größe; geeignet für kleine, kurzlebige Daten.\nHeap: dynamisch verwalteter Speicher, der explizit mit `malloc`/`calloc` angefordert und mit `free` freigegeben werden muss. Größer als der Stack; Daten überleben das Funktionsende. Zugriff nur über Pointer.",
+    "meta": {
+      "tags": [
+        "stack",
+        "heap",
+        "speicher",
+        "lebensdauer",
+        "malloc"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Was sind Variable Length Arrays (VLAs) in C?\nC99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur Laufzeit bestimmten Größe (`int array[n];` mit variablem n), die aber auf dem Stack liegen. Sie unterliegen den Stack-Limits (maximale Größe, automatische Freigabe am Funktionsende, kein Return) und sollten nur für kleine, temporäre Daten verwendet werden. Für größere oder über die Funktion hinaus benötigte Daten wird Heap-Speicher mit `malloc` verwendet.",
+    "meta": {
+      "tags": [
+        "arrays",
+        "vla",
+        "stack",
+        "c99",
+        "speicher"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Was sind häufige Spezialfälle eines Segmentation Faults?\nHäufige Spezialfälle eines Segmentation Faults sind: NULL-Dereferenzierung (z.B. wenn der Rückgabewert von `malloc` nicht auf NULL geprüft und der Zeiger anschließend dereferenziert wird) und Use-after-free (Zugriff auf einen Heap-Bereich nach `free`). Beide gehören zur allgemeinen Klasse 'Dereferenzierung ungültiger Zeiger'.",
+    "meta": {
+      "tags": [
+        "segfault",
+        "pointer",
+        "fehler",
+        null,
+        "use_after_free",
+        "malloc"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Was passiert, wenn ich malloc-Speicher nicht mit free freigebe?\nWird Heap-Speicher nicht mit `free` freigegeben, entsteht ein Memory Leak: der Speicher bleibt für die gesamte Programmlaufzeit belegt, auch wenn er nicht mehr gebraucht wird. Bei kurzen Programmen ist das oft harmlos (das OS räumt beim Programmende auf), bei lang laufenden Programmen oder Schleifen kann es zu Speichermangel führen.",
+    "meta": {
+      "tags": [
+        "malloc",
+        "free",
+        "memory_leak",
+        "heap"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Was ist der Unterschied zwischen malloc und calloc?\n`malloc(n)` reserviert n Bytes Heap-Speicher, ohne den Inhalt zu initialisieren (Garbage Data). `calloc(count, size)` reserviert count * size Bytes und initialisiert alle Bytes auf 0. Für ein Array, bei dem man sicher alle Einträge auf 0 haben will (z. B. ein Zähler-Array für Permutationstests), ist `calloc` bequemer als `malloc` gefolgt von manuellem Nullsetzen.",
+    "meta": {
+      "tags": [
+        "malloc",
+        "calloc",
+        "heap",
+        "initialisierung",
+        "speicher"
+      ]
+    }
+  },
+  {
+    "doc_id": "tutor_knowledge_base.yaml",
+    "text": "Wie kann ich eine als 1D-Array allokierte Matrix als 2D-Matrix ansprechen?\nEine mit `malloc(zeilen * spalten * sizeof(typ))` als 1D-Array allokierte Matrix kann durch einen Cast zu einem Array-Zeiger mit fixer innerer Dimension wie eine echte 2D-Matrix angesprochen werden: `float (*m2d)[SPALTEN] = (float (*)[SPALTEN]) m1d;` erlaubt anschließend `m2d[i][j]`-Zugriffe, wobei der Compiler die Indexberechnung übernimmt. Voraussetzung ist, dass die Spaltenanzahl zur Compile-Zeit bekannt ist.",
+    "meta": {
+      "tags": [
+        "matrizen",
+        "pointer",
+        "cast",
+        "malloc",
+        "2d",
+        "indexberechnung"
+      ]
+    }
   },
   {
     "doc_id": "programmierung_mit_ansi_c-1-16.pdf",

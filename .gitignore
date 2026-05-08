@@ -28,6 +28,8 @@ Thumbs.db
 *.pt
 # Partial caches written during interrupted embedding runs.
 *.partial.pt
+# Local-only data dump (chunk caches etc., not for distribution).
+data_excluded/
 # Note: processed/md_cache, processed/keywords_*.json and processed/v3b/
 # remain tracked because regenerating them costs API calls. Add a line
 # below if you decide they should not be in git either.
