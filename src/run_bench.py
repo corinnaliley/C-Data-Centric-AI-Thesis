@@ -83,8 +83,7 @@ EMBEDDINGS_CACHE_PATH = PROCESSED_PATH / f"embeddings_{VERSION}_{model_slug}.pt"
 # ---------------------------------------------------------------------------
 # Tunable parameters
 # ---------------------------------------------------------------------------
-TOP_K            = 20    # number of chunks retrieved per query
-SCORE_THRESHOLD  = 0.5   # references below this matching_score are not counted as errors
+TOP_K = 20    # number of chunks retrieved per query
 
 
 # ---------------------------------------------------------------------------
@@ -118,9 +117,7 @@ def run_evaluation() -> None:
     # 3. Validation
     validate_ids_or_exit(gold_data, corpus_ids)
 
-    coverage_report = validate_evidence_coverage(
-        gold_data, chunks, score_threshold=SCORE_THRESHOLD
-    )
+    coverage_report = validate_evidence_coverage(gold_data, chunks)
     VERSION_PATH.mkdir(parents=True, exist_ok=True)
     with open(COVERAGE_REPORT_PATH, "w", encoding="utf-8") as f:
         json.dump(coverage_report, f, ensure_ascii=False, indent=2)
@@ -167,9 +164,8 @@ def run_evaluation() -> None:
         # Chunk-level evaluation with WRS
         chunk_eval = evaluate_chunk_level(
             gold_references,
-            top_k_indices   = result["top_k_indices"],
-            corpus_texts    = corpus_texts,
-            score_threshold = SCORE_THRESHOLD,
+            top_k_indices = result["top_k_indices"],
+            corpus_texts  = corpus_texts,
         )
 
         entry = log_query_result(

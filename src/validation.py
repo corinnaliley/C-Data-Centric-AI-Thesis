@@ -159,21 +159,20 @@ def validate_ids_or_exit(gold_data: list, corpus_ids: list[str]) -> None:
 def validate_evidence_coverage(
     gold_data: list,
     chunks: list,
-    score_threshold: float = 0.5,
 ) -> dict:
     """
     Check whether each evidence snippet appears in a chunk of the expected document.
 
-    References with matching_score below score_threshold are skipped and
-    reported as LOW_SCORE rather than errors.
+    All references with a non-empty evidence string are checked regardless of
+    matching_score. The summary breaks down results by score band (>=0.8 /
+    0.5–0.8 / <0.5) for informational purposes.
 
     Args:
         gold_data: Parsed benchmark.json entries.
         chunks: Ingested Block objects representing the full corpus.
-        score_threshold: References below this matching_score are not evaluated.
 
     Returns:
-        Dict with keys: total, found, not_found, wrong_doc, skipped_low_score, details.
+        Dict with keys: total, found, not_found, wrong_doc, details.
         ``details`` is a list of per-reference result dicts.
     """
     doc_to_texts: dict[str, list[str]] = defaultdict(list)
@@ -184,10 +183,9 @@ def validate_evidence_coverage(
             doc_to_texts[doc_id].append(text)
 
     results = []
-    total = found = not_found = wrong_doc = skipped_low_score = 0
+    total = found = not_found = wrong_doc = 0
 
     print("\nEvidence Coverage Check")
-    print(f"   Score threshold: >={score_threshold}")
     print("=" * 70)
 
     for item in gold_data:
@@ -201,18 +199,6 @@ def validate_evidence_coverage(
             matching_score = float(ref.get("matching_score", 1.0))
 
             if not evidence:
-                continue
-
-            if matching_score < score_threshold:
-                skipped_low_score += 1
-                results.append({
-                    "query":            query,
-                    "gold_id":          gold_id,
-                    "matching_score":   matching_score,
-                    "status":           "LOW_SCORE",
-                    "evidence_snippet": evidence[:80],
-                    "evidence_full":    evidence,
-                })
                 continue
 
             total += 1
@@ -255,13 +241,12 @@ def validate_evidence_coverage(
 
     print("=" * 70)
     if total:
-        print(f"  Total checked (score>={score_threshold}) : {total}")
+        print(f"  Total checked : {total}")
         print(f"  Found   : {found}  ({found/total*100:.1f}%)")
         print(f"  Missing : {not_found}  ({not_found/total*100:.1f}%)")
         print(f"  No doc  : {wrong_doc}")
-        print(f"  Skipped (score<{score_threshold}): {skipped_low_score}")
 
-        for label, lo, hi in [("high >=0.8", 0.8, 1.01), ("mid  0.5-0.8", 0.5, 0.8)]:
+        for label, lo, hi in [("score>=0.8", 0.8, 1.01), ("0.5-0.8", 0.5, 0.8), ("score<0.5", 0.0, 0.5)]:
             sub     = [r for r in results if lo <= r["matching_score"] < hi and r["status"] in ("OK", "MISSING")]
             sub_hit = sum(1 for r in sub if r["status"] == "OK")
             if sub:
@@ -269,12 +254,11 @@ def validate_evidence_coverage(
     print()
 
     return {
-        "total":             total,
-        "found":             found,
-        "not_found":         not_found,
-        "wrong_doc":         wrong_doc,
-        "skipped_low_score": skipped_low_score,
-        "details":           results,
+        "total":     total,
+        "found":     found,
+        "not_found": not_found,
+        "wrong_doc": wrong_doc,
+        "details":   results,
     }
 
 
@@ -295,23 +279,24 @@ def evaluate_chunk_level(
     gold_references: list[dict],
     top_k_indices: list[int],
     corpus_texts: list[str],
-    score_threshold: float = 0.5,
     rank_decay: str = "reciprocal",
 ) -> dict:
     """
     Evaluate chunk-level retrieval quality for a single query.
 
-    Computes WRS@K: for each evidence piece, multiplies its matching_score
-    by a rank-decay factor (1/rank for reciprocal, 1/log2(rank+1) for DCG)
-    and sums over all references:
+    All references with a non-empty evidence string are included regardless
+    of matching_score. WRS@K weights each found reference by its score and
+    a rank-decay factor:
 
         WRS@K = sum(matching_score_i * decay(rank_i)) / sum(matching_score_i)
+
+    Ghigh flags (chunk_hit_high, topk_hit_high) still use the 0.8 threshold
+    defined in reporting.py.
 
     Args:
         gold_references: List of reference dicts from benchmark.json.
         top_k_indices: Corpus indices of all top-k retrieved chunks.
         corpus_texts: Full list of chunk texts in corpus order.
-        score_threshold: References below this matching_score are ignored.
         rank_decay: "reciprocal" (1/rank) or "log2" (1/log2(rank+1)).
 
     Returns:
@@ -329,7 +314,7 @@ def evaluate_chunk_level(
         evidence       = ref.get("evidence", "").strip()
         matching_score = float(ref.get("matching_score", 1.0))
 
-        if not evidence or matching_score < score_threshold:
+        if not evidence:
             continue
 
         score_sum += matching_score
