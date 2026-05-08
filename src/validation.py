@@ -8,6 +8,7 @@ Responsibilities:
 - Debug dump for MISSING entries (dump_missing_evidence_with_context)
 """
 
+import math
 import re
 import sys
 from pathlib import Path
@@ -281,42 +282,48 @@ def validate_evidence_coverage(
 # 3. Chunk-level evidence evaluation
 # ---------------------------------------------------------------------------
 
+def _rank_in_topk(evidence: str, top_k_indices: list[int],
+                  corpus_texts: list[str]) -> int | None:
+    """Return 1-based rank of first chunk containing evidence, or None."""
+    for rank, idx in enumerate(top_k_indices, start=1):
+        if _has_evidence(evidence, corpus_texts[idx]):
+            return rank
+    return None
+
+
 def evaluate_chunk_level(
     gold_references: list[dict],
-    top_idx: int,
     top_k_indices: list[int],
     corpus_texts: list[str],
     score_threshold: float = 0.5,
+    rank_decay: str = "reciprocal",
 ) -> dict:
     """
-    Evaluate whether the top-ranked chunk contains the gold evidence.
+    Evaluate chunk-level retrieval quality for a single query.
 
-    Computes the Weighted Relevance Score (WRS) by weighting hits with
-    their matching_score:
+    Computes WRS@K: for each evidence piece, multiplies its matching_score
+    by a rank-decay factor (1/rank for reciprocal, 1/log2(rank+1) for DCG)
+    and sums over all references:
 
-        WRS = sum(matching_score_i * top1_hit_i) / sum(matching_score_i)
-
-    Uses _has_evidence (exact match + LCS fallback) rather than a pure
-    substring check so that evidence spanning chunk boundaries still counts.
-    Only top_idx and top_k_indices are checked — not the entire corpus.
+        WRS@K = sum(matching_score_i * decay(rank_i)) / sum(matching_score_i)
 
     Args:
         gold_references: List of reference dicts from benchmark.json.
-        top_idx: Corpus index of the top-1 retrieved chunk.
         top_k_indices: Corpus indices of all top-k retrieved chunks.
         corpus_texts: Full list of chunk texts in corpus order.
         score_threshold: References below this matching_score are ignored.
+        rank_decay: "reciprocal" (1/rank) or "log2" (1/log2(rank+1)).
 
     Returns:
         Dict with keys: wrs, chunk_hit_high, chunk_hit_any, topk_hit_high,
         evidence_details.
     """
-    chunk_hit_high   = False
-    chunk_hit_any    = False
-    topk_hit_high    = False
-    evidence_details = []
-    score_sum        = 0.0
-    weighted_hits    = 0.0
+    chunk_hit_high      = False
+    chunk_hit_any       = False
+    topk_hit_high       = False
+    evidence_details    = []
+    score_sum           = 0.0
+    weighted_topk_score = 0.0
 
     for ref in gold_references:
         evidence       = ref.get("evidence", "").strip()
@@ -327,28 +334,33 @@ def evaluate_chunk_level(
 
         score_sum += matching_score
 
-        top1_hit        = _has_evidence(evidence, corpus_texts[top_idx])
-        evidence_indices = [i for i in top_k_indices if _has_evidence(evidence, corpus_texts[i])]
-        topk_hit        = bool(evidence_indices)
+        rank             = _rank_in_topk(evidence, top_k_indices, corpus_texts)
+        top1_hit         = (rank == 1)
+        topk_hit         = rank is not None
+        evidence_indices = [i for i in top_k_indices
+                            if _has_evidence(evidence, corpus_texts[i])]
 
         if top1_hit:
-            weighted_hits += matching_score
-            chunk_hit_any  = True
+            chunk_hit_any = True
             if matching_score >= 0.8:
                 chunk_hit_high = True
 
-        if topk_hit and matching_score >= 0.8:
-            topk_hit_high = True
+        if topk_hit:
+            decay = 1.0 / rank if rank_decay == "reciprocal" else 1.0 / math.log2(rank + 1)
+            weighted_topk_score += matching_score * decay
+            if matching_score >= 0.8:
+                topk_hit_high = True
 
         evidence_details.append({
             "evidence_snippet":       evidence[:80],
             "matching_score":         matching_score,
             "top1_is_evidence_chunk": top1_hit,
             "topk_has_evidence":      topk_hit,
+            "topk_rank":              rank,
             "evidence_chunk_indices": evidence_indices,
         })
 
-    wrs = (weighted_hits / score_sum) if score_sum > 0 else 0.0
+    wrs = (weighted_topk_score / score_sum) if score_sum > 0 else 0.0
 
     return {
         "wrs":              round(wrs, 4),

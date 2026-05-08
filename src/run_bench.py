@@ -167,9 +167,8 @@ def run_evaluation() -> None:
         # Chunk-level evaluation with WRS
         chunk_eval = evaluate_chunk_level(
             gold_references,
-            top_idx        = result["top_idx"],
-            top_k_indices  = result["top_k_indices"],
-            corpus_texts   = corpus_texts,
+            top_k_indices   = result["top_k_indices"],
+            corpus_texts    = corpus_texts,
             score_threshold = SCORE_THRESHOLD,
         )
 
