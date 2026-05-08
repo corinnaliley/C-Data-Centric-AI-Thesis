@@ -17,9 +17,11 @@ Ghigh = references with matching_score >= 0.8 (must-have information).
 
 import json
 import math
+import random
 from pathlib import Path
 
 HIGH_SCORE_THRESHOLD = 0.8  # matching_score cutoff for Ghigh references
+N_BOOTSTRAP = 1000          # resamples for 95 % confidence intervals
 
 
 # ---------------------------------------------------------------------------
@@ -165,6 +167,28 @@ def _ndcg_at_k(evidence_details: list, top_k_indices: list[int], k: int) -> floa
     return round(dcg / idcg, 4) if idcg > 0 else 0.0
 
 
+def _bootstrap_ci(
+    values: list[float],
+    n_boot: int = N_BOOTSTRAP,
+    ci: float = 0.95,
+    seed: int = 42,
+) -> tuple[float, float]:
+    """
+    Return (lower, upper) percentile bootstrap CI for the mean of values.
+
+    Draws n_boot samples with replacement and uses the (alpha/2, 1-alpha/2)
+    empirical percentiles as the interval boundaries.
+    """
+    n = len(values)
+    rng = random.Random(seed)
+    means = sorted(
+        sum(rng.choices(values, k=n)) / n
+        for _ in range(n_boot)
+    )
+    alpha = (1 - ci) / 2
+    return means[int(alpha * n_boot)], means[int((1 - alpha) * n_boot)]
+
+
 # ---------------------------------------------------------------------------
 
 def log_query_result(
@@ -266,11 +290,13 @@ def compute_and_print_metrics(
     k = len(results_log[0].get("top_k_indices", [])) if results_log else 0
 
     # Doc-level metrics
-    hits1  = sum(1 for r in results_log if _hit_at_k(r.get("ranked_doc_ids", []), r["expected_ids"], 1))
+    hit1_vals  = [float(_hit_at_k(r.get("ranked_doc_ids", []), r["expected_ids"], 1)) for r in results_log]
+    hits1  = int(sum(hit1_vals))
     hits5  = sum(1 for r in results_log if _hit_at_k(r.get("ranked_doc_ids", []), r["expected_ids"], 5))
     hits10 = sum(1 for r in results_log if _hit_at_k(r.get("ranked_doc_ids", []), r["expected_ids"], 10))
     hits20 = sum(1 for r in results_log if _hit_at_k(r.get("ranked_doc_ids", []), r["expected_ids"], 20))
-    mrr    = sum(r.get("rr", 0.0) for r in results_log) / n
+    rr_vals = [r.get("rr", 0.0) for r in results_log]
+    mrr     = sum(rr_vals) / n
 
     # Ghigh-based chunk metrics
     any_high_hit1   = sum(1 for r in results_log if r.get("chunk_hit_high"))
@@ -282,21 +308,32 @@ def compute_and_print_metrics(
     chain_mrr_mean = sum(r.get("chain_mrr", 0.0) for r in comp) / len(comp) if comp else 0.0
 
     # Additional chunk metrics
-    mean_ndcg   = sum(r.get("ndcg",       0.0) for r in results_log) / n
-    mean_wrs    = sum(r.get("wrs",        0.0) for r in results_log) / n
-    mean_recall = sum(r.get("recall_at_k", 0.0) for r in results_log) / n
+    ndcg_vals   = [r.get("ndcg",        0.0) for r in results_log]
+    wrs_vals    = [r.get("wrs",         0.0) for r in results_log]
+    recall_vals = [r.get("recall_at_k", 0.0) for r in results_log]
+    mean_ndcg   = sum(ndcg_vals)   / n
+    mean_wrs    = sum(wrs_vals)    / n
+    mean_recall = sum(recall_vals) / n
+
+    # Bootstrap 95 % CIs for the main metrics
+    ci_hit1   = _bootstrap_ci(hit1_vals)
+    ci_mrr    = _bootstrap_ci(rr_vals)
+    ci_ndcg   = _bootstrap_ci(ndcg_vals)
+    ci_recall = _bootstrap_ci(recall_vals)
+    ci_wrs    = _bootstrap_ci(wrs_vals)
 
     def pct(x): return round(x / n * 100, 2)
+    def fmt_ci(lo, hi): return f"[{lo*100:.1f}%, {hi*100:.1f}%]"
 
     print(f"\n{'='*60}")
-    print(f"Final Results  ({n} evaluated of {total_queries} total)")
+    print(f"Final Results  ({n} evaluated of {total_queries} total)  — 95% bootstrap CI, {N_BOOTSTRAP} resamples")
     print(f"{'='*60}")
     print(f"  --- Doc-Level ---")
-    print(f"  Hit@1                         : {hits1}/{n} ({pct(hits1):.1f}%)")
-    print(f"  Hit@5                         : {hits5}/{n} ({pct(hits5):.1f}%)")
-    print(f"  Hit@10                        : {hits10}/{n} ({pct(hits10):.1f}%)")
-    print(f"  Hit@20                        : {hits20}/{n} ({pct(hits20):.1f}%)")
-    print(f"  MRR                           : {mrr:.4f}")
+    print(f"  Hit@1   : {hits1}/{n} ({pct(hits1):.1f}%)  95% CI {fmt_ci(*ci_hit1)}")
+    print(f"  Hit@5   : {hits5}/{n} ({pct(hits5):.1f}%)")
+    print(f"  Hit@10  : {hits10}/{n} ({pct(hits10):.1f}%)")
+    print(f"  Hit@20  : {hits20}/{n} ({pct(hits20):.1f}%)")
+    print(f"  MRR     : {mrr:.4f}  95% CI [{ci_mrr[0]:.4f}, {ci_mrr[1]:.4f}]")
     print(f"  --- High-score metrics (score>={HIGH_SCORE_THRESHOLD}) ---")
     print(f"  Any High-Score Hit@1          : {any_high_hit1}/{n} ({pct(any_high_hit1):.1f}%)")
     print(f"  Strict High-Score Hit@{k}       : {strict_topk_hit}/{n} ({pct(strict_topk_hit):.1f}%)")
@@ -304,9 +341,9 @@ def compute_and_print_metrics(
         print(f"  Chain-MRR  (complementary)    : {chain_mrr_mean:.4f}  (n={len(comp)})")
     print(f"  --- Additional chunk metrics ---")
     print(f"  Chunk Hit@1 (any)             : {chunk_hits_any}/{n} ({pct(chunk_hits_any):.1f}%)")
-    print(f"  nDCG@{k}                         : {mean_ndcg:.4f}")
-    print(f"  Mean Recall@{k}                  : {mean_recall:.4f}")
-    print(f"  Mean WRS (Weighted Relevance) : {mean_wrs:.4f}")
+    print(f"  nDCG@{k}    : {mean_ndcg:.4f}  95% CI [{ci_ndcg[0]:.4f}, {ci_ndcg[1]:.4f}]")
+    print(f"  Recall@{k}  : {mean_recall:.4f}  95% CI [{ci_recall[0]:.4f}, {ci_recall[1]:.4f}]")
+    print(f"  Mean WRS  : {mean_wrs:.4f}  95% CI [{ci_wrs[0]:.4f}, {ci_wrs[1]:.4f}]")
 
     # Breakdown by query type
     print()
@@ -339,6 +376,7 @@ def compute_and_print_metrics(
     return {
         "total_queries":            total_queries,
         "evaluated_queries":        n,
+        "n_bootstrap":              N_BOOTSTRAP,
         # Doc-level
         "hits_doc_1":               hits1,
         "hits_doc_5":               hits5,
@@ -349,6 +387,8 @@ def compute_and_print_metrics(
         "accuracy_doc_10":          pct(hits10),
         "accuracy_doc_20":          pct(hits20),
         "mrr":                      round(mrr, 4),
+        "ci_hit1":                  [round(ci_hit1[0], 4),   round(ci_hit1[1], 4)],
+        "ci_mrr":                   [round(ci_mrr[0],  4),   round(ci_mrr[1],  4)],
         # Ghigh metrics
         "any_high_score_hit1":      any_high_hit1,
         "accuracy_any_high_hit1":   pct(any_high_hit1),
@@ -359,8 +399,11 @@ def compute_and_print_metrics(
         "chunk_hits_any":           chunk_hits_any,
         "accuracy_chunk_any":       pct(chunk_hits_any),
         "mean_ndcg":                round(mean_ndcg, 4),
+        "ci_ndcg":                  [round(ci_ndcg[0],   4), round(ci_ndcg[1],   4)],
         "mean_recall_at_k":         round(mean_recall, 4),
+        "ci_recall_at_k":           [round(ci_recall[0], 4), round(ci_recall[1], 4)],
         "mean_wrs":                 round(mean_wrs, 4),
+        "ci_wrs":                   [round(ci_wrs[0],    4), round(ci_wrs[1],    4)],
     }
 
 
