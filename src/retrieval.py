@@ -78,6 +78,12 @@ def _build_embed_model() -> OpenAIDenseEmbedding:
         model=EMBEDDING_MODEL_NAME,
         base_url=EMBEDDING_API_BASE_URL,
     )
+    actual_dim = len(emb.embed("test"))
+    assert actual_dim == EMBEDDING_DIMENSION, (
+        f"Embedding dimension mismatch: model returns {actual_dim}, "
+        f"but EMBEDDING_DIMENSION={EMBEDDING_DIMENSION} in constants.py. "
+        "Delete cached embeddings and update the constant."
+    )
     emb._dimension = EMBEDDING_DIMENSION
     return emb
 

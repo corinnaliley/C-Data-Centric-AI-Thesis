@@ -11,6 +11,13 @@ Pipeline phases:
 
 import json
 import os
+
+import numpy as np
+import torch
+
+torch.manual_seed(42)
+np.random.seed(42)
+
 from retrieval import _build_embed_model
 
 from constants import EMBEDDING_MODEL_NAME, PROCESSED_PATH, RESULTS_PATH, BENCHMARK_PATH

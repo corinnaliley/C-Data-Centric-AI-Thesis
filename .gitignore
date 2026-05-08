@@ -1,0 +1,41 @@
+# --- Secrets — NEVER commit ---
+.env
+.env.local
+.env.*.local
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- IDE / Editor ---
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Pipeline caches (regenerable) ---
+# Embeddings: large binary; rebuild from source documents via API.
+*.pt
+# Partial caches written during interrupted embedding runs.
+*.partial.pt
+# Note: processed/md_cache, processed/keywords_*.json and processed/v3b/
+# remain tracked because regenerating them costs API calls. Add a line
+# below if you decide they should not be in git either.
+
+# --- Docs build output ---
+docs/
+
+# --- Generated wheels / archives (keep the project's vendored zvec wheel) ---
+build/
+dist/
+!zvec-*.whl

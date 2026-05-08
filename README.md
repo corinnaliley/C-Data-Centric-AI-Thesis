@@ -9,15 +9,17 @@ Thema der Bachelorarbeit: **Data-Centric AI** — welchen Einfluss hat die Quali
 ## Voraussetzungen
 
 ```bash
-pip install python-dotenv sentence-transformers torch tqdm pyyaml requests rank_bm25
-pip install zvec-0.2.1.dev6-cp312-cp312-linux_x86_64.whl  # lokales Wheel
+pip install -r requirements.txt
+pip install zvec-0.2.1.dev6-cp312-cp312-linux_x86_64.whl   # plattformspezifisch (linux/cp312)
+python -m spacy download de_core_news_sm                    # für V3a (KeyBERT-Vectorizer)
 ```
 
-`.env`-Datei im Projektroot:
+`.env`-Datei im Projektroot (**nie committen** — siehe `.gitignore`):
 ```
 LLM_API_KEY=...
 SAIA_API_KEY=...
 SAIA_BASE_URL=https://chat-ai.academiccloud.de/v1
+ACADEMICCLOUD_API_KEY=...   # nur für V3b benötigt
 ```
 
 ---
@@ -28,7 +30,12 @@ SAIA_BASE_URL=https://chat-ai.academiccloud.de/v1
 python src/run_bench.py
 ```
 
+Variante wird oben in `run_bench.py` über die Konstante `VERSION` gewählt:
+`v1_baseline`, `v2_chunking`, `v3a_keywords`, `v3b_llm_keywords` (Default: `v3a_keywords`).
+
 Ergebnisse landen in `results/<VERSION>/eval_results.json`.
+
+Für **V3b** (LLM-Keyword-Variante) muss vorab einmalig der Keyword-Cache erzeugt werden — siehe `RUN_V3B.md`.
 
 ---
 
@@ -42,11 +49,15 @@ data/  →  [1. Ingest]  →  [2. Validierung]  →  [3. Embeddings]  →  [4. R
 
 ### 1. Ingest (`ingest_pipeline.py` + `loaders.py`)
 Lädt alle Dateien aus `data/` und erzeugt flache `Block`-Objekte:
-- **PDFs** → SAIA Docling API → Markdown → Chunks (Heading-basiert, MIN_CHARS=300). Markdown wird in `processed/md_cache/` gecacht.
-- **YAMLs** → SmartBeans-Aufgaben: `Aufgabe + Lösung` als kombinierter Block
-- **JSON/TXT** → Direktlader
+- **PDFs** → SAIA Docling API → Markdown → Chunks. Markdown wird in `processed/md_cache/` gecacht.
+  - V1: fixe Wort-Fenster (500 Wörter, kein Overlap)
+  - V2/V3: heading-basierte strukturelle Chunks (MIN_TOKENS=500, MAX_TOKENS=1500, 20 % Overlap), Code-Blöcke bleiben atomar
+- **SmartBeans-YAMLs** (`data/smartbeans_exercises/`)
+  - V1: gesamte Datei als ein Block
+  - V2+: separate Chunks für Aufgabenstellung und Musterlösung (`yaml_parser.py`)
+- **`tutor_knowledge_base.yaml`** → ein Block pro Q&A-Eintrag (Frage + Antwort kombiniert)
 
-Jeder Chunk enthält seinen `section_path` als Präfix im Text (Kontext-Embedding).
+Bei V2+ wird der `section_path` als Präfix in den Chunk-Text geschrieben; V3a/V3b ergänzen zusätzlich eine `Keywords: …`-Zeile.
 
 ### 2. Validierung (`validation.py`)
 - Prüft, ob alle `gold_id`-Referenzen aus `benchmark.json` im Corpus existieren
@@ -55,9 +66,9 @@ Jeder Chunk enthält seinen `section_path` als Präfix im Text (Kontext-Embeddin
 
 ### 3. Embeddings (`retrieval.py`)
 - Modell: `qwen3-embedding-4b-query` (Dimension: 2560) via SAIA-API
-- Parallel-Embedding mit Retry (max_workers=3)
-- Cache: `processed/embeddings_<modell>.pt` (PyTorch Tensor)
-- Resume-Unterstützung via `.partial.pt` bei abgebrochenen Läufen
+- Sequentielles Embedding pro Chunk mit exponential-backoff Retry und 120-s-Timeout
+- Cache: `processed/embeddings_<version>_<modell>.pt` (PyTorch Tensor)
+- Resume-Unterstützung via `.partial.pt` (Flush alle 10 Chunks)
 
 ### 4. Retrieval & Evaluation (`run_bench.py` + `validation.py`)
 
@@ -84,12 +95,13 @@ Aggregiert Metriken und schreibt `results/<VERSION>/eval_results.json`.
 │   ├── validation.py         # ID-Check, Evidence-Coverage, WRS-Berechnung
 │   ├── reporting.py          # Metrik-Aggregation + JSON-Output
 │   ├── constants.py          # Alle Pfade, Modellnamen, API-Konfiguration
+│   ├── keyword_extraction.py # V3a — KeyBERT-Keywords (lokal)
+│   ├── llm_keyword_extraction.py # V3b — LLM-Keywords (CLI, Cache-basiert)
 │   └── benchmark.json        # Gold-Standard: 83 Queries mit Referenzen und Evidence
 ├── data/
 │   ├── Skript/               # 18 PDF-Abschnitte des C-Vorlesungsskripts
 │   ├── smartbeans_exercises/ # 96 YAML-Übungsaufgaben
-│   ├── FAQ.json              # Häufige Fragen aus dem Tutorbetrieb
-│   └── tutor_knowledge_base.txt
+│   └── tutor_knowledge_base.yaml  # Ein Q&A-Eintrag pro YAML-Listenelement
 ├── processed/
 │   ├── md_cache/             # Gecachte Markdowns (PDF → Docling)
 │   ├── chunks_<version>.json # Gecachte Chunks pro Pipeline-Version
@@ -109,10 +121,9 @@ Aggregiert Metriken und schreibt `results/<VERSION>/eval_results.json`.
 
 | Typ | Anzahl | Beschreibung |
 |---|---|---|
-| `complementary` | 51 | Antwort verteilt über mehrere Dokumente |
-| `redundant` | 26 | Antwort in einem einzigen Dokument |
-| `out_of_scope` | 3 | Kein relevantes Dokument vorhanden |
-| `concept_comparison` | 3 | Vergleich zweier Konzepte |
+| `complementary` | 54 | Antwort verteilt über mehrere Dokumente |
+| `redundant` | 28 | Antwort in einem einzigen Dokument |
+| `out_of_scope` | 1 | Kein relevantes Dokument vorhanden (wird in der Auswertung übersprungen) |
 
 Jede Query hat eine oder mehrere Referenzen:
 ```json
@@ -136,23 +147,16 @@ Jede Query hat eine oder mehrere Referenzen:
 
 | Metrik | Beschreibung |
 |---|---|
-| **Doc Hit@K** | Anteil Queries, bei denen das Gold-Dokument unter den Top-K ist |
-| **MRR** | Mean Reciprocal Rank (Dokumentebene) |
-| **Chunk Hit@1** | Top-Chunk enthält Evidence-Snippet |
-| **WRS** | Weighted Relevance Score: `Σ(matching_score × hit) / Σ(matching_score)` |
-| **NDCG** | Normalized Discounted Cumulative Gain |
+| **Doc Hit@K** | Anteil Queries, bei denen das Gold-Dokument unter den Top-K liegt (K = 1, 5, 10, 20) |
+| **MRR** | Mean Reciprocal Rank auf Dokumentebene |
+| **Any High-Score Hit@1** | Top-1-Chunk enthält mindestens eine G_high-Evidence (`matching_score ≥ 0.8`) |
+| **Strict High-Score Hit@k** | **Alle** G_high-Evidences erscheinen irgendwo im Top-k |
+| **Chain-MRR** | Bottleneck-MRR über alle G_high einer `complementary`-Query (0, falls eine fehlt) |
+| **Chunk Hit@1 (any)** | Top-1-Chunk enthält irgendeine Evidence (auch < 0.8) |
+| **NDCG@k** | Gradierte Relevanz auf Chunk-Ebene mit `matching_score` als Gain |
+| **WRS** | Weighted Relevance Score, **Top-1 only**: `Σ(score_i · top1_hit_i) / Σ(score_i)`. Misst, wie zuverlässig der **erste** Chunk wirklich relevant ist — nicht das Top-k. |
 
-### Baseline-Ergebnisse (v1_baseline — Dense only)
-
-| Metrik | Wert |
-|---|---|
-| Doc Hit@1 | 52.5% |
-| Doc Hit@5 | 87.5% |
-| Doc Hit@20 | 95.0% |
-| MRR | 0.685 |
-| Chunk Hit@1 | 42.5% |
-| Mean WRS | 0.299 |
-| Mean NDCG | 0.558 |
+⚠️ Die WRS-Definition ist absichtlich restriktiv (Top-1). Diskussionspunkte und mögliche Erweiterungen siehe `REVIEW.md`.
 
 ---
 
@@ -160,9 +164,10 @@ Jede Query hat eine oder mehrere Referenzen:
 
 | Parameter | Default | Beschreibung |
 |---|---|---|
-| `VERSION` | `"v1_baseline"` | Name des Experiments — bestimmt Ausgabepfad |
+| `VERSION` | `"v3a_keywords"` | Pipeline-Variante — bestimmt Ingest-Funktion und Ausgabepfad |
 | `TOP_K` | `20` | Anzahl der abgerufenen Chunks |
-| `SCORE_THRESHOLD` | `0.5` | Minimaler `matching_score` um Evidence als relevant zu werten |
+| `SCORE_THRESHOLD` | `0.5` | Minimaler `matching_score`, um eine Evidence-Referenz in die Auswertung zu nehmen |
+| `HIGH_SCORE_THRESHOLD` | `0.8` (in `reporting.py`) | Schwelle für G_high (Must-have-Evidence) |
 
 ---
 
