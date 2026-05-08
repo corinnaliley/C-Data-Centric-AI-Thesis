@@ -167,6 +167,24 @@ def _ndcg_at_k(evidence_details: list, top_k_indices: list[int], k: int) -> floa
     return round(dcg / idcg, 4) if idcg > 0 else 0.0
 
 
+def _doc_type(expected_ids: list[str]) -> str:
+    """
+    Classify a query by the file type(s) of its gold documents.
+
+    Returns ``"pdf"`` when all expected IDs are PDFs, ``"yaml"`` when all are
+    YAMLs (SmartBeans exercises or tutor KB), and ``"mixed"`` when both types
+    appear — useful for the Data-Centric per-source-type analysis.
+    """
+    suffixes = {Path(i).suffix.lower() for i in expected_ids if i}
+    if not suffixes:
+        return "unknown"
+    if suffixes == {".pdf"}:
+        return "pdf"
+    if suffixes == {".yaml"}:
+        return "yaml"
+    return "mixed"
+
+
 def _bootstrap_ci(
     values: list[float],
     n_boot: int = N_BOOTSTRAP,
@@ -251,6 +269,7 @@ def log_query_result(
     return {
         "query":                  query_text,
         "type":                   query_type,
+        "doc_type":               _doc_type(expected_ids),
         "expected_ids":           expected_ids,
         "predicted_id":           predicted_id,
         "ranked_doc_ids":         rdi,
@@ -385,6 +404,39 @@ def compute_and_print_metrics(
         line += f"  nDCG={sub_ndcg:.3f}  MeanWRS={sub_wrs:.3f}"
         print(line)
 
+    # Breakdown by document type (pdf / yaml / mixed)
+    print()
+    by_doc_type: dict[str, dict] = {}
+    for dtype in ["pdf", "yaml", "mixed"]:
+        sub = [r for r in results_log if r.get("doc_type") == dtype]
+        if not sub:
+            continue
+        sn         = len(sub)
+        s_hit1     = sum(1 for r in sub if r["is_hit"])
+        s_mrr      = sum(r.get("rr",          0.0) for r in sub) / sn
+        s_strict   = sum(1 for r in sub if r.get("strict_topk_hit"))
+        s_recall   = sum(r.get("recall_at_k", 0.0) for r in sub) / sn
+        s_ndcg     = sum(r.get("ndcg",        0.0) for r in sub) / sn
+        s_wrs      = sum(r.get("wrs",         0.0) for r in sub) / sn
+        print(
+            f"  -> {dtype:8} (n={sn:2}): "
+            f"Hit@1={s_hit1/sn*100:.1f}%  "
+            f"MRR={s_mrr:.3f}  "
+            f"Strict@{k}={s_strict/sn*100:.0f}%  "
+            f"Recall@{k}={s_recall:.3f}  "
+            f"nDCG={s_ndcg:.3f}  "
+            f"WRS={s_wrs:.3f}"
+        )
+        by_doc_type[dtype] = {
+            "n":               sn,
+            "hit1":            round(s_hit1 / sn, 4),
+            "mrr":             round(s_mrr,    4),
+            "strict_topk_hit": round(s_strict / sn, 4),
+            "recall_at_k":     round(s_recall, 4),
+            "ndcg":            round(s_ndcg,   4),
+            "wrs":             round(s_wrs,    4),
+        }
+
     print(f"{'='*60}\n")
 
     return {
@@ -422,6 +474,8 @@ def compute_and_print_metrics(
         "mean_embed_latency_ms":    round(mean_embed_lat, 2),
         "p95_embed_latency_ms":     round(p95_embed_lat,  2),
         "mean_bm25_latency_ms":     round(mean_bm25_lat,  2),
+        # Per-document-type breakdown
+        "by_doc_type":              by_doc_type,
     }
 
 
