@@ -78,13 +78,16 @@ def _build_embed_model() -> OpenAIDenseEmbedding:
         model=EMBEDDING_MODEL_NAME,
         base_url=EMBEDDING_API_BASE_URL,
     )
+    # Set the expected dimension BEFORE the first .embed() call. zvec
+    # validates each API response against ``_dimension`` internally, and its
+    # default (1536, OpenAI ada-002) does not match the qwen3-4b model.
+    emb._dimension = EMBEDDING_DIMENSION
     actual_dim = len(emb.embed("test"))
     assert actual_dim == EMBEDDING_DIMENSION, (
         f"Embedding dimension mismatch: model returns {actual_dim}, "
         f"but EMBEDDING_DIMENSION={EMBEDDING_DIMENSION} in constants.py. "
         "Delete cached embeddings and update the constant."
     )
-    emb._dimension = EMBEDDING_DIMENSION
     return emb
 
 
@@ -199,9 +202,13 @@ def load_or_build_embeddings(
     if cache_path.exists():
         print(f"Loading vector cache: {cache_path.name}...")
         embeddings = torch.load(cache_path)
-        if embeddings.shape[0] == len(corpus_texts):
+        if (embeddings.shape[0] == len(corpus_texts)
+                and embeddings.shape[1] == EMBEDDING_DIMENSION):
             return embeddings
-        print("Cache outdated (chunk count changed). Re-embedding...")
+        print(
+            f"Cache outdated: shape={tuple(embeddings.shape)}, "
+            f"expected=({len(corpus_texts)}, {EMBEDDING_DIMENSION}). Re-embedding..."
+        )
 
     partial_path = cache_path.with_suffix(".partial.pt")
     partial: dict[int, list[float]] = {}
