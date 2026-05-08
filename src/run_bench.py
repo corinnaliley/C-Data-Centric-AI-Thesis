@@ -20,7 +20,7 @@ np.random.seed(42)
 
 from retrieval import _build_embed_model
 
-from constants import EMBEDDING_MODEL_NAME, PROCESSED_PATH, RESULTS_PATH, BENCHMARK_PATH
+from constants import EMBEDDING_MODEL_NAME, PROCESSED_PATH, RESULTS_PATH, BENCHMARK_PATH, V3B_KEYWORD_CACHE_PATH
 from ingest_pipeline import run_ingest_v1, run_ingest_v2, run_ingest_v3a, run_ingest_v3b
 from retrieval import save_chunks_to_file, load_chunks_from_file, load_or_build_embeddings, retrieve_top_k, BM25Index
 from validation import (
@@ -173,24 +173,45 @@ def run_evaluation() -> None:
         )
 
         entry = log_query_result(
-            query_text       = query_text,
-            query_type       = query_type,
-            expected_ids     = expected_ids,
-            predicted_id     = result["predicted_id"],
-            is_hit           = is_hit,
-            best_score       = result["best_score"],
-            ranked_doc_ids   = [corpus_ids[i] for i in result["top_k_indices"]],
-            top_k_indices    = result["top_k_indices"],
-            wrs              = chunk_eval["wrs"],
-            chunk_hit_high   = chunk_eval["chunk_hit_high"],
-            chunk_hit_any    = chunk_eval["chunk_hit_any"],
-            topk_hit_high    = chunk_eval["topk_hit_high"],
-            evidence_details = chunk_eval["evidence_details"],
+            query_text        = query_text,
+            query_type        = query_type,
+            expected_ids      = expected_ids,
+            predicted_id      = result["predicted_id"],
+            is_hit            = is_hit,
+            best_score        = result["best_score"],
+            ranked_doc_ids    = [corpus_ids[i] for i in result["top_k_indices"]],
+            top_k_indices     = result["top_k_indices"],
+            wrs               = chunk_eval["wrs"],
+            chunk_hit_high    = chunk_eval["chunk_hit_high"],
+            chunk_hit_any     = chunk_eval["chunk_hit_any"],
+            topk_hit_high     = chunk_eval["topk_hit_high"],
+            evidence_details  = chunk_eval["evidence_details"],
+            embed_latency_ms  = result["embed_latency_ms"],
+            bm25_latency_ms   = result["bm25_latency_ms"],
         )
         results_log.append(entry)
 
     # 6. Report
     metrics = compute_and_print_metrics(results_log, total_queries=len(gold_data))
+
+    # V3b setup token costs (one-time, read from keyword cache metadata)
+    if VERSION == "v3b_llm_keywords" and V3B_KEYWORD_CACHE_PATH.exists():
+        with open(V3B_KEYWORD_CACHE_PATH, "r", encoding="utf-8") as _f:
+            _v3b_meta = json.load(_f).get("_meta", {})
+        v3b_tokens = {
+            "model":              _v3b_meta.get("model", "unknown"),
+            "n_chunks":           _v3b_meta.get("n_chunks_total", 0),
+            "prompt_tokens":      _v3b_meta.get("n_prompt_tokens", None),
+            "completion_tokens":  _v3b_meta.get("n_completion_tokens", None),
+        }
+        total_tok = (v3b_tokens["prompt_tokens"] or 0) + (v3b_tokens["completion_tokens"] or 0)
+        print(f"  V3b setup  : {v3b_tokens['model']}  "
+              f"prompt={v3b_tokens['prompt_tokens']}  "
+              f"completion={v3b_tokens['completion_tokens']}  "
+              f"total={total_tok or '(not tracked)'}  "
+              f"chunks={v3b_tokens['n_chunks']}")
+        metrics["v3b_setup"] = v3b_tokens
+
     save_report(metrics, results_log, OUTPUT_RESULTS_PATH)
 
 

@@ -205,6 +205,8 @@ def log_query_result(
     chunk_hit_any: bool = False,
     topk_hit_high: bool = False,
     evidence_details: list = None,
+    embed_latency_ms: float = 0.0,
+    bm25_latency_ms: float = 0.0,
 ) -> dict:
     """
     Print a one-line result summary and return the full result dict.
@@ -264,6 +266,8 @@ def log_query_result(
         "chunk_hit_any":          chunk_hit_any,
         "topk_hit_high":          topk_hit_high,
         "score":                  round(best_score, 4),
+        "embed_latency_ms":       round(embed_latency_ms, 2),
+        "bm25_latency_ms":        round(bm25_latency_ms, 2),
         "evidence_details":       ed,
     }
 
@@ -315,6 +319,13 @@ def compute_and_print_metrics(
     mean_wrs    = sum(wrs_vals)    / n
     mean_recall = sum(recall_vals) / n
 
+    # Latency stats
+    embed_lats     = [r.get("embed_latency_ms", 0.0) for r in results_log]
+    bm25_lats      = [r.get("bm25_latency_ms",  0.0) for r in results_log]
+    mean_embed_lat = sum(embed_lats) / n
+    p95_embed_lat  = sorted(embed_lats)[int(0.95 * n)]
+    mean_bm25_lat  = sum(bm25_lats) / n
+
     # Bootstrap 95 % CIs for the main metrics
     ci_hit1   = _bootstrap_ci(hit1_vals)
     ci_mrr    = _bootstrap_ci(rr_vals)
@@ -344,6 +355,9 @@ def compute_and_print_metrics(
     print(f"  nDCG@{k}    : {mean_ndcg:.4f}  95% CI [{ci_ndcg[0]:.4f}, {ci_ndcg[1]:.4f}]")
     print(f"  Recall@{k}  : {mean_recall:.4f}  95% CI [{ci_recall[0]:.4f}, {ci_recall[1]:.4f}]")
     print(f"  Mean WRS  : {mean_wrs:.4f}  95% CI [{ci_wrs[0]:.4f}, {ci_wrs[1]:.4f}]")
+    print(f"  --- Latency (per query) ---")
+    print(f"  Embed (mean/p95)              : {mean_embed_lat:.0f} ms / {p95_embed_lat:.0f} ms")
+    print(f"  BM25+RRF (mean)               : {mean_bm25_lat:.1f} ms")
 
     # Breakdown by query type
     print()
@@ -404,6 +418,10 @@ def compute_and_print_metrics(
         "ci_recall_at_k":           [round(ci_recall[0], 4), round(ci_recall[1], 4)],
         "mean_wrs":                 round(mean_wrs, 4),
         "ci_wrs":                   [round(ci_wrs[0],    4), round(ci_wrs[1],    4)],
+        # Latency
+        "mean_embed_latency_ms":    round(mean_embed_lat, 2),
+        "p95_embed_latency_ms":     round(p95_embed_lat,  2),
+        "mean_bm25_latency_ms":     round(mean_bm25_lat,  2),
     }
 
 

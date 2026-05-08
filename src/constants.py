@@ -43,3 +43,5 @@ SAIA_DOCLING_ENDPOINT = "documents/convert"
 EMBEDDING_MODEL_NAME = "qwen3-embedding-4b-query"
 EMBEDDING_DIMENSION = 2560
 EMBEDDING_API_BASE_URL = "https://chat-ai.academiccloud.de/v1/"
+
+V3B_KEYWORD_CACHE_PATH = PROCESSED_PATH / "v3b" / "keywords_llm_v3b.json"

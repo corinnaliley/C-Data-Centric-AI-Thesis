@@ -267,11 +267,14 @@ def retrieve_top_k(
     """
     from sentence_transformers import util
 
+    t0 = time.monotonic()
     query_vec = embed_model.embed(query_text)
+    embed_latency_ms = (time.monotonic() - t0) * 1000
     query_embedding = torch.tensor(query_vec, dtype=torch.float32)
 
     cos_scores = util.cos_sim(query_embedding, corpus_embeddings)[0]
 
+    t1 = time.monotonic()
     if bm25_index is not None:
         n = len(corpus_texts)
         dense_ranked = torch.argsort(cos_scores, descending=True).tolist()
@@ -281,13 +284,16 @@ def retrieve_top_k(
     else:
         top_k_capped  = min(top_k, len(corpus_texts))
         top_k_indices = torch.topk(cos_scores, top_k_capped).indices.tolist()
+    bm25_latency_ms = (time.monotonic() - t1) * 1000
 
     top_idx = top_k_indices[0]
 
     return {
-        "top_idx":       top_idx,
-        "predicted_id":  corpus_ids[top_idx],
-        "best_score":    cos_scores[top_idx].item(),
-        "top_k_indices": top_k_indices,
-        "cos_scores":    cos_scores,
+        "top_idx":          top_idx,
+        "predicted_id":     corpus_ids[top_idx],
+        "best_score":       cos_scores[top_idx].item(),
+        "top_k_indices":    top_k_indices,
+        "cos_scores":       cos_scores,
+        "embed_latency_ms": round(embed_latency_ms, 2),
+        "bm25_latency_ms":  round(bm25_latency_ms, 2),
     }

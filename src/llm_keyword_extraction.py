@@ -229,6 +229,7 @@ def _call_api(
     config: LLMKeywordConfig,
     chunk_id: str,
     use_json_format: list[bool],
+    token_counter: dict | None = None,
 ) -> Optional[str]:
     """
     Call the LLM API with retry logic.
@@ -291,6 +292,11 @@ def _call_api(
             else:
                 response = client.chat.completions.create(**base_kwargs)  # type: ignore[union-attr]
 
+            if token_counter is not None:
+                usage = getattr(response, "usage", None)
+                if usage:
+                    token_counter["prompt"]     += getattr(usage, "prompt_tokens",     0) or 0
+                    token_counter["completion"] += getattr(usage, "completion_tokens", 0) or 0
             return response.choices[0].message.content
 
         except _oa.RateLimitError as exc:
@@ -406,21 +412,26 @@ def _write_cache(
     config: LLMKeywordConfig,
     chunks_data: dict[str, Optional[list[str]]],
     n_chunks_total: int,
+    token_counter: dict | None = None,
 ) -> None:
     """Atomically write cache to disk."""
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     n_cached = sum(1 for v in chunks_data.values() if v is not None)
     n_failed = sum(1 for v in chunks_data.values() if v is None)
+    meta: dict = {
+        "model": config.model,
+        "base_url": config.base_url,
+        "prompt_hash": _EXPECTED_PROMPT_HASH,
+        "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "n_chunks_total": n_chunks_total,
+        "n_chunks_cached": n_cached,
+        "n_chunks_failed": n_failed,
+    }
+    if token_counter is not None:
+        meta["n_prompt_tokens"]     = token_counter["prompt"]
+        meta["n_completion_tokens"] = token_counter["completion"]
     output = {
-        "_meta": {
-            "model": config.model,
-            "base_url": config.base_url,
-            "prompt_hash": _EXPECTED_PROMPT_HASH,
-            "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "n_chunks_total": n_chunks_total,
-            "n_chunks_cached": n_cached,
-            "n_chunks_failed": n_failed,
-        },
+        "_meta": meta,
         "chunks": chunks_data,
     }
     tmp_path = cache_path.with_suffix(".tmp")
@@ -507,6 +518,7 @@ def extract_keywords_llm(
 
     min_interval = 1.0 / config.rate_limit_rps
     use_json_format: list[bool] = [True]
+    token_counter: dict = {"prompt": 0, "completion": 0}
 
     n_success = 0
     n_failed = 0
@@ -531,14 +543,14 @@ def extract_keywords_llm(
         t_start = time.monotonic()
 
         try:
-            raw_response = _call_api(client, prompt, config, cid, use_json_format)
+            raw_response = _call_api(client, prompt, config, cid, use_json_format, token_counter)
         except Exception as exc:
             # 4xx config errors propagate up
             logger.error("Chunk %s: Unrecoverable API error: %s", cid, exc)
             chunks_data[cid] = None
             n_failed += 1
             last_request_time = time.monotonic()
-            _write_cache(cache_path, config, chunks_data, len(chunk_id_map))
+            _write_cache(cache_path, config, chunks_data, len(chunk_id_map), token_counter)
             continue
 
         latency_ms = (time.monotonic() - t_start) * 1000
@@ -565,15 +577,17 @@ def extract_keywords_llm(
 
         # Flush cache every 10 successful chunks
         if (n_success + n_failed) % 10 == 0:
-            _write_cache(cache_path, config, chunks_data, len(chunk_id_map))
+            _write_cache(cache_path, config, chunks_data, len(chunk_id_map), token_counter)
             logger.info("Cache flushed (%d/%d processed).", i + 1, len(pending))
 
-    _write_cache(cache_path, config, chunks_data, len(chunk_id_map))
+    _write_cache(cache_path, config, chunks_data, len(chunk_id_map), token_counter)
 
     avg_latency = sum(latencies) / len(latencies) if latencies else 0.0
     logger.info(
-        "Extraction complete: %d succeeded, %d failed, avg latency %.0f ms.",
+        "Extraction complete: %d succeeded, %d failed, avg latency %.0f ms, "
+        "tokens prompt=%d completion=%d.",
         n_success, n_failed, avg_latency,
+        token_counter["prompt"], token_counter["completion"],
     )
 
     return {cid: chunks_data.get(cid) for cid in chunk_id_map}
