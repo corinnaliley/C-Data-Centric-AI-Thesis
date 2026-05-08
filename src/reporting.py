@@ -1,18 +1,32 @@
 """
 Aggregates evaluation results, prints a summary report, and saves metrics to disk.
 
-Metrics computed:
-- Doc-Level Hit@k             — top document is the expected one (k = 1, 5, 10, 20)
-- Doc-Level MRR               — Mean Reciprocal Rank at document level
-- Any High-Score Hit@1        — at least one Ghigh reference found in the top-1 chunk
-- Strict High-Score Hit@k     — ALL Ghigh references found somewhere in top-k
-- Chain-MRR (complementary)   — 1/max_rank if all Ghigh references found; 0 if any is missing
-- nDCG@k                      — Normalized Discounted Cumulative Gain at chunk level
-                                 rel(chunk) = max matching_score of all evidence in that chunk
-- WRS (mean)                  — mean Weighted Relevance Score across all queries
-                                 WRS per query = sum(score_i * hit_i) / sum(score_i)
+Primary chunk-level metrics (continuous, score-aware):
+- WRS@k                — sum(score_i * decay(rank_i)) / sum(score_i) over all refs
+                         decay = 1/rank (reciprocal). Captures both finding and ranking.
+- nDCG@k               — graded-relevance nDCG at chunk level. IDCG is built from
+                         ALL gold reference scores (not just chunks in top-k).
+- Recall@k (Ghigh)     — |Ghigh refs found in top-k| / |Ghigh refs|.
+                         None for queries without Ghigh refs (excluded from mean).
+- Weighted Recall@k    — sum(score_i * found_i) / sum(score_i) over ALL refs.
+                         Companion to WRS without rank decay — isolates ``did we
+                         find it'' from ``how high is it ranked''.
+
+Doc-level (context):
+- Hit@k (k=1,5,10,20) — gold doc appears in the top-k retrieved doc IDs.
+- MRR                 — Mean Reciprocal Rank at document level.
+
+Diagnostic / binary (top-1 or all-or-nothing):
+- Any High-Score Hit@1   — top-1 chunk contains a Ghigh evidence piece.
+- Chunk Hit@1 (any)      — top-1 chunk contains any evidence piece.
+- Strict High-Score Hit@k— ALL Ghigh refs found in top-k. Reported as x/n_appl
+                            (queries without Ghigh refs are excluded).
+- Chain-MRR (complementary) — 1/max_rank if all Ghigh refs found, 0 if any missing,
+                               None if no Ghigh refs (excluded from mean).
 
 Ghigh = references with matching_score >= 0.8 (must-have information).
+All means / CIs over Ghigh-dependent metrics use only the queries where the
+metric is defined (None values are filtered out).
 """
 
 import json
@@ -60,54 +74,84 @@ def _reciprocal_rank(ranked_doc_ids: list[str], expected_ids: list[str]) -> floa
     return 0.0
 
 
-def _strict_topk_hit(evidence_details: list) -> bool:
+def _strict_topk_hit(evidence_details: list) -> bool | None:
     """
     Return True if ALL Ghigh references are found somewhere in the top-k chunks.
 
-    A query passes only when every must-have evidence piece
-    (matching_score >= HIGH_SCORE_THRESHOLD) appears in at least one retrieved
-    chunk — all-or-nothing completeness, especially meaningful for complementary
-    queries where information is spread across multiple chunks.
+    Returns ``None`` for queries without any Ghigh reference — the metric is
+    not applicable in that case and should be excluded from rate aggregation
+    rather than counted as a failure.
 
     Args:
         evidence_details: Per-reference evaluation dicts from evaluate_chunk_level.
 
     Returns:
-        True if all Ghigh references have topk_has_evidence == True.
+        True/False per Ghigh coverage; None if no Ghigh references exist.
     """
     ghigh = [ed for ed in evidence_details if ed["matching_score"] >= HIGH_SCORE_THRESHOLD]
-    return bool(ghigh) and all(ed["topk_has_evidence"] for ed in ghigh)
+    if not ghigh:
+        return None
+    return all(ed["topk_has_evidence"] for ed in ghigh)
 
 
-def _recall_at_k(evidence_details: list) -> float:
+def _recall_at_k(evidence_details: list) -> float | None:
     """
     Fraction of Ghigh references found anywhere in the top-k chunks.
 
         recall@k = |Ghigh refs with topk_has_evidence| / |Ghigh refs|
 
-    Continuous counterpart to _strict_topk_hit: shows partial credit when
-    some but not all must-have evidence pieces are retrieved.
+    Returns ``None`` for queries without any Ghigh reference — those are
+    excluded from the mean rather than counted as zeros.
 
     Args:
         evidence_details: Per-reference evaluation dicts from evaluate_chunk_level.
 
     Returns:
-        Value in [0.0, 1.0]; 0.0 when no Ghigh references exist.
+        Value in [0.0, 1.0], or None if no Ghigh references exist.
     """
     ghigh = [ed for ed in evidence_details if ed["matching_score"] >= HIGH_SCORE_THRESHOLD]
     if not ghigh:
-        return 0.0
+        return None
     found = sum(1 for ed in ghigh if ed["topk_has_evidence"])
     return round(found / len(ghigh), 4)
 
 
-def _chain_mrr(evidence_details: list, top_k_indices: list[int]) -> float:
+def _weighted_recall_at_k(evidence_details: list) -> float | None:
+    """
+    Score-weighted fraction of references found anywhere in the top-k chunks.
+
+        wrec@k = sum(score_i * found_i) / sum(score_i)   over ALL references
+
+    Companion to WRS@K but without rank decay: isolates ``did we find it?''
+    from ``how high is it ranked?''. Counts every reference, weighted by its
+    matching_score, so a 0.95 ref weighs more than a 0.55 ref — what the
+    Data-Centric thesis cares about. Returns None when there are no
+    references with a non-empty evidence string for the query.
+
+    Args:
+        evidence_details: Per-reference evaluation dicts from evaluate_chunk_level.
+
+    Returns:
+        Value in [0.0, 1.0], or None if no scored references exist.
+    """
+    if not evidence_details:
+        return None
+    score_sum = sum(ed["matching_score"] for ed in evidence_details)
+    if score_sum <= 0:
+        return None
+    found_weight = sum(
+        ed["matching_score"] for ed in evidence_details if ed["topk_has_evidence"]
+    )
+    return round(found_weight / score_sum, 4)
+
+
+def _chain_mrr(evidence_details: list, top_k_indices: list[int]) -> float | None:
     """
     Compute Chain-MRR (Bottleneck-MRR) for multi-hop queries.
 
-    The chain rank is the highest rank needed to cover all Ghigh references.
-    Returns 0.0 if any Ghigh reference is not found in the ranking, making
-    this a strict completeness metric for complementary queries.
+    Chain rank = highest rank needed to cover all Ghigh references. Returns
+    0.0 when at least one Ghigh reference is not found (legitimate failure)
+    and ``None`` when no Ghigh references exist (not applicable).
 
     Args:
         evidence_details: Per-reference evaluation dicts (must contain
@@ -115,11 +159,11 @@ def _chain_mrr(evidence_details: list, top_k_indices: list[int]) -> float:
         top_k_indices: Ordered corpus indices of the retrieved chunks.
 
     Returns:
-        1 / chain_rank, or 0.0 if any Ghigh reference is missing.
+        1 / chain_rank, 0.0 if any Ghigh ref is missing, None if no Ghigh exist.
     """
     ghigh = [ed for ed in evidence_details if ed["matching_score"] >= HIGH_SCORE_THRESHOLD]
     if not ghigh:
-        return 0.0
+        return None
 
     ranks = []
     for ed in ghigh:
@@ -129,7 +173,7 @@ def _chain_mrr(evidence_details: list, top_k_indices: list[int]) -> float:
             None,
         )
         if rank is None:
-            return 0.0  # missing reference → Chain-MRR = 0
+            return 0.0  # missing reference → Chain-MRR = 0 (applicable, failed)
         ranks.append(rank)
 
     return round(1.0 / max(ranks), 4)
@@ -139,8 +183,10 @@ def _ndcg_at_k(evidence_details: list, top_k_indices: list[int], k: int) -> floa
     """
     Compute nDCG@k at chunk level using matching_score as graded relevance.
 
-    rel(chunk) = max matching_score of all evidence pieces found in that chunk.
-    IDCG is computed from the ideal ranking of all known relevant chunks.
+    rel(chunk) = max matching_score of all evidence pieces in that chunk.
+    IDCG is built from ALL gold reference scores (not just chunks that
+    happened to land in top-k) — otherwise missed references vanish from
+    the denominator and nDCG is systematically inflated.
 
     Args:
         evidence_details: Per-reference evaluation dicts (must contain
@@ -160,11 +206,20 @@ def _ndcg_at_k(evidence_details: list, top_k_indices: list[int], k: int) -> floa
     ranked_rels = [chunk_rel.get(idx, 0.0) for idx in top_k_indices[:k]]
     dcg = sum(r / math.log2(i + 2) for i, r in enumerate(ranked_rels))
 
-    ideal_rels = sorted(chunk_rel.values(), reverse=True)[:k]
-    ideal_rels += [0.0] * (k - len(ideal_rels))
+    # Ideal ranking uses every gold reference (one per ideal position).
+    # Conservative upper bound on IDCG: assumes each ref in a distinct chunk.
+    ideal_rels = sorted([ed["matching_score"] for ed in evidence_details], reverse=True)[:k]
     idcg = sum(r / math.log2(i + 2) for i, r in enumerate(ideal_rels))
 
     return round(dcg / idcg, 4) if idcg > 0 else 0.0
+
+
+def _mean_ignoring_none(values: list) -> tuple[float, int]:
+    """Mean and applicable-sample-count over a list that may contain None."""
+    clean = [v for v in values if v is not None]
+    if not clean:
+        return 0.0, 0
+    return sum(clean) / len(clean), len(clean)
 
 
 def _doc_type(expected_ids: list[str]) -> str:
@@ -278,7 +333,8 @@ def log_query_result(
         "rr":                     round(_reciprocal_rank(rdi, expected_ids), 4),
         "strict_topk_hit":        _strict_topk_hit(ed),
         "recall_at_k":            _recall_at_k(ed),
-        "chain_mrr":              _chain_mrr(ed, tki) if tki else 0.0,
+        "weighted_recall_at_k":   _weighted_recall_at_k(ed),
+        "chain_mrr":              _chain_mrr(ed, tki) if tki else None,
         "ndcg":                   _ndcg_at_k(ed, tki, k=len(tki)) if tki else 0.0,
         "wrs":                    wrs,
         "chunk_hit_high":         chunk_hit_high,
@@ -321,22 +377,27 @@ def compute_and_print_metrics(
     rr_vals = [r.get("rr", 0.0) for r in results_log]
     mrr     = sum(rr_vals) / n
 
-    # Ghigh-based chunk metrics
-    any_high_hit1   = sum(1 for r in results_log if r.get("chunk_hit_high"))
-    strict_topk_hit = sum(1 for r in results_log if r.get("strict_topk_hit"))
-    chunk_hits_any  = sum(1 for r in results_log if r.get("chunk_hit_any"))
-
-    # Chain-MRR (complementary queries only)
-    comp = [r for r in results_log if r["type"] == "complementary"]
-    chain_mrr_mean = sum(r.get("chain_mrr", 0.0) for r in comp) / len(comp) if comp else 0.0
-
-    # Additional chunk metrics
-    ndcg_vals   = [r.get("ndcg",        0.0) for r in results_log]
-    wrs_vals    = [r.get("wrs",         0.0) for r in results_log]
-    recall_vals = [r.get("recall_at_k", 0.0) for r in results_log]
+    # Continuous chunk-level metrics — primary signal across versions
+    ndcg_vals   = [r.get("ndcg",                 0.0) for r in results_log]
+    wrs_vals    = [r.get("wrs",                  0.0) for r in results_log]
+    recall_vals = [r.get("recall_at_k")              for r in results_log]   # None when no Ghigh
+    wrec_vals   = [r.get("weighted_recall_at_k")     for r in results_log]   # None when no refs
     mean_ndcg   = sum(ndcg_vals)   / n
     mean_wrs    = sum(wrs_vals)    / n
-    mean_recall = sum(recall_vals) / n
+    mean_recall, n_recall = _mean_ignoring_none(recall_vals)
+    mean_wrec,   n_wrec   = _mean_ignoring_none(wrec_vals)
+
+    # Diagnostic / binary chunk metrics (top-1 or all-or-nothing)
+    any_high_hit1   = sum(1 for r in results_log if r.get("chunk_hit_high"))
+    chunk_hits_any  = sum(1 for r in results_log if r.get("chunk_hit_any"))
+    strict_vals     = [r.get("strict_topk_hit")  for r in results_log]   # True/False/None
+    strict_hits     = sum(1 for v in strict_vals if v is True)
+    n_strict_appl   = sum(1 for v in strict_vals if v is not None)
+
+    # Chain-MRR (complementary queries only, ignoring queries without Ghigh)
+    comp = [r for r in results_log if r["type"] == "complementary"]
+    chain_vals_comp = [r.get("chain_mrr") for r in comp]
+    chain_mrr_mean, n_chain_appl = _mean_ignoring_none(chain_vals_comp)
 
     # Latency stats
     embed_lats     = [r.get("embed_latency_ms", 0.0) for r in results_log]
@@ -345,12 +406,15 @@ def compute_and_print_metrics(
     p95_embed_lat  = sorted(embed_lats)[int(0.95 * n)]
     mean_bm25_lat  = sum(bm25_lats) / n
 
-    # Bootstrap 95 % CIs for the main metrics
+    # Bootstrap 95 % CIs (filter None for Ghigh-dependent metrics)
+    recall_clean = [v for v in recall_vals if v is not None]
+    wrec_clean   = [v for v in wrec_vals   if v is not None]
     ci_hit1   = _bootstrap_ci(hit1_vals)
     ci_mrr    = _bootstrap_ci(rr_vals)
     ci_ndcg   = _bootstrap_ci(ndcg_vals)
-    ci_recall = _bootstrap_ci(recall_vals)
     ci_wrs    = _bootstrap_ci(wrs_vals)
+    ci_recall = _bootstrap_ci(recall_clean) if recall_clean else (0.0, 0.0)
+    ci_wrec   = _bootstrap_ci(wrec_clean)   if wrec_clean   else (0.0, 0.0)
 
     def pct(x): return round(x / n * 100, 2)
     def fmt_ci(lo, hi): return f"[{lo*100:.1f}%, {hi*100:.1f}%]"
@@ -358,25 +422,28 @@ def compute_and_print_metrics(
     print(f"\n{'='*60}")
     print(f"Final Results  ({n} evaluated of {total_queries} total)  — 95% bootstrap CI, {N_BOOTSTRAP} resamples")
     print(f"{'='*60}")
+    print(f"  --- Chunk-Level (continuous, score-aware) ---")
+    print(f"  Mean WRS@{k}             : {mean_wrs:.4f}    95% CI [{ci_wrs[0]:.4f}, {ci_wrs[1]:.4f}]")
+    print(f"  nDCG@{k}                 : {mean_ndcg:.4f}    95% CI [{ci_ndcg[0]:.4f}, {ci_ndcg[1]:.4f}]")
+    print(f"  Recall@{k} (Ghigh)       : {mean_recall:.4f}    95% CI [{ci_recall[0]:.4f}, {ci_recall[1]:.4f}]   (n_appl={n_recall})")
+    print(f"  Weighted Recall@{k}      : {mean_wrec:.4f}    95% CI [{ci_wrec[0]:.4f}, {ci_wrec[1]:.4f}]   (n_appl={n_wrec})")
     print(f"  --- Doc-Level ---")
     print(f"  Hit@1   : {hits1}/{n} ({pct(hits1):.1f}%)  95% CI {fmt_ci(*ci_hit1)}")
     print(f"  Hit@5   : {hits5}/{n} ({pct(hits5):.1f}%)")
     print(f"  Hit@10  : {hits10}/{n} ({pct(hits10):.1f}%)")
     print(f"  Hit@20  : {hits20}/{n} ({pct(hits20):.1f}%)")
     print(f"  MRR     : {mrr:.4f}  95% CI [{ci_mrr[0]:.4f}, {ci_mrr[1]:.4f}]")
-    print(f"  --- High-score metrics (score>={HIGH_SCORE_THRESHOLD}) ---")
-    print(f"  Any High-Score Hit@1          : {any_high_hit1}/{n} ({pct(any_high_hit1):.1f}%)")
-    print(f"  Strict High-Score Hit@{k}       : {strict_topk_hit}/{n} ({pct(strict_topk_hit):.1f}%)")
-    if comp:
-        print(f"  Chain-MRR  (complementary)    : {chain_mrr_mean:.4f}  (n={len(comp)})")
-    print(f"  --- Additional chunk metrics ---")
-    print(f"  Chunk Hit@1 (any)             : {chunk_hits_any}/{n} ({pct(chunk_hits_any):.1f}%)")
-    print(f"  nDCG@{k}    : {mean_ndcg:.4f}  95% CI [{ci_ndcg[0]:.4f}, {ci_ndcg[1]:.4f}]")
-    print(f"  Recall@{k}  : {mean_recall:.4f}  95% CI [{ci_recall[0]:.4f}, {ci_recall[1]:.4f}]")
-    print(f"  Mean WRS  : {mean_wrs:.4f}  95% CI [{ci_wrs[0]:.4f}, {ci_wrs[1]:.4f}]")
+    print(f"  --- Diagnostic (binary / top-1) ---")
+    print(f"  Any High-Score Hit@1            : {any_high_hit1}/{n} ({pct(any_high_hit1):.1f}%)")
+    print(f"  Chunk Hit@1 (any)               : {chunk_hits_any}/{n} ({pct(chunk_hits_any):.1f}%)")
+    if n_strict_appl:
+        strict_rate = strict_hits / n_strict_appl * 100
+        print(f"  Strict High-Score Hit@{k}         : {strict_hits}/{n_strict_appl} ({strict_rate:.1f}%)   (only Ghigh queries)")
+    if n_chain_appl:
+        print(f"  Chain-MRR  (complementary, n={n_chain_appl})  : {chain_mrr_mean:.4f}")
     print(f"  --- Latency (per query) ---")
-    print(f"  Embed (mean/p95)              : {mean_embed_lat:.0f} ms / {p95_embed_lat:.0f} ms")
-    print(f"  BM25+RRF (mean)               : {mean_bm25_lat:.1f} ms")
+    print(f"  Embed (mean/p95)                : {mean_embed_lat:.0f} ms / {p95_embed_lat:.0f} ms")
+    print(f"  BM25+RRF (mean)                 : {mean_bm25_lat:.1f} ms")
 
     # Breakdown by query type
     print()
@@ -384,24 +451,30 @@ def compute_and_print_metrics(
         sub = [r for r in results_log if r["type"] == qtype]
         if not sub:
             continue
+        sn             = len(sub)
         sub_hits       = sum(1 for r in sub if r["is_hit"])
-        sub_mrr        = sum(r.get("rr",           0.0) for r in sub) / len(sub)
-        sub_any_high   = sum(1 for r in sub if r.get("chunk_hit_high"))
-        sub_strict     = sum(1 for r in sub if r.get("strict_topk_hit"))
-        sub_recall     = sum(r.get("recall_at_k",  0.0) for r in sub) / len(sub)
-        sub_chain_mrr  = sum(r.get("chain_mrr",    0.0) for r in sub) / len(sub)
-        sub_ndcg       = sum(r.get("ndcg",         0.0) for r in sub) / len(sub)
-        sub_wrs        = sum(r.get("wrs",          0.0) for r in sub) / len(sub)
+        sub_mrr        = sum(r.get("rr",   0.0) for r in sub) / sn
+        sub_ndcg       = sum(r.get("ndcg", 0.0) for r in sub) / sn
+        sub_wrs        = sum(r.get("wrs",  0.0) for r in sub) / sn
+        sub_recall, sub_n_recall = _mean_ignoring_none([r.get("recall_at_k")           for r in sub])
+        sub_wrec,   sub_n_wrec   = _mean_ignoring_none([r.get("weighted_recall_at_k")  for r in sub])
+        sub_chain,  sub_n_chain  = _mean_ignoring_none([r.get("chain_mrr")             for r in sub])
+        sub_strict_vals = [r.get("strict_topk_hit") for r in sub]
+        sub_strict_appl = sum(1 for v in sub_strict_vals if v is not None)
+        sub_strict_hits = sum(1 for v in sub_strict_vals if v is True)
         line = (
-            f"  -> {qtype:15}: Hit@1={sub_hits}/{len(sub)} ({sub_hits/len(sub)*100:.1f}%)"
-            f"  MRR={sub_mrr:.3f}"
-            f"  AnyHigh@1={sub_any_high/len(sub)*100:.0f}%"
-            f"  Strict@{k}={sub_strict/len(sub)*100:.0f}%"
-            f"  Recall@{k}={sub_recall:.3f}"
+            f"  -> {qtype:15} (n={sn}): "
+            f"WRS={sub_wrs:.3f}  "
+            f"nDCG={sub_ndcg:.3f}  "
+            f"Recall@{k}={sub_recall:.3f}  "
+            f"WRec@{k}={sub_wrec:.3f}  "
+            f"Hit@1={sub_hits/sn*100:.0f}%  "
+            f"MRR={sub_mrr:.3f}  "
         )
-        if qtype == "complementary":
-            line += f"  ChainMRR={sub_chain_mrr:.3f}"
-        line += f"  nDCG={sub_ndcg:.3f}  MeanWRS={sub_wrs:.3f}"
+        if sub_strict_appl:
+            line += f"Strict@{k}={sub_strict_hits}/{sub_strict_appl}  "
+        if qtype == "complementary" and sub_n_chain:
+            line += f"ChainMRR={sub_chain:.3f}"
         print(line)
 
     # Breakdown by document type (pdf / yaml / mixed)
@@ -411,30 +484,37 @@ def compute_and_print_metrics(
         sub = [r for r in results_log if r.get("doc_type") == dtype]
         if not sub:
             continue
-        sn         = len(sub)
-        s_hit1     = sum(1 for r in sub if r["is_hit"])
-        s_mrr      = sum(r.get("rr",          0.0) for r in sub) / sn
-        s_strict   = sum(1 for r in sub if r.get("strict_topk_hit"))
-        s_recall   = sum(r.get("recall_at_k", 0.0) for r in sub) / sn
-        s_ndcg     = sum(r.get("ndcg",        0.0) for r in sub) / sn
-        s_wrs      = sum(r.get("wrs",         0.0) for r in sub) / sn
+        sn        = len(sub)
+        s_hit1    = sum(1 for r in sub if r["is_hit"])
+        s_mrr     = sum(r.get("rr",   0.0) for r in sub) / sn
+        s_ndcg    = sum(r.get("ndcg", 0.0) for r in sub) / sn
+        s_wrs     = sum(r.get("wrs",  0.0) for r in sub) / sn
+        s_recall, s_n_recall = _mean_ignoring_none([r.get("recall_at_k")          for r in sub])
+        s_wrec,   s_n_wrec   = _mean_ignoring_none([r.get("weighted_recall_at_k") for r in sub])
+        s_strict_vals = [r.get("strict_topk_hit") for r in sub]
+        s_strict_appl = sum(1 for v in s_strict_vals if v is not None)
+        s_strict_hits = sum(1 for v in s_strict_vals if v is True)
         print(
             f"  -> {dtype:8} (n={sn:2}): "
-            f"Hit@1={s_hit1/sn*100:.1f}%  "
-            f"MRR={s_mrr:.3f}  "
-            f"Strict@{k}={s_strict/sn*100:.0f}%  "
-            f"Recall@{k}={s_recall:.3f}  "
+            f"WRS={s_wrs:.3f}  "
             f"nDCG={s_ndcg:.3f}  "
-            f"WRS={s_wrs:.3f}"
+            f"Recall@{k}={s_recall:.3f}  "
+            f"WRec@{k}={s_wrec:.3f}  "
+            f"Hit@1={s_hit1/sn*100:.0f}%  "
+            f"MRR={s_mrr:.3f}"
         )
         by_doc_type[dtype] = {
-            "n":               sn,
-            "hit1":            round(s_hit1 / sn, 4),
-            "mrr":             round(s_mrr,    4),
-            "strict_topk_hit": round(s_strict / sn, 4),
-            "recall_at_k":     round(s_recall, 4),
-            "ndcg":            round(s_ndcg,   4),
-            "wrs":             round(s_wrs,    4),
+            "n":                    sn,
+            "wrs":                  round(s_wrs,    4),
+            "ndcg":                 round(s_ndcg,   4),
+            "recall_at_k":          round(s_recall, 4),
+            "n_recall_applicable":  s_n_recall,
+            "weighted_recall_at_k": round(s_wrec,   4),
+            "n_wrec_applicable":    s_n_wrec,
+            "hit1":                 round(s_hit1 / sn, 4),
+            "mrr":                  round(s_mrr,    4),
+            "strict_topk_hit":      (round(s_strict_hits / s_strict_appl, 4) if s_strict_appl else None),
+            "n_strict_applicable":  s_strict_appl,
         }
 
     print(f"{'='*60}\n")
@@ -455,21 +535,27 @@ def compute_and_print_metrics(
         "mrr":                      round(mrr, 4),
         "ci_hit1":                  [round(ci_hit1[0], 4),   round(ci_hit1[1], 4)],
         "ci_mrr":                   [round(ci_mrr[0],  4),   round(ci_mrr[1],  4)],
-        # Ghigh metrics
-        "any_high_score_hit1":      any_high_hit1,
-        "accuracy_any_high_hit1":   pct(any_high_hit1),
-        "strict_topk_hit":          strict_topk_hit,
-        "accuracy_strict_topk_hit": pct(strict_topk_hit),
-        "chain_mrr_complementary":  round(chain_mrr_mean, 4),
-        # Additional chunk metrics
-        "chunk_hits_any":           chunk_hits_any,
-        "accuracy_chunk_any":       pct(chunk_hits_any),
+        # Continuous chunk-level metrics (primary)
+        "mean_wrs":                 round(mean_wrs, 4),
+        "ci_wrs":                   [round(ci_wrs[0],    4), round(ci_wrs[1],    4)],
         "mean_ndcg":                round(mean_ndcg, 4),
         "ci_ndcg":                  [round(ci_ndcg[0],   4), round(ci_ndcg[1],   4)],
         "mean_recall_at_k":         round(mean_recall, 4),
         "ci_recall_at_k":           [round(ci_recall[0], 4), round(ci_recall[1], 4)],
-        "mean_wrs":                 round(mean_wrs, 4),
-        "ci_wrs":                   [round(ci_wrs[0],    4), round(ci_wrs[1],    4)],
+        "n_recall_applicable":      n_recall,
+        "mean_weighted_recall_at_k":round(mean_wrec, 4),
+        "ci_weighted_recall_at_k":  [round(ci_wrec[0],   4), round(ci_wrec[1],   4)],
+        "n_wrec_applicable":        n_wrec,
+        # Diagnostic Ghigh metrics
+        "any_high_score_hit1":      any_high_hit1,
+        "accuracy_any_high_hit1":   pct(any_high_hit1),
+        "chunk_hits_any":           chunk_hits_any,
+        "accuracy_chunk_any":       pct(chunk_hits_any),
+        "strict_topk_hit":          strict_hits,
+        "n_strict_applicable":      n_strict_appl,
+        "accuracy_strict_topk_hit": (round(strict_hits / n_strict_appl * 100, 2) if n_strict_appl else None),
+        "chain_mrr_complementary":  round(chain_mrr_mean, 4),
+        "n_chain_mrr_applicable":   n_chain_appl,
         # Latency
         "mean_embed_latency_ms":    round(mean_embed_lat, 2),
         "p95_embed_latency_ms":     round(p95_embed_lat,  2),
