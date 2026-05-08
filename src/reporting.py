@@ -62,9 +62,10 @@ def _strict_topk_hit(evidence_details: list) -> bool:
     """
     Return True if ALL Ghigh references are found somewhere in the top-k chunks.
 
-    A query passes this metric only when every must-have evidence piece
-    (matching_score >= HIGH_SCORE_THRESHOLD) appears in at least one of the
-    retrieved chunks, ensuring completeness rather than partial coverage.
+    A query passes only when every must-have evidence piece
+    (matching_score >= HIGH_SCORE_THRESHOLD) appears in at least one retrieved
+    chunk — all-or-nothing completeness, especially meaningful for complementary
+    queries where information is spread across multiple chunks.
 
     Args:
         evidence_details: Per-reference evaluation dicts from evaluate_chunk_level.
@@ -74,6 +75,28 @@ def _strict_topk_hit(evidence_details: list) -> bool:
     """
     ghigh = [ed for ed in evidence_details if ed["matching_score"] >= HIGH_SCORE_THRESHOLD]
     return bool(ghigh) and all(ed["topk_has_evidence"] for ed in ghigh)
+
+
+def _recall_at_k(evidence_details: list) -> float:
+    """
+    Fraction of Ghigh references found anywhere in the top-k chunks.
+
+        recall@k = |Ghigh refs with topk_has_evidence| / |Ghigh refs|
+
+    Continuous counterpart to _strict_topk_hit: shows partial credit when
+    some but not all must-have evidence pieces are retrieved.
+
+    Args:
+        evidence_details: Per-reference evaluation dicts from evaluate_chunk_level.
+
+    Returns:
+        Value in [0.0, 1.0]; 0.0 when no Ghigh references exist.
+    """
+    ghigh = [ed for ed in evidence_details if ed["matching_score"] >= HIGH_SCORE_THRESHOLD]
+    if not ghigh:
+        return 0.0
+    found = sum(1 for ed in ghigh if ed["topk_has_evidence"])
+    return round(found / len(ghigh), 4)
 
 
 def _chain_mrr(evidence_details: list, top_k_indices: list[int]) -> float:
@@ -209,6 +232,7 @@ def log_query_result(
         "is_hit":                 is_hit,
         "rr":                     round(_reciprocal_rank(rdi, expected_ids), 4),
         "strict_topk_hit":        _strict_topk_hit(ed),
+        "recall_at_k":            _recall_at_k(ed),
         "chain_mrr":              _chain_mrr(ed, tki) if tki else 0.0,
         "ndcg":                   _ndcg_at_k(ed, tki, k=len(tki)) if tki else 0.0,
         "wrs":                    wrs,
@@ -258,8 +282,9 @@ def compute_and_print_metrics(
     chain_mrr_mean = sum(r.get("chain_mrr", 0.0) for r in comp) / len(comp) if comp else 0.0
 
     # Additional chunk metrics
-    mean_ndcg = sum(r.get("ndcg", 0.0) for r in results_log) / n
-    mean_wrs  = sum(r.get("wrs",  0.0) for r in results_log) / n
+    mean_ndcg   = sum(r.get("ndcg",       0.0) for r in results_log) / n
+    mean_wrs    = sum(r.get("wrs",        0.0) for r in results_log) / n
+    mean_recall = sum(r.get("recall_at_k", 0.0) for r in results_log) / n
 
     def pct(x): return round(x / n * 100, 2)
 
@@ -280,6 +305,7 @@ def compute_and_print_metrics(
     print(f"  --- Additional chunk metrics ---")
     print(f"  Chunk Hit@1 (any)             : {chunk_hits_any}/{n} ({pct(chunk_hits_any):.1f}%)")
     print(f"  nDCG@{k}                         : {mean_ndcg:.4f}")
+    print(f"  Mean Recall@{k}                  : {mean_recall:.4f}")
     print(f"  Mean WRS (Weighted Relevance) : {mean_wrs:.4f}")
 
     # Breakdown by query type
@@ -292,6 +318,7 @@ def compute_and_print_metrics(
         sub_mrr        = sum(r.get("rr",           0.0) for r in sub) / len(sub)
         sub_any_high   = sum(1 for r in sub if r.get("chunk_hit_high"))
         sub_strict     = sum(1 for r in sub if r.get("strict_topk_hit"))
+        sub_recall     = sum(r.get("recall_at_k",  0.0) for r in sub) / len(sub)
         sub_chain_mrr  = sum(r.get("chain_mrr",    0.0) for r in sub) / len(sub)
         sub_ndcg       = sum(r.get("ndcg",         0.0) for r in sub) / len(sub)
         sub_wrs        = sum(r.get("wrs",          0.0) for r in sub) / len(sub)
@@ -300,6 +327,7 @@ def compute_and_print_metrics(
             f"  MRR={sub_mrr:.3f}"
             f"  AnyHigh@1={sub_any_high/len(sub)*100:.0f}%"
             f"  Strict@{k}={sub_strict/len(sub)*100:.0f}%"
+            f"  Recall@{k}={sub_recall:.3f}"
         )
         if qtype == "complementary":
             line += f"  ChainMRR={sub_chain_mrr:.3f}"
@@ -331,6 +359,7 @@ def compute_and_print_metrics(
         "chunk_hits_any":           chunk_hits_any,
         "accuracy_chunk_any":       pct(chunk_hits_any),
         "mean_ndcg":                round(mean_ndcg, 4),
+        "mean_recall_at_k":         round(mean_recall, 4),
         "mean_wrs":                 round(mean_wrs, 4),
     }
 
