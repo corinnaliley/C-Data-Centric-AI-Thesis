@@ -43,6 +43,11 @@ os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 # v2_chunking_hybrid: structural chunking, YAML task/solution split, hybrid
 # v3a_keywords:       like V2 + KeyBERT keyword header injected before embedding, hybrid
 # v3b_llm_keywords:   like V2 + LLM-generated keyword header injected before embedding, hybrid
+#
+# Orthogonal to the version, INCLUDE_TUTOR_KB toggles whether
+# tutor_knowledge_base.yaml is part of the corpus. The chunks cache is shared
+# across both flag values; only the embeddings cache and the results directory
+# get a "_no_tutor_kb" suffix when the flag is False.
 
 VERSION_CONFIG = {
     "v1_baseline": {
@@ -68,17 +73,29 @@ _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]
 
+# When False, tutor_knowledge_base.yaml is filtered out of the corpus and all
+# benchmark references pointing to it are ignored. Queries whose references
+# point exclusively to the tutor KB are skipped entirely.
+INCLUDE_TUTOR_KB = True
+
+TUTOR_KB_DOC_ID = "tutor_knowledge_base.yaml"
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-VERSION_PATH          = RESULTS_PATH   / VERSION
+# The chunks cache is always the full corpus (incl. tutor KB) so that V3a /
+# V3b keyword caches and chunking work are shared across both flag values.
+# Filtering happens in-memory after the chunks are loaded.
+_kb_suffix = "" if INCLUDE_TUTOR_KB else "_no_tutor_kb"
+
+VERSION_PATH          = RESULTS_PATH   / f"{VERSION}{_kb_suffix}"
 OUTPUT_CHUNKS_PATH    = PROCESSED_PATH / f"chunks_{VERSION}.json"
 OUTPUT_RESULTS_PATH   = VERSION_PATH   / "eval_results.json"
 COVERAGE_REPORT_PATH  = VERSION_PATH   / "evidence_coverage.json"
 MISSING_DEBUG_PATH    = VERSION_PATH   / "missing_debug.txt"
 
 model_slug            = EMBEDDING_MODEL_NAME.replace("/", "_")
-EMBEDDINGS_CACHE_PATH = PROCESSED_PATH / f"embeddings_{VERSION}_{model_slug}.pt"
+EMBEDDINGS_CACHE_PATH = PROCESSED_PATH / f"embeddings_{VERSION}{_kb_suffix}_{model_slug}.pt"
 
 # ---------------------------------------------------------------------------
 # Tunable parameters
@@ -87,6 +104,41 @@ TOP_K = 20    # number of chunks retrieved per query
 
 
 # ---------------------------------------------------------------------------
+
+def _filter_tutor_kb_from_gold(gold_data: list) -> list:
+    """
+    Drop tutor-KB references from gold_data; skip queries left without any.
+
+    Out-of-scope queries are passed through unchanged. In-scope queries lose
+    references whose ``gold_id`` is ``tutor_knowledge_base.yaml``; if all of
+    a query's references are dropped, the query is removed entirely (treated
+    as unanswerable in the reduced corpus).
+    """
+    filtered = []
+    dropped_refs = 0
+    dropped_queries = 0
+    for item in gold_data:
+        if item.get("type") == "out_of_scope":
+            filtered.append(item)
+            continue
+        refs = item.get("references", [])
+        kept = [
+            r for r in refs
+            if not (isinstance(r, dict) and r.get("gold_id") == TUTOR_KB_DOC_ID)
+        ]
+        dropped_refs += len(refs) - len(kept)
+        if not kept:
+            dropped_queries += 1
+            continue
+        new_item = dict(item)
+        new_item["references"] = kept
+        filtered.append(new_item)
+    print(
+        f"INCLUDE_TUTOR_KB=False: removed {dropped_refs} tutor-KB reference(s); "
+        f"skipped {dropped_queries} query/queries with only tutor-KB references."
+    )
+    return filtered
+
 
 def run_evaluation() -> None:
     """
@@ -97,7 +149,7 @@ def run_evaluation() -> None:
     """
     print("Starting evaluation...\n")
 
-    # 1. Ingest (with chunk cache)
+    # 1. Ingest (with chunk cache — always full corpus, including tutor KB)
     chunks = load_chunks_from_file(OUTPUT_CHUNKS_PATH)
     if chunks is None:
         chunks = INGEST_FN()
@@ -106,10 +158,21 @@ def run_evaluation() -> None:
             return
         save_chunks_to_file(chunks, OUTPUT_CHUNKS_PATH)
 
+    # Filter the tutor KB out of the in-memory corpus if disabled. The on-disk
+    # chunks cache stays full so v3a/v3b keyword caches remain reusable.
+    if not INCLUDE_TUTOR_KB:
+        before = len(chunks)
+        chunks = [c for c in chunks if getattr(c, "doc_id", "") != TUTOR_KB_DOC_ID]
+        print(f"INCLUDE_TUTOR_KB=False: filtered {before - len(chunks)} "
+              f"tutor-KB chunk(s) from corpus (kept {len(chunks)}).")
+
     # 2. Load gold data
     print(f"Loading gold data from: {BENCHMARK_PATH}")
     with open(BENCHMARK_PATH, "r", encoding="utf-8") as f:
         gold_data = json.load(f)
+
+    if not INCLUDE_TUTOR_KB:
+        gold_data = _filter_tutor_kb_from_gold(gold_data)
 
     corpus_texts = [getattr(c, "text", "") for c in chunks]
     corpus_ids   = [getattr(c, "doc_id", "unknown") for c in chunks]
