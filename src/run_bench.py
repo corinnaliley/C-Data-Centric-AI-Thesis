@@ -113,16 +113,23 @@ TOP_K = 20    # number of chunks retrieved per query
 
 def _filter_tutor_kb_from_gold(gold_data: list) -> list:
     """
-    Drop tutor-KB references from gold_data; skip queries left without any.
+    Drop tutor-KB references from gold_data; handle queries left without any.
 
     Out-of-scope queries are passed through unchanged. In-scope queries lose
-    references whose ``gold_id`` is ``tutor_knowledge_base.yaml``; if all of
-    a query's references are dropped, the query is removed entirely (treated
-    as unanswerable in the reduced corpus).
+    references whose ``gold_id`` is ``tutor_knowledge_base.yaml``. If all of a
+    query's references are dropped, the query is either:
+
+    - converted to ``out_of_scope`` when it carries ``oos_when_no_kb: true``
+      — these queries are designed to become unanswerable (and thus genuinely
+      OOS) when the tutor KB is removed; they contribute to the refusal-
+      calibration block.
+    - removed entirely otherwise — for queries that were authored against the
+      KB alone and have no meaningful semantics without it.
     """
     filtered = []
     dropped_refs = 0
     dropped_queries = 0
+    converted_to_oos = 0
     for item in gold_data:
         if item.get("type") == "out_of_scope":
             filtered.append(item)
@@ -134,13 +141,21 @@ def _filter_tutor_kb_from_gold(gold_data: list) -> list:
         ]
         dropped_refs += len(refs) - len(kept)
         if not kept:
-            dropped_queries += 1
+            if item.get("oos_when_no_kb"):
+                converted = dict(item)
+                converted["type"] = "out_of_scope"
+                converted["references"] = []
+                filtered.append(converted)
+                converted_to_oos += 1
+            else:
+                dropped_queries += 1
             continue
         new_item = dict(item)
         new_item["references"] = kept
         filtered.append(new_item)
     print(
         f"INCLUDE_TUTOR_KB=False: removed {dropped_refs} tutor-KB reference(s); "
+        f"converted {converted_to_oos} query/queries to OOS (oos_when_no_kb=true); "
         f"skipped {dropped_queries} query/queries with only tutor-KB references."
     )
     return filtered

@@ -412,3 +412,31 @@
       Programm gedacht (SmartBeans-Funktionsaufgaben: hier liefert SmartBeans die
       `main` selbst – eine eigene `main` würde zu einem Redefinition-Fehler führen).
     - `main` wurde versehentlich umbenannt.
+
+# ── Tutor-System & Hilfsangebote ──────────────────────────────────────────────
+
+- topic: Grenzen des Tutor-Systems und alternative Hilfsangebote für Aufgaben
+  tags: [tutor-system, hilfe, tutorium, uebungsgruppe, forum, grenzen]
+  content: |
+    Dieses Tutor-System beantwortet Fragen zum Kursstoff: Es erklärt Konzepte, zeigt
+    Beispielcode und verweist auf passende Stellen in den Kursunterlagen, SmartBeans-
+    Aufgaben und FAQ-Artikeln. Es kann aber keine Aufgaben gemeinsam mit Studierenden
+    bearbeiten und kein interaktives Live-Coaching oder gemeinsames Live-Debugging
+    beim Programmieren anbieten. Auch das Mitlaufen in einer eigenen Entwicklungs-
+    sitzung oder das schrittweise Begleiten beim Schreiben einer konkreten Lösung
+    gehört nicht zum Funktionsumfang.
+
+    Wer Hilfe bei einer konkreten Aufgabe braucht oder gemeinsam Code durchgehen
+    möchte, findet das in den persönlichen Hilfsangeboten des Kurses:
+
+    - Tutorien: regelmäßige Termine, in denen Tutorinnen und Tutoren bei einzelnen
+      Aufgaben helfen, Lösungswege diskutieren und Codefragen direkt mit den
+      Studierenden durchsprechen.
+    - Übungsgruppen: gemeinsames Bearbeiten und Vergleichen von Übungsaufgaben
+      mit anderen Studierenden, oft moderiert.
+    - Kursforum: schriftliche Fragen zu Aufgaben, Fehlermeldungen oder Konzepten
+      lassen sich dort einstellen und werden von Tutorinnen, Tutoren oder
+      Mitstudierenden beantwortet.
+
+    Für allgemeine Verständnisfragen, Konzepterklärungen und Hinweise auf relevante
+    Stellen in den Kursunterlagen kann dieses System weiterhin direkt befragt werden.

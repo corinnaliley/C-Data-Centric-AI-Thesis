@@ -84,7 +84,6 @@ The pipeline has five sequential phases:
 
 - `VERSION` — pipeline variant (`v1_baseline`, `v2_chunking`, `v3a_keywords`, `v3b_llm_keywords`); default `v3a_keywords`
 - `TOP_K = 20` — number of retrieved chunks
-- `SCORE_THRESHOLD = 0.5` — minimum `matching_score` to count an evidence reference as relevant
 - `HIGH_SCORE_THRESHOLD = 0.8` (in `reporting.py`) — cutoff for "must-have" (G_high) references used by Strict-Hit and Chain-MRR
 
 To switch versions, change `VERSION` and delete the matching `processed/chunks_*.json` and `processed/embeddings_*.pt` files to force a rebuild.

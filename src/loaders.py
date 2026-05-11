@@ -374,12 +374,14 @@ def load_any_file(
         return convert_pdf_via_saia(path, cache_dir=cache_dir, chunker=chunker)
 
     elif ext in [".yaml", ".yml"]:
+        # V1 is the naive baseline: every YAML — including the tutor KB — is
+        # loaded as a single raw-text block. Structured parsing (per-article
+        # for the KB, task/solution split for SmartBeans) is reserved for V2+.
+        if version == "v1":
+            return convert_yaml_v1(path)
         if path_obj.name == "tutor_knowledge_base.yaml":
             return convert_knowledge_base(path)
-        elif version == "v1":
-            return convert_yaml_v1(path)
-        else:
-            return convert_yaml_v2(path)
+        return convert_yaml_v2(path)
 
     else:
         with open(path, 'r', encoding='utf-8', errors='ignore') as f:

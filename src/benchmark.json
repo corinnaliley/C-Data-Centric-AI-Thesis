@@ -434,8 +434,15 @@
   },
   {
     "query": "Können wir vielleicht eine Aufgabe gemeinsam machen?",
-    "type": "out_of_scope",
-    "references": [],
+    "type": "redundant",
+    "oos_when_no_kb": true,
+    "references": [
+      {
+        "gold_id": "tutor_knowledge_base.yaml",
+        "matching_score": 0.9,
+        "evidence": "Es kann aber keine Aufgaben gemeinsam mit Studierenden bearbeiten und kein interaktives Live-Coaching oder gemeinsames Live-Debugging beim Programmieren anbieten."
+      }
+    ],
     "supplementary_answer": "Das ist leider nicht möglich, da dieses System keine interaktive Programmier-Begleitung oder gemeinsames Live-Debugging anbieten kann. Für individuelle Aufgabenhilfe stehen Tutorien, Übungsgruppen oder das Kursforum zur Verfügung."
   },
   {
