@@ -435,7 +435,6 @@
   {
     "query": "Können wir vielleicht eine Aufgabe gemeinsam machen?",
     "type": "redundant",
-    "oos_when_no_kb": true,
     "references": [
       {
         "gold_id": "tutor_knowledge_base.yaml",

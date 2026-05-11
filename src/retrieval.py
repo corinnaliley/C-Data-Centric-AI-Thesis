@@ -72,22 +72,20 @@ def rrf(rank_lists: list[list[int]], k: int = 60, top_k: int = 20) -> list[int]:
 
 
 def _build_embed_model() -> OpenAIDenseEmbedding:
-    """Instantiate the embedding model with credentials from constants."""
+    """Instantiate the embedding model with credentials from constants.
+
+    ``_dimension`` must be set before the first ``.embed()`` call because zvec
+    validates every API response against it internally and its default (1536,
+    ada-002) doesn't match the qwen3-4b model. No probe call is made here —
+    a wrong constant fails loudly on the first real embed in
+    ``load_or_build_embeddings`` and the cached-shape check covers cache hits.
+    """
     emb = OpenAIDenseEmbedding(
         api_key=SAIA_API_KEY,
         model=EMBEDDING_MODEL_NAME,
         base_url=EMBEDDING_API_BASE_URL,
     )
-    # Set the expected dimension BEFORE the first .embed() call. zvec
-    # validates each API response against ``_dimension`` internally, and its
-    # default (1536, OpenAI ada-002) does not match the qwen3-4b model.
     emb._dimension = EMBEDDING_DIMENSION
-    actual_dim = len(emb.embed("test"))
-    assert actual_dim == EMBEDDING_DIMENSION, (
-        f"Embedding dimension mismatch: model returns {actual_dim}, "
-        f"but EMBEDDING_DIMENSION={EMBEDDING_DIMENSION} in constants.py. "
-        "Delete cached embeddings and update the constant."
-    )
     return emb
 
 

@@ -297,9 +297,20 @@ def _auroc(positive_scores: list[float], negative_scores: list[float]) -> float 
 
 
 def _percentile(values: list[float], q: float) -> float:
-    """Empirical q-percentile (q in [0, 1]) over a non-empty list."""
+    """
+    Empirical q-percentile (q in [0, 1]) using nearest-rank, 0-indexed.
+
+    Returns the smallest value such that at least ``q`` of the observations
+    are ≤ it: index = ceil(q * n) - 1, clamped to [0, n-1]. The previous
+    ``int(q*n)`` implementation was off-by-one at exact integer boundaries
+    (e.g. q=0.95, n=100 → returned the 96th element instead of the 95th).
+    """
+    if not values:
+        raise ValueError("_percentile: empty values")
     s = sorted(values)
-    return s[min(len(s) - 1, max(0, int(q * len(s))))]
+    n = len(s)
+    idx = max(0, min(n - 1, math.ceil(q * n) - 1))
+    return s[idx]
 
 
 def _oos_stats(oos_scores: list[float], in_scope_scores: list[float]) -> dict | None:
@@ -493,7 +504,7 @@ def compute_and_print_metrics(
     embed_lats     = [r.get("embed_latency_ms", 0.0) for r in results_log]
     bm25_lats      = [r.get("bm25_latency_ms",  0.0) for r in results_log]
     mean_embed_lat = sum(embed_lats) / n
-    p95_embed_lat  = sorted(embed_lats)[int(0.95 * n)]
+    p95_embed_lat  = _percentile(embed_lats, 0.95)
     mean_bm25_lat  = sum(bm25_lats) / n
 
     # Bootstrap 95 % CIs (filter None where applicable)
