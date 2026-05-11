@@ -246,3 +246,41 @@ Damit das Review fair bleibt:
 
 *Review erstellt am 2026-05-04. Wenn etwas davon nach erneutem Nachdenken
 nicht mehr zutrifft, einfach die entsprechende Zeile streichen.*
+
+
+
+Neu gefunden am 11.05.26:
+ 1. Nicht-deterministische Datei-Reihenfolge in ingest_pipeline.py:142: DATA_ROOT.rglob('*') ist FS-abhängig. Embeddings-Cache und chunks_*.json sind positions-basiert — zwischen
+  zwei frischen Ingest-Runs könnte die Chunk-Reihenfolge wechseln, die Embeddings dann falsch zugeordnet sein. Fix: sorted(DATA_ROOT.rglob('*')).
+  2. V1 ist kein sauberer Baseline für die Tutor-KB (loaders.py:377-378): tutor_knowledge_base.yaml läuft immer durch convert_knowledge_base (strukturiert pro Artikel), egal ob
+  V1/V2/V3. Für die SmartBeans-YAMLs wird V1 vs. V2 differenziert, für die KB nicht. → Der "naive Baseline"-Vergleich V1 vs. V2 ist für die KB ein No-Op. Im Thesis-Vergleich ein
+  Confound; entweder erwähnen oder V1 auch für KB auf convert_yaml_v1 umstellen.
+  3. section_path geht beim Chunks-Cache-Roundtrip verloren (retrieval.py:102-112/128-141): save_chunks_to_file serialisiert es nicht. Nach load_chunks_from_file ist
+  section_path=None. Aktuell kein Bug, weil V3a/V3b-Keywords im gecachten Text schon eingewoben sind und _chunk_id nach dem Cache nicht mehr aufgerufen wird — aber wenn du je den
+  Keyword-Cache regenerierst während ein Chunks-Cache existiert, brennt das. Einfach mit serialisieren.
+
+  Wichtig zu wissen, kein Fehler:
+
+  4. Doc-Level Hit@K / MRR rechnen über Chunk-Listen mit Duplikaten (reporting.py:443-449): ranked_doc_ids enthält 20 Chunk-IDs, oft mehrfach derselbe doc. Hit@5 ist also
+  "irgendein Gold-Doc unter den Top-5-Chunks", nicht "unter den Top-5-Unique-Docs". Das benachteiligt systematisch Versionen mit feinerer Granularität (mehr Chunks pro Doc →
+  Verdrängung im Top-K). Für deine Vergleichstabelle: entweder dedupen (dict.fromkeys(...)) oder als bewusste Wahl im Methodenteil dokumentieren.
+  5. n_OOS = 1: AUROC mit 1 negativem Sample ist nicht interpretierbar. Der Refusal-Calibration-Block ist im Moment für die Galerie. Entweder ≥10–20 OOS-Queries ergänzen oder den
+  Block in der Thesis als "indikativ" labeln.
+  6. SCORE_THRESHOLD = 0.5 aus deiner CLAUDE.md wird im Code nicht angewendet — evaluate_chunk_level zählt jede Ref mit nicht-leerer Evidence. Entweder CLAUDE.md aktualisieren oder
+   den Threshold-Filter einbauen.
+
+  Minor:
+  
+  7. _percentile und p95_embed_lat haben off-by-one (int(q*n) statt ceil). Bei n=73 vernachlässigbar.
+  8. _build_embed_model macht einen Dummy-embed("test")-Call bei jedem Run.
+
+  Nächster Schritt
+
+  Mit dem INCLUDE_TUTOR_KB-Flag hast du jetzt 8 Konfigurationen (4 Versionen × 2 KB-Modi). Bevor du die durchläufst, würde ich in der Reihenfolge angehen:
+
+  1. sorted() im _run_ingest + section_path im Chunks-Cache (5-Minuten-Fix, garantiert Reproduzierbarkeit der 8 Runs).
+  2. Doc-Level-Hit-K-Entscheidung treffen: dedupen oder nicht? Falls dedupen, jetzt ändern — sonst sind die Zahlen nach den 8 Runs nicht direkt mit "Standard"-RAG-Papers
+  vergleichbar.
+  3. Alle 8 Runs durchführen (V1/V2/V3a/V3b × KB an/aus).
+  4. Vergleichsauswertung schreiben: paired Bootstrap für WRS/nDCG zwischen Versionen innerhalb desselben KB-Modus → das ist deine Kernaussage für die Thesis ("ändert das
+  Chunking/Keywords statistisch signifikant etwas?"). Der KB-an/aus-Vergleich ist orthogonal: "wie sehr trägt die kuratierte KB zur Retrieval-Qualität bei?".

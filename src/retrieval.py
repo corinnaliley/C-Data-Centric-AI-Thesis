@@ -101,9 +101,10 @@ def save_chunks_to_file(chunks: list, filepath: Path) -> None:
     """
     serialized = [
         {
-            "doc_id": getattr(c, "doc_id", "unknown_id"),
-            "text":   getattr(c, "text", ""),
-            "meta":   getattr(c, "meta", {}),
+            "doc_id":       getattr(c, "doc_id", "unknown_id"),
+            "text":         getattr(c, "text", ""),
+            "meta":         getattr(c, "meta", {}),
+            "section_path": getattr(c, "section_path", None),
         }
         for c in chunks
     ]
@@ -134,6 +135,7 @@ def load_chunks_from_file(filepath: Path) -> list | None:
             block_type=BlockType.OTHER,
             text=d["text"],
             meta=d.get("meta", {}),
+            section_path=d.get("section_path"),
         )
         for d in data
     ]

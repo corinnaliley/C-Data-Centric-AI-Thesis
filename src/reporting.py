@@ -45,33 +45,48 @@ N_BOOTSTRAP = 1000          # resamples for 95 % confidence intervals
 # Ranking helper functions
 # ---------------------------------------------------------------------------
 
+def _unique_docs(ranked_doc_ids: list[str]) -> list[str]:
+    """
+    Deduplicate a chunk-ranked doc-id list while preserving first-occurrence order.
+
+    The retriever returns top-K chunk indices, so the same doc_id can appear
+    multiple times. Doc-level Hit@K / MRR are defined over unique documents,
+    not chunks — otherwise fine-grained chunking (more chunks per doc) is
+    systematically penalised by occupying top-K positions with duplicates.
+    """
+    return list(dict.fromkeys(ranked_doc_ids))
+
+
 def _hit_at_k(ranked_doc_ids: list[str], expected_ids: list[str], k: int) -> bool:
     """
-    Return True if any expected document appears in the top-k ranked results.
+    Return True if any expected document appears in the top-k unique docs.
 
     Args:
-        ranked_doc_ids: Ordered list of retrieved document IDs.
+        ranked_doc_ids: Ordered list of retrieved document IDs (chunk-rank,
+            may contain duplicates — deduplicated internally).
         expected_ids: Gold document IDs for this query.
-        k: Cutoff rank.
+        k: Cutoff rank over unique docs.
 
     Returns:
-        True if at least one expected ID appears within the first k results.
+        True if at least one expected ID appears within the first k unique docs.
     """
-    return any(doc_id in expected_ids for doc_id in ranked_doc_ids[:k])
+    unique = _unique_docs(ranked_doc_ids)
+    return any(doc_id in expected_ids for doc_id in unique[:k])
 
 
 def _reciprocal_rank(ranked_doc_ids: list[str], expected_ids: list[str]) -> float:
     """
-    Compute 1/rank of the first relevant document; 0 if none found.
+    Compute 1/rank of the first relevant unique document; 0 if none found.
 
     Args:
-        ranked_doc_ids: Ordered list of retrieved document IDs.
+        ranked_doc_ids: Ordered list of retrieved document IDs (chunk-rank,
+            may contain duplicates — deduplicated internally).
         expected_ids: Gold document IDs for this query.
 
     Returns:
         Reciprocal rank value in (0, 1], or 0.0 if no hit.
     """
-    for rank, doc_id in enumerate(ranked_doc_ids, 1):
+    for rank, doc_id in enumerate(_unique_docs(ranked_doc_ids), 1):
         if doc_id in expected_ids:
             return 1.0 / rank
     return 0.0

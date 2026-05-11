@@ -139,7 +139,13 @@ def _run_ingest(version: str) -> list:
         Flat list of all Block objects across all discovered files.
     """
     all_chunks = []
-    all_files = [f for f in DATA_ROOT.rglob('*') if f.is_file() and not f.name.startswith(".")]
+    # Sort the file list so chunk order is deterministic across machines and
+    # filesystems. Positional caches (chunks_*.json, embeddings_*.pt) rely on
+    # this; otherwise embeddings can silently desync from corpus texts.
+    all_files = sorted(
+        f for f in DATA_ROOT.rglob('*')
+        if f.is_file() and not f.name.startswith(".")
+    )
     md_cache_dir = PROCESSED_PATH / "md_cache"
 
     for file_path in tqdm(all_files, desc="Processing documents"):

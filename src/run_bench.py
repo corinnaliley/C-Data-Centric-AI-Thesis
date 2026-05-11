@@ -68,7 +68,13 @@ VERSION_CONFIG = {
     },
 }
 
-VERSION  = "v2_chunking"   # <- switch version
+# Both VERSION and INCLUDE_TUTOR_KB can be overridden via environment variables
+# (BENCH_VERSION, BENCH_INCLUDE_TUTOR_KB), which is what scripts/run_all_configs.py
+# uses to sweep all 8 combinations. The literal defaults below are the values
+# used for an unparameterised, interactive run.
+VERSION  = os.environ.get("BENCH_VERSION", "v2_chunking")
+if VERSION not in VERSION_CONFIG:
+    raise ValueError(f"Unknown BENCH_VERSION={VERSION!r}; choose from {list(VERSION_CONFIG)}")
 _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]
@@ -76,7 +82,7 @@ USE_BM25  = _cfg["use_bm25"]
 # When False, tutor_knowledge_base.yaml is filtered out of the corpus and all
 # benchmark references pointing to it are ignored. Queries whose references
 # point exclusively to the tutor KB are skipped entirely.
-INCLUDE_TUTOR_KB = True
+INCLUDE_TUTOR_KB = os.environ.get("BENCH_INCLUDE_TUTOR_KB", "true").strip().lower() not in ("false", "0", "no")
 
 TUTOR_KB_DOC_ID = "tutor_knowledge_base.yaml"
 
