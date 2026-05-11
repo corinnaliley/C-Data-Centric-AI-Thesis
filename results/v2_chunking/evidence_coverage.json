@@ -1,15 +1,14 @@
 {
-  "total": 314,
-  "found": 314,
-  "not_found": 0,
+  "total": 340,
+  "found": 336,
+  "not_found": 4,
   "wrong_doc": 0,
-  "skipped_low_score": 13,
   "details": [
     {
       "query": "Wie bekomme ich WSL in vscode eingebunden?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
-      "status": "OK",
+      "status": "MISSING",
       "evidence_snippet": "WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden\nUm WSL (Window",
       "evidence_full": "WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden\nUm WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.\nHier sind die erforderlichen Schritte für die Einrichtung:\n1. Voraussetzungen schaffen\n\n    WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.\n    VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).\n    WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen“ (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.\n\n2. WSL-Erweiterung installieren\n\n    Starten Sie VS Code unter Windows.\n    Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).\n    Suchen Sie nach der Erweiterung „WSL“ (früher „Remote - WSL“) oder installieren Sie das „Remote Development“-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.\n    Klicken Sie auf Installieren.\n\n3. Verbindung herstellen\nEs gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:\n\n    Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.\n    Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL“ (oder „WSL: Connect to WSL using Distro“ für eine spezifische Distribution) ein.\n    Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.\n\nWoran erkennen Sie die erfolgreiche Einbindung?\nNachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu“), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt."
     },
@@ -81,7 +80,7 @@
       "query": "Wie bestimmt man bei binärer Suche den mittleren Index?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
       "matching_score": 0.3,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folge",
       "evidence_full": "Soll nun ein Zeiger auf die Mitte des Feldes berechnet werden, so kann das folgendermaßen geschehen:"
     },
@@ -160,7 +159,7 @@
     {
       "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
       "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "matching_score": 0.6,
+      "matching_score": 0.4,
       "status": "OK",
       "evidence_snippet": "Meist hat man die Wahl zwischen verschiedene Editoren , d.h. Programmen, mit den",
       "evidence_full": "Meist hat man die Wahl zwischen verschiedene Editoren , d.h. Programmen, mit denen man Texte, zum Beispiel auch C-Quellprogramme eingeben kann. Wichtig ist, dass der Editor den eingegebenen Quelltext ohne Formatierungsanweisungen oder Anweisungen zur Dokumentorganisation speichert. Ein normales Textverarbeitungsprogramm, mit dem man z.B. seine Briefe verfasst ist daher in der Regel nicht geeignet. Mit der Zeit entwickelt sicher jeder eine Vorliebe fur einen bestimmten Editor."
@@ -168,10 +167,26 @@
     {
       "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
       "gold_id": "programmierung_mit_ansi_c-185-192.pdf",
-      "matching_score": 0.7,
+      "matching_score": 0.5,
       "status": "OK",
       "evidence_snippet": "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist me",
       "evidence_full": "Dazu benotigt man einen Compiler und Linker. Auf Linux-basierten Systemen ist meist die GNU Compiler-Sammlung (GNU Compiler Collection, GCC, http://gcc.gnu.org ) zusammen mit der GNU C Bibliothek (GNU C Library, glibc, http://www.gnu.org/software/libc ) installiert. Beide kann man kostenlos im Internet herunterladen."
+    },
+    {
+      "query": "Ich habe versucht Linux zu installieren, aber bekomme immer eine Fehlermeldung. Wie sollte ich am besten eine Umgebung aufsetzen, in der ich C programmieren kann?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 1.0,
+      "status": "OK",
+      "evidence_snippet": "Wenn die Linux-Installation oder das Aufsetzen der C-Entwicklungsumgebung Proble",
+      "evidence_full": "Wenn die Linux-Installation oder das Aufsetzen der C-Entwicklungsumgebung Probleme bereitet, ist die erste Anlaufstelle das Tutorium oder die Anleitungssammlung unter https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen/. Dort sind die unterstützten Wege (WSL+Ubuntu+VS Code, MinGW/MSYS2 unter Windows nativ, native Linux-Installation) Schritt für Schritt dokumentiert."
+    },
+    {
+      "query": "SmartBeans zeigt mir an, dass die Ausgabe nicht identisch ist, aber ich sehe nicht, wo. Kannst du nochmal schauen?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 1.0,
+      "status": "OK",
+      "evidence_snippet": "Wenn SmartBeans meldet, dass die Ausgabe nicht identisch sei, der Unterschied ab",
+      "evidence_full": "Wenn SmartBeans meldet, dass die Ausgabe nicht identisch sei, der Unterschied aber visuell nicht erkennbar ist, hilft das Kommandozeilen-Programm `diff`: Eigene Ausgabe in eine Datei umleiten (`./programm > a.txt`), erwartete Ausgabe in eine zweite Datei kopieren (`b.txt`), und mit `diff a.txt b.txt` vergleichen. `diff` arbeitet zeilenweise und gibt nichts aus, wenn die Dateien identisch sind. Typische unsichtbare Unterschiede sind: Leerzeichen am Zeilenende, fehlender abschließender Zeilenumbruch, Tabs statt Leerzeichen."
     },
     {
       "query": "Ich verstehe nicht wie man die Funktion „pow()“ benutzt.",
@@ -191,14 +206,14 @@
     },
     {
       "query": "Wie kann ich ein Linux Terminal in VS-Code öffnen?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Öffnen eines Terminals in Visual Studio Code (VS Code)\nTastenkombination (Shortc",
       "evidence_full": "Öffnen eines Terminals in Visual Studio Code (VS Code)\nTastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.\n\nÜber das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).\n\nBefehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal."
     },
     {
-      "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+      "query": "Wie funktioniert die formatierte Ausgabe bei der Aufgabe 59 'Multiplikationstafel' (5x5)?",
       "gold_id": "59.yaml",
       "matching_score": 0.9,
       "status": "OK",
@@ -206,7 +221,7 @@
       "evidence_full": "Aufgabe: Lassen Sie sich eine `5x5` Multiplikationstafel ausgeben:\n```\n  1  2  3  4  5\n  2  4  6  8 10\n  3  6  9 12 15\n  4  8 12 16 20\n  5 10 15 20 25\n```\nAchten Sie bei der formatierten Ausgabe darauf, dass die Zahlen wie im Beispiel eingerückt werden.\n\n### Beispieleingabe\n```\n```\n### Beispielausgabe\n```\n  1  2  3  4  5\n  2  4  6  8 10\n  3  6  9 12 15\n  4  8 12 16 20\n  5 10 15 20 25\n```"
     },
     {
-      "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+      "query": "Wie funktioniert die formatierte Ausgabe bei der Aufgabe 59 'Multiplikationstafel' (5x5)?",
       "gold_id": "59.yaml",
       "matching_score": 0.9,
       "status": "OK",
@@ -214,10 +229,10 @@
       "evidence_full": "Lösung: #include<stdio.h>\nint main() {\n  for(int i=0; i<5; i++) {\n    for(int j=0; j<5; j++) {\n      printf(\"%3d\", (i+1)*(j+1));\n    }\n    printf(\"\\n\");\n  }\n}"
     },
     {
-      "query": "Wie funktioniert die formatierte Ausgabe bei der Multiplikationstafelaufgabe?",
+      "query": "Wie funktioniert die formatierte Ausgabe bei der Aufgabe 59 'Multiplikationstafel' (5x5)?",
       "gold_id": "programmierung_mit_ansi_c-29-40.pdf",
       "matching_score": 0.3,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ",
       "evidence_full": "Jede Beschreibung eines Arguments im Formatstring wird durch ein Prozentzeichen ( % ) eingeleitet. Ihm muss ein Kennbuchstabe (oder auch eine Kennbuchstaben-Kombination) fur den Typ des Wertes folgen; dazu konnen weitere Angaben kommen, die uns zum jetzigen Zeitpunkt aber noch nicht zu interessieren brauchen. Jede dieser Angaben wird als Formatbeschreiber bezeichnet."
     },
@@ -231,7 +246,7 @@
     },
     {
       "query": "Wie sieht die Programmierumgebung in der Klausur aus?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
@@ -247,7 +262,7 @@
     },
     {
       "query": "Kann man in der Klausur auch kompilieren und testen?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 0.6,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
@@ -260,6 +275,14 @@
       "status": "OK",
       "evidence_snippet": "Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinh",
       "evidence_full": "Jedes Kapitel entspricht durchschnittlich im Umfang etwas mehr als einer eineinhalbstundigen Vorlesung, wobei der Schwierigkeitsgrad von Kapitel zu Kapitel steigt. Lasst man einige Abschnitte aus, so kann man in einem Drei-Wochen-Kurs einen Großteil des hier gebotenen Stoffs vermitteln. Die Auslassungen konnen sich interessierte Teilnehmer im Selbststudium erarbeiten."
+    },
+    {
+      "query": "Wie viele der Übungsaufgaben sollte man machen?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 1.0,
+      "status": "OK",
+      "evidence_snippet": "Es gibt keine offizielle Mindestanzahl an Übungsaufgaben, die bearbeitet werden ",
+      "evidence_full": "Es gibt keine offizielle Mindestanzahl an Übungsaufgaben, die bearbeitet werden müssen. Empfohlen wird aber, einen großen Teil der Aufgaben eigenständig zu lösen, da das aktive Üben für das Verständnis der C-Konzepte und die Klausurvorbereitung entscheidend ist."
     },
     {
       "query": "Was für Aufgaben kommen in der Klausur dran?",
@@ -411,7 +434,7 @@
       "matching_score": 0.7,
       "status": "OK",
       "evidence_snippet": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Dekl",
-      "evidence_full": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Deklaration werden die Eigenschaften einer Funktion bekanntgemacht: Name, Parameterliste und Typ des Funktionswerts.\n- · In der Definition werden die Operationen festgelegt, Speicherplatz reserviert, usw."
+      "evidence_full": "Die Vereinbarung einer Funktion besteht in C aus zwei Teilen:\n\n- · In einer Deklaration werden die Eigenschaften einer F"
     },
     {
       "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
@@ -419,7 +442,7 @@
       "matching_score": 0.8,
       "status": "OK",
       "evidence_snippet": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Auf",
-      "evidence_full": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Aufruf der Funktion durchzufuhren sind. Die Funktionsdefinition hat die Form\n\n```\ntyp name ( typ1 parameter1 , ..., typN parameterN ) { lokale deklarationen anweisungsfolge }\n```\n\nMan beachte: In der Definition einer Funktion wird der Funktionsheader nicht wie in der Deklaration durch ein Semikolon abgeschlossen!"
+      "evidence_full": "In der Definition einer Funktion werden die Operationen festgelegt, die beim Aufruf der Funktion durchzufuhren sind. Die"
     },
     {
       "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
@@ -427,7 +450,39 @@
       "matching_score": 0.9,
       "status": "OK",
       "evidence_snippet": "lokale deklarationen\n\nanweisungsfolge\n\n}\n\n...\n\n... funktN(...) {\n\nlokale deklara",
-      "evidence_full": "lokale deklarationen\n\nanweisungsfolge\n\n}\n\n...\n\n... funktN(...) {\n\nlokale deklarationen\n\nanweisungsfolge\n\n}\n\n```\nint main(...) { lokale deklarationen anweisungsfolge\n```\n\n}\n\nmain ist, wie bereits gesagt, das Hauptprogramm, d.h. die Ausfuhrung des gesamten Programms beginnt am Anfang von main . Die Funktionen funkt1 , . . . , funktN konnen vom Hauptprogramm oder auch von den Funktionen aufgerufen werden. Insbesondere ist auch Rekursion erlaubt, d.h. eine Funktion darf sich selbst aufrufen."
+      "evidence_full": "lokale deklarationen\n\nanweisungsfolge\n\n}\n\n...\n\n... funktN(...) {\n\nlokale deklarationen\n\nanweisungsfolge\n\n}\n\n```\nint main"
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "matching_score": 0.9,
+      "status": "MISSING",
+      "evidence_snippet": "Ein Modul, der nur Unterprogramme enthält, wird in zwei Quelldateien gespeichert",
+      "evidence_full": "Ein Modul, der nur Unterprogramme enthält, wird in zwei Quelldateien gespeichert: * Eine Datei enthält nur die Deklarationen der Größen, die der Modul exportiert, also in der Regel Typdeklarationen und Prototypen von Funktionen, gelegentlich auch Konstanten und Variablen. Solch eine Datei wird als Headerdatei bezeichnet. * Die andere Datei enthält die Definitionen der zu exportierenden Größen, also insbesondere die Definitionen der Prototypen aus der Headerdatei."
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
+      "matching_score": 0.85,
+      "status": "MISSING",
+      "evidence_snippet": "8.4 Separate Compilation, make\nWir müssen uns jetzt noch ansehen, wie man Progra",
+      "evidence_full": "8.4 Separate Compilation, make\nWir müssen uns jetzt noch ansehen, wie man Programme, die aus mehreren Modulen bestehen, übersetzen und binden kann. Letzlich ist das ganz einfach. Für unser Beispielprogramm können wir etwa schreiben\ngcc -Wall -ansi stapeltest.c stapel.c"
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "gold_id": "programmierung_mit_ansi_c-113-118.pdf",
+      "matching_score": 0.7,
+      "status": "MISSING",
+      "evidence_snippet": "10.2 Die Direktive #include\nDie include–Direktive kennen wir bereits vollständig",
+      "evidence_full": "10.2 Die Direktive #include\nDie include–Direktive kennen wir bereits vollständig. Ihre beiden Formen sind\n#include <name>\n#include \"name\"\nZur Erinnerung noch einmal der Unterschied zwischen den beiden Formen: Bei der zweiten Form sucht der Präprozessor die angegebene Datei zunächst im aktuellen Verzeichnis. [...] die Gänsefüßchen bei eigenen Dateien."
+    },
+    {
+      "query": "Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 0.7,
+      "status": "OK",
+      "evidence_snippet": "Funktionen können in eigene Dateien ausgelagert werden. Üblich ist eine Aufteilu",
+      "evidence_full": "Funktionen können in eigene Dateien ausgelagert werden. Üblich ist eine Aufteilung in Header-Datei (`.h`) mit den Prototypen und Implementierungs-Datei (`.c`) mit den Definitionen. Eingebunden wird die Header-Datei mit `#include \"datei.h\"` in der aufrufenden Datei. Kompiliert wird mit `gcc -o program main.c hilfsfunktion.c` (alles in einem Schritt) oder getrennt: zuerst `gcc -c main.c` und `gcc -c hilfsfunktion.c`, dann linken mit `gcc -o program main.o hilfsfunktion.o`."
     },
     {
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
@@ -441,7 +496,7 @@
       "query": "Wieso erhalte ich bei einem Sudoku-Pointer-Array (const int *p[9]) und einem Cast (int ()[9]) s die Ausgabe -10400 statt 5?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "ist tabelle ein Zeiger auf eine Variable mit dem Typ char * , also Zeiger auf ei",
       "evidence_full": "ist tabelle ein Zeiger auf eine Variable mit dem Typ char * , also Zeiger auf eine Variable mit einem Zeigertyp.\n\nDass Zeiger auf Zeiger keine theoretische Spielerei sind, kann durch eine kleine Erweiterung des Beispiels ' Zahlen in Klarschrift' gezeigt werden: Die Klarschrift soll wahlweise in Deutsch oder Englisch (oder einer beliebigen anderen Sprache) erfolgen. Die Entscheidung daruber soll erst bei der Ausfuhrung des Programms getroffen werden."
     },
@@ -489,7 +544,7 @@
       "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
       "gold_id": "517.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp\n\n```\nint is_per",
       "evidence_full": "Aufgabe: Programmieren Sie eine Funktion, mit folgendem Prototyp\n\n```\nint is_perm(const int perm[], int length);\n```\n\ndie testet, ob das Feld der Länge `length` , auf dessen Anfang `perm` zeigt, eine Permutation der Zahlen `1, 2, ..., length` beschreibt.\n\n*Anforderungen:*\n\n- Die Funktion liefert bei einem Fehler einen negativen Wert zurück.\n- Handelt es sich um eine Permutation der Zahlen `1, 2, ..., length` wird ein positiver Wert zurückgeliefert, andernfalls wird `0` zurückgeliefert.\n- Berücksichtigen Sie den Fall, dass perm Werte nicht aus `1, 2, ..., length` enthält.\n- Testen Sie wie folgt.\n  1. Speicher für ein `int`-Feld `anzahl` der Länge `length` auf dem Heap anfordern (hier kann ein Fehler auftreten).\n  2. Für jeden Wert *k* aus `1, 2, ..., length` wird im Feld `anzahl` abgespeichert, wie oft *k* im Feld `perm` vorkommt.\n  3. Enthalten alle Komponenten des Feldes `anzahl` den Wert 1 handelt es sich um eine passende Permutation.\n  4. Vor Beendigung der Funktion wird der angeforderten Speicher wieder freigegeben.\n\n### Beispielaufruf\n```\nint p1[] = {1, 3, 4, 5, 0};\nis_perm(p1, 5)\n```\n### Beispielergebnis\n```\n0\n```"
     },
@@ -497,7 +552,7 @@
       "query": "Warum schlägt das Programm 'Permutation mit Speicher' fehl, wenn die main-Methode auskommentiert ist?",
       "gold_id": "517.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Lösung: #include <stdio.h>\n#include <stdlib.h>\n\nint is_perm(int perm[], int laen",
       "evidence_full": "Lösung: #include <stdio.h>\n#include <stdlib.h>\n\nint is_perm(int perm[], int laenge) {\n\n  int *anzahl;\n  int wert = 1;\n  int i;\n\n  if (perm == NULL)\n    return -1;\n\n  /* Test auf wohldefiniert Eingabe , siehe unten */\n  for (i = 0; i < laenge; i++) {\n    if (perm[i] < 1 || perm[i] > laenge)\n      return 0;\n    /* Fehler waere auch OK */\n  }\n\n  if ((anzahl = malloc(laenge * sizeof(int))) == NULL)\n    return -3;\n\n  for (i = 0; i < laenge; i++)\n    anzahl[i] = 0;\n\n  for (i = 0; i < laenge; i++)\n    ++anzahl[perm[i] - 1];\n\n  for (i = 0; i < laenge; i++)\n    wert = wert & (anzahl[i] == 1);\n\n  free(anzahl);\n  return wert;\n}"
     },
@@ -553,7 +608,7 @@
       "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
       "gold_id": "417.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen ",
       "evidence_full": "Aufgabe: Diese Aufgabe baut auf der Aufgabe *String Basics II* auf. \nSie sollen üben, wie man Strings an eine Methode übergeben und zurückgeben kann.\n \nSchreiben Sie hierfür zwei Methoden:\n \n```\nchar* static_str(char* string)\n```   \nnimmt einen Zeiger auf ein Char-Feld `string` entgegen.\nLegen Sie ein statisches Array der Länge 150 an und kopieren Sie `string` mit Hilfe der Funktion `strcpy()` dort hinein.\nGeben Sie anschließend einen Zeiger auf die Anfangsadresse des Arrays zurück.\n \nZu Lernzwecken können Sie auch ausprobieren was passiert, wenn das Array innerhalb der Funktion nicht statisch ist.\n \n---\n\n```\nchar* malloc_str(char string[], int len)\n```\nnimmt ein char-array `string` entgegen, sowie dessen Länge `len`.\nAllokieren Sie mit `malloc()` ausreichend Speicherplatz und kopieren Sie den Inhalt von `string` dorthin.\nGeben Sie dann einen Zeiger auf den neu erstellten String zurück.\n \n### Beispielaufruf\n \n```\nchar* str1 = static_str(\"Möglichkeit 1\");\n \nchar str2[] = \"Möglichkeit 2 (schöner)\";\nchar* str2ptr = malloc_str(str2, 24);\n```\n \n### Beispielergebnis\n \n```\nprintf(\"%s\", str1);\n>>> Möglichkeit 1\n \nprintf(\"%s\", str2ptr);\n>>> Möglichkeit 2 (schöner)\n```"
     },
@@ -561,7 +616,7 @@
       "query": "Ist das 'ö' die Ursache für Probleme mit dem Null-Terminator?",
       "gold_id": "417.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Lösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_",
       "evidence_full": "Lösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_return[150];\n  strcpy(str_return, string);\n  return str_return;\n}\n \nchar* malloc_str(char string[], int len){\n  char* ptr = malloc(len*sizeof(char));\n  strcpy(ptr, string);\n  return ptr;\n}"
     },
@@ -615,7 +670,7 @@
     },
     {
       "query": "Welche Editoren stehen in der Klausur zur Verfügung?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
@@ -631,7 +686,7 @@
     },
     {
       "query": "Gibt es in der Klausur Schmierpapier?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den ",
@@ -639,7 +694,7 @@
     },
     {
       "query": "Ist im E-Prüfungsraum eine Volltextsuche (Strg+F) im Skript möglich?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombina",
@@ -647,7 +702,7 @@
     },
     {
       "query": "Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, in Editoren wie VSCodium ist der Code ge-highlighted.",
@@ -695,7 +750,7 @@
     },
     {
       "query": "Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbag",
@@ -735,11 +790,19 @@
     },
     {
       "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu e",
       "evidence_full": "Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler."
+    },
+    {
+      "query": "Darf ich eine leere main-Funktion für den Upload in SmartBeans hinzufügen?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 1.0,
+      "status": "OK",
+      "evidence_snippet": "Zum lokalen Testen einer Funktions-Aufgabe ohne Konflikt mit SmartBeans: Eigene ",
+      "evidence_full": "Zum lokalen Testen einer Funktions-Aufgabe ohne Konflikt mit SmartBeans: Eigene main in einer separaten Test-Datei (`test.c`) schreiben und mit `#include \"aufgabe.c\"` die zu testende Datei einbinden. Für den Upload nur `aufgabe.c` ohne main verwenden."
     },
     {
       "query": "Was bedeutet 'ohne Benutzereingaben' bei Kommandozeilenargumenten?",
@@ -798,6 +861,14 @@
       "evidence_full": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```\n\nbesagt so: v ist ein Vektor (eindimensionales Feld) mit 5 Komponenten. Die Dimensionierung muss mit Konstanten erfolgen - allerdings sind die benannten Konstanten eben auch Konstanten.\n\nAnsprechen kann man einzelne Komponenten eines Vektors, indem man seinem Namen den Index der entsprechenden Komponente nachstellt, erneut eingeschlossen in eckige Klammern. Dabei muss man beachten: Die Numerierung der Komponenten beginnt immer"
     },
     {
+      "query": "Was ist eine statische Dimensionierung bei Matrizen?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 0.8,
+      "status": "OK",
+      "evidence_snippet": "C99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur Laufz",
+      "evidence_full": "C99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur Laufzeit bestimmten Größe (`int array[n];` mit variablem n), die aber auf dem Stack liegen. Sie unterliegen den Stack-Limits (maximale Größe, automatische Freigabe am Funktionsende, kein Return) und sollten nur für kleine, temporäre Daten verwendet werden. Für größere oder über die Funktion hinaus benötigte Daten wird Heap-Speicher mit `malloc` verwendet."
+    },
+    {
       "query": "Wozu dient das Keyword 'static' bei einem lokalen Array?",
       "gold_id": "417.yaml",
       "matching_score": 0.8,
@@ -839,23 +910,23 @@
     },
     {
       "query": "Ist das Thema '13_Rechnerarithmetik' klausurrelevant?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
-      "evidence_snippet": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende",
-      "evidence_full": "Nein, da hierzu keine Vorlesung mehr stattfindet, ist das Thema für die kommende Klausur nicht relevant."
+      "evidence_snippet": "Fragen nach Klausurrelevanz einzelner Themen werden nicht vom Bot beantwortet, s",
+      "evidence_full": "Fragen nach Klausurrelevanz einzelner Themen werden nicht vom Bot beantwortet, sondern an den Dozenten verwiesen. Verbindliche Aussagen zur Klausurrelevanz macht ausschließlich der Dozent in Vorlesung, Forum oder Tutorium."
     },
     {
       "query": "Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
-      "evidence_snippet": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den",
-      "evidence_full": "Man muss die StudIP-Kennung per Privatnachricht an den Dozenten schicken, um den Account zurücksetzen zu lassen."
+      "evidence_snippet": "Eine Zurücksetzung des SmartBeans-Fortschritts ist in der Regel nicht notwendig,",
+      "evidence_full": "Eine Zurücksetzung des SmartBeans-Fortschritts ist in der Regel nicht notwendig, weil gelöste Aufgaben beliebig oft erneut bearbeitet und mit neuen Lösungen eingereicht werden können. Falls dennoch ein vollständiger Reset gewünscht ist, kann der Dozent das nach Erhalt der StudIP-Kennung per Privatnachricht durchführen."
     },
     {
       "query": "Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gek",
@@ -913,7 +984,7 @@
       "query": "Was bedeutet 'statische Dimensionierung mit benannten Konstanten' bei der Matrixprodukt-Aufgabe? Ist damit das Keyword 'static' gemeint oder Makros wie #define?",
       "gold_id": "programmierung_mit_ansi_c-91-106.pdf",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt e",
       "evidence_full": "Eine ahnliche, wenn auch nicht ganz so gravierende Begriffsuberschneidung gibt es bei statisch / static .\n\nEine statische Variable steht prinzipiell wahrend der gesamten Dauer der Ausfuhrung eines Programms zur Verfugung, auch wenn man zeitweilig nicht auf sie zugreifen kann, weil sie in einigen Modulen nicht deklariert oder in einigen Funktionen verschattet ist. Statisch sind alle externen Variablen - gleichviel, ob sie das Attribut static tragen oder nicht."
     },
@@ -1321,7 +1392,7 @@
       "query": "Was bewirkt der Parameter -o genau?",
       "gold_id": "83.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausfüh",
       "evidence_full": "Binden Sie die Objectcode-Dateien Ihrer Lösung und des Testcodes zu einem ausführbaren Programm gcc -o a02 a02.o a02-testing.o"
     },
@@ -1374,6 +1445,14 @@
       "evidence_full": "Auch ein falscher Indexzugriff oder allgemein das Dereferenzieren eines ungultigen Zeigers kann zu Problemen fuhren und ist haufig Ursache von Programmabsturzen. Das untersuchen wir anhand eines Beispiels: ``` int v[10], w[50], i, *p = v; /* Berechnung von i */ v[i] = 44; *(p + i) = 44; ``` Welchen Wert i hat, liegt erst fest, wenn die Wertzuweisungen ausgefuhrt werden. Allerdings:"
     },
     {
+      "query": "Ich bekomme einen Segmentation Fault – was ist da eigentlich das Problem im Speicher?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 0.8,
+      "status": "OK",
+      "evidence_snippet": "Häufige Spezialfälle eines Segmentation Faults sind: NULL-Dereferenzierung (z.B.",
+      "evidence_full": "Häufige Spezialfälle eines Segmentation Faults sind: NULL-Dereferenzierung (z.B. wenn der Rückgabewert von `malloc` nicht auf NULL geprüft und der Zeiger anschließend dereferenziert wird) und Use-after-free (Zugriff auf einen Heap-Bereich nach `free`). Beide gehören zur allgemeinen Klasse 'Dereferenzierung ungültiger Zeiger'."
+    },
+    {
       "query": "Wieso brauche ich Pointer überhaupt, wenn ich Variablen habe?",
       "gold_id": "programmierung_mit_ansi_c-127-148.pdf",
       "matching_score": 1.0,
@@ -1412,6 +1491,14 @@
       "status": "OK",
       "evidence_snippet": "Bei scanf ist das anders. Diese Funktion muss wissen, wohin sie den gelesenen We",
       "evidence_full": "Bei scanf ist das anders. Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur."
+    },
+    {
+      "query": "Wieso brauche ich Pointer überhaupt, wenn ich Variablen habe?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 0.8,
+      "status": "OK",
+      "evidence_snippet": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C n",
+      "evidence_full": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden."
     },
     {
       "query": "Wie kann ich auf den Wert hinter einem Pointer zugreifen?",
@@ -1601,7 +1688,7 @@
       "query": "Warum nutzt man malloc, um Speicher zu reservieren?",
       "gold_id": "408.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Verwenden Sie in dieser Aufgaben für das Feld dynamischen Speicher um dem Umgang",
       "evidence_full": "Verwenden Sie in dieser Aufgaben für das Feld dynamischen Speicher um dem Umgang damit zu üben.\nNutzen Sie dafür die Funktion malloc()."
     },
@@ -1793,7 +1880,7 @@
       "query": "Wann beenden sich Schleifen?",
       "gold_id": "programmierung_mit_ansi_c-63-76.pdf",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Nutzlich ist die break -Anweisung in Schleifen vor allem dann, wenn das logische",
       "evidence_full": "Nutzlich ist die break -Anweisung in Schleifen vor allem dann, wenn das logische Ende in der Mitte des Schleifenrumpfes liegt."
     },
@@ -1975,7 +2062,7 @@
     },
     {
       "query": "Welchen Editor kann ich in der Klausur nutzen?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
@@ -1991,7 +2078,7 @@
     },
     {
       "query": "Was ist in der Klausur verfügbar? Hilfsmittel, Editor, Compiler?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine ",
@@ -1999,7 +2086,7 @@
     },
     {
       "query": "Was ist in der Klausur verfügbar? Hilfsmittel, Editor, Compiler?",
-      "gold_id": "tutor_knowledge_base.txt",
+      "gold_id": "tutor_knowledge_base.yaml",
       "matching_score": 1.0,
       "status": "OK",
       "evidence_snippet": "Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den ",
@@ -2116,6 +2203,14 @@
       "status": "OK",
       "evidence_snippet": "Der Teilausdruck &i liefert die Adresse von i als Resultat.",
       "evidence_full": "Der Teilausdruck &i liefert die Adresse von i als Resultat."
+    },
+    {
+      "query": "Wieso brauche ich Pointer und wie greife ich auf die Adresse zu?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 0.8,
+      "status": "OK",
+      "evidence_snippet": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C n",
+      "evidence_full": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden."
     },
     {
       "query": "Was ist die Ursache für Segfault?",
@@ -2257,7 +2352,7 @@
       "query": "Wie kombiniere ich Pointer mit Structs, um auf Daten zuzugreifen?",
       "gold_id": "518.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Aufgabe: Der Datentyp `interval_t` zur Beschreibung von abgeschlossenen Interval",
       "evidence_full": "Aufgabe: Der Datentyp `interval_t` zur Beschreibung von abgeschlossenen Intervallen ganzer Zahlen durch die untere \nund obere Intervallgrenze, ist wie folgt gegeben.\n\n```\ntypedef struct {\n  long low;   // lower bound\n  long up;    // upper bound\n} interval_t;\n```\n\nEin Intervall ist genau dann leer, wenn seine untere Intervallgrenze größer ist als seine obere. \nDer Durchschnitt zweier Intervalle ist wieder ein (möglicherweise leeres) Intervall.\n\nProgrammieren Sie eine Funktion, die bestimmt ob der Durchschnitt der übergebenen\nIntervalle leer ist, mit folgendem Prototyp.\n\n```\nint is_empty_intersection(const interval_t *a, const interval_t *b);\n```\n\n*Anforderungen:*\n\n- Das Durchschnittsintervall der Intervalle, auf die a und b verweisen, wird bestimmt.\n- Ein übergebener Null-Zeiger wird wie ein leeres Intervall behandelt.\n- Die untere Intervallgrenze des Durchschnittsintervalls ist gegeben durch das Maximum der beiden unteren Intervallgrenzen, die obere Intervallgrenze durch das Minimum der beiden oberen Intervallgrenzen.\n- Die Funktion liefert 0 zurück wenn das Durchschnittsintervall nicht leer ist, sonst wird ein positiver Wert zurückgeliefert.\n- Definieren Sie die Struktur `interval_t` in der Abgabedatei."
     },
@@ -2265,7 +2360,7 @@
       "query": "Wie kombiniere ich Pointer mit Structs, um auf Daten zuzugreifen?",
       "gold_id": "518.yaml",
       "matching_score": 0.4,
-      "status": "LOW_SCORE",
+      "status": "OK",
       "evidence_snippet": "Lösung: #include <stdlib.h>\n\ntypedef struct {\n  long low;   // lower bound\n  lon",
       "evidence_full": "Lösung: #include <stdlib.h>\n\ntypedef struct {\n  long low;   // lower bound\n  long up;    // upper bound\n} interval_t;\n\nint is_empty_intersection(const interval_t *a, const interval_t *b) {\n  if (a == NULL || a->low > a->up || b == NULL || b->low > b->up)\n    return 1;\n\n  interval_t inter;\n\n  /* max lower bound */\n  if (a->low > b->low)\n    inter.low = a->low;\n  else\n    inter.low = b->low;\n\n  /* min upper bound */\n  if (a->up < b->up)\n    inter.up = a->up;\n  else\n\n    inter.up = b->up;\n\n  /* ( upper < lower ) <= > empty */\n\n  return (inter.up < inter.low);\n}"
     },
@@ -2620,6 +2715,14 @@
       "status": "OK",
       "evidence_snippet": "float *m; int n; /* ... Initialisierung von n */ m = (float *) malloc(n * n * si",
       "evidence_full": "float *m; int n; /* ... Initialisierung von n */ m = (float *) malloc(n * n * sizeof(float)); if (m == NULL) { /* Fehlerbehandlung , ggf. Programmabbruch */ }"
+    },
+    {
+      "query": "Wie erstellt man 2D-Matrizen?",
+      "gold_id": "tutor_knowledge_base.yaml",
+      "matching_score": 0.8,
+      "status": "OK",
+      "evidence_snippet": "Eine mit `malloc(zeilen * spalten * sizeof(typ))` als 1D-Array allokierte Matrix",
+      "evidence_full": "Eine mit `malloc(zeilen * spalten * sizeof(typ))` als 1D-Array allokierte Matrix kann durch einen Cast zu einem Array-Zeiger mit fixer innerer Dimension wie eine echte 2D-Matrix angesprochen werden: `float (*m2d)[SPALTEN] = (float (*)[SPALTEN]) m1d;` erlaubt anschließend `m2d[i][j]`-Zugriffe, wobei der Compiler die Indexberechnung übernimmt. Voraussetzung ist, dass die Spaltenanzahl zur Compile-Zeit bekannt ist."
     }
   ]
 }

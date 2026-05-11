@@ -63,7 +63,7 @@ VERSION_CONFIG = {
     },
 }
 
-VERSION  = "v1_baseline"   # <- switch version
+VERSION  = "v2_chunking"   # <- switch version
 _cfg     = VERSION_CONFIG[VERSION]
 INGEST_FN = _cfg["ingest_fn"]
 USE_BM25  = _cfg["use_bm25"]

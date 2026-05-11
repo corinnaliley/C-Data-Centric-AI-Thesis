@@ -1,3 +1,99 @@
-MISSING EVIDENCE DEBUG — 0 entries
+MISSING EVIDENCE DEBUG — 4 entries
 ================================================================================
+
+[1/4] score=1.0 | tutor_knowledge_base.yaml
+Query   : Wie bekomme ich WSL in vscode eingebunden?
+Evidence: WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden
+Um WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.
+Hier sind die erforderlichen Schritte für die Einrichtung:
+1. Voraussetzungen schaffen
+
+    WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.
+    VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).
+    WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen“ (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.
+
+2. WSL-Erweiterung installieren
+
+    Starten Sie VS Code unter Windows.
+    Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).
+    Suchen Sie nach der Erweiterung „WSL“ (früher „Remote - WSL“) oder installieren Sie das „Remote Development“-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.
+    Klicken Sie auf Installieren.
+
+3. Verbindung herstellen
+Es gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:
+
+    Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.
+    Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL“ (oder „WSL: Connect to WSL using Distro“ für eine spezifische Distribution) ein.
+    Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.
+
+Woran erkennen Sie die erfolgreiche Einbindung?
+Nachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu“), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt.
+----------------------------------------
+  Closest chunk (180 word overlap):
+  Wie bekomme ich WSL in VS Code eingebunden?
+WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden
+Um WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.
+Hier sind die erforderlichen Schritte für die Einrichtung:
+1. Voraussetzungen schaffen
+
+    WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu
+
+[2/4] score=0.9 | programmierung_mit_ansi_c-91-106.pdf
+Query   : Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?
+Evidence: Ein Modul, der nur Unterprogramme enthält, wird in zwei Quelldateien gespeichert: * Eine Datei enthält nur die Deklarationen der Größen, die der Modul exportiert, also in der Regel Typdeklarationen und Prototypen von Funktionen, gelegentlich auch Konstanten und Variablen. Solch eine Datei wird als Headerdatei bezeichnet. * Die andere Datei enthält die Definitionen der zu exportierenden Größen, also insbesondere die Definitionen der Prototypen aus der Headerdatei.
+----------------------------------------
+  Closest chunk (37 word overlap):
+  # Kapitel 8 > #include "stapel.c"
+
+bereits moglich: Wenn wir die Funktionen zur Stapelverwaltung in eine separate Quelldatei schreiben, etwa stapel.c , konnen wir diese Datei mit
+
+ohne weiteres in beliebige andere Dateien einfugen. (Die Gansefußchen bewirken, dass der Praprozessor an anderen Stellen im Dateibaum sucht, als wenn spitze Klammern verwendet werden.)
+
+Dieses Vorgehen erweist sich bei der praktischen Arbeit an großeren Projekten schnell als unzureichend. Was man braucht, ist eine Mogl
+
+[3/4] score=0.85 | programmierung_mit_ansi_c-91-106.pdf
+Query   : Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?
+Evidence: 8.4 Separate Compilation, make
+Wir müssen uns jetzt noch ansehen, wie man Programme, die aus mehreren Modulen bestehen, übersetzen und binden kann. Letzlich ist das ganz einfach. Für unser Beispielprogramm können wir etwa schreiben
+gcc -Wall -ansi stapeltest.c stapel.c
+----------------------------------------
+  Closest chunk (34 word overlap):
+  # Kapitel 8 > 8.4 Separate Compilation, make
+
+auch keine Headerdatei.
+
+Wir mussen uns jetzt noch ansehen, wie man Programme, die aus mehreren Modulen bestehen, ubersetzen und binden kann. Letzlich ist das ganz einfach. Fur unser Beispielprogramm konnen wir etwa schreiben
+
+```
+gcc -Wall -ansi stapeltest.c stapel.c
+```
+
+wenn wir mit a.out als Namen fur das ausfuhrbare Programm zufrieden sind, bzw.
+
+```
+gcc -Wall -ansi -o stapeltest stapeltest.c stapel.c
+```
+
+wenn das ausfuhrbare Programm den Namen
+
+[4/4] score=0.7 | programmierung_mit_ansi_c-113-118.pdf
+Query   : Wie schreibe ich eine Funktion, die ich aus der main() aufrufen kann?
+Evidence: 10.2 Die Direktive #include
+Die include–Direktive kennen wir bereits vollständig. Ihre beiden Formen sind
+#include <name>
+#include "name"
+Zur Erinnerung noch einmal der Unterschied zwischen den beiden Formen: Bei der zweiten Form sucht der Präprozessor die angegebene Datei zunächst im aktuellen Verzeichnis. [...] die Gänsefüßchen bei eigenen Dateien.
+----------------------------------------
+  Closest chunk (31 word overlap):
+  # name [text] > 10.2 Die Direktive #include
+
+werden. Die Entscheidung daruber, welche Variante ubersetzt werden soll, braucht erst beim Aufruf des Compilers getroffen zu werden.
+
+Die include -Direktive kennen wir bereits vollstandig. Ihre beiden Formen sind
+
+#include < name >
+
+#include " name "
+
+Zur Erinnerung noch einmal der Unterschied zwischen den beiden Formen: Bei der zweiten Form sucht der Praprozessor die angegebene Datei zunachst im aktuellen Verzeichnis. Findet er sie dort nicht, sucht 
 
