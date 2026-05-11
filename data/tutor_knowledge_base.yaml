@@ -1,204 +1,414 @@
 # tutor_knowledge_base.yaml
 # Tutor Knowledge Base — C-Programmierkurs (Propädeutikum)
 #
-# Format: Eine semantische Q&A-Einheit pro Eintrag.
+# Format: Thematische Wissensartikel (topic + content).
 # Jeder Eintrag wird zu einem eigenen Chunk in der RAG-Pipeline.
-# Das Feld `answer` enthält die direkt retrivierbaren Informationen.
+# Das Feld `content` enthält die direkt retrivierbaren Informationen in Prosa-Form.
 # Tags dienen der thematischen Einordnung.
+#
+# Bewusste Designentscheidung: Die Einträge sind als Wissensartikel formuliert,
+# NICHT als wörtliche Antworten auf typische Studentenfragen. Das erfordert vom
+# Retriever echtes semantisches Matching statt Stichwort-Übereinstimmung.
 
 # ── Umgebung & Setup ──────────────────────────────────────────────────────────
 
-- question: Wie bekomme ich WSL in VS Code eingebunden?
+- topic: WSL und VS Code für C-Entwicklung unter Windows einrichten
   tags: [umgebung, wsl, vscode, einrichten, windows]
-  answer: |
-    WSL (Windows-Subsystem für Linux) in Visual Studio Code einbinden
-    Um WSL (Windows-Subsystem für Linux) in Visual Studio Code einzubinden, müssen Sie die WSL-Erweiterung installieren, die eine nahtlose Entwicklung in einer Linux-Umgebung direkt von Windows aus ermöglicht.
-    Hier sind die erforderlichen Schritte für die Einrichtung:
-    1. Voraussetzungen schaffen
+  content: |
+    Für die C-Entwicklung unter Windows empfiehlt sich die Kombination aus WSL
+    (Windows Subsystem für Linux) mit Ubuntu und Visual Studio Code. VS Code muss
+    dabei auf der Windows-Seite installiert werden – nicht innerhalb des
+    WSL-Dateisystems –, weil die WSL-Erweiterung von dort aus die Verbindung in die
+    Linux-Umgebung aufbaut.
 
-        WSL installieren: Stellen Sie sicher, dass WSL und eine Linux-Distribution (wie z. B. Ubuntu) auf Ihrem Windows-System installiert und eingerichtet sind.
-        VS Code auf Windows installieren: Installieren Sie Visual Studio Code auf der Windows-Seite (nicht innerhalb des WSL-Dateisystems).
-        WICHTIG: Achten Sie bei der Installation von VS Code darauf, die Option „Zu PATH hinzufügen" (Add to PATH) zu aktivieren, damit Sie VS Code später einfach über die Linux-Befehlszeile starten können.
+    Wichtig bei der VS Code Installation: die Option „Zu PATH hinzufügen" aktivieren,
+    damit VS Code später direkt aus dem Linux-Terminal mit `code .` gestartet werden
+    kann.
 
-    2. WSL-Erweiterung installieren
+    Nach der Installation wird in VS Code über die Extensions-Ansicht (Strg+Umschalt+X)
+    die Erweiterung „WSL" (früher „Remote - WSL") oder das „Remote Development"-Paket
+    installiert. Die Verbindung lässt sich auf drei Wegen herstellen:
 
-        Starten Sie VS Code unter Windows.
-        Öffnen Sie die Extensions-Ansicht (Strg+Umschalt+X).
-        Suchen Sie nach der Erweiterung „WSL" (früher „Remote - WSL") oder installieren Sie das „Remote Development"-Erweiterungspaket, welches WSL sowie Unterstützung für Container und SSH enthält.
-        Klicken Sie auf Installieren.
+    1. Empfohlen: Im Linux-Terminal in den Projektordner navigieren und `code .`
+       eingeben. VS Code lädt automatisch die erforderlichen Server-Komponenten in WSL.
+    2. Über die Befehlspalette (F1 / Strg+Umschalt+P): „WSL: Connect to WSL" eingeben.
+    3. Per Parameter: `code --remote wsl+Ubuntu /home/benutzer/projekt`.
 
-    3. Verbindung herstellen
-    Es gibt mehrere Möglichkeiten, VS Code mit Ihrer WSL-Distribution zu verbinden:
+    Eine erfolgreiche Verbindung erkennt man an der grünen Remote-Anzeige unten links
+    in VS Code, z.B. „WSL: Ubuntu". Ab diesem Moment werden Befehle, Terminals und
+    Erweiterungen direkt in WSL ausgeführt. Fehlt diese Anzeige, befindet sich VS Code
+    noch im Windows-Modus.
 
-        Über das WSL-Terminal (empfohlen): Öffnen Sie Ihr Linux-Terminal (z. B. Ubuntu), navigieren Sie zu Ihrem Projektordner und geben Sie den Befehl code . ein. VS Code lädt dann die erforderlichen Komponenten im WSL herunter und öffnet den Ordner in einer neuen Instanz.
-        Direkt aus VS Code: Drücken Sie F1 (oder Strg+Umschalt+P), um die Befehlspalette zu öffnen, und geben Sie „WSL: Connect to WSL" (oder „WSL: Connect to WSL using Distro" für eine spezifische Distribution) ein.
-        Über die Windows-Eingabeaufforderung: Sie können VS Code direkt mit einem Remote-Parameter starten, zum Beispiel: code --remote wsl+Ubuntu /home/benutzer/projekt.
+    Falls die Installation Probleme bereitet, sind die Schritt-für-Schritt-Anleitungen
+    für alle unterstützten Wege (WSL+Ubuntu+VS Code, MinGW/MSYS2, native
+    Linux-Installation) unter https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen/
+    zu finden. Das Tutorium hilft ebenfalls bei konkreten Fehlermeldungen.
 
-    Woran erkennen Sie die erfolgreiche Einbindung?
-    Nachdem die Verbindung hergestellt wurde, erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige (z. B. „WSL: Ubuntu"), die bestätigt, dass VS Code im Kontext Ihrer Linux-Distribution ausgeführt wird. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt innerhalb von WSL ausgeführt.
+- topic: Terminal in VS Code öffnen und WSL-Integration
+  tags: [vscode, terminal, shortcut, wsl]
+  content: |
+    Ein Terminal lässt sich in VS Code auf drei Wegen öffnen:
 
-- question: Wie öffne ich ein Terminal in VS Code?
-  tags: [vscode, terminal, shortcut]
-  answer: |
-    Öffnen eines Terminals in Visual Studio Code (VS Code)
-    Tastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.
+    1. Tastenkombination: Strg + ö (deutsche Tastatur) bzw. Ctrl + ` (Backtick,
+       internationale Tastatur). Das öffnet oder schließt das Terminal-Panel sofort.
+    2. Menüleiste: Terminal → Neues Terminal.
+    3. Befehlspalette: Strg+Umschalt+P, dann „Terminal: Create New Terminal" eingeben.
 
-    Über das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).
-
-    Befehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal.
-
-- question: Wie setze ich eine C-Entwicklungsumgebung unter Windows auf?
-  tags: [umgebung, einrichten, windows, wsl, linux, gcc]
-  answer: |
-    Wenn die Linux-Installation oder das Aufsetzen der C-Entwicklungsumgebung Probleme bereitet, ist die erste Anlaufstelle das Tutorium oder die Anleitungssammlung unter https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen/. Dort sind die unterstützten Wege (WSL+Ubuntu+VS Code, MinGW/MSYS2 unter Windows nativ, native Linux-Installation) Schritt für Schritt dokumentiert.
-
-- question: Warum muss VS Code auf der Windows-Seite installiert werden und nicht in WSL?
-  tags: [umgebung, wsl, vscode, windows]
-  answer: |
-    VS Code wird auf der Windows-Seite installiert (nicht innerhalb des WSL-Dateisystems), weil die WSL-Erweiterung von dort aus die Verbindung in die Linux-Umgebung aufbaut. Wäre VS Code innerhalb von WSL installiert, würde die Erweiterung nicht funktionieren. Wichtig: Bei der Installation die Option „Zu PATH hinzufügen" aktivieren, damit man VS Code später direkt aus dem Linux-Terminal mit `code .` starten kann.
-
-- question: Woran erkenne ich, dass VS Code erfolgreich mit WSL verbunden ist?
-  tags: [umgebung, wsl, vscode]
-  answer: |
-    Nach erfolgreicher Verbindung erscheint in der unten linken Ecke von VS Code eine grüne Remote-Anzeige, z. B. „WSL: Ubuntu". Diese bestätigt, dass VS Code im Kontext der Linux-Distribution läuft. Ab diesem Moment werden Befehle, Terminals und Erweiterungen direkt in WSL ausgeführt. Fehlt diese Anzeige, ist VS Code noch im Windows-Modus.
-
-# ── VS Code Bedienung ─────────────────────────────────────────────────────────
-
-- question: Wie starte ich VS Code aus dem WSL-Terminal heraus?
-  tags: [vscode, wsl, terminal]
-  answer: |
-    Im Linux-Terminal in den gewünschten Projektordner navigieren und `code .` eingeben. VS Code lädt dann die erforderlichen Server-Komponenten in WSL und öffnet den Ordner in einer neuen Instanz. Der Punkt (.) steht dabei für das aktuelle Verzeichnis.
+    Wichtige Besonderheit bei WSL-Verbindung: Ist VS Code mit WSL verbunden
+    (erkennbar an der grünen Remote-Anzeige unten links, z.B. „WSL: Ubuntu"), öffnet
+    das neue Terminal automatisch eine Linux-Shell innerhalb der WSL-Umgebung –
+    nicht die Windows-Eingabeaufforderung. GCC und alle Linux-Tools stehen damit
+    direkt zur Verfügung.
 
 # ── SmartBeans ────────────────────────────────────────────────────────────────
 
-- question: Verhält sich SmartBeans bei uninitialisierten Variablen anders als lokale Rechner?
-  tags: [smartbeans, variablen, undefined_behavior, initialisierung]
-  answer: |
-    Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable. Der C-Standard schreibt keinen definierten Anfangswert für automatische Variablen vor — was im Speicher steht, hängt von Compiler, Flags und Plattform ab. Lokale GCC-Debug-Builds können zufällig 0 liefern, andere Umgebungen liefern beliebige Werte. Lösung: Variablen immer explizit initialisieren, z. B. `int x = 0;`.
+- topic: SmartBeans Allgemeines – Fortschritt, Einreichungen und Klausurrelevanz
+  tags: [smartbeans, klausur, zulassung, reset, einreichen, empfehlung]
+  content: |
+    SmartBeans-Aufgaben können beliebig oft erneut bearbeitet und neue Lösungen
+    eingereicht werden – es gibt keine Begrenzung der Einreichungsversuche. Eine
+    Zurücksetzung des Fortschritts ist daher in der Regel nicht notwendig. Falls
+    dennoch ein vollständiger Reset gewünscht ist, kann der Dozent das nach Erhalt
+    der StudIP-Kennung per Privatnachricht durchführen.
 
-- question: Darf ich eine eigene main-Funktion beim Upload zu SmartBeans hinzufügen?
-  tags: [smartbeans, main, redefinition, upload]
-  answer: |
-    Nein. Wenn die Korrektur-Umgebung bereits eine main nutzt, führt eine eigene main zu einem 'Redefinition'-Fehler. Bei reinen Funktions-Aufgaben stellt SmartBeans selbst eine main bereit — der Upload soll ausschließlich die geforderte Funktion (z. B. `int is_perm(...)`) enthalten, ohne eigene main.
+    Die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt.
+    Es gibt keine offizielle Mindestanzahl an Aufgaben, die bearbeitet werden müssen.
+    Empfohlen wird aber, einen großen Teil der Aufgaben eigenständig zu lösen, da das
+    aktive Üben für das Verständnis der C-Konzepte und die Klausurvorbereitung
+    entscheidend ist.
 
-- question: Wie teste ich eine SmartBeans-Aufgabe lokal, ohne einen main-Konflikt zu riskieren?
-  tags: [smartbeans, testen, main, workaround, local]
-  answer: |
-    Zum lokalen Testen einer Funktions-Aufgabe ohne Konflikt mit SmartBeans: Eigene main in einer separaten Test-Datei (`test.c`) schreiben und mit `#include "aufgabe.c"` die zu testende Datei einbinden. Für den Upload nur `aufgabe.c` ohne main verwenden. Alternativ beide Dateien gemeinsam kompilieren: `gcc -o test test.c aufgabe.c`.
+    Fragen nach Klausurrelevanz einzelner Themen werden nicht vom Bot beantwortet,
+    sondern an den Dozenten verwiesen. Verbindliche Aussagen zur Klausurrelevanz macht
+    ausschließlich der Dozent in Vorlesung, Forum oder Tutorium.
 
-- question: SmartBeans zeigt 'Ausgabe nicht identisch' — wie finde ich den Unterschied?
+- topic: SmartBeans Funktionsaufgaben – main-Konflikt und lokales Testen
+  tags: [smartbeans, main, redefinition, upload, testen, local]
+  content: |
+    Bei reinen Funktions-Aufgaben in SmartBeans stellt die Korrektur-Umgebung bereits
+    eine eigene `main`-Funktion bereit. Enthält die hochgeladene Datei ebenfalls eine
+    `main`, führt das zu einem „Redefinition"-Kompilierungsfehler, weil jedes
+    C-Programm genau eine `main` haben darf. Die Upload-Datei soll daher ausschließlich
+    die geforderte Funktion enthalten (z.B. `int is_perm(...)`), ohne eigene `main`.
+
+    Zum lokalen Testen ohne diesen Konflikt gibt es zwei Wege:
+
+    1. Eine separate Testdatei `test.c` erstellen, die die zu testende Datei einbindet:
+       `#include "aufgabe.c"`, und dort eine eigene `main` schreiben.
+    2. Beide Dateien gemeinsam kompilieren: `gcc -o test test.c aufgabe.c`.
+
+    Für den Upload zu SmartBeans dann nur `aufgabe.c` ohne `main` verwenden.
+
+    Hinweis zum Verhalten uninitalisierter Variablen: Der C-Standard schreibt
+    für automatische Variablen keinen wohldefinierten Anfangswert vor – was im
+    Speicher steht, hängt von Compiler, Flags und Plattform ab. Lokale
+    GCC-Debug-Builds liefern manchmal zufällig 0, andere Umgebungen liefern
+    Garbage Data. Lösung: Variablen immer explizit initialisieren,
+    z.B. `int x = 0;`.
+
+- topic: SmartBeans Ausgabevergleich – unsichtbare Whitespace-Unterschiede finden
   tags: [smartbeans, ausgabe, diff, whitespace, vergleich]
-  answer: |
-    Wenn SmartBeans meldet, dass die Ausgabe nicht identisch sei, der Unterschied aber visuell nicht erkennbar ist, hilft das Kommandozeilen-Programm `diff`: Eigene Ausgabe in eine Datei umleiten (`./programm > a.txt`), erwartete Ausgabe in eine zweite Datei kopieren (`b.txt`), und mit `diff a.txt b.txt` vergleichen. `diff` arbeitet zeilenweise und gibt nichts aus, wenn die Dateien identisch sind. Typische unsichtbare Unterschiede sind: Leerzeichen am Zeilenende, fehlender abschließender Zeilenumbruch, Tabs statt Leerzeichen.
+  content: |
+    Wenn SmartBeans „Ausgabe nicht identisch" meldet, der Unterschied aber visuell
+    nicht erkennbar ist, hilft das Kommandozeilen-Programm `diff`:
 
-- question: Was bedeutet 'diff gibt keine Ausgabe'?
-  tags: [diff, ausgabe, vergleich]
-  answer: |
-    Gibt `diff datei1.txt datei2.txt` keine Ausgabe, sind die beiden Dateien identisch. Jede Zeile in der Ausgabe von `diff` beschreibt eine Abweichung zwischen den Dateien — keine Ausgabe bedeutet vollständige Übereinstimmung.
+    1. Eigene Ausgabe in eine Datei umleiten: `./programm > a.txt`
+    2. Erwartete Ausgabe in eine zweite Datei kopieren: `b.txt`
+    3. Mit `diff a.txt b.txt` vergleichen.
 
-- question: Wie kann ich meinen SmartBeans-Fortschritt zurücksetzen?
-  tags: [smartbeans, reset, fortschritt, dozent]
-  answer: |
-    Eine Zurücksetzung des SmartBeans-Fortschritts ist in der Regel nicht notwendig, weil gelöste Aufgaben beliebig oft erneut bearbeitet und mit neuen Lösungen eingereicht werden können. Falls dennoch ein vollständiger Reset gewünscht ist, kann der Dozent das nach Erhalt der StudIP-Kennung per Privatnachricht durchführen.
-
-- question: Muss man alle SmartBeans-Aufgaben lösen, um zur Klausur zugelassen zu werden?
-  tags: [smartbeans, klausur, zulassung, pflicht]
-  answer: |
-    Nein, die Klausurteilnahme ist in keiner Weise an den SmartBeans-Fortschritt gekoppelt.
-
-- question: Wie viele Übungsaufgaben sollte ich bearbeiten?
-  tags: [smartbeans, uebungsaufgaben, empfehlung, lernen]
-  answer: |
-    Es gibt keine offizielle Mindestanzahl an Übungsaufgaben, die bearbeitet werden müssen. Empfohlen wird aber, einen großen Teil der Aufgaben eigenständig zu lösen, da das aktive Üben für das Verständnis der C-Konzepte und die Klausurvorbereitung entscheidend ist.
-
-- question: Kann ich auf SmartBeans eingereichte Aufgaben erneut einreichen?
-  tags: [smartbeans, einreichen, versuche]
-  answer: |
-    Ja, bei SmartBeans können gelöste Aufgaben beliebig oft erneut bearbeitet und neue Lösungen eingereicht werden. Es gibt keine Begrenzung der Einreichungsversuche.
+    `diff` arbeitet zeilenweise. Gibt es keine Ausgabe, sind die Dateien identisch.
+    Jede Zeile in der Ausgabe beschreibt eine Abweichung. Typische unsichtbare
+    Unterschiede sind: Leerzeichen am Zeilenende, fehlender abschließender
+    Zeilenumbruch (`\n`), Tabs statt Leerzeichen.
 
 # ── Klausur ───────────────────────────────────────────────────────────────────
 
-- question: Welche Editoren stehen in der Klausur zur Verfügung?
-  tags: [klausur, editor, vscode, vim, emacs]
-  answer: |
-    Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.
+- topic: Klausurumgebung – Arbeitsumgebung, Editoren und Hilfsmittel
+  tags: [klausur, editor, gcc, schmierpapier, suche, highlighting, vscode, vim]
+  content: |
+    Hinweis: Die folgenden Angaben spiegeln den Stand der Kursunterlagen wider und
+    können sich von Semester zu Semester ändern. Verbindliche Angaben macht
+    ausschließlich der Dozent.
 
-- question: Gibt es in der Klausur Schmierpapier?
-  tags: [klausur, schmierpapier, notizen]
-  answer: |
-    Ja, Schmierpapier für Überlegungen zur Implementation oder Notizen liegt an den Rechnern aus.
+    Die Klausur findet an Linux-Rechnern statt. Ein GCC-Compiler ist vorhanden; Code
+    kann kompiliert und getestet werden. Es steht eine Liste vorgefertigter Dateien
+    zur Verfügung, die heruntergeladen und gespeichert werden können.
 
-- question: Ist im E-Prüfungsraum eine Volltextsuche im Skript möglich?
-  tags: [klausur, suche, pdf, skript]
-  answer: |
-    Ja, eine Volltextsuche im PDF-Skript ist möglich, wobei die exakte Tastenkombination von der Anwendung abhängt.
+    Verfügbare Editoren: emacs, gedit, nano, vim und VSCodium (codium). VSCodium ist
+    oft über eine Schaltfläche oder das Terminal aufrufbar und bietet Syntax-Highlighting.
+    Bei Editoren wie nano oder vim ist Highlighting teils konfigurationsabhängig.
 
-- question: Haben die Editoren in der Klausur farbliche Code-Ansichten (Highlighting)?
-  tags: [klausur, editor, highlighting, syntax]
-  answer: |
-    Ja, in Editoren wie VSCodium ist der Code ge-highlighted.
+    Eine Volltextsuche im PDF-Skript ist möglich; die genaue Tastenkombination hängt
+    von der verwendeten Anwendung ab (in den meisten PDF-Viewern Strg+F).
 
-- question: Kann ich in der Klausur meinen Code kompilieren und testen?
-  tags: [klausur, gcc, kompilieren, testen]
-  answer: |
-    Ja, in der Klausur ist ein GCC-Compiler vorhanden und es kann kompiliert und getestet werden. Die Klausur findet an Linux-Rechnern statt.
+    An den Rechnern liegt Schmierpapier für Überlegungen zur Implementierung oder
+    Notizen aus.
 
-- question: Welche Inhalte sind klausurrelevant?
-  tags: [klausur, relevanz, themen, dozent]
-  answer: |
-    Fragen nach Klausurrelevanz einzelner Themen werden nicht vom Bot beantwortet, sondern an den Dozenten verwiesen. Verbindliche Aussagen zur Klausurrelevanz macht ausschließlich der Dozent in Vorlesung, Forum oder Tutorium.
+# ── C-Programmierung: Funktionen & Kompilierung ───────────────────────────────
 
-# ── C-Programmierung: Funktionen & Dateien ────────────────────────────────────
+- topic: Funktionen in separate Dateien auslagern – Header und Implementierung
+  tags: [funktionen, header, multifile, gcc, deklaration, definition]
+  content: |
+    Funktionen können in eigene Dateien ausgelagert werden. Die übliche Aufteilung:
 
-- question: Wie lagere ich Funktionen in eigene Dateien aus?
-  tags: [funktionen, header, multifile, gcc, kompilieren]
-  answer: |
-    Funktionen können in eigene Dateien ausgelagert werden. Üblich ist eine Aufteilung in Header-Datei (`.h`) mit den Prototypen und Implementierungs-Datei (`.c`) mit den Definitionen. Eingebunden wird die Header-Datei mit `#include "datei.h"` in der aufrufenden Datei. Kompiliert wird mit `gcc -o program main.c hilfsfunktion.c` (alles in einem Schritt) oder getrennt: zuerst `gcc -c main.c` und `gcc -c hilfsfunktion.c`, dann linken mit `gcc -o program main.o hilfsfunktion.o`.
+    - Header-Datei (`.h`): enthält Funktionsprototypen (Deklarationen). Sie informiert
+      den Compiler über Name, Parametertypen und Rückgabetyp, ohne Funktionskörper.
+    - Implementierungsdatei (`.c`): enthält die eigentlichen Funktionsdefinitionen mit
+      dem Programmcode.
 
-- question: Was ist der Unterschied zwischen einer Header-Datei (.h) und einer Implementierungsdatei (.c)?
-  tags: [header, funktionen, deklaration, definition]
-  answer: |
-    Eine Header-Datei (`.h`) enthält Funktionsprototypen (Deklarationen): sie informiert den Compiler über Namen, Parametertypen und Rückgabetyp, ohne den Funktionskörper. Eine Implementierungsdatei (`.c`) enthält die eigentlichen Funktionsdefinitionen mit dem Programmcode. Durch `#include "datei.h"` wird die Header-Datei in der aufrufenden Datei eingebunden, sodass der Compiler die Deklarationen kennt.
+    Die Header-Datei wird in der aufrufenden Datei mit `#include "datei.h"` eingebunden.
 
-- question: Wie kompiliere ich ein C-Programm aus mehreren Dateien?
-  tags: [gcc, multifile, kompilieren, linken]
-  answer: |
-    Entweder alles in einem Schritt: `gcc -o program main.c hilfsfunktion.c`. Oder getrennt kompilieren und dann linken: zuerst `gcc -c main.c` (erzeugt `main.o`) und `gcc -c hilfsfunktion.c` (erzeugt `hilfsfunktion.o`), dann `gcc -o program main.o hilfsfunktion.o`. Linker-Bibliotheken wie `-lm` (Mathe) müssen immer am Ende stehen.
+    Alternativ – bei einfachen Projekten – kann man die `.c`-Datei direkt einbinden:
+    `#include "aufgabe.c"`. Das ist beim lokalen Testen von SmartBeans-Aufgaben
+    praktisch, sollte aber im produktiven Code vermieden werden.
+
+- topic: GCC-Compileraufruf – Optionen, Reihenfolge und Linker-Bibliotheken
+  tags: [gcc, kompilieren, linken, multifile, reihenfolge, lm, wall]
+  content: |
+    Der typische GCC-Aufruf für eine einzelne Datei:
+    `gcc -Wall -std=c11 -o programm datei.c`
+
+    Bei mehreren Dateien:
+    `gcc -Wall -std=c11 -o programm main.c hilfsfunktion.c`
+
+    Die Reihenfolge der `.c`-Dateien ist für den Compiler meist egal. Alternativ kann
+    getrennt kompiliert und dann gelinkt werden:
+    `gcc -c main.c` → erzeugt `main.o`
+    `gcc -c hilfsfunktion.c` → erzeugt `hilfsfunktion.o`
+    `gcc -o programm main.o hilfsfunktion.o`
+
+    Wichtige Einzeloptionen:
+    - `-Wall`: aktiviert alle Warnungen. Der Compiler gibt zu „verdächtigem" Code
+      Hinweise aus, die häufig auf echte Programmierfehler hinweisen. Ein
+      warnungslos kompiliertes Programm ist noch kein korrektes Programm.
+    - `-o name`: legt den Namen der Ausgabedatei fest. Ohne `-o` heißt die Ausgabe
+      immer `a.out`.
+    - `-c`: kompiliert nur (erzeugt eine `.o`-Objektdatei), ohne zu linken.
+
+    Linker-Bibliotheken wie `-lm` (Mathematikfunktionen aus `<math.h>`) müssen immer
+    am Ende des Befehls stehen, also nach allen `.c`- und `.o`-Dateien:
+    `gcc -Wall -std=c11 -o wurzel wurzel.c -lm`
+    Steht `-lm` vor den Quelltextdateien, kann der Linker die Bibliothekssymbole nicht
+    auflösen und meldet „undefined reference".
 
 # ── C-Programmierung: Speicher & Pointer ─────────────────────────────────────
 
-- question: Warum brauche ich Pointer in C?
-  tags: [pointer, heap, stack, speicher, malloc]
-  answer: |
-    Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden.
+- topic: Stack und Heap – Unterschied, Lebensdauer und Nutzung
+  tags: [stack, heap, speicher, lebensdauer, malloc, pointer]
+  content: |
+    Stack: automatisch verwalteter Speicher für lokale Variablen. Wird beim Betreten
+    einer Funktion reserviert und beim Verlassen automatisch freigegeben. Begrenzte
+    Größe; geeignet für kleine, kurzlebige Daten. Ein Zeiger auf eine lokale Variable
+    ist nach Rückkehr aus der Funktion ungültig.
 
-- question: Was ist der Unterschied zwischen Stack und Heap in C?
-  tags: [stack, heap, speicher, lebensdauer, malloc]
-  answer: |
-    Stack: automatisch verwalteter Speicher für lokale Variablen. Wird beim Betreten einer Funktion reserviert und beim Verlassen automatisch freigegeben. Begrenzte Größe; geeignet für kleine, kurzlebige Daten.
-    Heap: dynamisch verwalteter Speicher, der explizit mit `malloc`/`calloc` angefordert und mit `free` freigegeben werden muss. Größer als der Stack; Daten überleben das Funktionsende. Zugriff nur über Pointer.
+    Heap: dynamisch verwalteter Speicher, der explizit mit `malloc`/`calloc`
+    angefordert und mit `free` freigegeben werden muss. Größer als der Stack; Daten
+    überleben das Funktionsende. Zugriff nur über Pointer.
 
-- question: Was sind Variable Length Arrays (VLAs) in C?
+    Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C
+    nötig, weil auf den Heap-Speicher nur über Pointer zugegriffen werden kann und
+    weil C bei Funktionsaufrufen standardmäßig Werte kopiert (Call by Value) –
+    soll eine Funktion eine Variable des Aufrufers verändern, muss deren Adresse
+    übergeben werden.
+
+- topic: Variable Length Arrays (VLAs) und ihre Einschränkungen
   tags: [arrays, vla, stack, c99, speicher]
-  answer: |
-    C99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur Laufzeit bestimmten Größe (`int array[n];` mit variablem n), die aber auf dem Stack liegen. Sie unterliegen den Stack-Limits (maximale Größe, automatische Freigabe am Funktionsende, kein Return) und sollten nur für kleine, temporäre Daten verwendet werden. Für größere oder über die Funktion hinaus benötigte Daten wird Heap-Speicher mit `malloc` verwendet.
+  content: |
+    C99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur
+    Laufzeit bestimmten Größe (`int array[n];` mit variablem `n`), die aber auf dem
+    Stack liegen. Sie unterliegen daher den Stack-Limits:
+    - maximale Größe beschränkt (großes VLA → Stack Overflow)
+    - automatische Freigabe am Funktionsende
+    - der Zeiger auf ein VLA ist nach Funktionsende ungültig (kein Return möglich)
 
-- question: Was sind häufige Spezialfälle eines Segmentation Faults?
-  tags: [segfault, pointer, fehler, null, use_after_free, malloc]
-  answer: |
-    Häufige Spezialfälle eines Segmentation Faults sind: NULL-Dereferenzierung (z.B. wenn der Rückgabewert von `malloc` nicht auf NULL geprüft und der Zeiger anschließend dereferenziert wird) und Use-after-free (Zugriff auf einen Heap-Bereich nach `free`). Beide gehören zur allgemeinen Klasse 'Dereferenzierung ungültiger Zeiger'.
+    VLAs sind nur für kleine, temporäre Hilfsdaten geeignet. Für größere oder über
+    die Funktion hinaus benötigte Daten wird Heap-Speicher mit `malloc` verwendet.
 
-- question: Was passiert, wenn ich malloc-Speicher nicht mit free freigebe?
-  tags: [malloc, free, memory_leak, heap]
-  answer: |
-    Wird Heap-Speicher nicht mit `free` freigegeben, entsteht ein Memory Leak: der Speicher bleibt für die gesamte Programmlaufzeit belegt, auch wenn er nicht mehr gebraucht wird. Bei kurzen Programmen ist das oft harmlos (das OS räumt beim Programmende auf), bei lang laufenden Programmen oder Schleifen kann es zu Speichermangel führen.
+    Wichtiger Begriff: „statische Dimensionierung mit benannten Konstanten" meint
+    nicht das Keyword `static`, sondern die Verwendung von `#define`-Makros oder
+    `const int` zur Festlegung der Array-Größe zur Compile-Zeit, z.B.
+    `#define MAX_SIZE 20` gefolgt von `double matrix[MAX_SIZE][MAX_SIZE]`.
+    Das Keyword `static` im Sinne von Speicherklasse ist hier nicht gemeint.
 
-- question: Was ist der Unterschied zwischen malloc und calloc?
-  tags: [malloc, calloc, heap, initialisierung, speicher]
-  answer: |
-    `malloc(n)` reserviert n Bytes Heap-Speicher, ohne den Inhalt zu initialisieren (Garbage Data). `calloc(count, size)` reserviert count * size Bytes und initialisiert alle Bytes auf 0. Für ein Array, bei dem man sicher alle Einträge auf 0 haben will (z. B. ein Zähler-Array für Permutationstests), ist `calloc` bequemer als `malloc` gefolgt von manuellem Nullsetzen.
+- topic: malloc und calloc – Unterschied, Initialisierung und Memory Leaks
+  tags: [malloc, calloc, heap, initialisierung, free, memory_leak]
+  content: |
+    `malloc(n)` reserviert n Bytes Heap-Speicher, ohne den Inhalt zu initialisieren
+    (Garbage Data). `calloc(count, size)` reserviert count × size Bytes und
+    initialisiert alle Bytes auf 0. Für ein Zähler-Array, bei dem alle Einträge
+    sicher 0 sein sollen, ist `calloc` bequemer als `malloc` gefolgt von manuellem
+    Nullsetzen.
 
-- question: Wie kann ich eine als 1D-Array allokierte Matrix als 2D-Matrix ansprechen?
+    Bei jedem `malloc`-Aufruf muss der Rückgabewert auf `NULL` geprüft werden –
+    `NULL` signalisiert, dass das Betriebssystem keinen Speicher vergeben konnte:
+    `if ((ptr = malloc(n * sizeof(int))) == NULL) { /* Fehlerbehandlung */ }`
+
+    Wird Heap-Speicher nicht mit `free` freigegeben, entsteht ein Memory Leak: der
+    Speicher bleibt für die gesamte Programmlaufzeit belegt. Bei kurzen Programmen
+    ist das oft harmlos (das OS räumt beim Programmende auf), bei lang laufenden
+    Programmen oder Schleifen kann es zu Speichermangel führen.
+
+    Als Grundregel: Bei jedem `malloc`-Aufruf gehört `sizeof` ins Argument, z.B.
+    `malloc(n * sizeof(int))`, um portablen und korrekten Code zu schreiben.
+
+- topic: Segmentation Fault – Ursachen, Diagnose und häufige Muster
+  tags: [segfault, pointer, fehler, null, use_after_free, malloc, scanf, indexueberschreitung]
+  content: |
+    Ein Segmentation Fault tritt auf, wenn ein Programm versucht, auf einen
+    Speicherbereich zuzugreifen, der ihm nicht gehört oder für den es keine
+    Zugriffsrechte hat. Das Betriebssystem bricht das Programm hart ab.
+
+    Häufige Ursachen:
+
+    1. Indexüberschreitung bei Arrays: Zugriff über die Feldgrenzen hinaus (`v[-1]`,
+       `v[n]` bei einem Array der Länge n). Der Compiler berechnet den Abstand und
+       führt den Zugriff aus – ob dort sinnvolle Daten stehen, ist undefiniert.
+
+    2. Vergessener Adressoperator bei `scanf`: `scanf("%d", wert)` statt
+       `scanf("%d", &wert)`. `scanf` interpretiert den Wert der Variable fälschlich
+       als Speicheradresse und versucht, dorthin zu schreiben – fast immer ein
+       Segmentation Fault.
+
+    3. NULL-Dereferenzierung: Wenn der Rückgabewert von `malloc` nicht auf `NULL`
+       geprüft und der Zeiger anschließend dereferenziert wird. Bei fehlgeschlagener
+       Allokation zeigt der Zeiger auf Adresse 0 – ein Schreibversuch dorthin killt
+       das Programm.
+
+    4. Use-after-free: Zugriff auf einen Heap-Bereich nach `free`. Der Zeiger zeigt
+       dann auf invaliden Speicher; das Verhalten ist undefiniert.
+
+    Tritt ein Segmentation Fault auf, lohnt es sich, das Programm zunächst auf
+    Indexüberschreitungen und vergessene `&`-Operatoren zu untersuchen.
+
+- topic: 2D-Matrix als 1D-Array allokieren und per Zeiger-Cast ansprechen
   tags: [matrizen, pointer, cast, malloc, 2d, indexberechnung]
-  answer: |
-    Eine mit `malloc(zeilen * spalten * sizeof(typ))` als 1D-Array allokierte Matrix kann durch einen Cast zu einem Array-Zeiger mit fixer innerer Dimension wie eine echte 2D-Matrix angesprochen werden: `float (*m2d)[SPALTEN] = (float (*)[SPALTEN]) m1d;` erlaubt anschließend `m2d[i][j]`-Zugriffe, wobei der Compiler die Indexberechnung übernimmt. Voraussetzung ist, dass die Spaltenanzahl zur Compile-Zeit bekannt ist.
+  content: |
+    Eine mit `malloc(zeilen * spalten * sizeof(typ))` als flaches 1D-Array allokierte
+    Matrix kann durch einen Cast zu einem Array-Zeiger mit fixer innerer Dimension
+    wie eine echte 2D-Matrix angesprochen werden:
+
+    `float (*m2d)[SPALTEN] = (float (*)[SPALTEN]) m1d;`
+
+    Danach sind `m2d[i][j]`-Zugriffe möglich; der Compiler übernimmt die
+    Indexberechnung `i * SPALTEN + j`. Voraussetzung ist, dass die Spaltenanzahl
+    zur Compile-Zeit als Konstante bekannt ist.
+
+# ── C-Programmierung: Strings & Zeichen ──────────────────────────────────────
+
+- topic: Umlaute und UTF-8 in C – sizeof, strlen und Buffer-Overflow
+  tags: [strings, utf8, umlaute, sizeof, strlen, null_terminator, buffer_overflow]
+  content: |
+    Der ANSI-C-Standard kennt deutsche Umlaute (ä, ö, ü, ß) nicht als Teil seines
+    Zeichensatzes – der Standard-Zeichensatz umfasst 128 Zeichen (ASCII). Moderne
+    Systeme verwenden für Umlaute UTF-8, wobei `ö` zwei Bytes belegt (0xC3 0xB6).
+
+    Praktische Konsequenzen:
+
+    - `strlen("ö")` liefert 2, nicht 1 – die Funktion zählt Bytes vor dem Nullbyte,
+      nicht sichtbare Zeichen.
+    - Ein Array für den String „Möglichkeit 2 (schöner)" mit scheinbarer Länge 23
+      muss tatsächlich mehr Bytes reservieren, weil `ö` zwei Bytes belegt.
+    - Wird das Array zu knapp dimensioniert (ohne Platz für alle Bytes der Umlaute
+      plus das abschließende Nullbyte `\0`), entsteht ein Buffer-Overflow.
+
+    Off-by-one-Fehler bei der Dimensionierung: Ein `char`-Array für einen String der
+    Länge n muss mindestens n+1 Bytes groß sein, um Platz für das Nullbyte zu haben.
+    Bei Umlauten kommen die Extra-Bytes pro Umlaut noch dazu.
+
+    `strncpy(dst, src, n)` kopiert maximal n Bytes, garantiert aber bei einem Quell-
+    String der Länge ≥ n kein abschließendes Nullbyte. Das Nullbyte muss dann manuell
+    gesetzt werden: `dst[n] = '\0';`. Fehlt es, liest `printf` unkontrolliert über
+    die Feldgrenze hinaus in fremden Speicher.
+
+# ── C-Programmierung: Ein- und Ausgabe ───────────────────────────────────────
+
+- topic: printf-Formatbeschreiber – vollständige Übersicht
+  tags: [printf, format, ausgabe, formatbeschreiber]
+  content: |
+    In `printf` leitet `%` einen Formatbeschreiber ein, gefolgt von einem
+    Kennbuchstaben für den Ausgabetyp. Die wichtigsten Kennbuchstaben:
+
+    | Beschreiber | Bedeutung                                      |
+    |-------------|------------------------------------------------|
+    | `%d`        | dezimale Ganzzahl (`int`)                      |
+    | `%u`        | vorzeichenlose Ganzzahl (`unsigned int`)        |
+    | `%c`        | einzelnes Zeichen (`char`)                     |
+    | `%x`        | hexadezimale Ganzzahl, Kleinbuchstaben         |
+    | `%X`        | hexadezimale Ganzzahl, Großbuchstaben          |
+    | `%f`        | Gleitkommazahl, Standardnotation (`double`)    |
+    | `%e`        | Gleitkommazahl, wissenschaftliche Notation     |
+    | `%s`        | Zeichenkette (String, nullterminiert)          |
+    | `%p`        | Zeiger-Adresse (hexadezimal)                   |
+    | `%%`        | gibt ein Prozentzeichen aus                    |
+
+    Zwischen `%` und dem Kennbuchstaben können Modifikatoren stehen:
+    - Mindestfeldbreite: `%3d` gibt die Zahl in einem Feld von mindestens 3 Zeichen
+      rechtsbündig aus (z.B. in der Multiplikationstafel-Aufgabe).
+    - Nachkommastellen: `%.2f` gibt eine Gleitkommazahl mit genau 2 Stellen nach dem
+      Komma aus.
+    - Kombination: `%8.2f` – Feldbreite 8, 2 Nachkommastellen.
+
+# ── C-Programmierung: Algorithmen ────────────────────────────────────────────
+
+- topic: Binäre Suche – Mittelindex berechnen und Integer-Überlauf vermeiden
+  tags: [binaere_suche, pointer, indexberechnung, integer_overflow, zeigerarithmetik]
+  content: |
+    Bei der binären Suche muss der mittlere Index korrekt berechnet werden.
+
+    Mit Zeigern (Pointer-Arithmetik):
+    Die Berechnung `mitte = (start + ende) / 2` ist in C für Zeiger nicht zulässig –
+    die Addition zweier Zeiger ist undefiniert. Die korrekte Variante:
+    `mitte = start + (ende - start) / 2;`
+    `ende - start` ist eine gültige Zeigerdifferenz (liefert einen ganzzahligen Wert),
+    die halbiert und zu `start` addiert wird.
+
+    Mit Index-Variablen (integer-basiert):
+    `mitte = (links + rechts) / 2` ist syntaktisch zulässig, birgt aber bei sehr
+    großen Indizes die Gefahr eines Integer-Überlaufs: Sind `links` und `rechts`
+    beide nahe `INT_MAX`, überläuft die Summe und liefert einen negativen Wert.
+    Die sichere Variante, die auch für Zeiger gilt:
+    `mitte = links + (rechts - links) / 2;`
+
+# ── C-Programmierung: Kommandozeilenargumente ────────────────────────────────
+
+- topic: Kommandozeilenargumente – argc, argv und Umwandlung
+  tags: [argc, argv, main, kommandozeile, atoi, eingabe]
+  content: |
+    Wenn eine Aufgabe „ohne Benutzereingaben" verlangt, bedeutet das: die Eingabe
+    erfolgt nicht interaktiv per `scanf` während der Laufzeit, sondern wird beim
+    Programmaufruf als Kommandozeilenargument übergeben.
+
+    Dafür deklariert man `main` mit zwei Parametern:
+    `int main(int argc, char *argv[])`
+
+    - `argc` (argument count): Anzahl der Einträge in der Aufrufzeile.
+    - `argv` (argument vector): Array von C-Strings für die einzelnen Einträge.
+
+    Dabei gilt: `argv[0]` enthält immer den Programmnamen selbst. Das erste
+    eigentliche Argument steht in `argv[1]`, das zweite in `argv[2]` usw.
+
+    Beispielaufruf: `./programm 42 7`
+    → `argc == 3`, `argv[1] == "42"`, `argv[2] == "7"`
+
+    Da `argv`-Einträge Strings sind, muss für numerische Verarbeitung eine Umwandlung
+    erfolgen, z.B. mit `atoi(argv[1])` (Ganzzahl) oder `atof(argv[1])` (Gleitkomma).
+    Beide Funktionen sind in `<stdlib.h>` deklariert.
+
+# ── Fehlermeldungen & Laufzeitfehler ─────────────────────────────────────────
+
+- topic: Linker-Fehler – „Undefined symbols _main" und fehlende main-Funktion
+  tags: [linker, fehler, main, undefined_symbol, kompilieren]
+  content: |
+    Der Fehler `ld: Undefined symbols: _main` (oder `undefined reference to 'main'`
+    unter Linux) kommt vom Linker – nicht vom Compiler – und bedeutet: Das Programm
+    enthält keine Funktion namens `main`.
+
+    Jedes ausführbare C-Programm muss genau eine Funktion `main` als Einstiegspunkt
+    besitzen; sie wird beim Programmstart vom Betriebssystem aufgerufen. Fehlt sie,
+    kann der Linker das ausführbare Binary nicht erzeugen.
+
+    Typische Ursachen:
+    - `main` wurde auskommentiert (z.B. beim Testen einer Einzelfunktion).
+    - Die Datei enthält nur Hilfsfunktionen und ist nicht für ein eigenständiges
+      Programm gedacht (SmartBeans-Funktionsaufgaben: hier liefert SmartBeans die
+      `main` selbst – eine eigene `main` würde zu einem Redefinition-Fehler führen).
+    - `main` wurde versehentlich umbenannt.

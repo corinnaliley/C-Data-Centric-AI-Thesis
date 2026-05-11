@@ -252,12 +252,11 @@ def convert_pdf_via_saia(
 # ---------------------------------------------------------------------------
 
 def convert_knowledge_base(path: str) -> List[Block]:
-    """Load tutor_knowledge_base.yaml as one Block per Q&A entry.
+    """Load tutor_knowledge_base.yaml as one Block per thematic article.
 
-    Each YAML list item must have at least an ``answer`` field.
-    The optional ``question`` field is prepended to the block text so
-    that semantic search can match on both the question phrasing and the
-    answer content.
+    Each YAML list item must have a ``content`` field (prose body).
+    The optional ``topic`` field is prepended as a heading so the embedding
+    model sees the full article context.
     """
     with open(path, 'r', encoding='utf-8') as f:
         entries = yaml.safe_load(f)
@@ -270,11 +269,13 @@ def convert_knowledge_base(path: str) -> List[Block]:
     for entry in entries:
         if not isinstance(entry, dict):
             continue
-        question = str(entry.get('question', '')).strip()
-        answer = str(entry.get('answer', '')).strip()
-        if not answer:
+
+        topic   = str(entry.get('topic', '')).strip()
+        content = str(entry.get('content', '')).strip()
+        if not content:
             continue
-        text = f"{question}\n{answer}" if question else answer
+
+        text = f"{topic}\n{content}" if topic else content
         blocks.append(Block(
             doc_id=doc_id,
             block_type=BlockType.PARAGRAPH,

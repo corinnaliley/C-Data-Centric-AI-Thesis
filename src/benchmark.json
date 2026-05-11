@@ -124,6 +124,12 @@
         "evidence": "Lösung: int rec_contains(int **pos, int *start, int *end, int x) {\n  if (start == end) {\n    *pos = NULL;\n    return 0;\n  }\n\n  if (start + 1 == end) {\n    if (*start == x) {\n      *pos = start;\n      return 1;\n    } else {\n      *pos = NULL;\n      return 0;\n    }\n  }\n\n  int *middle = start + (end - start) / 2;\n  if (x < *middle) {\n    return rec_contains(pos, start, middle, x);\n  } else {\n    return rec_contains(pos, middle, end, x);\n  }\n}",
         "page": 0,
         "chunk_type": "solution"
+      },
+      {
+        "gold_id": "tutor_knowledge_base.yaml",
+        "matching_score": 0.8,
+        "evidence": "Bei der binaeren Suche: Mit Zeigern ist (start + ende) / 2 nicht zulaessig; korrekt: mitte = start + (ende - start) / 2. Mit Index-Variablen ist (links + rechts) / 2 zulaessig, birgt aber bei sehr grossen Indizes die Gefahr eines Integer-Ueberlaufs. Die sichere Variante: mitte = links + (rechts - links) / 2.",
+        "page": 0
       }
     ],
     "supplementary_answer": "Bei der binären Suche mit Zeigern darf der mittlere Index nicht als '(start + ende) / 2' berechnet werden, da die Addition zweier Zeiger in C nicht zulässig ist. Die korrekte Berechnung lautet: 'mitte = start + (ende - start) / 2;'. Dabei ist 'ende - start' eine gültige Zeigerdifferenz (liefert einen ganzzahligen Wert), die dann halbiert und zu 'start' addiert wird. Bei einem index-basierten Array (ohne Zeigerarithmetik) ist die Variante 'mitte = (links + rechts) / 2' zulässig, birgt aber bei sehr großen Indizes die Gefahr eines Integer-Überlaufs; sicherer ist dann 'mitte = links + (rechts - links) / 2'."
@@ -227,6 +233,12 @@
         "matching_score": 1.0,
         "evidence": "Öffnen eines Terminals in Visual Studio Code (VS Code)\nTastenkombination (Shortcut): Drücke gleichzeitig Strg + ö (auf deutschen Tastaturen) oder Ctrl + ` (Backtick, auf internationalen Tastaturen). Das öffnet oder schließt das Terminal-Panel sofort.\n\nÜber das Menü: Gehe oben in der Menüleiste auf Terminal und wähle Neues Terminal (New Terminal).\n\nBefehlspalette: Drücke Strg + Umschalt + P, tippe Terminal ein und wähle den Befehl Terminal: Create New Terminal.",
         "page": 0
+      },
+      {
+        "gold_id": "tutor_knowledge_base.yaml",
+        "matching_score": 0.7,
+        "evidence": "Wichtige Besonderheit bei WSL-Verbindung: Ist VS Code mit WSL verbunden (erkennbar an der gruenen Remote-Anzeige unten links, z.B. WSL: Ubuntu), oeffnet das neue Terminal automatisch eine Linux-Shell innerhalb der WSL-Umgebung. GCC und alle Linux-Tools stehen damit direkt zur Verfuegung.",
+        "page": 0
       }
     ],
     "supplementary_answer": "In VS Code lässt sich ein Terminal auf drei Wegen öffnen: 1. Tastenkombination: Strg + ö (deutsche Tastatur) bzw. Ctrl + ` (Backtick, internationale Tastatur). 2. Über das Menü: Terminal → Neues Terminal. 3. Befehlspalette: Strg + Umschalt + P, dann 'Terminal: Create New Terminal' eingeben. Ist VS Code mit WSL verbunden (grüne Anzeige unten links), öffnet sich automatisch ein Linux-Terminal in der WSL-Umgebung."
@@ -285,12 +297,6 @@
         "gold_id": "525.yaml",
         "matching_score": 0.9,
         "evidence": "In der Klausur werden Sie ein Linuxsystem mit einem Compiler und einer Liste an vorgefertigten Dateien haben, die Sie herunterladen und speichern können.",
-        "page": 0
-      },
-      {
-        "gold_id": "tutor_knowledge_base.yaml",
-        "matching_score": 0.6,
-        "evidence": "Es gibt emacs, gedit, nano, vim und VSCodium (codium). Codium ist oft über eine Schaltfläche oder das Terminal aufrufbar.",
         "page": 0
       }
     ],
@@ -509,7 +515,7 @@
       },
       {
         "gold_id": "tutor_knowledge_base.yaml",
-        "matching_score": 0.7,
+        "matching_score": 0.4,
         "evidence": "Funktionen können in eigene Dateien ausgelagert werden. Üblich ist eine Aufteilung in Header-Datei (`.h`) mit den Prototypen und Implementierungs-Datei (`.c`) mit den Definitionen. Eingebunden wird die Header-Datei mit `#include \"datei.h\"` in der aufrufenden Datei. Kompiliert wird mit `gcc -o program main.c hilfsfunktion.c` (alles in einem Schritt) oder getrennt: zuerst `gcc -c main.c` und `gcc -c hilfsfunktion.c`, dann linken mit `gcc -o program main.o hilfsfunktion.o`."
       }
     ],
@@ -616,6 +622,12 @@
         "evidence": "Lösung: #include <string.h>\n \nchar* static_str(char* string){\n  static char str_return[150];\n  strcpy(str_return, string);\n  return str_return;\n}\n \nchar* malloc_str(char string[], int len){\n  char* ptr = malloc(len*sizeof(char));\n  strcpy(ptr, string);\n  return ptr;\n}",
         "page": 0,
         "chunk_type": "solution"
+      },
+      {
+        "gold_id": "tutor_knowledge_base.yaml",
+        "matching_score": 0.9,
+        "evidence": "Moderne Systeme verwenden fuer Umlaute UTF-8, wobei 'oe' zwei Bytes belegt. strlen(\"oe\") liefert 2, nicht 1 -- die Funktion zaehlt Bytes vor dem Nullbyte, nicht sichtbare Zeichen. Wird das Array zu knapp dimensioniert (ohne Platz fuer alle Bytes der Umlaute plus das abschliessende Nullbyte), entsteht ein Buffer-Overflow.",
+        "page": 0
       }
     ],
     "supplementary_answer": "Ja, 'ö' belegt in der Regel mehr als ein Byte. ANSI-C kennt die deutschen Umlaute nicht als Teil seines Zeichensatzes – der Standard-Zeichensatz umfasst 128 Zeichen (ASCII). Moderne Systeme verwenden für Umlaute UTF-8, wo 'ö' zwei Bytes belegt (0xC3 0xB6). Das bedeutet: 'sizeof('ö')' oder 'strlen' einer Zeichenkette mit Umlaut verhält sich anders als erwartet. Die Länge eines C-Strings (Anzahl Bytes vor dem Nullbyte) entspricht bei UTF-8-kodierten Umlauten nicht der Anzahl der sichtbaren Zeichen."
@@ -800,12 +812,6 @@
         "page": 143
       },
       {
-        "gold_id": "tutor_knowledge_base.yaml",
-        "matching_score": 1.0,
-        "evidence": "Ja, SmartBeans setzt keine Default-Werte (wie oft 0 lokal). Es verbleibt 'Garbage Data' (zufällige Werte) in der Variable.",
-        "page": 0
-      },
-      {
         "gold_id": "programmierung_mit_ansi_c-17-28.pdf",
         "matching_score": 0.5,
         "evidence": "Konstanten verandern ihren Wert zur Laufzeit eines Programms nicht. Sie besitzen außerdem nur ihren Wert und Typ, nicht jedoch einen Speicherplatz ; zumindest nicht in der Theorie, in der Praxis sieht das gelegentlich anders aus.\n\nVariablen besitzen dagegen einen Speicherplatz und Typ und in der Regel auch einen Wert, namlich den, der an diesem Speicherplatz steht. Es ist jederzeit moglich, diesen Wert zu andern. Solange der Wert einer Variablen nicht gesetzt wurde, braucht sie keinen wohldefinierten Wert zu besitzen.",
@@ -829,6 +835,12 @@
         "matching_score": 0.8,
         "evidence": "Wenn der Compiler keine Fehler entdeckt, erzeugt er ein Objekt-Programm .\n\n- 5. Das Objekt-Programm wird gebunden ; dieses geschieht erneut durch ein spezielles Programm, den Linker . Der Linker fugt das eigene Programm mit den benotigten Routinen aus den Programm-Bibliotheken zu einem ausfuhrbaren Programm ( ' Binary') zusammen.\n- Auch dabei konnen Fehler auftreten, namlich dass der Linker benotigte Routinen nicht findet.\n- 6. Das fertige Programm kann ausgefuhrt werden.",
         "page": 3
+      },
+      {
+        "gold_id": "tutor_knowledge_base.yaml",
+        "matching_score": 0.9,
+        "evidence": "Der Fehler 'ld: Undefined symbols: _main' kommt vom Linker und bedeutet: Das Programm enthaelt keine Funktion namens main. Typische Ursachen: main wurde auskommentiert, die Datei enthaelt nur Hilfsfunktionen (z.B. SmartBeans-Funktionsaufgaben), oder main wurde versehentlich umbenannt.",
+        "page": 0
       }
     ],
     "supplementary_answer": "Der Fehler `ld: Undefined symbols: _main` kommt vom Linker (nicht vom Compiler) und bedeutet: Das Programm enthält keine Funktion namens `main`. Jedes ausführbare C-Programm muss genau eine Funktion `main` als Einstiegspunkt besitzen — sie wird beim Programmstart vom Betriebssystem aufgerufen. Fehlt sie (z.B. weil `main` auskommentiert oder umbenannt wurde, oder weil eine Datei zwar Funktionen enthält, aber nicht zum eigenständigen Programm gedacht ist), kann der Linker das ausführbare Binary nicht erzeugen."
@@ -910,11 +922,6 @@
         "matching_score": 0.7,
         "evidence": "```\ndouble v[5]; oder besser #define LAENGE 5 ...\n```\n\n```\ndouble v[LAENGE];\n```\n\nbesagt so: v ist ein Vektor (eindimensionales Feld) mit 5 Komponenten. Die Dimensionierung muss mit Konstanten erfolgen - allerdings sind die benannten Konstanten eben auch Konstanten.\n\nAnsprechen kann man einzelne Komponenten eines Vektors, indem man seinem Namen den Index der entsprechenden Komponente nachstellt, erneut eingeschlossen in eckige Klammern. Dabei muss man beachten: Die Numerierung der Komponenten beginnt immer",
         "page": 30
-      },
-      {
-        "gold_id": "tutor_knowledge_base.yaml",
-        "matching_score": 0.8,
-        "evidence": "C99 und neuer erlauben Variable Length Arrays (VLAs): Arrays mit einer zur Laufzeit bestimmten Größe (`int array[n];` mit variablem n), die aber auf dem Stack liegen. Sie unterliegen den Stack-Limits (maximale Größe, automatische Freigabe am Funktionsende, kein Return) und sollten nur für kleine, temporäre Daten verwendet werden. Für größere oder über die Funktion hinaus benötigte Daten wird Heap-Speicher mit `malloc` verwendet."
       }
     ],
     "supplementary_answer": "'Statische Dimensionierung' bedeutet, dass die Größe eines Arrays bereits zur **Compile-Zeit** als Konstante feststeht — z.B. `double matrix[MAX_ZEILEN][MAX_SPALTEN]` mit `MAX_ZEILEN`/`MAX_SPALTEN` als `#define` oder `const`. Vorteil: einfache Implementierung ohne Speicherverwaltung. Nachteil: Speicher wird auch reserviert, wenn die tatsächliche Matrix kleiner ist; größere Matrizen lassen sich nicht verarbeiten.\n\n**Wichtige Ergänzung:** C kennt seit C99 auch Variable Length Arrays (VLAs) auf dem Stack — `int array[n]` mit einer Variablen `n` wird also zur Laufzeit dimensioniert, lebt aber trotzdem auf dem Stack. Das hat zwei Limits: (1) der Stack ist begrenzt, sehr große Arrays sprengen ihn (Stack Overflow), (2) ein VLA kann nicht aus der Funktion zurückgegeben werden, da sein Speicher beim Funktionsende automatisch freigegeben wird. Deshalb nimmt man den Stack nur für kleine, temporäre Hilfsvariablen, und für größere oder zurückzugebende Daten den Heap mit `malloc`."
@@ -1404,6 +1411,12 @@
         "matching_score": 0.5,
         "evidence": "gcc -Wall -ansi -o stapeltest stapeltest.c stapel.c\n```\n\nwenn das ausfuhrbare Programm den Namen stapeltest erhalten soll.",
         "page": 90
+      },
+      {
+        "gold_id": "tutor_knowledge_base.yaml",
+        "matching_score": 0.5,
+        "evidence": "Linker-Bibliotheken wie -lm (Mathematikfunktionen) muessen immer am Ende des Befehls stehen, also nach allen .c- und .o-Dateien: gcc -Wall -std=c11 -o wurzel wurzel.c -lm. Steht -lm vor den Quelltextdateien, kann der Linker die Bibliothekssymbole nicht aufloesen und meldet 'undefined reference'. Die Reihenfolge der .c-Dateien ist fuer den Compiler selbst meist egal.",
+        "page": 0
       }
     ],
     "supplementary_answer": "Beim Aufruf des GCC steht der Befehl `gcc` ganz am Anfang, gefolgt von Compiler-Optionen (`-Wall`, `-ansi`, `-O`, `-std=c11`). Mit `-o name` wird die Zieldatei festgelegt. Anschließend folgen die Quelltext- oder Objektdateien.\n\n**Reihenfolge im Detail:**\n- **Beim reinen Kompilieren** mehrerer `.c`-Dateien zu einem Programm (`gcc -o prog a.c b.c c.c`) ist die Reihenfolge der `.c`-Dateien **egal** — der Compiler löst die Abhängigkeiten selbst auf.\n- **Beim Linken** von Objektdateien gilt traditionell: aufrufende Datei zuerst, aufgerufene danach (z.B. `gcc -o program main.o hilfsfunktion.o`). Das ist beim klassischen `ld`-Verhalten relevant.\n- **Linker-Bibliotheken** (`-lm` für Mathe, `-lpthread` etc.) müssen **immer am Ende** stehen, also nach allen `.c`/`.o`-Dateien, da der Linker Bibliotheks-Symbole nur einmal vorwärts auflöst."
@@ -1541,11 +1554,6 @@
         "matching_score": 0.8,
         "evidence": "Bei scanf ist das anders. Diese Funktion muss wissen, wohin sie den gelesenen Wert schreiben soll, d.h. sie benotigt nicht die Werte ihrer Argumente, sondern deren Adressen . Der Adressoperator & , der bereits erwahnt und verwendet wurde, sorgt gerade hierfur.",
         "page": 24
-      },
-      {
-        "gold_id": "tutor_knowledge_base.yaml",
-        "matching_score": 0.8,
-        "evidence": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden."
       }
     ],
     "supplementary_answer": "Pointer sind in C aus mehreren miteinander verbundenen Gründen unverzichtbar — der Kerngrund liegt in der **Speicherorganisation des Programms**: Lokale Variablen liegen auf dem **Stack**, der nur begrenzt Platz hat und dessen Inhalt am Funktionsende automatisch freigegeben wird. Will man in einer Funktion z.B. ein Array erzeugen und an den Aufrufer zurückgeben, dann müssen die Daten auf dem **Heap** liegen — und auf den Heap-Speicher kann man nur über Pointer zugreifen, weil er nicht an einen Variablennamen gebunden ist (siehe `malloc`).\n\nPointer selbst sind dabei **auch nur Variablen** — Variablen, die Speicheradressen als Wert enthalten. Daraus ergeben sich weitere praktische Vorteile: (1) **Call by Reference simulieren:** Da C bei Funktionsaufrufen standardmäßig Werte kopiert (Call by Value), kann eine Funktion wie `scanf` nur dann den echten Wert einer Variablen ändern, wenn sie deren Adresse erhält. (2) **Performance bei großen Datenstrukturen:** Statt einen ganzen Struct oder ein großes Array zu kopieren, übergibt man nur dessen Adresse. (3) **Flexible Datenstrukturen:** Verkettete Listen, Bäume usw. funktionieren nur über Zeiger zwischen den Knoten. Insgesamt erlauben Pointer flexiblere Programme, die Speicher selbst verwalten, mit großen Datenmengen umgehen und Daten über einen einzelnen Funktionsaufruf hinaus verfügbar halten."
@@ -2234,11 +2242,6 @@
         "matching_score": 0.85,
         "evidence": "Der Teilausdruck &i liefert die Adresse von i als Resultat.",
         "page": 120
-      },
-      {
-        "gold_id": "tutor_knowledge_base.yaml",
-        "matching_score": 0.8,
-        "evidence": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Sie sind in C nötig, weil Daten auf dem Stack am Funktionsende automatisch freigegeben werden — Daten, die länger leben sollen oder zu groß für den Stack sind, müssen auf dem Heap liegen, und auf den Heap kann nur über Pointer zugegriffen werden."
       }
     ],
     "supplementary_answer": "Pointer sind Variablen, die Speicheradressen als Wert enthalten. Man braucht sie aus mehreren Gründen: (1) **Lebensdauer und Speicherorganisation:** Lokale Variablen liegen auf dem Stack und werden beim Funktionsende automatisch freigegeben. Daten, die länger leben sollen — z.B. ein in der Funktion erzeugtes Array, das zurückgegeben wird —, müssen auf dem Heap liegen, der mit `malloc` angefordert wird; und auf Heap-Speicher kann man nur über Pointer zugreifen. (2) **Funktionen sollen Originale verändern können:** Da C bei Funktionsaufrufen standardmäßig nur Wert-Kopien übergibt (Call by Value), kann z.B. `scanf` nur dann den Originalwert einer Variablen ändern, wenn man die Adresse übergibt. (3) **Performance:** Bei großen Datenstrukturen erspart die Übergabe der Adresse das Kopieren aller Daten.\n\n**Auf die Speicheradresse einer Variablen** zugreift man mit dem Adressoperator `&`. Setzt man `&` direkt vor eine Variable (z.B. `&v`), liefert der Ausdruck deren konkrete Speicheradresse zurück, statt den Wert. Diese Adresse kann man in einer Pointer-Variable speichern (`int *p = &v;`) oder direkt an eine Funktion übergeben (`scanf(\"%d\", &v);`)."
