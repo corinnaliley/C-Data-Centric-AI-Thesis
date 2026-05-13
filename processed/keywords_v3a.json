@@ -1,0 +1,4069 @@
+{
+  "_meta": {
+    "model": "paraphrase-multilingual-MiniLM-L12-v2",
+    "n_keywords": 7,
+    "diversity": 0.5,
+    "created_at": "2026-05-11T19:51:16.276878+00:00"
+  },
+  "chunks": {
+    "b15ed3f4d7611304": [
+      "ansi-c",
+      "programmierkursen",
+      "skripts",
+      "verwendung",
+      "martin lowes uberarbeitet",
+      "herrn johannes lowe",
+      "aktualisierung"
+    ],
+    "bd80f53506eafae3": [
+      "compiler-unterstutzung",
+      "ansi-c",
+      "georg-august-universitat gottingen",
+      "angewandte mathematik",
+      "aktualisierung",
+      "urtexts",
+      "martin lowes"
+    ],
+    "d32e4dc677795172": [
+      "programmiersprache c",
+      "# programmierung",
+      "programmbeispiele",
+      "ansi-c",
+      "standardbibliothek",
+      "ausprobieren",
+      "computer"
+    ],
+    "2fdf6ae8dd6d2e43": [
+      "tippfehler",
+      "verbesserungsvorschlage",
+      "kapitel",
+      "c-programmen",
+      "|--------------------------------------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------|--------------------------------------------------|",
+      "standarddatentypen",
+      "carsten damm februar"
+    ],
+    "967ed5c3423f6386": [
+      "# programmierung",
+      "|--------------------------------------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------|--------------------------------------------------|",
+      "ansi-c",
+      "formatierte ein-/ausgabe",
+      "henrik brosenne februar",
+      "gleitkommatypen",
+      "castoperatoren"
+    ],
+    "ac80ce5d933df793": [
+      "# programmierung",
+      "ansi-c",
+      "-operator",
+      "|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|",
+      "makros",
+      "standardbibliothek",
+      "attribut const"
+    ],
+    "f5d5d9b16c6d6eaa": [
+      "# programmierung",
+      "ansi-c",
+      "rechnerarithmetik",
+      "speichertypen",
+      "deklarationen",
+      "|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|",
+      "makro-definition"
+    ],
+    "5734a6fa29aecc9e": [
+      "# programmierung",
+      "rechnerarithmetik",
+      "ansi-c",
+      "sprache bcpl",
+      "c-standardbibliothek",
+      "|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|",
+      "speicherfreigabe"
+    ],
+    "c1211f3cccea1413": [
+      "ansi c-programme",
+      "# programmierung",
+      "ansi-standard",
+      "algorithmen",
+      "assembler",
+      "sprachkonstrukte",
+      "tabellenverzeichnis"
+    ],
+    "10fe1f48e63c779a": [
+      "compiler i.a",
+      "programmiersprache",
+      "ansi-c",
+      "strukturierung",
+      "objekt-programm",
+      "bytes",
+      "kontrollflusses"
+    ],
+    "4fee93f199e65b44": [
+      "c-programms",
+      "# programmierung",
+      "funkt1",
+      "ansi-standard",
+      "fehler",
+      "quelltext",
+      "apple-textdateien"
+    ],
+    "87f7942e46d0e0ba": [
+      "c-programms",
+      "apple-textdateien",
+      "zeichen",
+      "* textausgabe *",
+      "quelltext 1.1",
+      "# include < stdio.h",
+      "carriage return"
+    ],
+    "a0e385231c64c1a9": [
+      "c-programmen",
+      "# programmierung",
+      "funktion printf",
+      "praprozessor-direktiven",
+      "parameterliste",
+      "kommentaren",
+      "# include < stdio.h >"
+    ],
+    "b8bf3ae6140b26a5": [
+      "compiler",
+      "# programmierung",
+      "ansi-c",
+      "zeichenkombination",
+      "newline-zeichens",
+      "c",
+      "text"
+    ],
+    "42f7d9b6a9c12b9e": [
+      "gcc-compiler",
+      "compiler muss",
+      "gnu c-library",
+      "ansi-cstandards",
+      "programmiersprache",
+      "implementationsfehler",
+      "literatur"
+    ],
+    "9684ba82205e4679": [
+      "standardbibliothek",
+      "c-implementierung",
+      "-direktiven",
+      "standard",
+      "programme",
+      "# kapitel",
+      "standard-headerdateien"
+    ],
+    "2943c80098ae3571": [
+      "standardbibliothek",
+      "¨ubrigen headerdateien",
+      "-direktiven",
+      "compiler",
+      "stdlib.h",
+      "datenformate",
+      "gleitkommatypen"
+    ],
+    "22bab5aebd3a0de4": [
+      "funktionen",
+      "compiler",
+      "math.h",
+      "prototypen",
+      "# kapitel",
+      "headerdatei errno.h",
+      "log10 sqrt"
+    ],
+    "5930ecf1d5d163f2": [
+      "-wall prog.c -lm",
+      "gleitkommaprozessor",
+      "rechnern",
+      "fehler",
+      "bibliotheksfunktionen",
+      "name ndebug",
+      "# kapitel"
+    ],
+    "45b862cf336f9a12": [
+      "typdeklarationen",
+      "-direktive",
+      "quellcode",
+      "name ndebug",
+      "tests",
+      "konstantendefinitionen",
+      "stdlib.h"
+    ],
+    "8e7ce106a4f181ca": [
+      "deklarationen",
+      "stdlib.h",
+      "const char *",
+      "string",
+      "# kapitel",
+      "pseudo-zufallszahlen-generator",
+      "umwandlungsfunktionen"
+    ],
+    "98b4b3e5eaaa7640": [
+      "funktionen",
+      "pseudo-zufallszahlen-generator",
+      "rand max ]",
+      "32767(=",
+      "stdlib.h",
+      "# kapitel",
+      "prototyp"
+    ],
+    "543b8cf7dddbc2ec": [
+      "prozessorzeit",
+      "funktion clock\\_t clock",
+      "arithmetik",
+      "prototyp",
+      "test",
+      "void srand",
+      "# kapitel"
+    ],
+    "4afba8b8ecabc897": [
+      "clock\\_t clock",
+      "konstante clocks per sec",
+      "time.h",
+      "prozessorzeit",
+      "implementationsabhangiges verhalten",
+      "strukturen",
+      "typedef"
+    ],
+    "e40c9b5b2d982c54": [
+      "-direktive",
+      "praprozessor",
+      "compilers",
+      "# kapitel",
+      "ersetzungen",
+      "ersatztext",
+      "kenntnisstand"
+    ],
+    "3558dff8ab04b85b": [
+      "-direktive",
+      "[ text ]",
+      "compilers",
+      "# include",
+      "quellcodes",
+      "quelldatei",
+      "backslash"
+    ],
+    "f4a4005aba097d91": [
+      "direktive # include",
+      "compilers",
+      "nomenklatur",
+      "form",
+      "praprozessor",
+      "directory",
+      "expandierung"
+    ],
+    "7a0c66fc2e06a7ac": [
+      "direktive #",
+      "nomenklatur",
+      "name",
+      "makros",
+      "[ text ]",
+      "maschinencode",
+      "standard-headerdatei"
+    ],
+    "8fe3bc8094181ba1": [
+      "makro-aufruf",
+      "verwendung #",
+      "quellcode ] #",
+      "maschinencode",
+      "direktiven-konstrukte",
+      "[ text ]",
+      "compilation"
+    ],
+    "69e8f42ee8825bb5": [
+      "direktiven-konstrukte",
+      "quellcode ] #",
+      "# ifdef name",
+      "logik",
+      "praprozessor-operator",
+      "[ text ]",
+      "tests"
+    ],
+    "a17987c79aaed1a0": [
+      "# define testen",
+      "# defined",
+      "ifdef name",
+      "direktivenfolge",
+      "compilers",
+      "|| defined",
+      "[ text ]"
+    ],
+    "1235c351952f7f18": [
+      "# ifndef",
+      "direktivenfolge",
+      "compiler",
+      "eof",
+      "quellcode",
+      "printf(\"%s(%d",
+      "debug"
+    ],
+    "82317ea6dbbfe5d8": [
+      "-compiler",
+      "makro-definition",
+      "\\_\\_file\\_\\",
+      "printf(\"%s(%d",
+      "-d name",
+      "argument",
+      "# dafur"
+    ],
+    "06f3378d503e524c": [
+      "[ anzahl ]",
+      "[ index ]",
+      "null-zeichen",
+      "# kapitel",
+      "komponente",
+      "variablen",
+      "vektoren"
+    ],
+    "62c0e3ddd4bb112d": [
+      "vektors",
+      "dimensionen",
+      "v[6 ]",
+      "11.2 vereinbarung",
+      "strings",
+      "m[0][0 ]",
+      "c-programmierer"
+    ],
+    "ab2f68b2a690a338": [
+      "m[0][3 ]",
+      "speicheranordnung",
+      "vektors",
+      "matrixkomponente",
+      "c-programmierer",
+      "dimensionierung",
+      "nullbyte"
+    ],
+    "4abb5e2188b4172f": [
+      "verstoß",
+      "nullbyte",
+      "programms",
+      "speicherabbildungsfunktion",
+      "float v1[7 ]",
+      "parameter",
+      "# kapitel"
+    ],
+    "28df2ca1a9cb5dd3": [
+      "vektors",
+      "dimensionen",
+      "zeile)-1)*(laenge)+(spalte)-1",
+      "compiler",
+      "float c [ ]",
+      "formulierung",
+      "# define lin"
+    ],
+    "6becf751f77079d9": [
+      "matrizen",
+      "speicherabbildungsfunktion",
+      "compiler",
+      "komponenten",
+      "v[6 ]",
+      "methoden",
+      "# kapitel"
+    ],
+    "d7a376c8166e2566": [
+      "feldkomponenten anfangswerte",
+      "11.5 initialisierung",
+      "float v[12",
+      "fur strings",
+      "speichers",
+      "compiler",
+      "null-zeichen"
+    ],
+    "22acf74598a1e2dc": [
+      "operanden variablen",
+      "dekrementoperatoren muss",
+      "kontext",
+      "resultat",
+      "# kapitel",
+      "speicherplatz",
+      "adressen"
+    ],
+    "ebc733eb41830688": [
+      "adressoperator",
+      "dereferenzierungsoperator",
+      "dekrementoperatoren muss",
+      "variablen",
+      "programmierer",
+      "wertzuweisungen",
+      "# kapitel"
+    ],
+    "ea0f32d7ab4e708f": [
+      "operator",
+      "parametervereinbarung",
+      "resultat",
+      "trivialfunktion",
+      "typs",
+      "inkrement1(int",
+      "* k"
+    ],
+    "f85491413cf1d553": [
+      "-variable",
+      "parametervereinbarung",
+      "typbindung",
+      "inkrement2(&j",
+      "j =",
+      "compiler",
+      "# kapitel"
+    ],
+    "ebd15986a6867c89": [
+      "int -variable j",
+      "compiler",
+      "typbindung",
+      "int * p",
+      "* k",
+      "deklaration",
+      "# kapitel"
+    ],
+    "55430c1be0b3ca7d": [
+      "int const * const p",
+      "zeigervariable",
+      "* fehler",
+      "feld dimensionen",
+      "# kapitel",
+      "datenstrukturen",
+      "j variablen"
+    ],
+    "24159714531892ed": [
+      "parameterubergabe",
+      "logik",
+      "v[0 ]",
+      "datenstrukturen",
+      "adressoperators",
+      "kopieren",
+      "# kapitel"
+    ],
+    "e0e00c926b5cb0fc": [
+      "v[7 ]",
+      "parameterdefinitionen const float v [ ]",
+      "c-typische formulierung",
+      "logik",
+      "dereferenzierungsoperator",
+      "12.6 zeigerarithmetik",
+      "p-p"
+    ],
+    "eeaa059651fab461": [
+      "v++",
+      "operatoren",
+      "vektorsumme",
+      "verdeutlichung const float * const v",
+      "variable v",
+      "arguments",
+      "makro null"
+    ],
+    "f5017eecc33aa9d3": [
+      "vektorsumme",
+      "anfangselement",
+      "standard",
+      "makro null",
+      "# kapitel",
+      "string.h",
+      "differenz"
+    ],
+    "e6e3db8c50de70da": [
+      "vektorsumme",
+      "compiler",
+      "bedingung v1 < v2",
+      "beispiele strings",
+      "void strcpy1(char",
+      "parameter",
+      "differenz"
+    ],
+    "029f32f3e88f2cb8": [
+      "12.9 probleme",
+      "v1[10 ]",
+      "indexvariablen",
+      "zeiger-varianten",
+      "funktionsheaders",
+      "compiler",
+      "differenz"
+    ],
+    "007aabd5198ac6de": [
+      "ausdrucks 6.5f",
+      "printf",
+      "* fp",
+      "typs",
+      "char * s1",
+      "anfangswertzuweisungen fur zeigervariablen",
+      "variablendefinitionen"
+    ],
+    "6fadf58b02bf844b": [
+      "bytes",
+      "\\0",
+      "anfangswertzuweisungen fur zeigervariablen",
+      "variablendefinitionen",
+      "s2",
+      "const char * const str5",
+      "rechner fur"
+    ],
+    "f8f78b191f075996": [
+      "const char str3 [ ]",
+      "typ char *",
+      "string",
+      "compiler",
+      "vektoren",
+      "weise",
+      "# kapitel"
+    ],
+    "fe5627284f90296e": [
+      "const char str3 [ ]",
+      "typ char *",
+      "compiler",
+      "string",
+      "str5",
+      "parameter fur",
+      "null-zeichens"
+    ],
+    "fe20bf4d330537f2": [
+      "funktionen",
+      "bytes",
+      "null-zeichen",
+      "ziffern\\_d",
+      "# kapitel",
+      "standard-headerdatei string.h",
+      "const char * s2"
+    ],
+    "53419eb2796887a6": [
+      "[ i][j ]",
+      "matrix",
+      "verarbeitung",
+      "standard-headerdatei string.h",
+      "quellstring s2",
+      "size\\_t",
+      "zeilenvektoren"
+    ],
+    "4b505f469c9e15f8": [
+      "char * strchr",
+      "c-programm",
+      "parameter.\\n",
+      "printf(\"%s\\n",
+      "return 2",
+      "argv[0 ]",
+      "null"
+    ],
+    "43b3938671ce0a02": [
+      "programms",
+      "typ-deklaration",
+      "# include < stdio.h > typedef double",
+      "char * argv [ ]",
+      "standard-headerdatei stdlib.h",
+      "parameter.\\n",
+      "void * start"
+    ],
+    "4be777949178ba94": [
+      "qsort((void",
+      "compiler",
+      "parameter",
+      "# include < stdlib.h",
+      "void * start",
+      "* relation)(const void *",
+      "size\\_t anzahl"
+    ],
+    "97c1da7f1795f70a": [
+      "umspeichern",
+      "v1[laenge ]",
+      "zeichenvektoren",
+      "standardbibliothek",
+      "prototyp",
+      "size\\_t",
+      "void * memmove"
+    ],
+    "c737d0e5836e0293": [
+      "funktion void memset",
+      "memcpy",
+      "sizeof v2",
+      "v1[laenge ]",
+      "speicherbereiche",
+      "kopieren",
+      "logik"
+    ],
+    "0f8f220eb32b0838": [
+      "speicherbereiche",
+      "13.1 speichertypen",
+      "compiler",
+      "externe variablen",
+      "blockstruktur",
+      "standard-headerdatei stdlib.h",
+      "void * zeiger"
+    ],
+    "2ef95f9c342a2300": [
+      "speicherbereichs",
+      "compiler",
+      "stack",
+      "variablen",
+      "standard-headerdatei stdlib.h",
+      "null",
+      "castoperator"
+    ],
+    "705c365448548755": [
+      "speicher",
+      "programmabbruch *",
+      "betriebssysteme",
+      "null",
+      "matrixstruktur",
+      "free",
+      "float * v"
+    ],
+    "dbdbcb887f905c4d": [
+      "matrizen",
+      "speicher",
+      "argument[1 ]",
+      "printf(\"%f\\n",
+      "# kapitel",
+      "unzulassige aufrufparameter",
+      "# include < string.h"
+    ],
+    "6b69308771190260": [
+      "speichern",
+      "bytes",
+      "rechner",
+      "* sizeof",
+      "programms",
+      "vektorkomponente",
+      "13.4 beispiel"
+    ],
+    "1580d9ddb9e391cb": [
+      "speicherfreigabe",
+      "programms",
+      "menge * sizeof",
+      "protokollmechanismus",
+      "float * v",
+      "# kapitel",
+      "testphase"
+    ],
+    "e1c4171958c4e468": [
+      "speicherbereich fur",
+      "* * matrixalloc",
+      "* * sizeof",
+      "static int anzahl",
+      "float *",
+      "v =",
+      "# include < stdlib.h"
+    ],
+    "680afc72b80e4425": [
+      "matrixfreigabe",
+      "void matrixfree",
+      "funktionen",
+      "speicherbereitstellung",
+      "static int anzahl",
+      "* * sizeof",
+      "# include < stdlib.h"
+    ],
+    "a446d00b806aa965": [
+      "strukturtyps",
+      "objekte",
+      "matrikelnummer",
+      "student\\_t student3",
+      "14.1 vereinbarung",
+      "complex\\_t[2 ]",
+      "char vorname[30 ]"
+    ],
+    "a6ee52d81cca315f": [
+      "student\\_t student3",
+      "strukturdefinition",
+      "typedef -deklaration",
+      "char nachname[30 ]",
+      "variablenvereinbarung",
+      "# include < stdio.h",
+      "printf(\"vorname"
+    ],
+    "fe58d967a660f600": [
+      "printf(\"nachname",
+      "student\\_t gelesener\\_satz",
+      "scanf(\"%d",
+      "char vorname[30 ]",
+      "typedef",
+      "} name\\_t",
+      "parameter"
+    ],
+    "1337c8e7c7e1d363": [
+      "* strukturzeiger",
+      "const student\\_t * const",
+      "a->hausnr",
+      "typedef",
+      "studenten[17].name.vorname[0 ]",
+      "parameter",
+      "quelltext 14.2"
+    ],
+    "8f3c230d0cd09d9e": [
+      "printf(\"wohnort",
+      "} void satz\\_lesen",
+      "14.5 strukturen",
+      "a->hausnr",
+      "name\\_lesen(&s->name",
+      "student\\_t * const",
+      "speicher"
+    ],
+    "88d99331fe48a3db": [
+      "speicher",
+      "struktur",
+      "rechner",
+      "operator",
+      "# kapitel",
+      "heap",
+      "wert"
+    ],
+    "6e57a288a8b06640": [
+      "sizeof",
+      "strukturen",
+      "speicherbedarf",
+      "student\\_t",
+      "rechner",
+      "operator",
+      "typecast"
+    ],
+    "e187b969c4ecb501": [
+      "headerdatei time.h",
+      "greenwich-standardzeit",
+      "14.6 datum",
+      "tm\\_sec sekunde",
+      "# kapitel",
+      "operator",
+      "datenstruktur"
+    ],
+    "b9964d9c46089343": [
+      "* gmtime",
+      "* zeitpunkt",
+      "* localtime",
+      "greenwich-standardzeit",
+      "strukturtyp",
+      "liste * nachfolger",
+      "amstart"
+    ],
+    "7bddda99c734a16a": [
+      "strukturen",
+      "liste",
+      "# kapitel",
+      "fantasie",
+      "14.8 verbunde",
+      "castoperatoren",
+      "printf(\"%d\\n"
+    ],
+    "29c5694763b23b75": [
+      "programmierers",
+      "c-spezifisch",
+      "minimalanforderungen",
+      "-10 -37 ] ∪",
+      "dbl max",
+      "15.1 gleitkomma-ausnahmebehandlung",
+      "headerdatei signal.h"
+    ],
+    "b212ac453f2b09ca": [
+      "headerdatei signal.h",
+      "0.12e1",
+      "programmabbruch",
+      "byte-arithmetik",
+      "# kapitel",
+      "zahlen",
+      "castoperatoren"
+    ],
+    "01e1384c75bcf899": [
+      "operationen modulo",
+      "float -arithmetik",
+      "norm",
+      "-9 ] ∪",
+      "ergebnis",
+      "castoperatoren",
+      "0.12e1"
+    ],
+    "1dfac68647ff0ecc": [
+      "kommutativgesetz",
+      "float -arithmetik",
+      "standard",
+      "compiler",
+      "voraussetzungen",
+      "# kapitel",
+      "rechner fur gleitkommazahlen"
+    ],
+    "085e78d42c675d3b": [
+      "compiler",
+      "standardcompiler",
+      "standard",
+      "dezimalstellen genauigkeit",
+      "-1e12",
+      "gleitkommaausdrucken",
+      "# kapitel"
+    ],
+    "7e4a76150e31c4e7": [
+      "dezimalstellen genauigkeit",
+      "intervall [",
+      "probleme",
+      "15.5",
+      "printf(\"%f\\n",
+      "000000.",
+      "# kapitel"
+    ],
+    "d80a7126171fc16e": [
+      "rundungsfehler",
+      "gleitkomma-arithmetik",
+      "0.99986",
+      "15.5",
+      "ta-b",
+      "variable",
+      "# kapitel"
+    ],
+    "17405cfa4a66da92": [
+      "gleitkomma-arithmetik",
+      "intervallrechnung",
+      "zwischenresultate",
+      "0.99987",
+      "algorithmen",
+      "fehler",
+      "# kapitel"
+    ],
+    "58a026c5d0df132a": [
+      "binarzahl",
+      "stellenwertsystem",
+      "byte",
+      "nullen",
+      "standardtypen",
+      "computer",
+      "# kapitel"
+    ],
+    "6cd84b0bdda7d4f6": [
+      "bits",
+      "bytes gruppen",
+      "+127",
+      "-32768",
+      "limits.h",
+      "standardtypen",
+      "fur bytes"
+    ],
+    "28cd905e60c5d8d3": [
+      "wertebereiche fur ganzahltypen",
+      "ansi-standard fur c",
+      "long -typen",
+      "bytes",
+      "compiler",
+      "standard-headerdateien",
+      "hexadezimale konstanten"
+    ],
+    "9e6cdd546ccb0db6": [
+      "compiler",
+      "-typen",
+      "typ unsigned",
+      "operatoren",
+      "char max",
+      "dezimal-)ziffern",
+      "minus"
+    ],
+    "7c4d6bd9745f8db7": [
+      "typ char",
+      "zeichenkettenkonstante",
+      "signed",
+      "steuerzeichen",
+      "ascii-code",
+      "|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------|",
+      "apostrophe"
+    ],
+    "49a8538c8f5be98d": [
+      "fragezeichen",
+      "zeichenkettenkonstanten",
+      "begriff string",
+      "# kapitel",
+      "-10 -37 ] ∪",
+      "long",
+      "backslash"
+    ],
+    "5facdbf8986b056b": [
+      "} ∪ [ +10 -37",
+      "strings",
+      "gleitkommatypen",
+      "escapesequenz",
+      "1.0e-1",
+      "# kapitel",
+      "ldbl max"
+    ],
+    "971992d645a4a5b4": [
+      "# kapitel",
+      "1.0e-1",
+      "aufzahlungstyp",
+      "}",
+      "kennbuchstaben",
+      "deklaration",
+      "enum ["
+    ],
+    "bf510c6aaff4285b": [
+      "deklaration",
+      "enum [",
+      "# kapitel",
+      "liste",
+      "optional",
+      "aufzahlungstyp",
+      "name"
+    ],
+    "0a24c70e60e676e4": [
+      "werte",
+      "# kapitel",
+      "enum",
+      "programms",
+      "gelb",
+      "dbl\\_epsilon",
+      "newline"
+    ],
+    "66875270e0054d5a": [
+      "aufzahlungsdeklaration",
+      "standard",
+      "flt\\_max",
+      "# define name ersatztext",
+      "# kapitel",
+      "dbl\\_epsilon",
+      "compiler"
+    ],
+    "4fab1d0886350364": [
+      "# define mwst 15.0 # define mwst\\_erm 7.0",
+      "mwst",
+      "speicherklassen-attributs",
+      "steuersatz",
+      "] typ",
+      "# kapitel",
+      "variablen"
+    ],
+    "3cbae1d2a75db6cf": [
+      "speicherklassen-attributs",
+      "schlusselwort-kombinationen",
+      "compiler",
+      "form [",
+      "variablen",
+      "aufzahlungstyp",
+      "initialisierung"
+    ],
+    "1dfd6b6782bb8824": [
+      "initialisierung",
+      "variablennamen",
+      "c-programmen",
+      "register | typedef",
+      "# kapitel",
+      "2.5e-7",
+      "objekte"
+    ],
+    "8d5cf4789731dfad": [
+      "schlusselwort typedef",
+      "# kapitel",
+      "bezeichner",
+      "variablen",
+      "anzahlen c",
+      "strings",
+      "ziffer"
+    ],
+    "fe64be63ba0575a1": [
+      "typedef typ name",
+      "typedef",
+      "schlusselwort typedef",
+      "typedef enum",
+      "farbe\\_t",
+      "standardbibliothek",
+      "# kapitel"
+    ],
+    "bb95cece4098cb83": [
+      "typs file",
+      "file * fopen",
+      "16.1 verarbeitung",
+      "c-programm fur",
+      "# kapitel",
+      "parameter",
+      "const char * dateiname"
+    ],
+    "27737c3ae565ee72": [
+      "/*= hauptprogramm",
+      "const char * format",
+      "file * fopen",
+      "string",
+      "stdio.h",
+      "file * datei",
+      "# kapitel"
+    ],
+    "3d6a2f6201fe4996": [
+      "} datei\\_kopieren",
+      "# kapitel",
+      "const char * frage",
+      "static file * zugeordnete\\_datei",
+      "quelltext 16.1",
+      "return",
+      "< filename\\_max"
+    ],
+    "733680a8d3ce2b41": [
+      "formatierungsstring",
+      "zeichencodes",
+      "binare ein-/ausgabe",
+      "# kapitel",
+      "interpretationsvorschrift",
+      "bytes",
+      "linear"
+    ],
+    "7d747bbab67c4a1a": [
+      "16.3 ausgabeformate",
+      "binardateien",
+      "typ > kennung",
+      "interpretationsvorschrift",
+      "unsigned char",
+      "fwrite",
+      "# kapitel"
+    ],
+    "42427733fa2ce712": [
+      "standardformat",
+      "→ 123.456703 printf(\"%s",
+      "minuszeichen",
+      "typ long",
+      "# kapitel",
+      "0743glyph [ visiblespace ] glyph [ visiblespace ]",
+      "parameter"
+    ],
+    "3e83a5f9d23d3224": [
+      "→ glyph [",
+      "typ long",
+      "c-schreibweise",
+      "# kapitel",
+      "16.4 eingabeformate",
+      "-typen",
+      "white space"
+    ],
+    "ec0dcad75722520b": [
+      "formatbeschreibers",
+      "# kapitel",
+      "gleitkommazahl",
+      "glyph [ visiblespace]%c",
+      "unsigned",
+      "interpretation",
+      "r2.33e+2"
+    ],
+    "adb722e7adccd755": [
+      "zahl1563",
+      "glyph [ visiblespace]%c",
+      "r2.33e+2",
+      "formatbeschreiber %",
+      "# kapitel",
+      "int fscanf",
+      "interpretation"
+    ],
+    "21cea9fde92ebd91": [
+      "const char * format",
+      "formatbeschreiber % * [ ^\\n",
+      "printf",
+      "16.5 funktionen",
+      "string",
+      "file * datei",
+      "getchar"
+    ],
+    "2f522d72b479df9c": [
+      "file *",
+      "interpretation",
+      "programmierer",
+      "string",
+      "} return c",
+      "formatbeschreibern",
+      "# kapitel"
+    ],
+    "b37e9730488ad64c": [
+      "time-sharing-betriebssystem",
+      "unix",
+      "prozessorzeit",
+      "speicher",
+      "terminals",
+      "a.1 grundlagen",
+      "# anhang"
+    ],
+    "21197947e5f82887": [
+      "login-fenster",
+      "terminal",
+      "systeme",
+      "# anhang",
+      "zulassungsprozedur",
+      "benutzername",
+      "c-d"
+    ],
+    "ca38d0af8366a641": [
+      "enter -taste",
+      "unix-manuals",
+      "c-d",
+      "exit",
+      "terminalfenster",
+      "zeichen ¿",
+      "drucken"
+    ],
+    "9aee224f3d5e0670": [
+      "massenspeicher",
+      "c-standardbibliothek",
+      "unix-filesystems",
+      "printf ¿",
+      "users",
+      "./a.out ¿",
+      "picture-1.png"
+    ],
+    "21412e1a926a266f": [
+      "working directory",
+      "./a.out ¿ fur",
+      "programmen",
+      "pfadname",
+      "arbeitsverzeichnis",
+      "fur benutzer2",
+      "dateiverwaltung"
+    ],
+    "bf1749d6479e0f76": [
+      "directory",
+      "/home",
+      "# anhang",
+      "users",
+      "kommando",
+      "benutzer2",
+      "kurzform"
+    ],
+    "3bc9bcc732e3fb96": [
+      "-l",
+      "# anhang",
+      "kommando",
+      "pfadname",
+      "users",
+      "/home",
+      "benutzers benutzer2"
+    ],
+    "631320f67fd9bbce": [
+      "rwx",
+      "# anhang",
+      "ls -al ¿",
+      "-i name1 name2",
+      "copy",
+      "remove directory",
+      "dateinamen"
+    ],
+    "8c5c8f0c6658d038": [
+      "kopieren",
+      "a.6 metazeichen",
+      "* ¿ rm -i * ¿",
+      "kommandos",
+      "suffix .c",
+      "directory",
+      "move"
+    ],
+    "61547e34ff5f9731": [
+      "directory",
+      ".c",
+      "drucken",
+      "# anhang",
+      "datei-inhalten",
+      "bildschirmseite",
+      "enter -taste"
+    ],
+    "7aea6cc731e8254d": [
+      "drucken",
+      "-p xyz # ¿",
+      "bildschirmseite",
+      "standardein-/ausgabe",
+      "drucker",
+      "tastatur",
+      "remove"
+    ],
+    "8847317142e12cd8": [
+      "-p xyz # ¿",
+      "unix-kommandos",
+      "standardein-/ausgabe",
+      "a.8 umleitung",
+      "programm < name",
+      "texte",
+      "remove"
+    ],
+    "24b453d209225a16": [
+      "textverarbeitungsprogramm",
+      "editors",
+      "c-quellprogramme",
+      "gnu compiler-sammlung",
+      "bibliotheksroutinen",
+      "# anhang",
+      "tests"
+    ],
+    "aa24e85eb75d7f22": [
+      "compileraufruf",
+      "bibliotheksroutinen",
+      "gnu c library",
+      "c-quellcode",
+      "editoren",
+      "a.10 ubersetzen",
+      "linker-option"
+    ],
+    "18005e3f2b9b7a24": [
+      "c-standardbibliothek",
+      "header-dateien",
+      "ctype.h",
+      "dokumentation",
+      "debugging-hilfen",
+      "unix",
+      "ziffer"
+    ],
+    "2b7c3a1f245d81be": [
+      "operatoren",
+      "char bit -char max -char min -schar max",
+      "variable",
+      "# anhang",
+      "makro erange",
+      "float.h",
+      "iso646.h"
+    ],
+    "14beaf7624d01d3a": [
+      "min -uchar max -shrt max -shrt min",
+      "limits.h",
+      "gleitkomma-arithmetik",
+      "-sinh -tanh -exp",
+      "iso646.h",
+      "# anhang",
+      "operatoren"
+    ],
+    "dff923765a619d33": [
+      "-operator",
+      "nullzeiger",
+      "parametern",
+      "z.b. printf",
+      "bsearch -qsort",
+      "const char * s2",
+      "rand max -rand -srand"
+    ],
+    "04495d9c5968e153": [
+      "fehlercode kennzahl",
+      "exit failure",
+      "bsearch -qsort umwandlungen",
+      "-ldiv -abs -div",
+      "string.h",
+      "-atexit systemaufrufe",
+      "char * strchr"
+    ],
+    "840d232afbf513a2": [
+      "char * strchr",
+      "const char * s1",
+      "stringende-zeichen",
+      "void * s1",
+      "> speicherbearbeitung",
+      "* memcpy",
+      "clocks per sec"
+    ],
+    "8220052336364e86": [
+      "-asctime -ctime",
+      "zeitmessung",
+      "clocks per sec",
+      "time.h",
+      "anfang s1",
+      "# anhang",
+      "strings"
+    ],
+    "f559bfb7c10f9e79": [
+      "# anhang",
+      "-asctime -ctime",
+      "wctype.h",
+      "hanoi",
+      "strings",
+      "speicherbearbeitung",
+      "× 3)-matrix"
+    ],
+    "a43d632c08ae6830": [
+      "hanoi",
+      "# anhang",
+      "|---------------------|-----------------------------------------------------------------------------------------|------|",
+      "typumwandlung",
+      "wctype.h zeichenuntersuchung",
+      "vorschuben",
+      "tabellenverzeichnis"
+    ],
+    "cec9b159b62e41ce": [
+      "berechnung",
+      "c\\_programming\\_language&oldid=40429557",
+      "|-------|--------------------------------------------------------------------------------------|-----|",
+      "13.2 matrizen",
+      "klassifizierung",
+      "inkrement-operator",
+      "hanoi"
+    ],
+    "f8065001e95ca110": [
+      "] sammlung",
+      "c\\_programming\\_language&oldid=40429557",
+      "c. ansi standard",
+      "n1124.pdf",
+      "|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------| | # define",
+      "open-std.org/jtc1/sc22/wg14/www/standards",
+      "manfred dausmann"
+    ],
+    "1dc5ff0ff73f7f04": [
+      "compiler",
+      "> stichwortverzeichnis",
+      "ascii-code",
+      "ansi-standard",
+      "|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|",
+      "internet-website",
+      "] martin lowes augustin paulik"
+    ],
+    "b93393e2ee4e8ae5": [
+      "|--------------------------------------------------------------------------------------------------------------------------------------|",
+      "> stichwortverzeichnis",
+      "# anhang",
+      "compilation",
+      "edom",
+      "escapesequenzen",
+      "byte"
+    ],
+    "6b585cf228e8ddd1": [
+      "|--------------------------------------------------------------------------------------------------------------------------------------|",
+      "# anhang",
+      "ein-/ausgabe",
+      "exit",
+      "komponenten",
+      ".69",
+      "deklaration"
+    ],
+    "a8236a4e2076316a": [
+      "prototyp",
+      "# anhang",
+      "hauptmodul",
+      "funktionswert",
+      "gleitkommazahlen",
+      "> g",
+      "zeichen"
+    ],
+    "4948bacfece1518e": [
+      "# anhang",
+      ">",
+      "zeichen",
+      "hauptmodul",
+      "headerdatei",
+      "index",
+      "hexadezimalzahlen"
+    ],
+    "31666af5953ff336": [
+      "# anhang",
+      ">",
+      "hexadezimalzahlen",
+      "inkrementierung",
+      "strukturen",
+      "indexuberschreitung",
+      "kommaoperator"
+    ],
+    "ebf87f6e6a80da6e": [
+      "# anhang",
+      "> k",
+      "iteration",
+      "lifo",
+      "konkatenation",
+      "kommentar",
+      "first"
+    ],
+    "5f181f1645e6c0ac": [
+      "lazy evaluation",
+      "# anhang",
+      "anweisung",
+      "loop",
+      "long",
+      "first",
+      "makros"
+    ],
+    "e46029694eb73da5": [
+      "# anhang",
+      "malloc",
+      "loop",
+      "main",
+      "minus",
+      "matrizen",
+      "expandierung"
+    ],
+    "5d78c36eab326a51": [
+      ".33 operatoren",
+      "multiplikation",
+      "modulo-operator",
+      "# anhang",
+      "> n",
+      "objekt-programm",
+      "nullzeiger"
+    ],
+    "676bedc6b3bd7a91": [
+      "# anhang",
+      "|----------------------------------------------------------------------------|----------------------------------------------------------------------------|",
+      "objekt-programm",
+      ".33",
+      "dekrementierung",
+      "adressoperator",
+      "overflow"
+    ],
+    "9b1680d4800e6d49": [
+      "# anhang",
+      "pfad",
+      "adressoperator",
+      "modulo-operator",
+      "%",
+      ".38",
+      "overflow"
+    ],
+    "aac967d5442b3ae5": [
+      "|---------------------------------------------------------------------------------|",
+      "# anhang",
+      "> p",
+      "punktoperator",
+      "praprozessor-direktiven",
+      "prioritaten",
+      "register"
+    ],
+    "7dc98622ea52bea3": [
+      "|----------------------------------------------------------------------|----------------------------------------------------------------------------|",
+      "punktoperator",
+      "# anhang",
+      "prioritaten",
+      "rekursion",
+      "sizeof",
+      "scanf"
+    ],
+    "872fc6c84c5182ab": [
+      "|----------------------------------------------------------------------|----------------------------------------------------------------------------|",
+      "rundungsfehler",
+      "# anhang",
+      "scanf",
+      "sscanf",
+      "strukturen",
+      "standardtypen"
+    ],
+    "0575b2089e5560f7": [
+      "|-----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|",
+      "# anhang",
+      "strukturen",
+      "typumwandlung",
+      "initialisierung",
+      "union",
+      "switch"
+    ],
+    "09c120227ee6c81f": [
+      "|-----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|",
+      "# anhang",
+      "> u",
+      "manual",
+      "queue",
+      "remove",
+      "cards"
+    ],
+    "7e3acfac2ed61def": [
+      "# anhang",
+      "|---------------------------------------------------------------------------|------------------------------------------------------------------|",
+      "> u",
+      "remove",
+      "manual",
+      "unsigned",
+      "directory"
+    ],
+    "6c3ace3ce1ae42f8": [
+      "|--------------------------------------------------------------------------------------------------------------------------------------|",
+      "# anhang",
+      "> v",
+      "wertzuweisung",
+      "vergleichsoperatoren",
+      "wahrheitstafeln",
+      "variablen"
+    ],
+    "859e0bd5d4104a01": [
+      "|--------------------------------------------------------------------------------|",
+      "# anhang",
+      ">",
+      "volatile",
+      "zeichenkettenkonstante",
+      "zeiger",
+      "wahrheitstafeln"
+    ],
+    "7208aded9a83c809": [
+      "# anhang",
+      "> z",
+      "zeichenkettenkonstante",
+      "zeigerarithmetik",
+      "wortstruktur",
+      "zuweisungsoperator",
+      "zufallszahlen-generator"
+    ],
+    "a16599d87c3e95e0": [
+      "programmablaufs",
+      "compiler",
+      "standardbibliothek",
+      "c",
+      "standard-datentypen",
+      "praprozessor-direktive # include < stdio.h >",
+      "# kapitel"
+    ],
+    "caa32f73e95c21f0": [
+      "compiler",
+      "standardbibliothek",
+      "praprozessor-direktive",
+      "formatstrings",
+      "# include < stdio.h >",
+      "printf(\"%d",
+      "typ signed"
+    ],
+    "a338ae6682903802": [
+      "formatbeschreibern",
+      "programmierers",
+      "# kapitel",
+      "printf(\"%d",
+      "standard-vorgaben",
+      "void *",
+      "speicheradresse"
+    ],
+    "ad6f6950a418cf58": [
+      "typ char",
+      "formatbeschreiber",
+      "typ long",
+      "# kapitel",
+      "adressoperator",
+      "standard-vorgaben",
+      "fur argumente"
+    ],
+    "72b22d5d8a0346d8": [
+      "funktion scanf",
+      "variablen",
+      "formatstring",
+      "speicher",
+      "adressoperator",
+      "3.3",
+      "# kapitel"
+    ],
+    "084e3ef1526d2d93": [
+      "formatstring",
+      "standard'-typ",
+      "# kapitel",
+      "sprachelementen",
+      "tabelle",
+      "3.3",
+      "scanf"
+    ],
+    "53c444d5c0966c11": [
+      "programmiersprachen",
+      "* anzahl wiederholungen *",
+      "quelltext",
+      "# kapitel",
+      "-direktive",
+      "printf(\"%d",
+      "zahlen"
+    ],
+    "2fa7163da8aad022": [
+      "* anzahl",
+      "printf(\"%d",
+      "} return",
+      "quelltext",
+      "-direktive",
+      "# kapitel",
+      "tastatur-anschlage"
+    ],
+    "a5922a7fe5571ff0": [
+      "* anzahl wiederholungen *",
+      "datenverarbeitung",
+      "chaos",
+      "tastatur-anschlage",
+      "bildschirm",
+      "quelltext 3.3",
+      "unix c-d"
+    ],
+    "4f20e0f22c1d7552": [
+      "printf(\"%d\\n",
+      "} return",
+      "quelltext 3.3",
+      "# kapitel",
+      "wert -1",
+      "vergleichsoperator",
+      "datenverarbeitung"
+    ],
+    "d12aadb761ad3203": [
+      "printf(\"eingabefehler!\\n",
+      "scanf",
+      "vergleichsoperatoren <",
+      "anweisungsfolge1 } [",
+      "* fehlerbehandlung *",
+      "datenstrukturen",
+      "# include < stdio.h"
+    ],
+    "f7dd3f3cff464197": [
+      "} } } return",
+      "fehlerbehandlung *",
+      "quelltext 3.5",
+      "} printf(\"das skalarprodukt",
+      "komponenten v[0 ]",
+      "variablendeklaration",
+      "# kapitel"
+    ],
+    "6fe36eb487e144a0": [
+      "operatoren",
+      "argumente fur printf",
+      "schleifenzahlung v1[i ] * v2[i ]",
+      "feldkomponenten",
+      "regel konstanten",
+      "argument",
+      "# kapitel"
+    ],
+    "1c8404962fcc0089": [
+      "operator",
+      "compiler",
+      "argumente fur printf",
+      "scanf",
+      "arguments",
+      "variablenname",
+      "gleichheitszeichen"
+    ],
+    "45efed66e539c4f2": [
+      "adressoperators",
+      "variablenname",
+      "# kapitel",
+      "division",
+      "argumente",
+      "standard",
+      "scanf"
+    ],
+    "f2fd00a18696b3d7": [
+      "operatoren",
+      "* c",
+      "scanf",
+      "variablen werte",
+      "division",
+      "argumente",
+      "prafix -schreibweise"
+    ],
+    "497715c2f21517fc": [
+      "operatoren",
+      "* c",
+      "v1[i-1 ] * v2[i-1 ]",
+      "typedef",
+      "minus",
+      "} printf(\"das skalarprodukt",
+      "# kapitel"
+    ],
+    "3e47c4d87df85588": [
+      "zuweisungsoperators",
+      "4.5 vergleichsoperatoren",
+      "typedef",
+      "} printf(\"das skalarprodukt",
+      "quelltext 4.1",
+      "konstanten false",
+      "return"
+    ],
+    "4b1f9083393e81c3": [
+      "operatoren",
+      "variable var",
+      "tabelle 4.1.",
+      "* endlosschleife *",
+      "division",
+      "standards",
+      "ausfuhrung"
+    ],
+    "8ddf1e86381dbd51": [
+      "zuweisungsoperator",
+      "resultat",
+      "compiler",
+      "division",
+      "variablen var",
+      "glyph [",
+      "lazy"
+    ],
+    "b626257b0e376502": [
+      "compiler",
+      "indexausdruck",
+      "zuweisungsoperator",
+      "4.8",
+      "doppelberechnung",
+      "variablen max",
+      "z2"
+    ],
+    "546139fb9027f272": [
+      "operatoren",
+      "kommaoperatoren",
+      "variablenvereinbarungen",
+      "prioritatsstufen",
+      "addition",
+      "subtraktion",
+      "abbildung 4.2"
+    ],
+    "3a931a177162a4b5": [
+      "operatoren",
+      "parametern auswahl",
+      "prioritatsstufen",
+      "variablenvereinbarungen",
+      "speicherbedarfs multiplikation",
+      "typumwandlung adressbildung",
+      "abbildung 4.2"
+    ],
+    "c6fe22c2f8138eaa": [
+      "operatoren",
+      "dekrement *",
+      "# kapitel",
+      "variablen",
+      "binaer",
+      "prioritat",
+      "scanf"
+    ],
+    "a8a28509ac18c1b3": [
+      "ausgabeparametern nebeneffekte",
+      "operatoren",
+      "variablen j",
+      "programmierung",
+      "argumente",
+      "printf(\"%d",
+      "# kapitel"
+    ],
+    "5ec969220f4ebe03": [
+      "funktionen",
+      "operators",
+      "printf(\"%d",
+      "c-compiler",
+      "fehler",
+      "10.0",
+      "# kapitel"
+    ],
+    "6f7e2e4014418543": [
+      "operators",
+      "c-compiler",
+      "multiplikationen",
+      "typumwandlung",
+      "10.0",
+      "# kapitel",
+      "hierarchie"
+    ],
+    "a8e1a40c2491e671": [
+      "j * 3.5",
+      "ausdruck j %",
+      "multiplikationen",
+      "printf(\"%f\\n",
+      "division",
+      "typs",
+      "castoperatoren"
+    ],
+    "d3ee39bca9ba9c2e": [
+      "castoperatoren",
+      "implementatoren",
+      "-operator",
+      "compiler",
+      "umwandlungen",
+      "# kapitel",
+      "speicherbedarf fur datentypen"
+    ],
+    "4cb539b1074ce84e": [
+      "castoperatoren",
+      "sizeof",
+      "datentyp",
+      "compiler",
+      "speicherbedarf",
+      "char [ 2][5 ]",
+      "32-bit architekturen"
+    ],
+    "64649536d33eb9a5": [
+      "stringkonstanten",
+      "char text1[4 ]",
+      "datentyp char",
+      "stringvariablen",
+      "null-zeichen",
+      "compiler",
+      "printf(\"dieses"
+    ],
+    "8ca19f13b012ed69": [
+      "printf(\"dieses",
+      "formatierungsstrings",
+      "strings",
+      "compiler",
+      "tabulatoren",
+      "null-zeichens",
+      "vektorkomponente"
+    ],
+    "9075afee13003955": [
+      "null-zeichen",
+      "* variablendeklarationen *",
+      "strings",
+      "vektorkomponente",
+      "durcheinander",
+      "printf",
+      "quelltext 5.1"
+    ],
+    "e0502928a1a84745": [
+      "printf(\"%d\\n",
+      "scanf",
+      "quelltext 5.1",
+      "} return",
+      "headerdatei string.h",
+      "null-zeichen",
+      "formatbeschreibern"
+    ],
+    "a5ac24648431a41f": [
+      "compiler",
+      "char str [ laenge ]",
+      "formatbeschreibern",
+      "string.h standardfunktionen",
+      "klassifizierung",
+      "# include < stdio.h",
+      "# kapitel"
+    ],
+    "aaf5b51d0b39812c": [
+      "ascii-zeichensatz",
+      "compiler",
+      "klassifizierung",
+      "implementationen",
+      "# kapitel",
+      "argumentliste",
+      "isxdigit"
+    ],
+    "91fb85815b41a779": [
+      "c-anweisungen",
+      "anweisung2 ]",
+      "syntax",
+      "programms",
+      "semikolons",
+      "# kapitel",
+      "block"
+    ],
+    "6b5d000e26bce545": [
+      "anweisung1 [",
+      "compiler",
+      "variablenvereinbarungen",
+      "syntaxbeschreibung",
+      "printf(\"nicht",
+      "blocks",
+      "getchar"
+    ],
+    "41332f5a0b5971d2": [
+      "anweisungfolged ] }",
+      "logik",
+      "printf(\"bitte",
+      "blocks",
+      "resultat",
+      "quelltext 6.1",
+      "kompromissen"
+    ],
+    "c363e5d8094ecf27": [
+      "printf(\"kennzahl unzulaessig\\n",
+      "anweisungfolged ] }",
+      "pi * r * r",
+      "compiler",
+      "switch",
+      "quelltext 6.1",
+      "default -klausel"
+    ],
+    "6eebc1a33a809ee9": [
+      "switch",
+      "anweisungsfolge",
+      "ausfuhrung",
+      "# kapitel",
+      "} return",
+      "quelltext 6.2",
+      "printf(\"kennzahl unzulaessig\\n"
+    ],
+    "20da38cb69bf046f": [
+      "}",
+      "berechnung",
+      "# kapitel",
+      "quelltext 6.2",
+      "pi * r * r",
+      "prinzip",
+      "switch"
+    ],
+    "6a89999cbe48b1cc": [
+      "anweisung bedingung",
+      "blocks",
+      "prinzip",
+      "# kapitel",
+      "# include < stdio.h >",
+      "quelltext 6.3",
+      "scanf(\"%d"
+    ],
+    "6dae4d6ff142dde1": [
+      "(; potenz <",
+      "printf(\"%ld\\n",
+      "# include < stdio.h",
+      "# kapitel",
+      "programmiersprachen",
+      "quelltext 6.3",
+      "return"
+    ],
+    "69aa3cf678683de6": [
+      "printf(\"%d\\n",
+      "(; potenz <",
+      "semikolons",
+      "long potenz",
+      "ausdrucke",
+      "# kapitel",
+      "vektors"
+    ],
+    "458b81a7613300f9": [
+      "programmablaufs",
+      "code",
+      "funktionen",
+      "printf(\"%d\\n",
+      "/=",
+      "continue -anweisung",
+      "# kapitel"
+    ],
+    "2102ad973d4ca44c": [
+      "code",
+      "continue -anweisung",
+      "break",
+      "quelltext 6.5",
+      "# kapitel",
+      "# include < stdio.h >",
+      "scanf(\"%d"
+    ],
+    "842328dbd4baab2c": [
+      "anweisungsfolge2 } }",
+      "operators",
+      "i++",
+      "continue -anweisung",
+      "regeln",
+      "# kapitel",
+      "losen"
+    ],
+    "7f97d219ce1694ca": [
+      "# kapitel",
+      "anweisungsfolge2 } }",
+      "berechnung",
+      "kriterium:\\n",
+      "# include < stdio.h",
+      "printf(\"%d^2",
+      "quelltext"
+    ],
+    "063964175df23b48": [
+      "teilproblemen",
+      "programmierern gelost",
+      "motivation",
+      "bibliotheksfunktionen",
+      "# kapitel",
+      "prototyp",
+      "typ1 [ parameter1 ]"
+    ],
+    "fed23f2ab0ea6189": [
+      "funktionsdefinitionen",
+      "programms",
+      "bibliotheksfunktionen",
+      "ansi-c",
+      "typ1 parameter1",
+      "scanf",
+      "isspace"
+    ],
+    "34e99c8040fa5c02": [
+      "funktionsdefinition",
+      "funktionsargumente",
+      "deklarationen",
+      "compilern",
+      "ansi-standards",
+      "# kapitel",
+      "piep's"
+    ],
+    "812f28c8a7021ab1": [
+      "compiler",
+      "ansi-standards",
+      "aufwartskompatibilitat",
+      "potenz(2.0",
+      "programmieranfanger",
+      "parameter",
+      "# kapitel"
+    ],
+    "3a6217473fceb447": [
+      "parametern",
+      "aktualargumente",
+      "funktion potenz",
+      "typs",
+      "exponent",
+      "nichts\\_tun",
+      "# kapitel"
+    ],
+    "fa1d15afd2332733": [
+      "variable j",
+      "funktionen",
+      "parameter",
+      "adressoperator",
+      "potenz(2.0",
+      "scanf(\"%d",
+      "# kapitel"
+    ],
+    "1e1d02004274cd62": [
+      "funktionsdeklarationen",
+      "parameters",
+      "# kapitel",
+      "* * prototypen *",
+      "% zeichen):\\n",
+      "# include < stdio.h > #",
+      "printf(\"string"
+    ],
+    "2c8cb70288b6b562": [
+      "funktionsdeklarationen",
+      "compiler",
+      "const char str [ ]",
+      "fur feldkomponenten",
+      "# kapitel",
+      "7.7",
+      "standardbibliothek"
+    ],
+    "1979cabee4bb4508": [
+      "prototypen",
+      "parameterliste",
+      "funktionsdeklarationen",
+      "compiler",
+      "attribut const",
+      "# kapitel",
+      "rekursion"
+    ],
+    "db540e0c41378f62": [
+      "funktionen",
+      "parameter",
+      "algorithmen",
+      "rekursion",
+      "prototyp",
+      "return n * fakultaet",
+      "# kapitel"
+    ],
+    "5a8dd8b41f690ce9": [
+      "uberlegungen",
+      "hanoi",
+      "algorithmus",
+      "hilfsplatz",
+      "# kapitel",
+      "scanf(\"%d",
+      "# include < stdio.h"
+    ],
+    "ca99c217ea45b174": [
+      "printf(\"wie",
+      "} /*=",
+      "-7",
+      "hilfsvariablen",
+      "hanoi",
+      "quicksort",
+      "# kapitel"
+    ],
+    "dd2a41b674285dcc": [
+      "-7",
+      "# kapitel",
+      "speicherung",
+      "algorithmus",
+      "slowsort",
+      "return",
+      "endindex"
+    ],
+    "214ee504e5cf39a9": [
+      "iteration",
+      "void quick",
+      "zahlen n -1",
+      "z [ ]",
+      "# kapitel",
+      "worst",
+      "endindizes"
+    ],
+    "929f8289ce962ecb": [
+      "potenzfunktion",
+      "simulation",
+      "rekursion",
+      "exponent /=",
+      "quicksort",
+      "bits",
+      "# kapitel"
+    ],
+    "486673fe49bb50ac": [
+      "funktionsdefinition",
+      "parameter",
+      "programms",
+      "blocks",
+      "quelltext 8.1",
+      "# include < stdio.h > #",
+      "# kapitel"
+    ],
+    "30ee37593dea44dd": [
+      "funktionsdefinition",
+      "compiler muss",
+      "variablen",
+      "speicherplatze",
+      "prototyps",
+      "# kapitel",
+      "name"
+    ],
+    "973e093c723d8d34": [
+      "compiler muss",
+      "praprozessor",
+      "-direktiven",
+      "int main",
+      "c2",
+      "} /*= stapel -funktionen",
+      "variablendefinition"
+    ],
+    "37ac86e2864a8fc9": [
+      "printf(\"nur",
+      "} int empty",
+      "char c1",
+      "stapel [ spitze++ ]",
+      "} void push",
+      "# kapitel",
+      "variablen"
+    ],
+    "a5ab637d86968040": [
+      "modulkonzept",
+      "programms",
+      "funktionen",
+      "praprozessor",
+      "deklarationen",
+      "testrahmen",
+      "# kapitel"
+    ],
+    "8a30b86ef8fd2a00": [
+      "implementation stapel.c",
+      "compiler muss",
+      "praprozessor",
+      "# include < stdio.h",
+      "quelltext 8.4",
+      "# kapitel",
+      "int full"
+    ],
+    "7aa999241aec527c": [
+      "printf",
+      "compiler",
+      "} break",
+      "# include",
+      "leer!\\n",
+      "-wall -ansi stapeltest.c stapel.c",
+      "quelltext"
+    ],
+    "48153612c4e5ae04": [
+      "stapeltest.o stapel.o gcc",
+      "gcc complier -optionen gccflags",
+      "compiler",
+      "module",
+      "-ansi -pedantic -wall",
+      "unix",
+      "# kapitel"
+    ],
+    "3795851ec3f9ed8c": [
+      "stapeltest.c stapel.h gcc $",
+      "separate compilation",
+      "gccflags",
+      "# kapitel",
+      "make",
+      "quellcode",
+      "zeilenanfang"
+    ],
+    "e42c3fb571595b40": [
+      "modulkonzept",
+      "quelltext 8.7",
+      "speicherklassenattribut",
+      "option -wall",
+      "versteckens",
+      "attribut static",
+      "# kapitel"
+    ],
+    "1a4fc9475c747eec": [
+      "modulkonzept",
+      "variablenvereinbarungen",
+      "z.b. funktionen",
+      "deklaration",
+      "funktion empty fur",
+      "# include",
+      "versteckens"
+    ],
+    "edf640a2f854960a": [
+      "z.b. funktionen",
+      "compiler",
+      "deklarationen",
+      "speicherklassen-attribut",
+      "attribut static",
+      "# kapitel",
+      "begriffsuberschneidung"
+    ],
+    "10bc01b6645db1f5": [
+      "static -variablen",
+      "moduls",
+      "parametern",
+      "programms",
+      "* exp",
+      "ausfuhrung",
+      "printf(\"aufruf %"
+    ],
+    "73243dbece6b582d": [
+      "static -variablen",
+      "variablen",
+      "compiler",
+      "block",
+      "speicherklassen-attribut register",
+      "# kapitel",
+      "f1(void"
+    ],
+    "b7fefd3648b2d275": [
+      "speicherklassen-attribut volatile",
+      "speicherklassen-attribute",
+      "variablen z.b.",
+      "registern",
+      "static",
+      "optimierung",
+      "anfanger"
+    ],
+    "72260981b43ba0d3": [
+      "f [ n-1 ]",
+      "integer",
+      "math",
+      "algorithmus",
+      "programmieren",
+      "# # # beispielaufruf",
+      "g(2"
+    ],
+    "ed8b6c38aa4767af": [
+      "berechnung",
+      "sum-1",
+      "int",
+      "i=0;i",
+      "c-code",
+      "pow(2",
+      "# include < stdio.h >"
+    ],
+    "57d3c3a5c9d60a39": [
+      "f [ n]=f [ n-1 ]",
+      "berechnung",
+      "f(4",
+      "programmieren",
+      "h[0",
+      "g(2",
+      "# # # beispielaufruf"
+    ],
+    "61eb206921dde064": [
+      "berechnung",
+      "2*x0",
+      "i=2;i<=n;i++",
+      "n-1",
+      "c-code",
+      "musterlösung",
+      "return xn"
+    ],
+    "60a87fdd2d79f4b3": [
+      "linked_list(&head",
+      "node_t`-element",
+      "pointer",
+      "typedef",
+      "prio",
+      "listenelement",
+      "src=\"data"
+    ],
+    "d5ad3f0402365673": [
+      "# include < stdlib.h",
+      "typedef",
+      "linked_list",
+      "struct node * next",
+      "pointer",
+      "liste",
+      "* head = new"
+    ],
+    "dadab261aac5a416": [
+      "kreisfläche",
+      "funktionen",
+      "# define",
+      "programms",
+      "kreisflaeche(1",
+      "quelltext",
+      "präprozessors"
+    ],
+    "cda54f214758842a": [
+      "# define pi",
+      "d*d*pi",
+      "kreisfläche",
+      "math",
+      "c-code",
+      "control",
+      "return"
+    ],
+    "293f789b9d7f3c86": [
+      "bubblesort",
+      "sort",
+      "# # # beispielaufruf",
+      "element",
+      "parametern",
+      "rekursionsschritt",
+      "position"
+    ],
+    "e5830cf99f7d99d0": [
+      "[ i+1",
+      "sort",
+      "int *",
+      "c-code",
+      "bubblesort",
+      "musterlösung",
+      "array"
+    ],
+    "0294c4f0c6074eaa": [
+      "sortieralgorithmus",
+      "quicksort",
+      "recursion",
+      "pivot_index",
+      "int * array",
+      "prinzips",
+      "low"
+    ],
+    "3b19818520b61681": [
+      "quicksort",
+      "sort",
+      "# include < stdlib.h",
+      "recursion",
+      "printf(\"t",
+      "i++",
+      "array [ pivot_index ]"
+    ],
+    "b0a81ba21645252f": [
+      "int * array",
+      "binär",
+      "value",
+      "algorithm",
+      "# # # beispielaufruf",
+      "anforderungen *",
+      "prinzip"
+    ],
+    "b98270dcbbac23d1": [
+      "int * array",
+      "binär",
+      "value",
+      "c-code",
+      "musterlösung",
+      "len-1",
+      "# include < stdio.h >"
+    ],
+    "2cf0a447b7109047": [
+      "magic(\"beispiel_1.txt",
+      "string",
+      "char * path",
+      "# # # hinweis",
+      "four",
+      "funktionen",
+      "schreiben"
+    ],
+    "54393a170a92acca": [
+      "char * names[10 ]",
+      "magic",
+      "c-code",
+      "# include < stdio.h >",
+      "[ count ]",
+      "path,\"w",
+      "fopen"
+    ],
+    "bdc2a6e5edb76c8f": [
+      "spielregeln",
+      "href=\"https://spielewiki.org",
+      "target=\"_blank",
+      "* vorschläge",
+      "max_versuche",
+      "konsole *",
+      "runde galgenraten"
+    ],
+    "1947eb9960e5505d": [
+      "# include < stdio.h >",
+      "char const * argv [ ]",
+      "c-code",
+      "max_versuche",
+      "printf(\"fehler\\n",
+      "algorithm",
+      "thema"
+    ],
+    "29294166be878f60": [
+      "codesprache",
+      "sms",
+      "geheimbotschaft",
+      "schreiben",
+      "schulunterricht",
+      "const char * message",
+      "memory"
+    ],
+    "08eb8b08996b8d40": [
+      "codesprache",
+      "# include < stdlib.h",
+      "char * convert_message",
+      "message)+1",
+      "len*sizeof",
+      "i++",
+      "memory"
+    ],
+    "5d582b3603b62e8a": [
+      "char * string_filter",
+      "string_filter(\"",
+      "strings",
+      "const char * text",
+      "# # # beispielaufruf",
+      "memory",
+      "thema"
+    ],
+    "624b156bf800a8ce": [
+      "char * string_filter",
+      "const char * text",
+      "# include < stdlib.h",
+      "c-code",
+      "strings",
+      "großbuchstaben",
+      "pos++"
+    ],
+    "4452b83c687f26bc": [
+      "schreiben",
+      "sms",
+      "# # # beispielausgabe",
+      "memory",
+      "programm",
+      "chaos",
+      "hallotomke"
+    ],
+    "039416b4f3164543": [
+      "# include < stdlib.h",
+      "char * tomke = malloc((length+1)*sizeof",
+      "c-code",
+      "i_toni++",
+      "memory",
+      "[ j ] <",
+      "musterlösung"
+    ],
+    "fec4770b837029eb": [
+      "bubblesort variation",
+      "sortieralgorithmus",
+      "# # # beispielaufruf",
+      "int * start",
+      "reverse",
+      "position",
+      "variable"
+    ],
+    "af7b75c516239ed5": [
+      "bubblesort variation",
+      "int * start",
+      "c-code",
+      "null",
+      "p-1)<*p",
+      "swaps",
+      "thema"
+    ],
+    "73efbcbf956ff824": [
+      "caesar-verschlüsselung",
+      "# # # beispielausgabe",
+      "caesar-verschl%c3%bcsselung\">**hier**</a >",
+      "href=\"https://de.wikipedia.org",
+      "programm",
+      "string",
+      "< target=\"_blank"
+    ],
+    "ef648a3effb0bbab": [
+      "c-code",
+      "caesar-verschlüsselung",
+      "char msg[100 ]",
+      "# include < stdio.h >",
+      "ch =",
+      "while((msg [ j ]",
+      "key"
+    ],
+    "2e40a99ed9b7a765": [
+      "busfahrer",
+      "statistik",
+      "fahrgastverhalten",
+      "station",
+      "speicherallokation",
+      "int *",
+      "neumann"
+    ],
+    "9e5ab6c6c2811b04": [
+      "guests -= einaus [ i][1 ]",
+      "int *",
+      "c-code",
+      "n*sizeof",
+      "musterlösung",
+      "busfahrer",
+      "# include < stdlib.h"
+    ],
+    "815cf29379dfdee3": [
+      "# # # beispielausgabe",
+      "programm",
+      "string",
+      "kommandozeile",
+      "zahl",
+      "kleinbuchstaben",
+      "anforderungen *"
+    ],
+    "a43dc9810477a94d": [
+      "# include < stdlib.h",
+      "number <",
+      "c-code",
+      "printf(\"sechs",
+      "char wort[20 ]",
+      "string",
+      "thema"
+    ],
+    "36a57e93625d2d31": [
+      "hinweise *",
+      "levenshtein-distanz\">**levenshtein-distanz**</a",
+      "zeichen",
+      "noreferrer",
+      "target=\"_blank",
+      "algorithmus",
+      "backtracing"
+    ],
+    "0ffe5d8b75ae5add": [
+      "c-code",
+      "# include < stdio.h >",
+      "|| wort2",
+      "matrix [ len1+1][len2+1 ]",
+      "algorithm",
+      "i++",
+      "levenshtein-distanz"
+    ],
+    "17bd863a800d4427": [
+      "translation_t *",
+      "dictionary[2 ]",
+      "# # # beispielaufruf",
+      "size_t dict_size",
+      "c_function_strcpy.htm\">**strcpy**</a",
+      "string",
+      "schreiben"
+    ],
+    "4720061b78a2eec5": [
+      "} translation_t",
+      "const char * translateword",
+      "typedef",
+      "# include < stdlib.h",
+      "text",
+      "struct",
+      "malloc(500 * sizeof"
+    ],
+    "98a14692e7e8486d": [
+      "string",
+      "char *",
+      "[ ]",
+      "# # # beispielaufruf",
+      "ersetzungen",
+      "schreiben",
+      "n = exchange"
+    ],
+    "4922b8dc537716cf": [
+      "c-code",
+      "string",
+      "char *",
+      "# include < string.h >",
+      "i++",
+      "return count",
+      "musterlösung"
+    ],
+    "6da47637b90fb3fb": [
+      "const char string [ ]",
+      "strings",
+      "parameter",
+      "frequency",
+      "null`-zeiger",
+      "zeichen",
+      "standardbibliothek"
+    ],
+    "1e38c71065a823d4": [
+      "const char string [ ]",
+      "c-code",
+      "# include < ctype.h",
+      "int count",
+      "null",
+      "frequency",
+      "tolower"
+    ],
+    "ee649ca945efd520": [
+      "k</sub>=p",
+      "sub>0</sub>=3",
+      "berechnung",
+      "< sub>5</sub>=5",
+      "p",
+      "* *",
+      "prototyp"
+    ],
+    "f4b8f8863fa4bab5": [
+      "long itep",
+      "berechnung",
+      "pkminus2+pkminus3",
+      "i<=k",
+      "c-code",
+      "return 2",
+      "themen"
+    ],
+    "aa1a43d1732e3207": [
+      "liter flüssigkeit",
+      "leak",
+      "minuten",
+      "# # # beispielergebnis",
+      "math",
+      "eimer(7",
+      "datatype"
+    ],
+    "dac0f181176e27fe": [
+      "ml*(1-leak",
+      "min++",
+      "math",
+      "l*1000",
+      "c-code",
+      "wasser",
+      "datatype"
+    ],
+    "1a1a8df154c425c6": [
+      "emily_sparen`€",
+      "haus_kosten",
+      "sparkonto",
+      "float sparen_sarah",
+      "schreiben",
+      "float`-werte",
+      "datatype"
+    ],
+    "c4e95bdabadc3ad1": [
+      "konto-haus_kosten",
+      "float diff",
+      "float sparen_sarah",
+      "c-code",
+      "math",
+      "months =",
+      "datatype"
+    ],
+    "009b4e4a0e9ab487": [
+      "string basics",
+      "stringerstellung",
+      "# # # beispielausgabe",
+      "c",
+      "hallo welt",
+      "\\0`-zeichen",
+      "konsole"
+    ],
+    "095898fb4a35ca8b": [
+      "string basics",
+      "c-code",
+      "# include < stdio.h >",
+      "[ ]",
+      "char",
+      "musterlösung",
+      "main"
+    ],
+    "00f54146273d2449": [
+      "aufgabe * string basics",
+      "aufgabe * string basics iii *",
+      "strings",
+      "programm",
+      "# # # beispielausgabe",
+      "schreiben",
+      "scanf"
+    ],
+    "3a8fe85e136e9a93": [
+      "string basics",
+      "# include < stdlib.h",
+      "c-code",
+      "char msg[500 ]",
+      "printf(\"empfänger",
+      "i++",
+      "thema"
+    ],
+    "9895ebd340a4aa41": [
+      "aufgabe * string basics",
+      "char * string",
+      "char str2 [ ]",
+      "static_str(\"möglichkeit",
+      "methoden",
+      "array",
+      "thema"
+    ],
+    "f1a2fad99f67fb35": [
+      "static char str_return[150 ]",
+      "string basics",
+      "char * malloc_str",
+      "c-code",
+      "# include < string.h >",
+      "len*sizeof",
+      "thema"
+    ],
+    "b328dbd6bca3069a": [
+      "aufgabe * array basics",
+      "array basics",
+      "arrays",
+      "int-array",
+      "string-repräsentation",
+      "thema",
+      "prinzip"
+    ],
+    "7ddd5595f8caa959": [
+      "array basics",
+      "arr[0 ]",
+      "c-code",
+      "i++",
+      "# include < stdio.h >",
+      "musterlösung",
+      "main"
+    ],
+    "e0820bd3616873cc": [
+      "pi",
+      "3.141593.",
+      "# # # beispielausgabe",
+      "programm",
+      "dinge",
+      "zahlenwerten",
+      "text"
+    ],
+    "31ab254abce5e21a": [
+      "3.\\npi",
+      "# include < stdio.h >",
+      "c-code",
+      "puts(\"aller",
+      "3.141593.",
+      "musterlösung",
+      "main"
+    ],
+    "ce458a61e83eec05": [
+      "limits.h",
+      "int_max",
+      "flt_min",
+      "datatype",
+      "standard–headerdateien",
+      "# # # beispielausgabe",
+      "programm"
+    ],
+    "23deb26dd86fde62": [
+      "# include < limits.h",
+      "dbl_min",
+      "c-code",
+      "standard-headerdatei",
+      "datatype",
+      "musterlösung",
+      "% lf\\n"
+    ],
+    "f6ff4d4e6fc00899": [
+      "# # # beispielausgabe",
+      "programm",
+      "zeichen",
+      "abcdefghijklmnopqrstuvwxyz[\\]^_`abcdefghijklmnopqrstuvwxyz",
+      "ascii",
+      "thema",
+      "themen"
+    ],
+    "885cdad41ade51d7": [
+      "printf(\"abcdefghijklmnopqrstuvwxyz[\\\\]^_`abcdefghijklmnopqrstuvwxyz\\n",
+      "c-code",
+      "# include < stdio.h >",
+      "}",
+      "main",
+      "musterlösung",
+      "return"
+    ],
+    "9870d4757dd9dea8": [
+      "oktal–",
+      "hex",
+      "# # # beispielausgabe",
+      "dezimalzahlen",
+      "hexadezimalsystem",
+      "zahlensysteme",
+      "ctrl-d"
+    ],
+    "f1f0a6b8335b51e4": [
+      "c-code",
+      "oktal–",
+      "musterlösung",
+      "# include < stdio.h >",
+      "hexadezimalsystem",
+      "scanf(\"%d",
+      "zahlensysteme"
+    ],
+    "6e3596b7d250803b": [
+      "# # # beispielausgabe",
+      "programm",
+      "quersumme variante",
+      "math",
+      "control",
+      "thema",
+      "themen"
+    ],
+    "934b1502d8478baf": [
+      "quersumme variante",
+      "/=",
+      "c-code",
+      "printf(\"%d",
+      "n>0",
+      "# include < stdio.h >",
+      "control"
+    ],
+    "079ec69bd4714533": [
+      "trollzahl",
+      "* viele*-*viele*-*viele*-1",
+      "# # # beispielausgabe",
+      "zählen",
+      "* *",
+      "math",
+      "thema"
+    ],
+    "2aa89b3874280302": [
+      "printf(\"viele-",
+      "# include < stdio.h >",
+      "n>=5",
+      "}",
+      "c-code",
+      "trolle",
+      "switch"
+    ],
+    "edc62cdb99386ab6": [
+      "datatype",
+      "# # # beispielausgabe",
+      "math",
+      "programm",
+      "gleitkommazahlen",
+      "4.125000",
+      "control"
+    ],
+    "fca3f65c5b41504c": [
+      "float sum",
+      "printf(\"%f",
+      "c-code",
+      "datatype",
+      "# include < stdio.h >",
+      "number",
+      "control"
+    ],
+    "6d22db649d2017b6": [
+      "selectionsort",
+      "sort",
+      "# # # eingabe",
+      "position",
+      "element",
+      "array",
+      "zahlen"
+    ],
+    "6faee90d9d08303f": [
+      "array [ j ]",
+      "sort",
+      "selectionsort",
+      "i++",
+      "c-code",
+      "# include < stdio.h >",
+      "scanf(\"%d"
+    ],
+    "01a4f7fd2e7f71ee": [
+      "collatz-problem",
+      "sub>0</sub>=x",
+      "n-1</sub",
+      "startwert x=3",
+      "math",
+      "int_max",
+      "thema"
+    ],
+    "5f112e3373d4e821": [
+      "collatz-problem",
+      "c-code",
+      "printf(\"bestätigt!\\n",
+      "* x0",
+      "# include < stdlib.h",
+      "count++",
+      "flag"
+    ],
+    "f57257ee1c2fb68f": [
+      "josephus-problem\">**hier**</a",
+      "# # # beispielergebnis",
+      "< target=\"_blank",
+      "math",
+      "objektes",
+      "noreferrer",
+      "wiki"
+    ],
+    "ad089e1621fdf9de": [
+      "berechnung josephus-problem",
+      "return 2*josephus",
+      "2)+1",
+      "musterlösung",
+      "math",
+      "c-code",
+      "josephus"
+    ],
+    "d2b03acae2a81310": [
+      "] josephus-permutation",
+      "josephus-problem",
+      "berechnung",
+      "noreferrer",
+      "href=\"https://de.wikipedia.org",
+      "< target=\"_blank",
+      "d.h"
+    ],
+    "4c0b0b30292b5e0e": [
+      "josephus-permutation",
+      "i++",
+      "algorithm",
+      "c-code",
+      "scanf(\"%d",
+      "array",
+      "org [ index ]"
+    ],
+    "9a9a07050a5d349e": [
+      "# # # beispielausgabe",
+      "modulo",
+      "programm",
+      "control",
+      "thema",
+      "themen",
+      "zahlen"
+    ],
+    "c5872cbcd66cf4e3": [
+      "printf(\"gerade",
+      "c-code",
+      "modulo",
+      "musterlösung",
+      "# include < stdio.h >",
+      "scanf(\"%d",
+      "control"
+    ],
+    "9bd6a2c07fb1b977": [
+      "csv datei",
+      "csv_string",
+      "char * * * parse_csv",
+      "speichern",
+      "element",
+      "textdatei",
+      "[ hier](https://de.wikipedia.org"
+    ],
+    "25a97f97499086cf": [
+      "char * * * parse_csv",
+      "c-code",
+      "csv datei",
+      "delimiter",
+      "# include < stdlib.h",
+      "# define endline",
+      "memory"
+    ],
+    "7d6ecd030fcbd072": [
+      "zeiteinheiten",
+      "phasen",
+      "ampelphasen",
+      "programm",
+      "# # # beispielausgabe",
+      "control",
+      "gelb"
+    ],
+    "e07980c1b906c65f": [
+      "printf(\"gelb",
+      "c-code",
+      "scanf(\"%d",
+      "# include < stdio.h >",
+      "musterlösung",
+      "case",
+      "switch"
+    ],
+    "614c3ef8865a4c96": [
+      "math",
+      "# # # beispielausgabe",
+      "programm",
+      "zahl",
+      "quersumme",
+      "control",
+      "ziffern"
+    ],
+    "0eafcd1bf5eef7c9": [
+      "printf(\"%d\\n",
+      "/=",
+      "c-code",
+      "math",
+      "musterlösung",
+      "# include < stdio.h >",
+      "main"
+    ],
+    "05f76051308403ca": [
+      "iqs(3+5+9+1+6",
+      "math",
+      "iqs(24",
+      "# # # beispielausgabe",
+      "programm",
+      "ziffern",
+      "control"
+    ],
+    "86a3b867da60b68b": [
+      "sum",
+      "printf(\"%d\\n",
+      "/=",
+      "musterlösung",
+      "c-code",
+      "# include < stdio.h >",
+      "control"
+    ],
+    "171967232fda24e6": [
+      "math",
+      "1+9",
+      "# # # beispielausgabe",
+      "-7",
+      "programm",
+      "control",
+      "ziffern"
+    ],
+    "984a6d233c99cb14": [
+      "/=",
+      "printf(\"%d\\n",
+      "math",
+      "c-code",
+      "musterlösung",
+      "# include < stdio.h >",
+      "control"
+    ],
+    "818e3fb2addd92c5": [
+      "strings",
+      "programm",
+      "# # # beispielausgabe",
+      "nullbyte",
+      "123hase",
+      "fehler",
+      "steuerzeichen"
+    ],
+    "ddfe9b060dd3d610": [
+      "str1_length",
+      "char str2[maxlen ]",
+      "c-code",
+      "printf(\"fehler\\n",
+      "strings",
+      "# define maxlen",
+      "int error"
+    ],
+    "72845eebf3d7c0f0": [
+      "string_to_int",
+      "string",
+      "logik",
+      "# # # beispielaufruf",
+      "pointer",
+      "char *",
+      "schreiben"
+    ],
+    "69601eb4065b7bdc": [
+      "c-code",
+      "string_to_int",
+      "\\0",
+      "return sign * result",
+      "pointer",
+      "s++",
+      "char"
+    ],
+    "7ed77ced655cd300": [
+      "gaußschen eliminationsverfahren",
+      "gau%c3%9fsches_eliminationsverfahren\">**hier**</a",
+      "algorithmus",
+      "lösung",
+      "pseudocode-beispiele",
+      "< target=\"_blank",
+      "href=\"https://de.wikipedia.org"
+    ],
+    "f3bf450d67ccf585": [
+      "gaußschen eliminationsverfahren",
+      "gleichungssysteme",
+      "# include < stdlib.h",
+      "printf(\"%.2f\\n",
+      "0.0",
+      "k++",
+      "array"
+    ],
+    "4498baeacc924bc6": [
+      "simple_file_math",
+      "mathe aufgaben",
+      "char * path",
+      "beispiel.txt",
+      "anweisung",
+      "string",
+      "mal2 <"
+    ],
+    "7dd37c4d90455e74": [
+      "simple_file_math",
+      "c-code",
+      "# include < stdlib.h",
+      "char result[1000 ]",
+      "char * path",
+      "mathe aufgaben",
+      "fprintf"
+    ],
+    "c1fb5ba2b06629ad": [
+      "lex_sorted",
+      "sortieren",
+      "string",
+      "const char * array [ ]",
+      "char`-feldern",
+      "# # # beispielaufruf",
+      "null"
+    ],
+    "731943eb88babfb0": [
+      "lex_sorted",
+      "sort",
+      "const char * array [ ]",
+      "* grenzfaelle *",
+      "# include < stdio.h >",
+      "c-code",
+      "null"
+    ],
+    "5fdd74a36c720e48": [
+      "* bucket_sort",
+      "values [ ]",
+      "max+1",
+      "int`-feldes",
+      "speicher",
+      "prototyp",
+      "position"
+    ],
+    "9ef9d586d6f07689": [
+      "* bucket_array",
+      "# include < stdlib.h",
+      "sort",
+      "c-code",
+      "< max",
+      "int * start",
+      "memory"
+    ],
+    "d6e5fa72f98c5eac": [
+      "< sub>1</sub>=1",
+      "n</sub>=-2a",
+      "berechnung",
+      "# # # beispielergebnis",
+      "rekursiv * *",
+      "hinweise :*",
+      "unsigned"
+    ],
+    "d84d8948499f64a1": [
+      "berechnung",
+      "* itea",
+      "c-code",
+      "musterlösung",
+      "}",
+      "unsigned",
+      "return"
+    ],
+    "72f995f0ebd3ad96": [
+      "< sub>1</sub>=1",
+      "berechnung",
+      "n</sub",
+      "y=0",
+      "# # # beispielergebnis",
+      "unsigned",
+      "itea(5"
+    ],
+    "abaa032433a5ad84": [
+      "berechnung",
+      "long",
+      "c-code",
+      "itea",
+      "i++",
+      "return z",
+      "unsigned"
+    ],
+    "6a860e31635debe5": [
+      "const int perm [ ]",
+      "permutation",
+      "is_perm",
+      "memory",
+      "p1 [ ]",
+      "prototyp",
+      "length"
+    ],
+    "2005d7a1b21d485b": [
+      "perm [ ] <",
+      "permutation",
+      "c-code",
+      "# include < stdlib.h",
+      "memory",
+      "laenge * sizeof",
+      "* test"
+    ],
+    "d0ca3c9d5221b673": [
+      "interval_t",
+      "intervallgrenzen",
+      "minimum",
+      "datentyp",
+      "is_empty_intersection",
+      "struct",
+      "null-zeiger"
+    ],
+    "d4c9e7677978542c": [
+      "} interval_t",
+      "struct",
+      "inter.up < inter.low",
+      "c-code",
+      "# include < stdlib.h",
+      "a->up ||",
+      "is_empty_intersection"
+    ],
+    "8dbf36e80e571e8b": [
+      "hello world",
+      "# # # beispielausgabe",
+      "programm",
+      "titel",
+      "thema",
+      "schreiben",
+      "io"
+    ],
+    "eca9dfff76765e78": [
+      "printf(\"hello world",
+      "hello world",
+      "# include < stdio.h >",
+      "c-code",
+      "musterlösung",
+      "main",
+      "return"
+    ],
+    "81df0fbe8b43a58c": [
+      "binärzahl",
+      "# # # beispielausgabe",
+      "programm",
+      "* whitespaces *",
+      "wertebereichs",
+      "error",
+      "control"
+    ],
+    "c0c754ce1738faf4": [
+      "binärzahlen",
+      "c-code",
+      "printf(\"%d\\n",
+      "char * argv [ ]",
+      "tmp * potenz",
+      "# include < string.h >",
+      "control"
+    ],
+    "915568bebff68f30": [
+      "sub>1</sub",
+      "berechnung",
+      "n</sub",
+      "# # # beispielergebnis",
+      "k</sub >",
+      "2n+1",
+      "anforderungen *"
+    ],
+    "188b0223736b99bd": [
+      "return reks",
+      "berechnung",
+      "k%2",
+      "2)+1",
+      "c-code",
+      "reks",
+      "unsigned"
+    ],
+    "ac335caef2516f65": [
+      "alphabete",
+      "text",
+      "zeichenfolge",
+      "const char * text",
+      "memory",
+      "null-zeichen",
+      "position"
+    ],
+    "d37c4736808c45f3": [
+      "const char * text",
+      "# include < stdlib.h",
+      "c-code",
+      "alphabet",
+      "source [ j ]",
+      "sizeof",
+      "return result"
+    ],
+    "04d19c9c102a64f8": [
+      "algorithmus",
+      "element",
+      "rec_contains",
+      "array",
+      "position",
+      "null-zeiger",
+      "* start"
+    ],
+    "e18d68eb18b98ed8": [
+      "recursion",
+      "int * *",
+      "c-code",
+      "* start",
+      "null",
+      "array",
+      "return"
+    ],
+    "8b1584d83219570a": [
+      "compare_rational",
+      "datentyp",
+      "programmieren",
+      "bruch_t x",
+      "typedef",
+      "zähler",
+      "prototyp"
+    ],
+    "1688693d3ddf32db": [
+      "compare_rational",
+      "x.zaehler * y.nenner <",
+      "typedef",
+      "struct",
+      "c-code",
+      "bruch_t",
+      "math"
+    ],
+    "beb6703aeb6119f3": [
+      "bruch_t sub_rational",
+      "list [ ]",
+      "struct",
+      "programmieren",
+      "datentyp",
+      "prototyp",
+      "nullzeiger"
+    ],
+    "e8e5f1f7cf6d6b9a": [
+      "sub_rational(&list [ max_index ]",
+      "list [ ]",
+      "c-code",
+      "struct",
+      "|| length <",
+      "bruches",
+      "null"
+    ],
+    "83d0b7ded4f18375": [
+      "suche hauptprogramm",
+      "smartbeans",
+      "k`-te komponente",
+      "originaltext",
+      "datei a04-testing.h",
+      "int`-feldes",
+      "rec_contains"
+    ],
+    "23c38befc2b74184": [
+      "mathematiker",
+      "1000.",
+      "# # # beispielausgabe",
+      "eratosthenes",
+      "programm",
+      "s14.c",
+      "array"
+    ],
+    "adc135588d8bcb76": [
+      "num [ j*i ]",
+      "printf(\"%i",
+      "j++",
+      "c-code",
+      "math",
+      "# include < stdio.h >",
+      "array"
+    ],
+    "a59dfeb8571f5170": [
+      "printf(\"die wurzel",
+      "# include < stdio.h >",
+      "programm",
+      "sqrt(2.0f",
+      "-wall",
+      "binding",
+      "option -lm"
+    ],
+    "3d1a390a9c81e57a": [
+      "printf(\"die wurzel",
+      "# include < math.h >",
+      "c-code",
+      "% f.\\n",
+      "/ quadratwurzelberechnung",
+      "2.0f",
+      "main"
+    ],
+    "e85864e4e517705e": [
+      "matrizen",
+      "matrixprodukt",
+      "programm",
+      "array",
+      "dimensionen",
+      "# # # beispielausgabe",
+      "format"
+    ],
+    "7c6f329918439262": [
+      "mat1[max_size][max_size ]",
+      "matrixprodukt",
+      "z++",
+      "c-code",
+      "musterlösung",
+      "scanf(\"%d",
+      "# include < stdio.h >"
+    ],
+    "f245c77389e2ff8c": [
+      "wochentagberechnung",
+      "kalender",
+      "schaltjahrsregel",
+      "# # # beispielausgabe",
+      "programms",
+      "format",
+      "mittwoch"
+    ],
+    "7af42b2082ed08fa": [
+      "wochentagberechnung",
+      "scanf(\"%d.%d.%d\",&datum",
+      "startjahr",
+      "31,28,31,30,31,30,31,31,30,31,30,31 }",
+      "printf(\"donnerstag",
+      "c-code",
+      "# include < stdio.h >"
+    ],
+    "ef8f047a2cb6f595": [
+      "multiplikationstafel",
+      "# # # beispielausgabe",
+      "thema",
+      "ausgabe",
+      "control",
+      "zahlen",
+      "themen"
+    ],
+    "b096408aa173ddf2": [
+      "i+1)*(j+1",
+      "printf(\"%3d",
+      "# include < stdio.h >",
+      "c-code",
+      "multiplikationstafel",
+      "musterlösung",
+      "main"
+    ],
+    "984bd39ea8044d35": [
+      "# # # beispielausgabe",
+      "escape-sequenzen",
+      "text",
+      "kommentare",
+      "programm",
+      "sonderzeichen",
+      "enden"
+    ],
+    "bcdae98887197666": [
+      "escape-sequenzen",
+      "# include < stdio.h >",
+      "* \\\\",
+      "printf(\"er",
+      "c-code",
+      "enden",
+      "thema"
+    ],
+    "3a3db6fb944daa8d": [
+      "polynoms",
+      "koeffizienten",
+      "double`-gleitkommazahlen",
+      "x(−1.8",
+      "datatype",
+      "programm",
+      "# # # eingabe"
+    ],
+    "e2677f4a7eced6a6": [
+      "malloc((grad+1",
+      "polynom",
+      "printf(\"could",
+      "* sizeof",
+      "datatype",
+      "# include < stdlib.h",
+      "null"
+    ],
+    "a29b813bdfc8b28c": [
+      "datatype",
+      "primfaktorzerlegung",
+      "# # # beispielausgabe",
+      "math",
+      "uint max",
+      "scanf",
+      "konsole"
+    ],
+    "3d27dedd0ae99cb3": [
+      "c-code",
+      "datatype",
+      "scanf(\"%i",
+      "zahl /=",
+      "i++",
+      "primfaktorzerlegung",
+      "# include < stdio.h >"
+    ],
+    "95752885f21b639d": [
+      "permutation",
+      "matrizen",
+      "nutzer",
+      "# # # beispielausgabe",
+      "programm",
+      "array",
+      "länge"
+    ],
+    "52f93b4382f1ca73": [
+      "permutation",
+      "c-code",
+      "i++",
+      "# include < stdio.h >",
+      "puts(\"1",
+      "scanf(\"%d",
+      "main"
+    ],
+    "5e712bedead80db4": [
+      "olympische spiele",
+      "sommerspiele",
+      "winterspiele",
+      "jahr",
+      "programm",
+      "# # # ausgabe",
+      "switch-statement"
+    ],
+    "0fd6de617c2744aa": [
+      "spiele",
+      "winterspiele",
+      "c-code",
+      "scanf(\"%d",
+      "# include < stdio.h >",
+      "switch",
+      "jahr %"
+    ],
+    "326b2d946f16a057": [
+      "sudoku-matrix",
+      "sudoku",
+      "# # # eingabe",
+      "algorithm",
+      "sudokumatrix",
+      "thema",
+      "array"
+    ],
+    "3ab99230d23942ea": [
+      "read_matrix",
+      "bool solve_matrix",
+      "sudoku",
+      "c-code",
+      "bool no_conflicts",
+      "# include < stdbool.h",
+      "scanf(\"%d"
+    ],
+    "3f9a57257da192a3": [
+      "math",
+      "b-adischen darstellung",
+      "# # # beispielausgabe",
+      "ziffern",
+      "programm",
+      "zeichen",
+      "memory"
+    ],
+    "364ee7b1f36ae953": [
+      "c/=b",
+      "# include < stdlib.h",
+      "adic [ j]='\\0",
+      "printf(\"fehler",
+      "memory",
+      "zeichen",
+      "inttochar gets"
+    ],
+    "2a1049015adc4e88": [
+      "palindrom",
+      "string",
+      "leerzeichen",
+      "# # # beispielausgabe",
+      "programm",
+      "länge",
+      "annasusanna"
+    ],
+    "231221fa041c2e42": [
+      "c-code",
+      "# include < stdio.h >",
+      "i++",
+      "printf(\"kein palindrom",
+      "char word[20 ]",
+      "word [ count ]",
+      "= getchar"
+    ],
+    "d1f73e8ae23ed0e1": [
+      "datumsberechnung",
+      "datum tag",
+      "int2datum",
+      "monat",
+      "datum2int",
+      "int * ergebnis",
+      "thema"
+    ],
+    "8cd074c48c05a100": [
+      "int * ergebnis",
+      "# include < stdlib.h",
+      "datum2int",
+      "//printf(\"counter",
+      "monthdays",
+      "calloc(2,sizeof",
+      "control"
+    ],
+    "74abe1d4ac66e97c": [
+      "permutation",
+      "permtest",
+      "datatype",
+      "programmieren",
+      "* p",
+      "const unsigned",
+      "länge"
+    ],
+    "2630b3c4bbf16bdd": [
+      "permutation",
+      "c-code",
+      "datatype",
+      "map [ p [ ] ]",
+      "int",
+      "] <",
+      "array"
+    ],
+    "368cfa35f09329b0": [
+      "const char *",
+      "string",
+      "char * strchrx",
+      "stringbehandlung",
+      "c",
+      "methoden",
+      "null`-zeiger"
+    ],
+    "4c4aa39d8be3f886": [
+      "char * strchrx",
+      "c-code",
+      "# include < string.h >",
+      "stringbehandlung",
+      "* copy_t++",
+      "methoden",
+      "end_s"
+    ],
+    "cd3c379127bfadfa": [
+      "char * strconcat",
+      "const char *",
+      "char * strinv",
+      "string",
+      "stringbehandlung",
+      "funktionen",
+      "methoden"
+    ],
+    "47542167ecfe04d6": [
+      "char * strconcat",
+      "c-code",
+      "# include < string.h >",
+      "malloc((laenge+1)*sizeof",
+      "stringbehandlung",
+      "methoden",
+      "\\0"
+    ],
+    "a2aac69c1b377157": [
+      "permutationsmatrix",
+      "matrix[0",
+      "const int * * p",
+      "array",
+      "permatcheck",
+      "main`-funktion",
+      "thema"
+    ],
+    "8932f666a59eed47": [
+      "permutationsmatrix",
+      "const int * * p",
+      "zcounter++",
+      "c-code",
+      "int i=0",
+      "j++",
+      "permatcheck"
+    ],
+    "92df6291a56db5a2": [
+      "sudoku-matrix",
+      "sudokucheck",
+      "9x9-matrix",
+      "blockmatrix",
+      "3x3-matrizen",
+      "überprüfen",
+      "permutation"
+    ],
+    "59010258c0146b9b": [
+      "sudokucheck",
+      "matrix",
+      "if(*(*s",
+      "c-code",
+      "1,1,1,1,1,1,1,1,1 }",
+      "helper [ ]",
+      "# include < stdio.h >"
+    ],
+    "893490e182dbde0a": [
+      "datentyp",
+      "funktionen",
+      "bruch_t * bruch",
+      "bruchmultiplikation",
+      "struct",
+      "typedef",
+      "bruch_t add"
+    ],
+    "2eb7ed20190c9c72": [
+      "# include < stdlib.h",
+      "bruch->nenner * add.nenner",
+      "typedef",
+      "struct",
+      "bruch_t div",
+      "c-code",
+      "void bruchdivision"
+    ],
+    "5f0304f4ef256e13": [
+      "50\">**selectionsort**</a",
+      "aufgabe < target=\"_blank",
+      "tasks",
+      "algorithmus",
+      "prototyp",
+      "zeigerarithmetik",
+      "223.cloud.gwdg.de"
+    ],
+    "5228a79d89245e0a": [
+      "zeigerarithmetik",
+      "von+1",
+      "sort",
+      "if(*i",
+      "int *",
+      "c-code",
+      "selectionsort"
+    ],
+    "bfb57ba4d13398f1": [
+      "n<0",
+      "sum",
+      "recursion",
+      "definition",
+      "prototypen",
+      "control",
+      "themen"
+    ],
+    "b2cf680884cb58a5": [
+      "return sum",
+      "sum",
+      "recursion",
+      "musterlösung",
+      "c-code",
+      "}",
+      "control"
+    ],
+    "b2fc4d893388b786": [
+      "# # # beispielausgabe",
+      "zahl",
+      "programm",
+      "control",
+      "schreiben",
+      "zahlen",
+      "themen"
+    ],
+    "3d8a9eaf105feaa5": [
+      "i+1",
+      "c-code",
+      "musterlösung",
+      "# include < stdio.h >",
+      "scanf(\"%d",
+      "control",
+      "return"
+    ],
+    "40642ac58ef93241": [
+      "# # # beispielausgabe",
+      "zahl",
+      "programm",
+      "control",
+      "schreiben",
+      "zahlen",
+      "themen"
+    ],
+    "5d7a5322c325bfca": [
+      "c-code",
+      "i=0",
+      "musterlösung",
+      "# include < stdio.h >",
+      "scanf(\"%d",
+      "main",
+      "return"
+    ],
+    "7d439dc3e25d47d6": [
+      "quadratfunktion",
+      "quadratzahlen",
+      "quadrat",
+      "berechnung",
+      "funktion",
+      "int",
+      "control"
+    ],
+    "15a3c720954b2438": [
+      "quadratfunktion",
+      "quadratzahlen",
+      "berechnung",
+      "c-code",
+      "funktion",
+      "n*n",
+      "control"
+    ],
+    "12ce1b5ba9b43e14": [
+      "quadratprogramm",
+      "berechnung",
+      "quadratzahlen",
+      "# # # beispielausgabe",
+      "programm",
+      "main-methode",
+      "thema"
+    ],
+    "14a19622a1230f5d": [
+      "quadratprogramm",
+      "printf(\"%d\\n",
+      "berechnung",
+      "main-methode",
+      "c-code",
+      "# include < stdio.h >",
+      "n*n"
+    ],
+    "b3cc26bd62e4e0be": [
+      "polynom",
+      "berechnung",
+      "7x³",
+      "funktion",
+      "long",
+      "grades",
+      "datatype"
+    ],
+    "33a6f4ebcf304c18": [
+      "polynom",
+      "berechnung",
+      "7*x*x*x",
+      "c-code",
+      "musterlösung",
+      "grades",
+      "datatype"
+    ],
+    "530af40969d3c5cb": [
+      "quellcodes",
+      "programm",
+      "tree_t * binary_tree",
+      "datenstruktur",
+      "include`-direktiven",
+      "kernfragen",
+      "destroy_tree"
+    ],
+    "95e8bd07613b2458": [
+      "c-code",
+      "quellcode",
+      "quellcodes",
+      "char * solution",
+      "musterlösung",
+      "verstehen",
+      "lumberjack"
+    ],
+    "5d6351b259deae9a": [
+      "c-programms",
+      "programms",
+      "main`-funktion",
+      "grundstruktur",
+      "deklarationen",
+      "# include",
+      "beginn"
+    ],
+    "5a5430cac6fb6f9b": [
+      "c-programms",
+      "c-code",
+      "grundstruktur",
+      "# include < stdio.h >",
+      "}",
+      "puts(\"hello world",
+      "main"
+    ],
+    "84795de9ac8689ee": [
+      "gregorianische kalender",
+      "jahr",
+      "schaltjahreszahl",
+      "funktion",
+      "argument",
+      "control",
+      "math"
+    ],
+    "ecf0942450c09c5c": [
+      "c-code",
+      "musterlösung",
+      "}",
+      "math",
+      "control",
+      "return",
+      "jahr %"
+    ],
+    "ad5ca9711c53f679": [
+      "strings",
+      "null-zeichen",
+      "testcode",
+      "char *",
+      "target=\"_blank",
+      "kompilieren",
+      "uoxlb9p4cbcliry\">**hier**</a >"
+    ],
+    "e0a4fc096e7ac7ad": [
+      "c-code",
+      "tmp++",
+      "string",
+      "# include < ctype.h >",
+      "isgraph(*t",
+      "null",
+      "return count"
+    ],
+    "8b08f8405020cd50": [
+      "sub>0</sub>=x",
+      "startwert x=3",
+      "berechnung",
+      "n-1</sub",
+      "sequence(3",
+      "testcodes",
+      "index.php"
+    ],
+    "d08d6fa966d8f75d": [
+      "berechnung",
+      "3*x0",
+      "x0 / 2",
+      "count -=",
+      "return x0",
+      "c-code",
+      "sequence"
+    ],
+    "c7e4b49b5df5f3e8": [
+      "berechnen",
+      "datatype",
+      "b>0",
+      "ganzzahldivision",
+      "ggt",
+      "recursion",
+      "formel"
+    ],
+    "f2038f97a3a4bce2": [
+      "c-code",
+      "berechnen",
+      "datatype",
+      "return ggt",
+      "recursion",
+      "}",
+      "unsigned"
+    ],
+    "a8deba4e46032178": [
+      "mittquadratmethode",
+      "int seed",
+      "pseudozufallszahlen",
+      "startwerte",
+      "int * middle_square",
+      "array",
+      "memory"
+    ],
+    "c446f8f25937a2b9": [
+      "int seed",
+      "mittquadratmethode",
+      "c-code",
+      "# include < stdlib.h",
+      "* liste",
+      "* middle_square",
+      "sizeof"
+    ],
+    "fe3623497dd70589": [
+      "wsl-dateisystems",
+      "windows subsystem",
+      "vs code installation",
+      "visual studio code",
+      "linux-terminal",
+      "https://info-propaed.pages.gwdg.de/informatik-vorkurs-anleitungen",
+      "path hinzufügen"
+    ],
+    "9fe5f070ef647ec7": [
+      "terminal",
+      "wsl-verbindung",
+      "vs code",
+      "linux-tools",
+      "strg+umschalt+p",
+      "backtick",
+      "remote-anzeige"
+    ],
+    "a8d07e9fb2dcb70e": [
+      "smartbeans-fortschritt",
+      "einreichungsversuche",
+      "privatnachricht",
+      "weise",
+      "reset",
+      "dozent",
+      "c-konzepte"
+    ],
+    "a66d33a3bbf904b7": [
+      "smartbeans funktionsaufgaben",
+      "c-programm",
+      "redefinition\"-kompilierungsfehler",
+      "garbage data",
+      "upload-datei",
+      "is_perm",
+      "flags"
+    ],
+    "181c45b85e4b1381": [
+      "smartbeans ausgabevergleich",
+      "smartbeans",
+      "whitespace-unterschiede",
+      "kommandozeilen-programm",
+      "a.txt",
+      "tabs",
+      "zeilenumbruch"
+    ],
+    "e6770bd6c7f66666": [
+      "rechnern",
+      "gcc-compiler",
+      "semester",
+      "implementierung",
+      "volltextsuche",
+      "pdf-skript",
+      "vscodium"
+    ],
+    "2bee69a41ba329ba": [
+      "parametertypen",
+      "header-datei",
+      "programmcode",
+      "# include",
+      "implementierungsdatei",
+      "funktionsdefinitionen",
+      "smartbeans-aufgaben"
+    ],
+    "75dd79fbb581f528": [
+      "gcc-compileraufruf",
+      "compiler",
+      "programm datei.c",
+      "programm main.c hilfsfunktion.c",
+      "c11 -o",
+      "-wall `",
+      "linker-bibliotheken"
+    ],
+    "06a94453dfd1c0fc": [
+      "heap-speicher",
+      "stack",
+      "pointer",
+      "nutzung",
+      "variablen",
+      "lebensdauer",
+      "größe"
+    ],
+    "d038557e0f07b5b3": [
+      "variable length arrays",
+      "stack-limits",
+      "[ max_size][max_size ]",
+      "vlas",
+      "speicherklasse",
+      "c99",
+      "define`-makros"
+    ],
+    "7b801abcc88a288a": [
+      "bytes heap-speicher",
+      "memory leaks",
+      "malloc`-aufruf muss",
+      "zähler-array",
+      "* sizeof",
+      "programmlaufzeit",
+      "null"
+    ],
+    "b94836ec814c4b4e": [
+      "segmentation fault",
+      "array",
+      "compiler",
+      "indexüberschreitungen",
+      "speicheradresse",
+      "null",
+      "use-after-free"
+    ],
+    "4bd2b6841628cd1f": [
+      "2d-matrix",
+      "array-zeiger",
+      "1d-array",
+      "* m2d)[spalten ]",
+      "indexberechnung",
+      "float",
+      "cast"
+    ],
+    "5e2634af4b756b0c": [
+      "ansi-c-standard",
+      "umlaute utf-8",
+      "extra-bytes",
+      "printf",
+      "strlen(\"ö",
+      "0xc3 0xb6",
+      "off-by-one-fehler"
+    ],
+    "b6ad5ba5fb7cec8e": [
+      "printf-formatbeschreiber",
+      "notation",
+      "%",
+      "|-------------|------------------------------------------------|",
+      "multiplikationstafel-aufgabe",
+      "hexadezimal",
+      "zeiger-adresse"
+    ],
+    "6ebf0af50fa1c46a": [
+      "pointer-arithmetik",
+      "integer-basiert",
+      "index",
+      "berechnung",
+      "start",
+      "addition",
+      "zeigerdifferenz"
+    ],
+    "bf58b759d2a796e4": [
+      "argv[1 ]",
+      "kommandozeilenargumente",
+      "argument vector",
+      "argument count",
+      "parametern",
+      "./programm",
+      "array"
+    ],
+    "73a4e0db3435cefa": [
+      "compiler",
+      "c-programm muss",
+      "undefined",
+      "linker-fehler",
+      "linux",
+      "z.b.",
+      "smartbeans-funktionsaufgaben"
+    ],
+    "859eb77a96c624e1": [
+      "tutor-systems",
+      "übungsaufgaben",
+      "codefragen",
+      "hilfsangeboten",
+      "smartbeans-",
+      "live-debugging",
+      "sitzung"
+    ]
+  }
+}

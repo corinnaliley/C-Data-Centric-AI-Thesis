@@ -20,6 +20,9 @@ spacy>=3.7
 # V3b — LLM keyword extraction
 openai>=1.0
 
+# Plotting / reporting
+matplotlib
+
 # Testing
 pytest
 pytest-mock

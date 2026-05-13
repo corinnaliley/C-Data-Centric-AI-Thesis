@@ -284,3 +284,62 @@ Neu gefunden am 11.05.26:
   3. Alle 8 Runs durchführen (V1/V2/V3a/V3b × KB an/aus).
   4. Vergleichsauswertung schreiben: paired Bootstrap für WRS/nDCG zwischen Versionen innerhalb desselben KB-Modus → das ist deine Kernaussage für die Thesis ("ändert das
   Chunking/Keywords statistisch signifikant etwas?"). Der KB-an/aus-Vergleich ist orthogonal: "wie sehr trägt die kuratierte KB zur Retrieval-Qualität bei?".
+
+Warum V1→V2 so wenig bringt
+
+  Aggregat-Zahlen (V1 → V2):
+  - Doc Hit@1: 61.5 → 65.1 (+3.6 pp)
+  - Chunk MRR: 0.646 → 0.683 (+0.04)
+  - NDCG: 0.495 → 0.591 (+0.10, deutlich)
+  - WRS: 0.395 → 0.396 (~0, praktisch keine Bewegung)
+  - Chain-MRR: 0.241 → 0.232 (sogar leicht schlechter)
+  
+  NDCG steigt klar — V2 ordnet relevante Chunks besser innerhalb der Top-K. Aber Hit@1 und WRS bewegen sich kaum, und auf Query-Ebene sieht man warum:
+
+  Per-Query-Vergleich (83 gemeinsame Queries):
+  - Doc Hit@1: 10 Verbesserungen, 7 Verschlechterungen → netto nur +3
+  - WRS: 27 besser, 40 schlechter, 16 gleich
+  
+  V2 ist also nicht uniform besser, sondern tauscht Hits aus. Das schlägt sich im Mittelwert kaum nieder.
+
+  Die Hauptursachen
+
+  1. Tutor-KB-Confound (groß, der Hauptkandidat). V1 lädt tutor_knowledge_base.yaml als einen einzigen 2903-Wort-Blob (durch deinen Commit 23c8310 für V1 jetzt einheitlich raw). V2
+   splittet sie in 19 fokussierte Artikel-Chunks (~135 Wörter). Diese kleinen, thematisch dichten Chunks gewinnen im Dense+BM25/RRF gegen die PDF-Chunks. Resultat: 5 von 7
+  V1→V2-Regressionen bei Hit@1 fallen auf die KB:
+  
+  ┌──────────────────────────────┬───────────────────────────┐
+  │      Query (Gold = PDF)      │         V2 Top-1          │
+  ├──────────────────────────────┼───────────────────────────┤
+  │ „Warum nutzt man malloc…?"   │ tutor_knowledge_base.yaml │
+  ├──────────────────────────────┼───────────────────────────┤
+  │ „Warum Heap für Strukturen?"        │ tutor_knowledge_base.yaml │
+  ├─────────────────────────────────────┼───────────────────────────┤
+  │ „Wieso brauche ich Pointer?"        │ tutor_knowledge_base.yaml │
+  ├─────────────────────────────────────┼───────────────────────────┤
+  │ „printf-Formatierungen?"            │ tutor_knowledge_base.yaml │
+  ├─────────────────────────────────────┼───────────────────────────┤
+  │ „statische Dimensionierung Matrix?" │ tutor_knowledge_base.yaml │
+  └─────────────────────────────────────┴───────────────────────────┘
+
+  Du hast den V1-Confound (KB als 19 saubere Artikel war zu fair gegenüber V1) fixiert, dabei aber den umgekehrten V2-Vorteil eingebaut: V2 hat jetzt 19 perfekt gekapselte Chunks,
+  V1 nur 1 Blob → V2 gewinnt auf KB-Queries trivial, verliert dafür auf PDF-Queries weil die KB dominiert. Dein V1→V2-Delta misst also einen Mix aus "echter Chunking-Gain" und 
+  "KB-Wettbewerb", nicht reine Chunking-Qualität.
+  
+  2. WRS-Deckeneffekt: Evidence-Coverage ist in V1 schon 337/341 (98.8 %), in V2 341/341 — also nur 4 zusätzliche Evidence-Treffer möglich. WRS gewichtet aber per matching_score,
+  und wenn Evidence in V2 in einem kürzeren Chunk weiter unten landet (kleinere 1/rank-Decay), sinkt WRS sogar. Daher die 40 Queries mit WRS-Verschlechterung.
+
+  3. Kleines Sample-Bias: 83 Queries, 17 davon ändern ihr Hit@1 — bei den 1000 Bootstrap-Resamples würde ich ein CI von ±5 pp auf Hit@1 erwarten. „V2 ist 3.6 pp besser" ist
+  statistisch knapp.
+
+  4. Strukturelles Chunking hat Schattenseiten bei Code: Die Pointer-Queries (Top-Regressions: „Wie greife ich auf Wert hinter Pointer zu", „Wie dereferenziere ich Struktur auf
+  Heap") verlieren WRS. Vermutlich trennt chunk_markdown_structural Codebeispiel von Erklärung, wenn MIN_TOKENS=500 zwischen Heading-Boundary und Codeblock zuschnappt. Das wäre
+  konkret zu prüfen.
+  
+  Was du machen kannst
+
+  - Ablation INCLUDE_TUTOR_KB=False laufen lassen (Flag existiert in run_bench.py:85 schon, das _no_tutor_kb-Suffix-System ist gebaut). Erst diese Zahlen zeigen den reinen
+  Chunking-Effekt isoliert. Erwartung: V1→V2-Delta wird deutlich größer.
+  - Sanity-Check: bei den 5 KB-Regressions manuell schauen, ob die KB-Antwort inhaltlich nicht doch besser ist als die PDF — wenn ja, ist das eher ein Gold-Standard-Problem als ein
+   V2-Problem.
+  - Bei den Pointer-/Code-Regressions in chunk_markdown_structural prüfen, ob Codeblöcke von ihrer Erläuterung abgeschnitten werden.

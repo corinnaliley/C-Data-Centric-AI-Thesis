@@ -72,7 +72,7 @@ VERSION_CONFIG = {
 # (BENCH_VERSION, BENCH_INCLUDE_TUTOR_KB), which is what scripts/run_all_configs.py
 # uses to sweep all 8 combinations. The literal defaults below are the values
 # used for an unparameterised, interactive run.
-VERSION  = os.environ.get("BENCH_VERSION", "v2_chunking")
+VERSION  = os.environ.get("BENCH_VERSION", "v3a_keywords")
 if VERSION not in VERSION_CONFIG:
     raise ValueError(f"Unknown BENCH_VERSION={VERSION!r}; choose from {list(VERSION_CONFIG)}")
 _cfg     = VERSION_CONFIG[VERSION]
